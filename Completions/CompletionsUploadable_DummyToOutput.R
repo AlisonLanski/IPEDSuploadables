@@ -4,27 +4,96 @@
 ####
 
 
-##TO DO
-## Could move the CIP > 6 digits code up top 
-##   and apply to the startingdf and the extracips objects before any other processing; 
-##   then it doesn't have to go into the individual part calculations 
+#########################################################
+###
+## Set up variables and prep CIPs to correct format
 
 
+#load package
 library(tidyverse)
 
-#set an output path:
-path <- "C:/Users/alanski/Documents/Bitbucket/comparative/IPEDS Uploadables/"
 
-#set a date to calculate age
-#set the date in the format that will match your student data
-library(lubridate)
-completions_date <- dmy("21-9-2019")
+#set an output path:
+path <- svDialogs::dlg_dir(default = getwd(), title = "Select the file output location")$res 
+
+#make sure the final / is in the path (before the filename)
+if(!str_detect(path, pattern = "/$")) {
+  path <- paste0(path, "/")
+}
+  
+
+#set the school's unitid (for later)
+ipeds_unitid  <- svDialogs::dlgInput("What is your school's IPEDS Unitid?",)$res
+
+
+#set a dummy studentID (for later)
+dummy_studentid <- svDialogs::dlgInput("Provide a value that can be used as a dummy-student ID")$res
 
 
 #if testing: run dummy data file
-source(paste0(path, "CompletionsStartingDf_DummyData.R"))
+#source(paste0(path, "CompletionsStartingDf_DummyData.R"))
 
-## Part A
+
+#prep datafiles: CIP codes to 6-digit correctly
+startingdf <- startingdf %>%
+  separate(col = MajorCip, 
+	   into = c("Two", "Four"), 
+	   sep = "\\.") %>%
+  mutate(Two = ifelse(nchar(Two) == 1, 
+                      paste0("0", Two),
+                      Two),
+         Four = ifelse(nchar(Four) == 1,
+                       paste0(Four, "000"),
+                       ifelse(nchar(Four) == 2, 
+                              paste0(Four, "00"),
+                              ifelse(nchar(Four) == 3,
+                                     paste0(Four, "0"),
+                                     Four)))) %>%
+  mutate(MajorCip = paste0(Two, '.', Four)) %>%
+  select(-Two, -Four)
+
+
+extracips <- extracips %>%
+  separate(col = MajorCip, 
+	   into = c("Two", "Four"), 
+	   sep = "\\.") %>%
+  mutate(Two = ifelse(nchar(Two) == 1, 
+                      paste0("0", Two),
+                      Two),
+         Four = ifelse(nchar(Four) == 1,
+                       paste0(Four, "000"),
+                       ifelse(nchar(Four) == 2, 
+                              paste0(Four, "00"),
+                              ifelse(nchar(Four) == 3,
+                                     paste0(Four, "0"),
+                                     Four)))) %>%
+  mutate(MajorCip = paste0(Two, '.', Four)) %>%
+  select(-Two, -Four)
+
+
+
+#####################################################################
+####
+##    Produce upload files
+
+
+###
+### NOTE 
+### On the use of sorting (arrange) in each step below
+###
+### IPEDS requires a sort on the entire data (Parts A > D) in this order:
+### UNITID, SURVSECT, PART, MAJORNUM
+###
+### By sorting each part separately and appending in order
+### this will be taken care of by the script
+###
+### There is additional sorting in each part 
+### to make the final product more person-friendly for reading
+###
+
+
+
+## Part A --- Count of completers by major number, cip, level, race, and sex
 
 #want: 
 # UNITID=nnnnnn,SURVSECT=COM,PART=A,MAJORNUM=1,CIPCODE=01.0101,AWLEVEL=1,RACE=1,SEX=1,COUNT=nnnnn 
@@ -33,8 +102,9 @@ source(paste0(path, "CompletionsStartingDf_DummyData.R"))
 #null record: 
 # UNITID=nnnnnn,SURVSECT=COM,PART=A,MAJORNUM=1,CIPCODE=xx.xxxx,AWLEVEL=i,RACE=1,SEX=1,COUNT=0.
 
-head(startingdf)
-head(extracips)
+#Glance at data if needed (exploratory)
+#head(startingdf)
+#head(extracips)
 
 
 #prep the extra cips
@@ -48,62 +118,77 @@ extracips_A <- extracips %>%
          Count)
 
 
-         
+#produce the uploadable format
 partA <- startingdf %>%
   
-  #prep the full data
+  #aggregate the full data
   group_by(Unitid, MajorNumber, MajorCip, DegreeLevel, RaceEthnicity, Sex) %>%
   summarize(Count = n()) %>% ungroup() %>%
   
-  #add cips
+  #add extra cips
   rbind(extracips_A) %>%
   
-  #get 6-digit cips
-  separate(col = MajorCip, into = c("Two", "Four"), sep = "\\.") %>%
-  mutate(Two = ifelse(nchar(Two) == 1, 
-                      paste0("0", Two),
-                      Two),
-         Four = ifelse(nchar(Four) == 1,
-                       paste0(Four, "000"),
-                       ifelse(nchar(Four) == 2, 
-                              paste0(Four, "00"),
-                              ifelse(nchar(Four) == 3,
-                                     paste0(Four, "0"),
-                                     Four)))) %>%
+  #sort for easy viewing
+  arrange(MajorNumber,
+          MajorCip,
+          DegreeLevel,
+          RaceEthnicity,
+          Sex) %>%
   
   #format for upload
   mutate(UNITID = paste0("UNITID=", Unitid),
          SURVSECT = "SURVSECT=COM",
          PART = "PART=A",
          MAJORNUM = paste0("MAJORNUM=", MajorNumber),
-         CIPCODE = paste0("CIPCODE=", Two, ".", Four),
-         AWLEVEL = paste0("AWLEVEL=", DegreeLevel),
+      	 CIPCODE = paste0("CIPCODE=", MajorCip),
+	       AWLEVEL = paste0("AWLEVEL=", DegreeLevel),
          RACE = paste0("RACE=", RaceEthnicity),
          SEX = paste0("SEX=", Sex),
          COUNT = paste0("COUNT=", Count)) %>% 
-  select(UNITID, SURVSECT, PART, MAJORNUM, CIPCODE, AWLEVEL, RACE, SEX, COUNT) %>%
-  arrange(UNITID, SURVSECT, PART, MAJORNUM, CIPCODE, AWLEVEL, RACE, SEX)
+  select(UNITID, 
+         SURVSECT, 
+         PART, 
+         MAJORNUM, 
+         CIPCODE, 
+         AWLEVEL, 
+         RACE, 
+         SEX, 
+         COUNT) #%>%
+  #sorting is only required for Unitid > CipCode
+  #the others are included for ease-of-use 
+  #if the files are viewed by a person
+  # arrange(UNITID, 
+  #         SURVSECT, 
+  #         PART, 
+  #         MAJORNUM, 
+  #         CIPCODE, 
+  #         AWLEVEL, 
+  #         RACE, 
+  #         SEX)
 
 
-
+#just this part
 write.table(x = partA, sep=",", 
-            file= paste0(path, "Completions_PartA_test.txt"),
+            file= paste0(path, "Completions_PartA.txt"),
             quote = FALSE, row.names = FALSE, col.names = FALSE)
 
+#the upload doc
 write.table(x = partA, sep=",", 
-            file=paste0(path, "Completions_PartsAll_test.txt"),
+            file=paste0(path, "Completions_PartsAll.txt"),
             quote = FALSE, row.names = FALSE, col.names = FALSE)
 
 
 #########################
 
-## Part B
+## Part B -- unduplicated list of offerings by major, cip, level, and distanceed status
+
 #want:
 # UNITID=nnnnnn,SURVSECT=COM,PART=B,MAJORNUM=1,CIPCODE=01.0101,AWLEVEL=3,DistanceED=1 
 # UNITID=nnnnnn,SURVSECT=COM,PART=B,MAJORNUM=1,CIPCODE=01.0101,AWLEVEL=5,DistanceED=2 
 # UNITID=nnnnnn,SURVSECT=COM,PART=B,MAJORNUM=1,CIPCODE=01.0101,AWLEVEL=i,DistanceED=n 
 
 
+#prep extra cip codes
 extracips_B <- extracips %>%
   select(Unitid, 
          MajorNumber,
@@ -111,6 +196,8 @@ extracips_B <- extracips %>%
          DegreeLevel,
          DistanceEd)
 
+
+#prep upload
 partB <- startingdf %>%
   select(Unitid, MajorNumber, MajorCip, DegreeLevel, DistanceEd) %>%
   unique() %>%
@@ -118,56 +205,76 @@ partB <- startingdf %>%
   #if we need to add the extra cips, do it here
   rbind(extracips_B) %>%
   
-  #get 6-digit cips
-  separate(col = MajorCip, into = c("Two", "Four"), sep = "\\.") %>%
-  mutate(Two = ifelse(nchar(Two) == 1, 
-                      paste0("0", Two),
-                      Two),
-         Four = ifelse(nchar(Four) == 1,
-                       paste0(Four, "000"),
-                       ifelse(nchar(Four) == 2, 
-                              paste0(Four, "00"),
-                              ifelse(nchar(Four) == 3,
-                                     paste0(Four, "0"),
-                                     Four)))) %>%
+  #sort for easy viewing 
+  arrange(MajorNumber,
+          MajorCip,
+          DegreeLevel,
+          DistanceEd) %>%
   
   #format for upload
   mutate(UNITID = paste0("UNITID=", Unitid),
          SURVSECT = "SURVSECT=COM",
          PART = "PART=B",
          MAJORNUM = paste0("MAJORNUM=", MajorNumber),
-         CIPCODE = paste0("CIPCODE=", Two, ".", Four),
-         AWLEVEL = paste0("AWLEVEL=", DegreeLevel),
+       	 CIPCODE = paste0("CIPCODE=", MajorCip),
+ 	       AWLEVEL = paste0("AWLEVEL=", DegreeLevel),
          DistanceED = paste0("DistanceED=", DistanceEd)) %>% 
-  select(UNITID, SURVSECT, PART, MAJORNUM, CIPCODE, AWLEVEL, DistanceED) %>%
-  arrange(UNITID, SURVSECT, PART, MAJORNUM, CIPCODE, AWLEVEL, DistanceED)
+  select(UNITID, 
+         SURVSECT, 
+         PART, 
+         MAJORNUM, 
+         CIPCODE, 
+         AWLEVEL, 
+         DistanceED) #%>%
+  #sorting is only required for Unitid > CipCode
+  #the others are included for ease-of-use 
+  #if the files are viewed by a person
+  # arrange(UNITID, 
+  #         SURVSECT, 
+  #         PART, 
+  #         MAJORNUM, 
+  #         CIPCODE, 
+  #         AWLEVEL, 
+  #         DistanceED)
 
 
+#just this part
 write.table(x = partB, sep=",", 
-            file= paste0(path, "Completions_PartB_test.txt"),
+            file= paste0(path, "Completions_PartB.txt"),
             quote = FALSE, row.names = FALSE, col.names = FALSE)
 
+#append to the upload doc
 write.table(x = partB, sep=",", 
-            file=paste0(path, "Completions_PartsAll_test.txt"),
+            file=paste0(path, "Completions_PartsAll.txt"),
             quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
 
 
 #########################
 
-## Part C
+## Part C -- counts of unduplicated students who are completers by race/ethnicity
 #want:
 #UNITID=nnnnnn,SURVSECT=COM,PART=C,RACE=2,SEX=1,COUNT=nnnnn 
 #UNITID=nnnnnn,SURVSECT=COM,PART=C,RACE=2,SEX=2,COUNT=nnnnn 
 #UNITID=nnnnnn,SURVSECT=COM,PART=C,RACE=j,SEX=k,COUNT=nnnnn 
 
-#is this counting STUDENTS not degrees?  if so, deduplicate first
+#this is counting STUDENTS, not degrees --  requires deduplication
+
 
 partC <- startingdf %>%
   select(Unitid, StudentId, RaceEthnicity, Sex) %>%
+  
+  #deduplicate
   unique() %>%
+  
+  #aggregate and count
   group_by(Unitid, RaceEthnicity, Sex) %>%
   summarize(Count = n()) %>%
   ungroup() %>%
+  
+  #sort for easy viewing
+  arrange(RaceEthnicity,
+          Sex) %>%
+
   #format for upload
   mutate(UNITID = paste0("UNITID=", Unitid),
          SURVSECT = "SURVSECT=COM",
@@ -175,17 +282,27 @@ partC <- startingdf %>%
          RACE = paste0("RACE=", RaceEthnicity),
          SEX = paste0("SEX=", Sex),
          COUNT = paste0("COUNT=", Count)) %>% 
-  select(UNITID, SURVSECT, PART, RACE, SEX, COUNT) %>%
-  arrange(UNITID, SURVSECT, PART, RACE, SEX)
+  select(UNITID, 
+         SURVSECT, 
+         PART, 
+         RACE, 
+         SEX, 
+         COUNT) #%>%
+  # arrange(UNITID, 
+  #         SURVSECT, 
+  #         PART, 
+  #         RACE, 
+  #         SEX)
 
 
-#if distinct students, should be 100 (yes)
+#just this part
 write.table(x = partC, sep=",", 
-            file= paste0(path, "Completions_PartC_test.txt"),
+            file= paste0(path, "Completions_PartC.txt"),
             quote = FALSE, row.names = FALSE, col.names = FALSE)
 
+#append to the upload doc
 write.table(x = partC, sep=",", 
-            file=paste0(path, "Completions_PartsAll_test.txt"),
+            file=paste0(path, "Completions_PartsAll.txt"),
             quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
 
 
@@ -193,38 +310,61 @@ write.table(x = partC, sep=",",
 
 #########################
 
-## Part D
+## Part D --- count of unique completers at each award level by race/sex/age categories
+
 #want:
 #UNITID=nnnnnn,SURVSECT=COM,PART=D,CTLEVEL=3,CRACE15=nnnnn,CRACE16=nnnnn,CRACE41=nnnnn...
 
+#need to include award levels that have no completers
 
-#prep the extra levels
+#check extracips list for award levels not included in the startingdf
 extralevel_D <- extracips %>% 
   select(Unitid,
          DegreeLevel) %>% 
   unique() %>%
   filter(!(DegreeLevel %in% startingdf$DegreeLevel)) %>%
-  mutate(StudentId = 9999,
+  
+  #add dummy data to any award levels found
+  mutate(StudentId = dummy_studentid,
          RaceEthnicity = 1, 
          Sex = 1, 
-         Birthdate = ymd("1900-01-01"),
+         Birthdate = lubridate::ymd("1900-01-01"),
          CountRE = 0,
          CountSex = 0,
          CountAge = 0) %>%
-  select(Unitid, StudentId, everything())
+  
+  #reorder for rbind
+  select(Unitid, 
+         StudentId, 
+         everything())
+
+
+#set up an df with 0-rows to ensure we get all 
+#race/ethnicity, sex, and age categories in the final output
+dummy_demographics <- data.frame(Unitid = ipeds_unitid, 
+                                 StudentId = dummy_studentid, 
+                                 DegreeLevel = max(startingdf$DegreeLevel), 
+                                 RaceEthnicity = c(1:9),
+                                 Sex = c(1, 1, 1, 1, 1, 2, 2, 2, 2), 
+                                 Age = c(15, 20, 25, 30, 35, 40, 45, 50, NA),
+                                 CountRE = 0,
+                                 CountSex = 0, 
+                                 CountAge = 0)
 
 
 
-#need to set a calculation date for age
 
 partD <- startingdf %>%
-  select(Unitid, StudentId, DegreeLevel, RaceEthnicity, Sex, Birthdate) %>%
+  select(Unitid, StudentId, DegreeLevel, RaceEthnicity, Sex, Age) %>%
   
-  #add values to sum later
+  #add values which will be summed later
   mutate(CountRE = 1, CountSex = 1, CountAge = 1) %>%
   
-  #add any extra levels
+  #add any extra award levels
   rbind(extralevel_D) %>%
+  
+  #add dummy demographics to make sure the spread works correctly later
+  rbind(dummy_demographics) %>%
   
   #recode before removing duplicates per student
   mutate(CTLEVEL = recode(DegreeLevel,
@@ -245,7 +385,7 @@ partD <- startingdf %>%
   #one row per student per level per unitid (keep RE/Sex/Birthdate)
   unique() %>%
   
-  #recode and spread to get IPEDS columns
+  #recode and spread RaceEthnicity to get IPEDS columns
   mutate(RaceEthnicity = recode(RaceEthnicity,
                                 `1` = "CRACE17",
                                 `2` = "CRACE41",
@@ -257,24 +397,29 @@ partD <- startingdf %>%
                                 `8` = "CRACE47",
                                 `9` = "CRACE23",
                                 .default = "ZRACEETH")) %>%
-  mutate(Age = (completions_date-Birthdate)/dyears(1)) %>% 
-  mutate(AgeGroup = ifelse(Age < 18, "AGE1",
-                        ifelse(Age <= 24, "AGE2",
-                              ifelse(Age <= 39, "AGE3",
-                                      ifelse(Age >= 40, "AGE4",
-                                             "AGE9"))))) %>%
-  mutate(AgeGroup = ifelse(is.na(Age), 
-                            "AGE5", 
-                            AgeGroup)) %>%
   spread(key = RaceEthnicity, value = CountRE) %>%
+  
+  #recode and spread Sex to get IPEDS columns
   mutate(Sex = recode(Sex,
                       `1` = "CRACE15",
                       `2` = "CRACE16",
                       .default = "ZRACESEX")) %>%
   spread(key = Sex, value = CountSex) %>%
+  
+  #recode and spread Age to get IPEDS columns
+  mutate(AgeGroup = ifelse(floor(Age) < 18, "AGE1",
+                           ifelse(floor(Age) <= 24, "AGE2",
+                                  ifelse(floor(Age) <= 39, "AGE3",
+                                         ifelse(floor(Age) >= 40, "AGE4",
+                                                "AGE9"))))) %>%
+  mutate(AgeGroup = ifelse(is.na(Age), 
+                           "AGE5", 
+                           AgeGroup)) %>%
+  
   spread(key = AgeGroup, value = CountAge) %>%
   
-  #add spread columns; extra levels have values of 0
+  #aggregate and add counts in spread columns; 
+  #extra award levels and dummy demographics have values of 0
   group_by(Unitid, CTLEVEL) %>%
   summarize(CRACE15 = sum(CRACE15, na.rm = T),
             CRACE16 = sum(CRACE16, na.rm = T),
@@ -291,8 +436,12 @@ partD <- startingdf %>%
             AGE2 = sum(AGE2, na.rm = T),
             AGE3 = sum(AGE3, na.rm = T),
             AGE4 = sum(AGE4, na.rm = T),
-            AGE5 = sum(AGE5, na.rm = T)) %>%
+            AGE5 = sum(AGE5, na.rm = T)
+	    ) %>%
   ungroup() %>%
+  
+  #sort for easier viewing
+  arrange(CTLEVEL) %>%
   
   #format for upload
   mutate(UNITID = paste0("UNITID=", Unitid),
@@ -320,24 +469,53 @@ partD <- startingdf %>%
          CRACE15, CRACE16, 
          CRACE17, CRACE41, CRACE42, CRACE43, 
          CRACE44, CRACE45, CRACE46, CRACE47, CRACE23, 
-         AGE1, AGE2, AGE3, AGE4, AGE5 ) %>%
-  arrange(UNITID, SURVSECT, PART, CTLEVEL)
+         AGE1, AGE2, AGE3, AGE4, AGE5 ) #%>%
+  # arrange(UNITID, SURVSECT, PART, CTLEVEL)
 
 
-  
-#check for default values in spread items 
-colnames(partD)
 
-#check for default in level
-sort(unique(partD$CTLEVEL))
-
-
+#just this part
 write.table(x = partD, sep=",", 
-            file= paste0(path, "Completions_PartD_test.txt"),
+            file= paste0(path, "Completions_PartD.txt"),
             quote = FALSE, row.names = FALSE, col.names = FALSE)
 
+#append to the upload doc
 write.table(x = partD, sep=",", 
-            file=paste0(path, "Completions_PartsAll_test.txt"),
+            file=paste0(path, "Completions_PartsAll.txt"),
             quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
 
 
+
+############
+## Warnings from recoding failures
+
+#Award Level
+if(("CTLEVEL=9" %in% partD$CTLEVEL) != 0) {
+  svDialogs::dlg_message("Warning! Your Part D results contain unknown values for degree level. 
+                         Please check your data and rerun from the top.")
+}
+
+#RaceEthnicity 
+if(("ZRACEETH" %in% colnames(partD)) != 0){
+  svDialogs::dlg_message("Warning!  Your results contain unknown values for race/ethnicity. 
+                         Please check your data and rerun from the top.")
+}
+
+#Sex
+if(("ZRACESEX" %in% colnames(partD)) != 0){
+  svDialogs::dlg_message("Warning!  Your results contain unknown values for sex. 
+                         Please check your data and rerun from the top.")
+}
+
+
+#Age
+if(("AGE9" %in% colnames(partD)) != 0){
+  svDialogs::dlg_message("Warning!  Your results contain unknown values for age. 
+                         Please check your data and rerun from the top.")
+}
+
+
+#################
+## Status message: finished
+
+svDialogs::dlg_message(paste0("Completions file available. Please see results at ", path))
