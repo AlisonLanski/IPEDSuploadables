@@ -13,7 +13,7 @@
 library(tidyverse)
 
 #set an output path:
-path <- "C:/Users/alanski/Documents/Bitbucket/comparative/IPEDS Uploadables/"
+# path <- "C:/Users/alanski/Documents/Bitbucket/comparative/IPEDS Uploadables/"
 
 #set a date to calculate age
 #set the date in the format that will match your student data
@@ -22,7 +22,7 @@ completions_date <- dmy("21-9-2019")
 
 
 #if testing: run dummy data file
-source(paste0(path, "CompletionsStartingDf_DummyData.R"))
+source("/Volumes/Staff/Groups/Decision Support/Exchange/Shiloh/IPEDS-Uploadables/Completions/CompletionsStartingDf_DummyData.R")
 
 ## Part A
 
@@ -33,9 +33,42 @@ source(paste0(path, "CompletionsStartingDf_DummyData.R"))
 #null record: 
 # UNITID=nnnnnn,SURVSECT=COM,PART=A,MAJORNUM=1,CIPCODE=xx.xxxx,AWLEVEL=i,RACE=1,SEX=1,COUNT=0.
 
-head(startingdf)
-head(extracips)
+# head(startingdf)
+# head(extracips)
 
+source("/Volumes/Staff/Groups/Decision Support/Exchange/Shiloh/R/utilities_standard_header.R")
+
+startingdf <- get_query_from_file(path = "/Volumes/Staff/Groups/Decision Support/Exchange/Shiloh/SQL/",
+                                  file_name = "ipeds_completions_2019-08-30")
+
+startingdf$BIRTHDATE <- as.Date(substr(startingdf$BIRTHDATE, 1, 10))
+startingdf$MAJORNUMBER <- as.numeric(startingdf$MAJORNUMBER)
+startingdf <- startingdf %>%
+  mutate(DEGREELEVEL = replace(DEGREELEVEL, DEGREELEVEL == "13", "5"),
+         DEGREELEVEL = replace(DEGREELEVEL, DEGREELEVEL == "14", "6"),
+         DEGREELEVEL = replace(DEGREELEVEL, DEGREELEVEL == "17", "7"),
+         DEGREELEVEL = replace(DEGREELEVEL, DEGREELEVEL == "18", "8"),
+         DEGREELEVEL = replace(DEGREELEVEL, DEGREELEVEL == "21", "17")) %>%
+  mutate(RACEETHNICITY = replace(RACEETHNICITY, RACEETHNICITY == "NONRS", "1"),
+         RACEETHNICITY = replace(RACEETHNICITY, RACEETHNICITY == "HISPA", "2"),
+         RACEETHNICITY = replace(RACEETHNICITY, RACEETHNICITY == "AIAKN", "3"),
+         RACEETHNICITY = replace(RACEETHNICITY, RACEETHNICITY == "ASIAN", "4"),
+         RACEETHNICITY = replace(RACEETHNICITY, RACEETHNICITY == "BLACK", "5"),
+         RACEETHNICITY = replace(RACEETHNICITY, RACEETHNICITY == "PACIF", "6"),
+         RACEETHNICITY = replace(RACEETHNICITY, RACEETHNICITY == "WHITE", "7"),
+         RACEETHNICITY = replace(RACEETHNICITY, RACEETHNICITY == "MULTI", "8"),
+         RACEETHNICITY = replace(RACEETHNICITY, RACEETHNICITY == "UNKWN", "9")) %>%
+  mutate(SEX = replace(SEX, SEX == "M", "1"),
+         SEX = replace(SEX, SEX == "F", "2"))
+names(startingdf) <- c("Unitid", 
+                       "StudentId",
+                       "RaceEthnicity",
+                       "Sex",
+                       "DegreeLevel",
+                       "MajorNumber",
+                       "MajorCip",
+                       "DistanceEd",
+                       "Birthdate")
 
 #prep the extra cips
 extracips_A <- extracips %>% 
@@ -273,8 +306,12 @@ partD <- startingdf %>%
                       .default = "ZRACESEX")) %>%
   spread(key = Sex, value = CountSex) %>%
   spread(key = AgeGroup, value = CountAge) %>%
-  
   #add spread columns; extra levels have values of 0
+  mutate(AGE1 = ifelse(any(names(.) == "AGE1"), AGE1, 0),
+         AGE2 = ifelse(any(names(.) == "AGE2"), AGE2, 0),
+         AGE3 = ifelse(any(names(.) == "AGE3"), AGE3, 0),
+         AGE4 = ifelse(any(names(.) == "AGE4"), AGE4, 0),
+         AGE5 = ifelse(any(names(.) == "AGE5"), AGE5, 0)) %>%
   group_by(Unitid, CTLEVEL) %>%
   summarize(CRACE15 = sum(CRACE15, na.rm = T),
             CRACE16 = sum(CRACE16, na.rm = T),
@@ -314,13 +351,13 @@ partD <- startingdf %>%
          AGE2 = paste0("AGE2=", AGE2),
          AGE3 = paste0("AGE3=", AGE3),
          AGE4 = paste0("AGE4=", AGE4),
-         AGE5 = paste0("AGE5=", AGE5),
+         AGE5 = paste0("AGE5=", AGE5)
          ) %>% 
   select(UNITID, SURVSECT, PART, CTLEVEL,
          CRACE15, CRACE16, 
          CRACE17, CRACE41, CRACE42, CRACE43, 
          CRACE44, CRACE45, CRACE46, CRACE47, CRACE23, 
-         AGE1, AGE2, AGE3, AGE4, AGE5 ) %>%
+         AGE1, AGE2, AGE3, AGE4, AGE5) %>%
   arrange(UNITID, SURVSECT, PART, CTLEVEL)
 
 
