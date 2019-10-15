@@ -96,7 +96,7 @@ firstmajors <- data.frame(Unitid = 999999,
   # I figured this is good enough for testing the Upload logic
   # To compute age including leap years, use logic that looks at year, then month, than day relative
   # to the arbitrary completions date used below.
-  mutate(Age = (lubridate::ymd('2018-05-16') - firstmajors$Birthdate)/lubridate::dyears(1))
+  mutate(Age = (lubridate::ymd('2018-05-16') - Birthdate)/lubridate::dyears(1))
 
 
 ### then for a random subset, 
