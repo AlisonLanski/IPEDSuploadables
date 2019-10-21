@@ -45,7 +45,7 @@
 #load package 
 #(dplyr and magrittr are probably enough)
 library(tidyverse)
-
+library(lubridate)
 
 ### we start with 100 students and 
 ### give them first majors with all possible IPEDS degree levels in the field of Journalism
