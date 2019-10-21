@@ -1,46 +1,3 @@
-# source("/Volumes/Staff/Groups/Decision Support/Exchange/Shiloh/IPEDS-Uploadables/Completions/CompletionsStartingDf_DummyData.R")
-library(here)
-
-source(here("Shiloh/R/utilities_standard_header.R"))
-
-startingdf <- get_query_from_file(path = here("Shiloh/SQL/"),
-                                  file_name = "ipeds_completions_2019-08-30")
-
-startingdf$BIRTHDATE <- as.Date(substr(startingdf$BIRTHDATE, 1, 10))
-startingdf$MAJORNUMBER <- as.numeric(startingdf$MAJORNUMBER)
-startingdf <- startingdf %>%
-  mutate(DEGREELEVEL = replace(DEGREELEVEL, DEGREELEVEL == "13", "5"),
-         DEGREELEVEL = replace(DEGREELEVEL, DEGREELEVEL == "14", "6"),
-         DEGREELEVEL = replace(DEGREELEVEL, DEGREELEVEL == "17", "7"),
-         DEGREELEVEL = replace(DEGREELEVEL, DEGREELEVEL == "18", "8"),
-         DEGREELEVEL = replace(DEGREELEVEL, DEGREELEVEL == "21", "17")) %>%
-  mutate(RACEETHNICITY = replace(RACEETHNICITY, RACEETHNICITY == "NONRS", "1"),
-         RACEETHNICITY = replace(RACEETHNICITY, RACEETHNICITY == "HISPA", "2"),
-         RACEETHNICITY = replace(RACEETHNICITY, RACEETHNICITY == "AIAKN", "3"),
-         RACEETHNICITY = replace(RACEETHNICITY, RACEETHNICITY == "ASIAN", "4"),
-         RACEETHNICITY = replace(RACEETHNICITY, RACEETHNICITY == "BLACK", "5"),
-         RACEETHNICITY = replace(RACEETHNICITY, RACEETHNICITY == "PACIF", "6"),
-         RACEETHNICITY = replace(RACEETHNICITY, RACEETHNICITY == "WHITE", "7"),
-         RACEETHNICITY = replace(RACEETHNICITY, RACEETHNICITY == "MULTI", "8"),
-         RACEETHNICITY = replace(RACEETHNICITY, RACEETHNICITY == "UNKWN", "9")) %>%
-  mutate(SEX = replace(SEX, SEX == "M", "1"),
-         SEX = replace(SEX, SEX == "F", "2"))
-names(startingdf) <- c("Unitid", 
-                       "StudentId",
-                       "RaceEthnicity",
-                       "Sex",
-                       "DegreeLevel",
-                       "MajorNumber",
-                       "MajorCip",
-                       "DistanceEd",
-                       "Birthdate")
-extracips <- c(09.0100, #journalism
-               09.0401,
-               09.0701,
-               09.0901,
-               09.0999,
-               09.1001,
-               09.9999)
 #### 
 ## Completions Uploadable
 ## Producing a key-value text file
@@ -209,60 +166,6 @@ partA <- startingdf %>%
 #         RACE, 
 #         SEX)
 
-
-export_part_A <- list()
-for (i in 1:nrow(partA)) {
-  
-  export_part_A$UNITID[i] <- str_split(partA$UNITID, "=")[[i]][2]
-  export_part_A$SURVSECT[i] <- str_split(partA$SURVSECT, "=")[[i]][2]
-  export_part_A$PART[i] <- str_split(partA$PART, "=")[[i]][2]
-  export_part_A$MAJORNUM[i] <- str_split(partA$MAJORNUM, "=")[[i]][2]
-  export_part_A$CIPCODE[i] <- str_split(partA$CIPCODE, "=")[[i]][2]
-  export_part_A$AWLEVEL[i] <- str_split(partA$AWLEVEL, "=")[[i]][2]
-  export_part_A$RACE[i] <- str_split(partA$RACE, "=")[[i]][2]
-  export_part_A$SEX[i] <- str_split(partA$SEX, "=")[[i]][2]
-  export_part_A$COUNT[i] <- str_split(partA$COUNT, "=")[[i]][2]
-  
-}
-export_part_A <- as.data.frame(export_part_A)
-write.csv(export_part_A, here("Completions_PartA_for_Comparison.csv"))
-
-
-# get_partA <- function(partA = partA) {
-# 
-#   for (i in 1:nrow(partA)) {
-#     df <- partA[i,] %>%
-#           mutate(UNITID   = str_split(UNITID, "=")[[i]][2],
-#                  SURVSECT = str_split(SURVSECT, "=")[[i]][2],
-#                  PART     = str_split(PART, "=")[[i]][2],
-#                  MAJORNUM = str_split(MAJORNUM, "=")[[i]][2],
-#                  CIPCODE  = str_split(CIPCODE, "=")[[i]][2],
-#                  AWLEVEL  = str_split(AWLEVEL, "=")[[i]][2],
-#                  RACE     = str_split(RACE, "=")[[i]][2],
-#                  SEX      = str_split(SEX, "=")[[i]][2],
-#                  COUNT    = str_split(COUNT, "=")[[i]][2])
-#     dt <- bind_rows(dt, df)
-#   }
-#   return(df)
-# }
-# 
-# dt <- get_partA()
-
-
-# partA %>%
-#   mutate(UNITID   = str_split(UNITID, "=")[[i]][2],
-#          SURVSECT = str_split(SURVSECT, "=")[[i]][2],
-#          PART     = str_split(PART, "=")[[i]][2],
-#          MAJORNUM = str_split(MAJORNUM, "=")[[i]][2],
-#          CIPCODE  = str_split(CIPCODE, "=")[[i]][2],
-#          AWLEVEL  = str_split(AWLEVEL, "=")[[i]][2],
-#          RACE     = str_split(RACE, "=")[[i]][2],
-#          SEX      = str_split(SEX, "=")[[i]][2],
-#          COUNT    = str_split(COUNT, "=")[[i]][2]) 
-# %>%
-  # write.csv(here("Competions_PartA_for_Comparison.csv"))
- 
-
 #just this part
 write.table(x = partA, sep=",", 
             file= paste0(path, "Completions_PartA.txt"),
@@ -273,6 +176,8 @@ write.table(x = partA, sep=",",
             file=paste0(path, "Completions_PartsAll.txt"),
             quote = FALSE, row.names = FALSE, col.names = FALSE)
 
+
+export_part_A(partA)
 
 #########################
 

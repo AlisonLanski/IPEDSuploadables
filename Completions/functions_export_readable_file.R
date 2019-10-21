@@ -1,0 +1,49 @@
+##################################################
+# A series of functions to get readable exports  #
+# to compare against the uploaded file in IPEDS. #
+##################################################
+
+## Function: Export Part A
+export_part_A <- function(partA) {
+  
+  df <- list()
+  for (i in 1:nrow(partA)) {
+    df$UNITID[i] <- str_split(partA$UNITID, "=")[[i]][2]
+    df$SURVSECT[i] <- str_split(partA$SURVSECT, "=")[[i]][2]
+    df$PART[i] <- str_split(partA$PART, "=")[[i]][2]
+    df$MAJORNUM[i] <- str_split(partA$MAJORNUM, "=")[[i]][2]
+    df$CIPCODE[i] <- str_split(partA$CIPCODE, "=")[[i]][2]
+    df$AWLEVEL[i] <- str_split(partA$AWLEVEL, "=")[[i]][2]
+    df$RACE[i] <- str_split(partA$RACE, "=")[[i]][2]
+    df$SEX[i] <- str_split(partA$SEX, "=")[[i]][2]
+    df$COUNT[i] <- str_split(partA$COUNT, "=")[[i]][2]
+  }
+  
+  df <- as.data.frame(df) %>%
+        select(-c(UNITID, SURVSECT, PART)) %>% 
+        mutate(COUNT = as.numeric(as.character(COUNT))) %>%
+        spread(key = RACE, value = COUNT) %>%
+        rename("NONRS" = "1",
+               "HISPA" = "2",
+               "AIAKN" = "3",
+               "ASIAN" = "4",
+               "BLACK" = "5",
+               "PACIF" = "6",
+               "WHITE" = "7",
+               "MULTI" = "8",
+               "UNKWN" = "9") %>%
+        mutate(NONRS = replace_na(NONRS, 0),
+               HISPA = replace_na(HISPA, 0),
+               AIAKN = replace_na(AIAKN, 0),
+               ASIAN = replace_na(ASIAN, 0),
+               BLACK = replace_na(BLACK, 0),
+               PACIF = replace_na(PACIF, 0),
+               WHITE = replace_na(WHITE, 0),
+               MULTI = replace_na(MULTI, 0),
+               UNKWN = replace_na(UNKWN, 0)) %>%
+        group_by(MAJORNUM, CIPCODE, AWLEVEL, SEX) %>%
+        mutate(TOTAL = sum(NONRS, HISPA, AIAKN, ASIAN, 
+                           BLACK, PACIF, WHITE, MULTI, UNKWN))
+  
+  write.csv(df, here("Completions_PartA_for_Comparison.csv"))
+}
