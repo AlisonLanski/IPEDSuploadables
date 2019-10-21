@@ -44,3 +44,25 @@ extracips <- data.frame(Unitid = 182281,
                            RaceEthnicity = 1,
                            Sex = 1,
                            Count = 0) 
+
+extracips <- dbGetQuery(db_con, "select distinct acad_plan, cip_code, degree 
+                                from ps_acad_plan_tbl 
+                                where eff_status = 'A' 
+                                and degree <> 'MINOR'
+                                and acad_plan_type <> 'MIN'
+                                and cip_code <> '-'") %>%
+          anti_join(startingdf, by = c("CIP_CODE" = "MajorCip")) #%>%
+          transmute(Unitid = 182281, 
+                    MajorNumber = 1,
+                    MajorCip = CIP_CODE,
+                    DegreeLevel = case_when(
+                      DEGREE %in% () ~ 5,
+                      DEGREE %in% () ~ 6,
+                      DEGREE %in% () ~ 7,
+                      DEGREE %in% () ~ 17
+                    ),
+                    DistanceEd = 2,
+                    RaceEthnicity = 1,
+                    Sex = 1,
+                    Count = 0)
+        
