@@ -48,7 +48,7 @@ extracips <- data.frame(Unitid = 182281,
 extracips <- dbGetQuery(db_con, "select distinct acad_plan, cip_code, degree 
                                 from ps_acad_plan_tbl 
                                 where eff_status = 'A' 
-                                and degree <> 'MINOR'
+                                and degree not in ('MINOR','MED','OTD')
                                 and acad_plan_type <> 'MIN'
                                 and cip_code <> '-'") %>%
           anti_join(startingdf, by = c("CIP_CODE" = "MajorCip")) #%>%
