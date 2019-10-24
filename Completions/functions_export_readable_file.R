@@ -112,3 +112,57 @@ export_part_C <- function(partC) {
   
   write.csv(df, here("Completions_PartC_for_Comparison.csv"))
 }
+
+## Function: Export Part D -----
+export_part_D <- function(partD) {
+
+  df <- list()
+  for (i in 1:nrow(partD)) {
+    df$UNITID[i] <- str_split(partD$UNITID, "=")[[i]][2]
+    df$SURVSECT[i] <- str_split(partD$SURVSECT, "=")[[i]][2]
+    df$PART[i] <- str_split(partD$PART, "=")[[i]][2]
+    df$CTLEVEL[i] <- str_split(partD$CTLEVEL, "=")[[i]][2]
+    df$CRACE15[i] <- str_split(partD$CRACE15, "=")[[i]][2]
+    df$CRACE16[i] <- str_split(partD$CRACE16, "=")[[i]][2]
+    df$CRACE17[i] <- str_split(partD$CRACE17, "=")[[i]][2]
+    df$CRACE41[i] <- str_split(partD$CRACE41, "=")[[i]][2]
+    df$CRACE42[i] <- str_split(partD$CRACE42, "=")[[i]][2]
+    df$CRACE43[i] <- str_split(partD$CRACE43, "=")[[i]][2]
+    df$CRACE44[i] <- str_split(partD$CRACE44, "=")[[i]][2]
+    df$CRACE45[i] <- str_split(partD$CRACE45, "=")[[i]][2]
+    df$CRACE46[i] <- str_split(partD$CRACE46, "=")[[i]][2]
+    df$CRACE47[i] <- str_split(partD$CRACE47, "=")[[i]][2]
+    df$CRACE23[i] <- str_split(partD$CRACE23, "=")[[i]][2]
+    df$AGE1[i] <- str_split(partD$AGE1, "=")[[i]][2]
+    df$AGE2[i] <- str_split(partD$AGE2, "=")[[i]][2]
+    df$AGE3[i] <- str_split(partD$AGE3, "=")[[i]][2]
+    df$AGE4[i] <- str_split(partD$AGE4, "=")[[i]][2]
+    df$AGE5[i] <- str_split(partD$AGE5, "=")[[i]][2]
+  }
+  
+
+  df <- as.data.frame(df) %>%
+    select(-c(UNITID, SURVSECT, PART)) %>% 
+    rename("NONRS" = "CRACE17",
+           "HISPA" = "CRACE41",
+           "AIAKN" = "CRACE42",
+           "ASIAN" = "CRACE43",
+           "BLACK" = "CRACE44",
+           "PACIF" = "CRACE45",
+           "WHITE" = "CRACE46",
+           "MULTI" = "CRACE47",
+           "UNKWN" = "CRACE23") %>%
+    mutate(NONRS = replace_na(NONRS, 0),
+           HISPA = replace_na(HISPA, 0),
+           AIAKN = replace_na(AIAKN, 0),
+           ASIAN = replace_na(ASIAN, 0),
+           BLACK = replace_na(BLACK, 0),
+           PACIF = replace_na(PACIF, 0),
+           WHITE = replace_na(WHITE, 0),
+           MULTI = replace_na(MULTI, 0),
+           UNKWN = replace_na(UNKWN, 0)) %>%
+    mutate(TOTAL = sum(NONRS, HISPA, AIAKN, ASIAN, 
+                       BLACK, PACIF, WHITE, MULTI, UNKWN))
+  
+  write.csv(df, here("Completions_PartD_for_Comparison.csv"))
+}
