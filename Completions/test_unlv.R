@@ -36,33 +36,56 @@ startingdf <- get_query_from_file(path = here("Shiloh/SQL/"),
                      "DistanceEd" = "DISTANCEED",
                      "Birthdate" = "BIRTHDATE" )
 
-extracips <- data.frame(Unitid = 182281, 
-                           MajorNumber = 1,
-                           MajorCip = 52.1501,
-                           DegreeLevel = "5",
-                           DistanceEd = 2,
-                           RaceEthnicity = 1,
-                           Sex = 1,
-                           Count = 0) 
+# extracips <- data.frame(Unitid = 182281, 
+#                            MajorNumber = 1,
+#                            MajorCip = 52.1501,
+#                            DegreeLevel = "5",
+#                            DistanceEd = 2,
+#                            RaceEthnicity = 1,
+#                            Sex = 1,
+#                            Count = 0) 
 
-extracips <- dbGetQuery(db_con, "select distinct acad_plan, cip_code, degree 
-                                from ps_acad_plan_tbl 
-                                where eff_status = 'A' 
-                                and degree not in ('MINOR','MED','OTD')
-                                and acad_plan_type <> 'MIN'
-                                and cip_code <> '-'") %>%
-          anti_join(startingdf, by = c("CIP_CODE" = "MajorCip")) #%>%
-          transmute(Unitid = 182281, 
-                    MajorNumber = 1,
-                    MajorCip = CIP_CODE,
-                    DegreeLevel = case_when(
-                      DEGREE %in% () ~ 5,
-                      DEGREE %in% () ~ 6,
-                      DEGREE %in% () ~ 7,
-                      DEGREE %in% () ~ 17
-                    ),
-                    DistanceEd = 2,
-                    RaceEthnicity = 1,
-                    Sex = 1,
-                    Count = 0)
+# extracips <- dbGetQuery(db_con, "select distinct acad_plan, cip_code, degree 
+#                                 from ps_acad_plan_tbl 
+#                                 where eff_status = 'A' 
+#                                 and degree not in ('MINOR','MED','OTD','CERTG','CERTU')
+#                                 and acad_plan_type <> 'MIN'
+#                                 and cip_code <> '-'") %>%
+#           anti_join(startingdf, by = c("CIP_CODE" = "MajorCip")) #%>%
+          # transmute(Unitid = 182281, 
+          #           MajorNumber = 1,
+          #           MajorCip = CIP_CODE,
+          #           DegreeLevel = case_when(
+          #             DEGREE %in% () ~ 5,
+          #             DEGREE %in% () ~ 6,
+          #             DEGREE %in% () ~ 7,
+          #             DEGREE %in% () ~ 17
+          #           ),
+          #           DistanceEd = 2,
+          #           RaceEthnicity = 1,
+          #           Sex = 1,
+          #           Count = 0)
         
+
+## Can't figure out the extra cips so just using dummy data for now
+allcips <- startingdf %>% 
+  select(MajorCip, DegreeLevel, DistanceEd) %>% 
+  unique() %>%
+  #add one more at two levels (one level in use, one not in use)
+  rbind(data.frame(MajorCip = 45.1001, DegreeLevel = c(1, 5), DistanceEd = 1))
+
+extracips <-  allcips %>%
+  anti_join(startingdf) %>%
+  mutate(Unitid = 999999, 
+         RaceEthnicity = 1,
+         Sex = 1,
+         MajorNumber = 1,
+         Count = 0) %>%
+  select(Unitid, 
+         MajorNumber,
+         MajorCip,
+         DegreeLevel,
+         DistanceEd,
+         RaceEthnicity, 
+         Sex,
+         Count)
