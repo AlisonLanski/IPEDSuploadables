@@ -69,3 +69,46 @@ export_part_B <- function(partB) {
   
   write.csv(df, here("Completions_PartB_for_Comparison.csv"))
 }
+
+
+## Function: Export Part C -----
+export_part_C <- function(partC) {
+  
+  df <- list()
+  for (i in 1:nrow(partC)) {
+    df$UNITID[i] <- str_split(partC$UNITID, "=")[[i]][2]
+    df$SURVSECT[i] <- str_split(partC$SURVSECT, "=")[[i]][2]
+    df$PART[i] <- str_split(partC$PART, "=")[[i]][2]
+    df$RACE[i] <- str_split(partC$RACE, "=")[[i]][2]
+    df$SEX[i] <- str_split(partC$SEX, "=")[[i]][2]
+    df$COUNT[i] <- str_split(partC$COUNT, "=")[[i]][2]
+  }
+  
+  df <- as.data.frame(df) %>%
+    select(-c(UNITID, SURVSECT, PART)) %>% 
+    mutate(COUNT = as.numeric(as.character(COUNT))) %>%
+    spread(key = RACE, value = COUNT) %>%
+    rename("NONRS" = "1",
+           "HISPA" = "2",
+           "AIAKN" = "3",
+           "ASIAN" = "4",
+           "BLACK" = "5",
+           "PACIF" = "6",
+           "WHITE" = "7",
+           "MULTI" = "8",
+           "UNKWN" = "9") %>%
+    mutate(NONRS = replace_na(NONRS, 0),
+           HISPA = replace_na(HISPA, 0),
+           AIAKN = replace_na(AIAKN, 0),
+           ASIAN = replace_na(ASIAN, 0),
+           BLACK = replace_na(BLACK, 0),
+           PACIF = replace_na(PACIF, 0),
+           WHITE = replace_na(WHITE, 0),
+           MULTI = replace_na(MULTI, 0),
+           UNKWN = replace_na(UNKWN, 0)) %>%
+    group_by(SEX) %>%
+    mutate(TOTAL = sum(NONRS, HISPA, AIAKN, ASIAN, 
+                       BLACK, PACIF, WHITE, MULTI, UNKWN))
+  
+  write.csv(df, here("Completions_PartC_for_Comparison.csv"))
+}
