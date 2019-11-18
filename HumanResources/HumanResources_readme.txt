@@ -53,7 +53,8 @@ Rank
     3 - Assistant professors
     4 - Instructors
     5 - Lecturers
-    6 - No academic rank
+    6 - No academic rank (Faculty)
+    7 - Not faculty
 
 Tenure
   Numeric
