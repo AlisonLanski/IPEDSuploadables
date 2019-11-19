@@ -211,14 +211,14 @@ if(99 %in% ipeds_df$REG) {
 }
 
 #OccCats 
-if(99 %in% c(ipeds_df$OccCategory1, ipeds_df$OccCategory2, ipeds_df$OccCategory4)){
+if(99 %in% c(ipeds_df$OccCategory1, ipeds_df$OccCategory2, ipeds_df$OccCategory4, ipeds_df$OccCategory5)){
   svDialogs::dlg_message("Warning!  Some Occupational Category recoding has failed.  
                          Please check your OccCategory3 values, then rerun from the top.")
 }
 
 
-#Months (for Salary-spread)
-if(sum(!(ipeds_df$Months %in% c(8, 9, 10, 11, 12, 99))) != 0){
+#Months (for Salary-spread); only matters for current employees
+if(sum(!(ipeds_df$Months[ipeds_df$CurrentEmployee == 1] %in% c(8, 9, 10, 11, 12, 99))) != 0){
   svDialogs::dlg_message("Warning!  Some Months values are not allowed and will break the Salary calculation in G1.
                          Please check your data to ensure use of 8, 9, 10, 11, 12, and 99 only, then rerun from the top.")
 }
@@ -273,7 +273,8 @@ combos_A1 <- expand.grid(Unitid = ipeds_unitid,
 #produce the uploadable format
 partA1 <- ipeds_df %>%
   
-  filter(Instructional == 1,
+  filter(CurrentEmployee == 1,
+         Instructional == 1,
          FtPt == 'F') %>%
   select(Unitid,
          Tenure,
@@ -347,7 +348,8 @@ combos_A2 <- expand.grid(Unitid = ipeds_unitid,
 #produce the uploadable format
 partA2 <- ipeds_df %>%
   
-  filter(Instructional == 1, #instructional
+  filter(CurrentEmployee == 1,
+         Instructional == 1, #instructional
          FtPt == 'F') %>%
   select(Unitid,
          Tenure,
@@ -419,7 +421,8 @@ combos_B1 <- expand.grid(Unitid = ipeds_unitid,
 
 #produce the uploadable format
 partB1 <- ipeds_df %>%
-  filter(Instructional == 0, #non-instructional
+  filter(CurrentEmployee == 1,
+         Instructional == 0, #non-instructional
          FtPt == 'F') %>%
   select(Unitid,
          OccCategory1,
@@ -483,7 +486,8 @@ combos_B2 <- expand.grid(Unitid = ipeds_unitid,
 #produce the uploadable format
 partB2 <- ipeds_df %>%
   
-  filter(Instructional == 0,
+  filter(CurrentEmployee == 1,
+         Instructional == 0,
          FtPt == 'F',
          OccCategory1 %in% c(2:12)) %>%
   select(Unitid,
@@ -551,7 +555,8 @@ combos_B3 <- expand.grid(Unitid = ipeds_unitid,
 #produce the uploadable format
 partB3 <- ipeds_df %>%
   
-  filter(Instructional == 0,
+  filter(CurrentEmployee == 1,
+         Instructional == 0,
          FtPt == 'F',
          OccCategory1 %in% c(13:17)) %>%
   select(Unitid,
@@ -617,7 +622,8 @@ combos_D1 <- expand.grid(Unitid = ipeds_unitid,
 #produce the uploadable format
 partD1 <- ipeds_df %>%
   
-  filter(FtPt == 'P',
+  filter(CurrentEmployee == 1,
+         FtPt == 'P',
          OccCategory1 %in% c(1:18)) %>%
   select(Unitid,
          OccCategory1,
@@ -681,7 +687,8 @@ combos_D2 <- expand.grid(Unitid = ipeds_unitid,
 #produce the uploadable format
 partD2 <- ipeds_df %>%
   
-  filter(OccCategory4 %in% c(1:3)) %>%
+  filter(CurrentEmployee == 1,
+         OccCategory4 %in% c(1:3)) %>%
   select(Unitid,
          OccCategory4,
          REG,
@@ -746,7 +753,8 @@ combos_D3 <- expand.grid(Unitid = ipeds_unitid,
 #produce the uploadable format
 partD3 <- ipeds_df %>%
   
-  filter(FtPt == "P",
+  filter(CurrentEmployee == 1,
+         FtPt == "P",
          OccCategory3 %in% c(1:15)) %>%
   select(Unitid,
          Tenure,
@@ -813,7 +821,8 @@ combos_D4 <- expand.grid(Unitid = ipeds_unitid,
 #produce the uploadable format
 partD4 <- ipeds_df %>%
   
-  filter(FtPt == "P",
+  filter(CurrentEmployee == 1,
+         FtPt == "P",
          OccCategory3 %in% c(16:20, 22:24)) %>%
   select(Unitid,
          IsMedical,
@@ -887,7 +896,8 @@ combos_G1 <- expand.grid(Unitid = ipeds_unitid,
 #produce the uploadable format
 partG1 <- ipeds_df %>%
   
-  filter(Instructional == 1, #instructional 
+  filter(CurrentEmployee == 1,
+         Instructional == 1, #instructional 
          FtPt == "F") %>%  #not listed in uploadable instructions -- verify?
   select(Unitid,
          Rank,
@@ -1009,7 +1019,8 @@ combos_G2 <- expand.grid(Unitid = ipeds_unitid,
 #produce the uploadable format
 partG2 <- ipeds_df %>%
   
-  filter(Instructional == 0, #non-instructional
+  filter(CurrentEmployee == 1,
+         Instructional == 0, #non-instructional
          FtPt == "F") %>%  #not listed in uploadable instructions -- verify?
   select(Unitid,
          OccCategory2,
@@ -1139,7 +1150,7 @@ combos_H2 <- expand.grid(Unitid = ipeds_unitid,
 partH2 <- ipeds_df %>%
   
   filter(NewHire == 1,
-         FtPt == 'Full Time',
+         FtPt == 'F',
          OccCategory5 %in% c(2:14)) %>%
   select(Unitid,
          OccCategory5,

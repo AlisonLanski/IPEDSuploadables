@@ -76,6 +76,11 @@ NewHire
     0 - Not a new hire
     1 - New Hire
 
+CurrentEmployee
+  Numeric
+    0 - Not a current employee (e.g. a new hire who is not employed on 11/1 of the reporting year)
+    1 - Current employee
+
 FtPt
   Text
     F - Full Time
