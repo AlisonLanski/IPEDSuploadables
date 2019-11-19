@@ -146,7 +146,7 @@ ipeds_df <- ipeds_df %>%
                                `1` = 1,
                                `2` = 2,
                                `3` = 3,
-                               `4` = 4,
+                               `4` = 5,
                                `5` = 88,
                                `6` = 88,
                                `7` = 88,
@@ -899,6 +899,9 @@ partG1 <- ipeds_df %>%
   
   #add extra combinations
   rbind(combos_G1) %>%
+  
+  #reset rank 7 as rank 6
+  mutate(Rank = ifelse(Rank == 7, 6, Rank)) %>%
   
   #reshape months and salary
   mutate(months_count = recode(Months,
