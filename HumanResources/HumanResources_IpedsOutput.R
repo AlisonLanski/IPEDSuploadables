@@ -3,6 +3,7 @@
 ## Producing a key-value text file
 ####
 
+                      Tenure = case_when(
 
 #########################################################
 ###
