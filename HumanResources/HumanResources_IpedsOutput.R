@@ -1,14 +1,94 @@
+#########################################################
 #### 
 ## Human Resources Uploadable for IPEDS
 ## Producing a key-value text file
 ####
+#########################################################
 
+## UNLV data manip -----
+## Exchange\FACULTY\Fall 2018\UNLV Faculty Salaries 2019
+## Exchange\IPEDS\2018-19\Supporting Docs\Human Resources\2017 All with Addl Jobs Removed.xlsx
+## Exchange\FACULTY\Fall 2018\Workday report extracts\Workday IPEDS report extracts\IPEDS G...xlsx
+library(readxl)
+
+gdf <- read_excel("/Volumes/Staff/Groups/Decision Support/Exchange/FACULTY/Fall 2018/Workday report extracts/Workday IPEDS report extracts/IPEDS G - Salary Worksheet and Salary Outlays for Instructional Staff - HCM - CR (NSHE).xlsx") %>%
+       select(`Employee ID`, `Total Base Pay Annualized - Amount`, `Annual Work Period`)
+ipeds_df <- read_excel("/Volumes/Staff/Groups/Decision Support/Exchange/Shiloh/IPEDS-Uploadables/HumanResources/FALL 2018 COMBINED IPEDS DATA SET.xlsx") %>%
+            left_join(gdf, by = "Employee ID") %>%
+            transmute(EmpId = NSHE_ID,
+                      RaceEthnicity = case_when(
+                              `IPEDS Ethnicity Evaluated` == "Nonresident Alien" ~ 1,
+                              `IPEDS Ethnicity Evaluated` == "Hispanic" ~ 2,
+                              `IPEDS Ethnicity Evaluated` == "Native American" ~ 3,
+                              `IPEDS Ethnicity Evaluated` == "Asian" ~ 4,
+                              `IPEDS Ethnicity Evaluated` == "African American" ~ 5,
+                              `IPEDS Ethnicity Evaluated` == "Native Hawaiian or Pacific Islander" ~ 6,
+                              `IPEDS Ethnicity Evaluated` == "White" ~ 7,
+                              `IPEDS Ethnicity Evaluated` == "Two or More" ~ 8,
+                              `IPEDS Ethnicity Evaluated` == "unknown" ~ 9
+                            ),
+                      Gender = case_when(
+                              str_detect(Gender, "Male") ~ 1,
+                              str_detect(Gender, "Female") ~ 2
+                            ),
+                      Rank = case_when(
+                              `Academic Rank` == "Professor" ~ 1,
+                              `Academic Rank` == "Associate" ~ 2,
+                              `Academic Rank` == "Assistant" ~ 3,
+                              `Academic Rank` == "Instructor" ~ 4,
+                              `Academic Rank` == "Lecturer" ~ 5,
+                              `Academic Rank` == "No Rank" ~ 6,
+                              `Academic Rank` == "-" ~ 7
+                            ),
                       Tenure = case_when(
+                              `Tenure Status` == "Tenured" ~ 1,       
+                              `Tenure Status` == "On Tenure - Track" ~ 2,
+                              `Tenure Status` == "Non Tenure - Track" ~ 4
+                            ),
+                      IsMedical = case_when(
+                              `IPEDS Medical / Non-Medical Staff` == "Medical School Staff" ~ 1,
+                              `IPEDS Medical / Non-Medical Staff` == "Non-Medical School Staff" ~ 0
+                            ) %>%
+                            replace_na(0),
+                      NewHire = if_else(str_extract(`Hire Date`, "\\d{4}") == "2019", 1, 0) %>%
+                               replace_na(0),
+                      FtPt = if_else(FTE == 1, "F", "P"),
+                      Salary = `Total Base Pay Annualized - Amount` %>%
+                                replace_na(0),
+                      Months = str_extract(`Annual Work Period`, "\\d{1,2}") %>%
+                               replace_na(99) %>%
+                               as.numeric(),
+                      OccCategory3 = case_when(
+                               `Job Family` == "Instruction" ~ 1,
+                               # str_detect(`Job Classification Mapping`, "") ~ 2,
+                               # str_detect(`Job Classification Mapping`, "") ~ 3,
+                               # str_detect(`Job Classification Mapping`, "") ~ 4,
+                               # str_detect(`Job Classification Mapping`, "") ~ 5,
+                               str_detect(`Job Classification Mapping`, "") ~ 6,
+                               str_detect(`Job Classification Mapping`, "25\\-4010") ~ 7,
+                               str_detect(`Job Classification Mapping`, "25\\-4020") ~ 8,
+                               str_detect(`Job Classification Mapping`, "25\\-4030") ~ 9,
+                               str_detect(`Job Classification Mapping`, "25\\-[239]0{3}") ~ 10,
+                               str_detect(`Job Classification Mapping`, "11\\-0{4}") ~ 11,
+                               str_detect(`Job Classification Mapping`, "13\\-0{4}") ~ 12,
+                               str_detect(`Job Classification Mapping`, "1[579]\\-0{4}") ~ 13,
+                               str_detect(`Job Classification Mapping`, "2[137]\\-0{4}") ~ 14,
+                               str_detect(`Job Classification Mapping`, "29\\-0{4}") ~ 15,
+                               str_detect(`Job Classification Mapping`, "3[13579]\\-0{4}") ~ 16,
+                               str_detect(`Job Classification Mapping`, "41\\-0{4}") ~ 17,
+                               str_detect(`Job Classification Mapping`, "43\\-0{4}") ~ 18,
+                               str_detect(`Job Classification Mapping`, "4[579]\\-0{4}") ~ 19,
+                               str_detect(`Job Classification Mapping`, "5[13]-0{4}") ~ 20,
+                               str_detect(`Job Classification Mapping`, "25\\-9044") ~ 22#,
+                               # str_detect(`Job Classification Mapping`, "") ~ 23,
+                               # str_detect(`Job Classification Mapping`, "") ~ 24
+                            ) %>%
+                       replace_na(15) ## For some reason, one medical professional is listed as NA
+                      )
 
 #########################################################
 ###
-## Set up variables 
-
+## Set up variables -----
 
 #load package
 library(tidyverse)
@@ -24,7 +104,7 @@ if(!str_detect(path, pattern = "/$")) {
 
 
 #set the school's unitid (for later)
-ipeds_unitid  <- svDialogs::dlgInput("What is your school's IPEDS Unitid?",)$res
+ipeds_unitid <- svDialogs::dlgInput("What is your school's IPEDS Unitid?")$res
 
 
 #set a dummy employeeID  (for later)
@@ -32,11 +112,12 @@ dummy_id <- svDialogs::dlgInput("Provide a value that can be used as a dummy-emp
 
 
 
-#prep datafiles: set up derived columns with values
+#prep datafiles: set up derived columns with values -----
 
 ipeds_df <- ipeds_df %>%
-        #add a combined REG column
-  mutate(REG = ifelse(Gender == 1,
+  mutate(Unitid = ipeds_unitid, ## 
+         #add a combined REG column
+         REG = ifelse(Gender == 1,
                       RaceEthnicity,
                       ifelse(Gender == 2,
                              RaceEthnicity+9,
@@ -241,7 +322,8 @@ if(sum(!(ipeds_df$Months %in% c(8, 9, 10, 11, 12, 99))) != 0){
 ##  Sorting within each part is done by arrange within the data preparation 
 
 
-## Part A1 --- Count of FT Instructional staff by tenure status, academic rank, and race/ethnicity/gender
+## Part A1 -----
+## Count of FT Instructional staff by tenure status, academic rank, and race/ethnicity/gender
 
 #include all possible combinations even if count = 0
 
@@ -275,15 +357,15 @@ combos_A1 <- expand.grid(Unitid = ipeds_unitid,
 partA1 <- ipeds_df %>%
   
   filter(Instructional == 1,
-         FtPt == 'F') %>%
+         FtPt == 'F') #%>%
   select(Unitid,
          Tenure,
          Rank,
          REG,
-         Count) %>%
+         Count) #%>%
   
   #add extra combinations
-  rbind(combos_A1) %>%
+  rbind(combos_A1) #%>%
   
   #aggregate the full data
   group_by(Unitid, Tenure, Rank, REG) %>%
@@ -325,7 +407,8 @@ write.table(x = partA1, sep=",",
 #########################
 
 
-## Part A2 --- Count of FT instructional staff by tenure status, medical school, and function
+## Part A2 -----
+## Count of FT instructional staff by tenure status, medical school, and function
 
 #include all possible combinations even if count = 0
 
@@ -401,7 +484,8 @@ write.table(x = partA2, sep=",",
 ###########################
 
 
-## Part B1 --- Count of FT Non-instructional staff by occupational category
+## Part B1 -----
+## Count of FT Non-instructional staff by occupational category
 
 #include all possible combinations even if count = 0
 
@@ -464,7 +548,8 @@ write.table(x = partB1, sep=",",
             file=paste0(path, "HumanResources_PartsAll.txt"),
             quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
 
-## Part B2 --- Full-time non-instructional staff by tenure, medical school, and occupational category
+## Part B2 ----- 
+## Full-time non-instructional staff by tenure, medical school, and occupational category
 
 #include all possible combinations even if count = 0
 
@@ -534,7 +619,8 @@ write.table(x = partB2, sep=",",
             quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
 
 
-## Part B3 --- Full-time non-instructional staff by medical school, and occupational category
+## Part B3 ----- 
+## Full-time non-instructional staff by medical school, and occupational category
 
 #include all possible combinations even if count = 0
 
@@ -598,7 +684,8 @@ write.table(x = partB3, sep=",",
             quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
 
 
-## Part D1 --- Part-time staff by occupational category
+## Part D1 ----- 
+## Part-time staff by occupational category
 # Sort order: UNITID,SURVSECT,PART,OCCCATEGORY1,RACEETHNICITYGENDER.
 
 #include all possible combinations even if count = 0
@@ -663,7 +750,8 @@ write.table(x = partD1, sep=",",
             quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
 
 
-## Part D2 --- Graduate assistants by occupational category and race/ethnicity/gender
+## Part D2 ----- 
+## Graduate assistants by occupational category and race/ethnicity/gender
 
 #include all possible combinations even if count = 0
 
@@ -726,7 +814,8 @@ write.table(x = partD2, sep=",",
             quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
 
 
-## Part D3 --- Part-time staff by tenure, medical school, and occupational category
+## Part D3 ----- 
+## Part-time staff by tenure, medical school, and occupational category
 
 #include all possible combinations even if count = 0
 
@@ -795,7 +884,8 @@ write.table(x = partD3, sep=",",
             file=paste0(path, "HumanResources_PartsAll.txt"),
             quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
 
-## Part D4 --- Part-time Non-instructional staff by medical school, and occupational category
+## Part D4 ----- 
+## Part-time Non-instructional staff by medical school, and occupational category
 
 #include all possible combinations even if count = 0
 
@@ -859,7 +949,8 @@ write.table(x = partD4, sep=",",
             quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
 
 
-## Part G1 --- Salaries of Instructional staff
+## Part G1 ----- 
+## Salaries of Instructional staff
 
 #include all possible combinations even if count = 0
 
@@ -969,7 +1060,7 @@ partG1 <- ipeds_df %>%
          `12mSoutlays`,
          `11mSoutlays`,
          `10mSoutlays`,
-         `9mSoutlays`,
+         `9mSoutlays`#,
          #`ZzSoutlays` #not needed for ipeds reporting
          )
 
@@ -986,7 +1077,8 @@ write.table(x = partG1, sep=",",
 
 
 
-## Part G2 --- Salaries of non-instructional staff
+## Part G2 ----- 
+## Salaries of non-instructional staff
 
 #include all possible combinations even if count = 0
 
@@ -1050,7 +1142,8 @@ write.table(x = partG2, sep=",",
             quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
 
 
-## Part H1 --- Full-time new hire instructional staff by tenure status and race/ethnicity/gender
+## Part H1 ----- 
+## Full-time new hire instructional staff by tenure status and race/ethnicity/gender
 
 #include all possible combinations even if count = 0
 
@@ -1116,7 +1209,8 @@ write.table(x = partH1, sep=",",
 
 
 
-## Part H2 --- New hires by occupational category, Race/Ethnicity/Gender
+## Part H2 ----- 
+## New hires by occupational category, Race/Ethnicity/Gender
 
 #include all possible combinations even if count = 0
 
