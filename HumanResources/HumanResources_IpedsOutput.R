@@ -296,7 +296,7 @@ partA1 <- ipeds_df %>%
   
   #format for upload
   mutate(UNITID = paste0("UNITID=", Unitid),
-         SURVSECT = "SURVSECT=HR",
+         SURVSECT = "SURVSECT=HR1",
          PART = "PART=A1",
          TENURE = paste0("TENURE=", Tenure),
          RANK = paste0("RANK=", Rank),
@@ -372,7 +372,7 @@ partA2 <- ipeds_df %>%
   
   #format for upload
   mutate(UNITID = paste0("UNITID=", Unitid),
-         SURVSECT = "SURVSECT=HR",
+         SURVSECT = "SURVSECT=HR1",
          PART = "PART=A2",
          TENURE = paste0("TENURE=", Tenure),
          ISMEDICAL = paste0("ISMEDICAL=", IsMedical),
@@ -443,7 +443,7 @@ partB1 <- ipeds_df %>%
   
   #format for upload
   mutate(UNITID = paste0("UNITID=", Unitid),
-         SURVSECT = "SURVSECT=HR",
+         SURVSECT = "SURVSECT=HR1",
          PART = "PART=B1",
          OCCCATEGORY1 = paste0("OCCCATEGORY1=", OccCategory1),
          RACEETHNICITYGENDER = paste0("RACEETHICITYGENDER=", REG),
@@ -511,7 +511,7 @@ partB2 <- ipeds_df %>%
   
   #format for upload
   mutate(UNITID = paste0("UNITID=", Unitid),
-         SURVSECT = "SURVSECT=HR",
+         SURVSECT = "SURVSECT=HR1",
          PART = "PART=B2",
          TENURE = paste0("TENURE=", Tenure),
          ISMEDICAL = paste0("ISMEDICAL=", IsMedical),
@@ -578,7 +578,7 @@ partB3 <- ipeds_df %>%
   
   #format for upload
   mutate(UNITID = paste0("UNITID=", Unitid),
-         SURVSECT = "SURVSECT=HR",
+         SURVSECT = "SURVSECT=HR1",
          PART = "PART=B3",
          ISMEDICAL = paste0("ISMEDICAL=", IsMedical),
          OCCCATEGORY1 = paste0("OCCCATEGORY1=", OccCategory1),
@@ -644,7 +644,7 @@ partD1 <- ipeds_df %>%
   
   #format for upload
   mutate(UNITID = paste0("UNITID=", Unitid),
-         SURVSECT = "SURVSECT=HR",
+         SURVSECT = "SURVSECT=HR1",
          PART = "PART=D1",
          OCCCATEGORY1 = paste0("OCCCATEGORY1=", OccCategory1),
          RACEETHNICITYGENDER = paste0("RACEETHNICITYGENDER=", REG),
@@ -708,7 +708,7 @@ partD2 <- ipeds_df %>%
   
   #format for upload
   mutate(UNITID = paste0("UNITID=", Unitid),
-         SURVSECT = "SURVSECT=HR",
+         SURVSECT = "SURVSECT=HR1",
          PART = "PART=D2",
          OCCCATEGORY4 = paste0("OCCCATEGORY4=", OccCategory4),
          RACEETHNICITYGENDER = paste0("RACEETHNICITYGENDER=", REG),
@@ -777,7 +777,7 @@ partD3 <- ipeds_df %>%
   
   #format for upload
   mutate(UNITID = paste0("UNITID=", Unitid),
-         SURVSECT = "SURVSECT=HR",
+         SURVSECT = "SURVSECT=HR1",
          PART = "PART=D3",
          TENURE = paste0("TENURE=", Tenure),
          ISMEDICAL = paste0("ISMEDICAL=", IsMedical),
@@ -843,7 +843,7 @@ partD4 <- ipeds_df %>%
   
   #format for upload
   mutate(UNITID = paste0("UNITID=", Unitid),
-         SURVSECT = "SURVSECT=HR",
+         SURVSECT = "SURVSECT=HR1",
          PART = "PART=D4",
          ISMEDICAL = paste0("ISMEDICAL=", IsMedical),
          OCCCATEGORY3 = paste0("OCCCATEGORY3=", OccCategory3),
@@ -952,7 +952,7 @@ partG1 <- ipeds_df %>%
   
   #format for upload
   mutate(UNITID = paste0("UNITID=", Unitid),
-         SURVSECT = "SURVSECT=HR",
+         SURVSECT = "SURVSECT=HR1",
          PART = "PART=G1",
          RANK = paste0("RANK=", Rank),
          GENDER = paste0("GENDER=", Gender),
@@ -1041,7 +1041,7 @@ partG2 <- ipeds_df %>%
   
   #format for upload
   mutate(UNITID = paste0("UNITID=", Unitid),
-         SURVSECT = "SURVSECT=HR",
+         SURVSECT = "SURVSECT=HR1",
          PART = "PART=G2",
          OCCCATEGORY2 = paste0("OCCCATEGORY2=", OccCategory2),
          SOUTLAYS = paste0("SOUTLAYS=", Salary)) %>% 
@@ -1103,7 +1103,7 @@ partH1 <- ipeds_df %>%
   
   #format for upload
   mutate(UNITID = paste0("UNITID=", Unitid),
-         SURVSECT = "SURVSECT=HR",
+         SURVSECT = "SURVSECT=HR1",
          PART = "PART=H1",
          TENURE = paste0("TENURE=", Tenure),
          RACEETHNICITYGENDER = paste0("RACEETHNICITYGENDER=", REG),
@@ -1170,7 +1170,7 @@ partH2 <- ipeds_df %>%
   
   #format for upload
   mutate(UNITID = paste0("UNITID=", Unitid),
-         SURVSECT = "SURVSECT=HR",
+         SURVSECT = "SURVSECT=HR1",
          PART = "PART=H2",
          OCCCATEGORY5 = paste0("OCCCATEGORY5=", OccCategory5),
          RACEETHNICITYGENDER = paste0("RACEETHNICITYGENDER=", REG),
