@@ -446,7 +446,7 @@ partB1 <- ipeds_df %>%
          SURVSECT = "SURVSECT=HR1",
          PART = "PART=B1",
          OCCCATEGORY1 = paste0("OCCCATEGORY1=", OccCategory1),
-         RACEETHNICITYGENDER = paste0("RACEETHINCITYGENDER=", REG),
+         RACEETHNICITYGENDER = paste0("RACEETHNICITYGENDER=", REG),
          COUNT = paste0("COUNT=", Count)) %>% 
   select(UNITID, 
          SURVSECT, 
