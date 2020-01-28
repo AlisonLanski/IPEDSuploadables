@@ -177,8 +177,6 @@ write.table(x = partA, sep=",",
             quote = FALSE, row.names = FALSE, col.names = FALSE)
 
 
-export_part_A(partA)
-
 #########################
 
 ## Part B -- unduplicated list of offerings by major, cip, level, and distanceed status
