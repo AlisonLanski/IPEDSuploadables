@@ -86,12 +86,17 @@ firstmajors <- data.frame(Unitid = 999999,
                                          size = 100,
                                          replace = T),
                        stringsAsFactors = FALSE) %>%
-  mutate(Birthdate = ymd(paste0(BirthYear, "-", 
+  mutate(Birthdate = lubridate::ymd(paste0(BirthYear, "-", 
                                 BirthMonth, "-", 
                                 ifelse(StudentId == 100, #we need one to fail for testing
                                        40,  #set day to 40 (DNE)
                                        BirthDay)))) %>%
-  select(-c(BirthYear,BirthMonth,BirthDay))
+  select(-c(BirthYear,BirthMonth,BirthDay)) %>%
+  #NOTE: this is not an exact Age calculuation -- it doesn't handle leap years.
+  # I figured this is good enough for testing the Upload logic
+  # To compute age including leap years, use logic that looks at year, then month, than day relative
+  # to the arbitrary completions date used below.
+  mutate(Age = (lubridate::ymd('2018-05-16') - Birthdate)/lubridate::dyears(1))
 
 
 ### then for a random subset, 

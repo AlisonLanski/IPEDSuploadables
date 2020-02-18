@@ -21,24 +21,23 @@ if(!str_detect(path, pattern = "/$")) {
   path <- paste0(path, "/")
 }
 
-
 #set the school's unitid (for later)
-ipeds_unitid  <- svDialogs::dlgInput("What is your school's IPEDS Unitid?")$res
+ipeds_unitid  <- svDialogs::dlgInput("What is your school's IPEDS Unitid?",)$res
 
 
 #set a dummy studentID (for later)
-# dummy_studentid <- svDialogs::dlgInput("Provide a value that can be used as a dummy-student ID")$res
+dummy_studentid <- svDialogs::dlgInput("Provide a value that can be used as a dummy-student ID")$res
+
 
 
 #if testing: run dummy data file
 #source(paste0(path, "CompletionsStartingDf_DummyData.R"))
 
-
 #prep datafiles: CIP codes to 6-digit correctly
 startingdf <- startingdf %>%
   separate(col = MajorCip, 
-           into = c("Two", "Four"), 
-           sep = "\\.") %>%
+	   into = c("Two", "Four"), 
+	   sep = "\\.") %>%
   mutate(Two = ifelse(nchar(Two) == 1, 
                       paste0("0", Two),
                       Two),
@@ -55,8 +54,8 @@ startingdf <- startingdf %>%
 
 extracips <- extracips %>%
   separate(col = MajorCip, 
-           into = c("Two", "Four"), 
-           sep = "\\.") %>%
+	   into = c("Two", "Four"), 
+	   sep = "\\.") %>%
   mutate(Two = ifelse(nchar(Two) == 1, 
                       paste0("0", Two),
                       Two),
@@ -91,8 +90,6 @@ extracips <- extracips %>%
 ### to make the final product more person-friendly for reading
 ###
 
-
-
 ## Part A --- Count of completers by major number, cip, level, race, and sex
 
 #want: 
@@ -118,6 +115,7 @@ extracips_A <- extracips %>%
          Count)
 extracips_A <- NULL
 
+
 #produce the uploadable format
 partA <- startingdf %>%
   
@@ -140,8 +138,8 @@ partA <- startingdf %>%
          SURVSECT = "SURVSECT=COM",
          PART = "PART=A",
          MAJORNUM = paste0("MAJORNUM=", MajorNumber),
-         CIPCODE = paste0("CIPCODE=", MajorCip),
-         AWLEVEL = paste0("AWLEVEL=", DegreeLevel),
+      	 CIPCODE = paste0("CIPCODE=", MajorCip),
+	       AWLEVEL = paste0("AWLEVEL=", DegreeLevel),
          RACE = paste0("RACE=", RaceEthnicity),
          SEX = paste0("SEX=", Sex),
          COUNT = paste0("COUNT=", Count)) %>% 
@@ -154,17 +152,19 @@ partA <- startingdf %>%
          RACE, 
          SEX, 
          COUNT) #%>%
-#sorting is only required for Unitid > CipCode
-#the others are included for ease-of-use 
-#if the files are viewed by a person
-# arrange(UNITID, 
-#         SURVSECT, 
-#         PART, 
-#         MAJORNUM, 
-#         CIPCODE, 
-#         AWLEVEL, 
-#         RACE, 
-#         SEX)
+
+  #sorting is only required for Unitid > CipCode
+  #the others are included for ease-of-use 
+  #if the files are viewed by a person
+  # arrange(UNITID, 
+  #         SURVSECT, 
+  #         PART, 
+  #         MAJORNUM, 
+  #         CIPCODE, 
+  #         AWLEVEL, 
+  #         RACE, 
+  #         SEX)
+
 
 #just this part
 write.table(x = partA, sep=",", 
@@ -215,8 +215,8 @@ partB <- startingdf %>%
          SURVSECT = "SURVSECT=COM",
          PART = "PART=B",
          MAJORNUM = paste0("MAJORNUM=", MajorNumber),
-         CIPCODE = paste0("CIPCODE=", MajorCip),
-         AWLEVEL = paste0("AWLEVEL=", DegreeLevel),
+       	 CIPCODE = paste0("CIPCODE=", MajorCip),
+ 	       AWLEVEL = paste0("AWLEVEL=", DegreeLevel),
          DistanceED = paste0("DistanceED=", DistanceEd)) %>% 
   select(UNITID, 
          SURVSECT, 
@@ -225,16 +225,16 @@ partB <- startingdf %>%
          CIPCODE, 
          AWLEVEL, 
          DistanceED) #%>%
-#sorting is only required for Unitid > CipCode
-#the others are included for ease-of-use 
-#if the files are viewed by a person
-# arrange(UNITID, 
-#         SURVSECT, 
-#         PART, 
-#         MAJORNUM, 
-#         CIPCODE, 
-#         AWLEVEL, 
-#         DistanceED)
+  #sorting is only required for Unitid > CipCode
+  #the others are included for ease-of-use 
+  #if the files are viewed by a person
+  # arrange(UNITID, 
+  #         SURVSECT, 
+  #         PART, 
+  #         MAJORNUM, 
+  #         CIPCODE, 
+  #         AWLEVEL, 
+  #         DistanceED)
 
 
 #just this part
@@ -273,7 +273,7 @@ partC <- startingdf %>%
   #sort for easy viewing
   arrange(RaceEthnicity,
           Sex) %>%
-  
+
   #format for upload
   mutate(UNITID = paste0("UNITID=", Unitid),
          SURVSECT = "SURVSECT=COM",
@@ -287,11 +287,13 @@ partC <- startingdf %>%
          RACE, 
          SEX, 
          COUNT) #%>%
-# arrange(UNITID, 
-#         SURVSECT, 
-#         PART, 
-#         RACE, 
-#         SEX)
+
+  # arrange(UNITID, 
+  #         SURVSECT, 
+  #         PART, 
+  #         RACE, 
+  #         SEX)
+
 
 
 #just this part
@@ -436,7 +438,8 @@ partD <- startingdf %>%
             AGE3 = sum(AGE3, na.rm = T),
             AGE4 = sum(AGE4, na.rm = T),
             AGE5 = sum(AGE5, na.rm = T)
-  ) %>%
+	    ) %>%
+
   ungroup() %>%
   
   #sort for easier viewing
@@ -469,8 +472,8 @@ partD <- startingdf %>%
          CRACE17, CRACE41, CRACE42, CRACE43, 
          CRACE44, CRACE45, CRACE46, CRACE47, CRACE23, 
          AGE1, AGE2, AGE3, AGE4, AGE5 ) #%>%
-# arrange(UNITID, SURVSECT, PART, CTLEVEL)
 
+  # arrange(UNITID, SURVSECT, PART, CTLEVEL)
 
 
 #just this part
