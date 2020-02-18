@@ -20,7 +20,6 @@ path <- svDialogs::dlg_dir(default = getwd(), title = "Select the file output lo
 if(!str_detect(path, pattern = "/$")) {
   path <- paste0(path, "/")
 }
-  
 
 #set the school's unitid (for later)
 ipeds_unitid  <- svDialogs::dlgInput("What is your school's IPEDS Unitid?",)$res
@@ -30,9 +29,9 @@ ipeds_unitid  <- svDialogs::dlgInput("What is your school's IPEDS Unitid?",)$res
 dummy_studentid <- svDialogs::dlgInput("Provide a value that can be used as a dummy-student ID")$res
 
 
+
 #if testing: run dummy data file
 #source(paste0(path, "CompletionsStartingDf_DummyData.R"))
-
 
 #prep datafiles: CIP codes to 6-digit correctly
 startingdf <- startingdf %>%
@@ -91,8 +90,6 @@ extracips <- extracips %>%
 ### to make the final product more person-friendly for reading
 ###
 
-
-
 ## Part A --- Count of completers by major number, cip, level, race, and sex
 
 #want: 
@@ -116,6 +113,7 @@ extracips_A <- extracips %>%
          RaceEthnicity,
          Sex, 
          Count)
+extracips_A <- NULL
 
 
 #produce the uploadable format
@@ -154,6 +152,7 @@ partA <- startingdf %>%
          RACE, 
          SEX, 
          COUNT) #%>%
+
   #sorting is only required for Unitid > CipCode
   #the others are included for ease-of-use 
   #if the files are viewed by a person
@@ -288,11 +287,13 @@ partC <- startingdf %>%
          RACE, 
          SEX, 
          COUNT) #%>%
+
   # arrange(UNITID, 
   #         SURVSECT, 
   #         PART, 
   #         RACE, 
   #         SEX)
+
 
 
 #just this part
@@ -438,6 +439,7 @@ partD <- startingdf %>%
             AGE4 = sum(AGE4, na.rm = T),
             AGE5 = sum(AGE5, na.rm = T)
 	    ) %>%
+
   ungroup() %>%
   
   #sort for easier viewing
@@ -463,15 +465,15 @@ partD <- startingdf %>%
          AGE2 = paste0("AGE2=", AGE2),
          AGE3 = paste0("AGE3=", AGE3),
          AGE4 = paste0("AGE4=", AGE4),
-         AGE5 = paste0("AGE5=", AGE5),
-         ) %>% 
+         AGE5 = paste0("AGE5=", AGE5)
+  ) %>% 
   select(UNITID, SURVSECT, PART, CTLEVEL,
          CRACE15, CRACE16, 
          CRACE17, CRACE41, CRACE42, CRACE43, 
          CRACE44, CRACE45, CRACE46, CRACE47, CRACE23, 
          AGE1, AGE2, AGE3, AGE4, AGE5 ) #%>%
-  # arrange(UNITID, SURVSECT, PART, CTLEVEL)
 
+  # arrange(UNITID, SURVSECT, PART, CTLEVEL)
 
 
 #just this part
