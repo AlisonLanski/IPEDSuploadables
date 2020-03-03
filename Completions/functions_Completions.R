@@ -35,7 +35,8 @@ prep_datafiles <- function(df) {
   df <- df %>%
         separate(col = MajorCip, 
 	                into = c("Two", "Four"), 
-	                sep = "\\.") %>%
+	                sep = "\\."
+                 ) %>%
         mutate(Two = case_when(
                         nchar(Two) == 1 ~paste0("0", Two),
                         TRUE ~ Two
@@ -66,42 +67,22 @@ make_part_A <- function(df, extracips = NULL) {
   #prep the extra cips
   if (!is.null(extracips)) {
     extracips_A <- extracips %>% 
-                   select(Unitid,
-                          MajorNumber,
-                          MajorCip,
-                          DegreeLevel,
-                          RaceEthnicity,
-                          Sex, 
-                          Count)
+                   select(Unitid, MajorNumber, MajorCip, DegreeLevel, RaceEthnicity, Sex, Count)
   } else {
-    extracips_A <- data.frame("Unitid" = NA, 
-                              "MajorNumber" = NA,
-                              "MajorCip" = NA,
-                              "DegreeLevel" = NA,
-                              "RaceEthnicity" = NA,
-                              "Sex" = NA, 
-                              "Count" = NA)
+    extracips_A <- data.frame("Unitid" = NA,  "MajorNumber" = NA, "MajorCip" = NA, "DegreeLevel" = NA, 
+                              "RaceEthnicity" = NA, "Sex" = NA, "Count" = NA)
   }
 
   #produce the uploadable format
   partA <- df %>%
            #aggregate the full data
-           group_by(Unitid, 
-                    MajorNumber, 
-                    MajorCip, 
-                    DegreeLevel, 
-                    RaceEthnicity, 
-                    Sex) %>%
+           group_by(Unitid, MajorNumber, MajorCip, DegreeLevel, RaceEthnicity, Sex) %>%
            summarize(Count = n()) %>% 
            ungroup() %>%
            #add extra cips
            bind_rows(extracips_A) %>%
            #sort for easy viewing
-           arrange(MajorNumber,
-                   MajorCip,
-                   DegreeLevel,
-                   RaceEthnicity,
-                   Sex) %>%
+           arrange(MajorNumber, MajorCip, DegreeLevel, RaceEthnicity, Sex) %>%
            #format for upload
            transmute(UNITID = paste0("UNITID=", Unitid),
                      SURVSECT = "SURVSECT=COM",
@@ -132,35 +113,21 @@ make_part_B <- function(df, extracips = NULL) {
    
   #prep extra cip codes
   if (!is.null(extracips)) {
-    extracips_B <- extracips %>%
-                   select(Unitid, 
-                          MajorNumber,
-                          MajorCip,
-                          DegreeLevel,
-                          DistanceEd)
+    extracips_B <- extracips %>% 
+                   select(Unitid, MajorNumber, MajorCip, DegreeLevel, DistanceEd)
   } else {
-    extracips_B <- data.frame("Unitid" = NA, 
-                              "MajorNumber" = NA,
-                              "MajorCip" = NA,
-                              "DegreeLevel" = NA,
-                              "DistanceEd" = NA)
+    extracips_B <- data.frame("Unitid" = NA, "MajorNumber" = NA, "MajorCip" = NA, 
+                              "DegreeLevel" = NA, "DistanceEd" = NA)
   }
 
   #prep upload
   partB <- df %>%
-           select(Unitid, 
-                  MajorNumber, 
-                  MajorCip, 
-                  DegreeLevel, 
-                  DistanceEd) %>%
+           select(Unitid, MajorNumber, MajorCip, DegreeLevel, DistanceEd) %>%
            unique() %>%
            #if we need to add the extra cips, do it here
            bind_rows(extracips_B) %>%
            #sort for easy viewing 
-           arrange(MajorNumber,
-                   MajorCip,
-                   DegreeLevel,
-                   DistanceEd) %>%
+           arrange(MajorNumber, MajorCip, DegreeLevel, DistanceEd) %>%
            #format for upload
            transmute(UNITID = paste0("UNITID=", Unitid),
                      SURVSECT = "SURVSECT=COM",
@@ -189,21 +156,15 @@ make_part_B <- function(df, extracips = NULL) {
 make_part_C <- function(df) {
 
   partC <- df %>%
-           select(Unitid, 
-                  StudentId,
-                  RaceEthnicity, 
-                  Sex) %>%
+           select(Unitid, StudentId, RaceEthnicity, Sex) %>%
            #deduplicate
            unique() %>%
            #aggregate and count
-           group_by(Unitid, 
-                    RaceEthnicity, 
-                    Sex) %>%
+           group_by(Unitid, RaceEthnicity, Sex) %>%
            summarize(Count = n()) %>%
            ungroup() %>%
            #sort for easy viewing
-           arrange(RaceEthnicity, 
-                   Sex) %>%
+           arrange(RaceEthnicity, Sex) %>%
            #format for upload
            transmute(UNITID = paste0("UNITID=", Unitid),
                      SURVSECT = "SURVSECT=COM",
@@ -237,24 +198,20 @@ make_part_C <- function(df) {
 
 #check extracips list for award levels not included in the startingdf
 extralevel_D <- extracips %>% 
-  select(Unitid,
-         DegreeLevel) %>% 
-  unique() %>%
-  filter(!(DegreeLevel %in% startingdf$DegreeLevel)) %>%
-  
-  #add dummy data to any award levels found
-  mutate(StudentId = dummy_studentid,
-         RaceEthnicity = 1, 
-         Sex = 1, 
-         Birthdate = lubridate::ymd("1900-01-01"),
-         CountRE = 0,
-         CountSex = 0,
-         CountAge = 0) %>%
-  
-  #reorder for rbind
-  select(Unitid, 
-         StudentId, 
-         everything())
+                select(Unitid, DegreeLevel) %>% 
+                unique() %>%
+                filter(!(DegreeLevel %in% startingdf$DegreeLevel)) %>%
+                #add dummy data to any award levels found
+                mutate(StudentId = dummy_studentid,
+                       RaceEthnicity = 1, 
+                       Sex = 1, 
+                       Birthdate = lubridate::ymd("1900-01-01"),
+                       CountRE = 0,
+                       CountSex = 0,
+                       CountAge = 0
+                       ) %>%
+                #reorder for rbind
+                select(Unitid, StudentId, everything())
 
 
 #set up an df with 0-rows to ensure we get all 
@@ -271,138 +228,129 @@ dummy_demographics <- data.frame(Unitid = ipeds_unitid,
 
 
 
-
-partD <- startingdf %>%
-  select(Unitid, StudentId, DegreeLevel, RaceEthnicity, Sex, Age) %>%
+make_part_D <- function(df) {
   
-  #add values which will be summed later
-  mutate(CountRE = 1, CountSex = 1, CountAge = 1) %>%
+  partD <- df %>%
+           select(Unitid, StudentId, DegreeLevel, RaceEthnicity, Sex, Age) %>%
+           #add values which will be summed later
+           mutate(CountRE = 1, 
+                  CountSex = 1, 
+                  CountAge = 1
+                  ) %>%
+           #add any extra award levels
+           bind_rows(extralevel_D) %>%
+           #add dummy demographics to make sure the spread works correctly later
+           bind_rows(dummy_demographics) %>%
+           #recode before removing duplicates per student
+           mutate(CTLEVEL = recode(DegreeLevel,
+                                   `1` = 1,
+                                   `2` = 2,
+                                   `3` = 3,
+                                   `4` = 2,
+                                   `5` = 4,
+                                   `6` = 7,
+                                   `7` = 5,
+                                   `8` = 7,
+                                   `17` = 6,
+                                   `18` = 6,
+                                   `19` = 6,
+                                   .default = 9)) %>%
+           select(-DegreeLevel) %>%
+           #one row per student per level per unitid (keep RE/Sex/Birthdate)
+           unique() %>%
+           #recode and spread RaceEthnicity to get IPEDS columns
+           mutate(RaceEthnicity = recode(RaceEthnicity,
+                                         `1` = "CRACE17",
+                                         `2` = "CRACE41",
+                                         `3` = "CRACE42",
+                                         `4` = "CRACE43",
+                                         `5` = "CRACE44",
+                                         `6` = "CRACE45",
+                                         `7` = "CRACE46",
+                                         `8` = "CRACE47",
+                                         `9` = "CRACE23",
+                                         .default = "ZRACEETH")
+                  ) %>%
+           spread(key = RaceEthnicity, value = CountRE) %>%
+           #recode and spread Sex to get IPEDS columns
+           mutate(Sex = recode(Sex,
+                               `1` = "CRACE15",
+                               `2` = "CRACE16",
+                               .default = "ZRACESEX")
+                  ) %>%
+           spread(key = Sex, value = CountSex) %>%
+           #recode and spread Age to get IPEDS columns
+           mutate(AgeGroup = case_when(
+                                  floor(Age) < 18 ~"AGE1",
+                                  floor(Age) <= 24 ~ "AGE2",
+                                  floor(Age) <= 39 ~ "AGE3",
+                                  floor(Age) >= 40 ~ "AGE4",
+                                  is.na(Age) ~ "AGE5",
+                                  TRUE ~ "AGE9"
+                              )
+                  ) %>%
+           spread(key = AgeGroup, value = CountAge) %>%
+           #aggregate and add counts in spread columns; 
+           #extra award levels and dummy demographics have values of 0
+           group_by(Unitid, CTLEVEL) %>%
+           summarize(CRACE15 = sum(CRACE15, na.rm = T),
+                     CRACE16 = sum(CRACE16, na.rm = T),
+                     CRACE17 = sum(CRACE17, na.rm = T),
+                     CRACE41 = sum(CRACE41, na.rm = T),
+                     CRACE42 = sum(CRACE42, na.rm = T),
+                     CRACE43 = sum(CRACE43, na.rm = T),
+                     CRACE44 = sum(CRACE44, na.rm = T),
+                     CRACE45 = sum(CRACE45, na.rm = T),
+                     CRACE46 = sum(CRACE46, na.rm = T),
+                     CRACE47 = sum(CRACE47, na.rm = T),
+                     CRACE23 = sum(CRACE23, na.rm = T),
+                     AGE1 = sum(AGE1, na.rm = T),
+                     AGE2 = sum(AGE2, na.rm = T),
+                     AGE3 = sum(AGE3, na.rm = T),
+                     AGE4 = sum(AGE4, na.rm = T),
+                     AGE5 = sum(AGE5, na.rm = T)
+	              ) %>%  
+           ungroup() %>%
+           #sort for easier viewing
+           arrange(CTLEVEL) %>%
+           #format for upload
+           mutate(UNITID = paste0("UNITID=", Unitid),
+                  SURVSECT = "SURVSECT=COM",
+                  PART = "PART=D",
+                  CTLEVEL = paste0("CTLEVEL=", CTLEVEL),
+                  CRACE15 = paste0("CRACE15=", CRACE15),
+                  CRACE16 = paste0("CRACE16=", CRACE16),
+                  CRACE17 = paste0("CRACE17=", CRACE17),
+                  CRACE41 = paste0("CRACE41=", CRACE41),
+                  CRACE42 = paste0("CRACE42=", CRACE42),
+                  CRACE43 = paste0("CRACE43=", CRACE43),
+                  CRACE44 = paste0("CRACE44=", CRACE44),
+                  CRACE45 = paste0("CRACE45=", CRACE45),
+                  CRACE46 = paste0("CRACE46=", CRACE46),
+                  CRACE47 = paste0("CRACE47=", CRACE47),
+                  CRACE23 = paste0("CRACE23=", CRACE23),
+                  AGE1 = paste0("AGE1=", AGE1),   
+                  AGE2 = paste0("AGE2=", AGE2),
+                  AGE3 = paste0("AGE3=", AGE3),
+                  AGE4 = paste0("AGE4=", AGE4),
+                  AGE5 = paste0("AGE5=", AGE5)
+           ) %>% 
+           select(UNITID, SURVSECT, PART, CTLEVEL,
+                  CRACE15, CRACE16, CRACE17, CRACE41, 
+                  CRACE42, CRACE43, CRACE44, CRACE45, 
+                  CRACE46, CRACE47, CRACE23, AGE1, 
+                  AGE2, AGE3, AGE4, AGE5)
   
-  #add any extra award levels
-  rbind(extralevel_D) %>%
-  
-  #add dummy demographics to make sure the spread works correctly later
-  rbind(dummy_demographics) %>%
-  
-  #recode before removing duplicates per student
-  mutate(CTLEVEL = recode(DegreeLevel,
-                          `1` = 1,
-                          `2` = 2,
-                          `3` = 3,
-                          `4` = 2,
-                          `5` = 4,
-                          `6` = 7,
-                          `7` = 5,
-                          `8` = 7,
-                          `17` = 6,
-                          `18` = 6,
-                          `19` = 6,
-                          .default = 9)) %>%
-  select(-DegreeLevel) %>%
-  
-  #one row per student per level per unitid (keep RE/Sex/Birthdate)
-  unique() %>%
-  
-  #recode and spread RaceEthnicity to get IPEDS columns
-  mutate(RaceEthnicity = recode(RaceEthnicity,
-                                `1` = "CRACE17",
-                                `2` = "CRACE41",
-                                `3` = "CRACE42",
-                                `4` = "CRACE43",
-                                `5` = "CRACE44",
-                                `6` = "CRACE45",
-                                `7` = "CRACE46",
-                                `8` = "CRACE47",
-                                `9` = "CRACE23",
-                                .default = "ZRACEETH")) %>%
-  spread(key = RaceEthnicity, value = CountRE) %>%
-  
-  #recode and spread Sex to get IPEDS columns
-  mutate(Sex = recode(Sex,
-                      `1` = "CRACE15",
-                      `2` = "CRACE16",
-                      .default = "ZRACESEX")) %>%
-  spread(key = Sex, value = CountSex) %>%
-  
-  #recode and spread Age to get IPEDS columns
-  mutate(AgeGroup = ifelse(floor(Age) < 18, "AGE1",
-                           ifelse(floor(Age) <= 24, "AGE2",
-                                  ifelse(floor(Age) <= 39, "AGE3",
-                                         ifelse(floor(Age) >= 40, "AGE4",
-                                                "AGE9"))))) %>%
-  mutate(AgeGroup = ifelse(is.na(Age), 
-                           "AGE5", 
-                           AgeGroup)) %>%
-  
-  spread(key = AgeGroup, value = CountAge) %>%
-  
-  #aggregate and add counts in spread columns; 
-  #extra award levels and dummy demographics have values of 0
-  group_by(Unitid, CTLEVEL) %>%
-  summarize(CRACE15 = sum(CRACE15, na.rm = T),
-            CRACE16 = sum(CRACE16, na.rm = T),
-            CRACE17 = sum(CRACE17, na.rm = T),
-            CRACE41 = sum(CRACE41, na.rm = T),
-            CRACE42 = sum(CRACE42, na.rm = T),
-            CRACE43 = sum(CRACE43, na.rm = T),
-            CRACE44 = sum(CRACE44, na.rm = T),
-            CRACE45 = sum(CRACE45, na.rm = T),
-            CRACE46 = sum(CRACE46, na.rm = T),
-            CRACE47 = sum(CRACE47, na.rm = T),
-            CRACE23 = sum(CRACE23, na.rm = T),
-            AGE1 = sum(AGE1, na.rm = T),
-            AGE2 = sum(AGE2, na.rm = T),
-            AGE3 = sum(AGE3, na.rm = T),
-            AGE4 = sum(AGE4, na.rm = T),
-            AGE5 = sum(AGE5, na.rm = T)
-	    ) %>%
-
-  ungroup() %>%
-  
-  #sort for easier viewing
-  arrange(CTLEVEL) %>%
-  
-  #format for upload
-  mutate(UNITID = paste0("UNITID=", Unitid),
-         SURVSECT = "SURVSECT=COM",
-         PART = "PART=D",
-         CTLEVEL = paste0("CTLEVEL=", CTLEVEL),
-         CRACE15 = paste0("CRACE15=", CRACE15),
-         CRACE16 = paste0("CRACE16=", CRACE16),
-         CRACE17 = paste0("CRACE17=", CRACE17),
-         CRACE41 = paste0("CRACE41=", CRACE41),
-         CRACE42 = paste0("CRACE42=", CRACE42),
-         CRACE43 = paste0("CRACE43=", CRACE43),
-         CRACE44 = paste0("CRACE44=", CRACE44),
-         CRACE45 = paste0("CRACE45=", CRACE45),
-         CRACE46 = paste0("CRACE46=", CRACE46),
-         CRACE47 = paste0("CRACE47=", CRACE47),
-         CRACE23 = paste0("CRACE23=", CRACE23),
-         AGE1 = paste0("AGE1=", AGE1),   
-         AGE2 = paste0("AGE2=", AGE2),
-         AGE3 = paste0("AGE3=", AGE3),
-         AGE4 = paste0("AGE4=", AGE4),
-         AGE5 = paste0("AGE5=", AGE5)
-  ) %>% 
-  select(UNITID, SURVSECT, PART, CTLEVEL,
-         CRACE15, CRACE16, 
-         CRACE17, CRACE41, CRACE42, CRACE43, 
-         CRACE44, CRACE45, CRACE46, CRACE47, CRACE23, 
-         AGE1, AGE2, AGE3, AGE4, AGE5 ) #%>%
-
-  # arrange(UNITID, SURVSECT, PART, CTLEVEL)
-
-
 #just this part
-write.table(x = partD, sep=",", 
-            file= paste0(path, "Completions_PartD.txt"),
+write.table(x = partD, sep = ",", 
+            file = paste0(path, "Completions_PartD_", Sys.Date(), ".txt"),
             quote = FALSE, row.names = FALSE, col.names = FALSE)
 
 #append to the upload doc
-write.table(x = partD, sep=",", 
-            file=paste0(path, "Completions_PartsAll.txt"),
+write.table(x = partD, sep = ",", 
+            file = paste0(path, "Completions_PartsAll_", Sys.Date(), ".txt"),
             quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
-
+}
 
 
 ############
