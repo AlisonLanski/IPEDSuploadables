@@ -86,7 +86,12 @@ make_part_A <- function(df, extracips = NULL) {
   #produce the uploadable format
   partA <- df %>%
            #aggregate the full data
-           group_by(Unitid, MajorNumber, MajorCip, DegreeLevel, RaceEthnicity, Sex) %>%
+           group_by(Unitid, 
+                    MajorNumber, 
+                    MajorCip, 
+                    DegreeLevel, 
+                    RaceEthnicity, 
+                    Sex) %>%
            summarize(Count = n()) %>% 
            ungroup() %>%
            #add extra cips
@@ -143,7 +148,11 @@ make_part_B <- function(df, extracips = NULL) {
 
   #prep upload
   partB <- df %>%
-           select(Unitid, MajorNumber, MajorCip, DegreeLevel, DistanceEd) %>%
+           select(Unitid, 
+                  MajorNumber, 
+                  MajorCip, 
+                  DegreeLevel, 
+                  DistanceEd) %>%
            unique() %>%
            #if we need to add the extra cips, do it here
            bind_rows(extracips_B) %>%
@@ -157,18 +166,18 @@ make_part_B <- function(df, extracips = NULL) {
                      SURVSECT = "SURVSECT=COM",
                      PART = "PART=B",
                      MAJORNUM = paste0("MAJORNUM=", MajorNumber),
-                	    CIPCODE = paste0("CIPCODE=", MajorCip),
+                	   CIPCODE = paste0("CIPCODE=", MajorCip),
    	                 AWLEVEL = paste0("AWLEVEL=", DegreeLevel),
                      DistanceED = paste0("DistanceED=", DistanceEd))
   
   #just this part
   write.table(x = partB, sep = ",", 
-              file = paste0(path, "Completions_PartB", Sys.Date(), ".txt"),
+              file = paste0(path, "Completions_PartB_", Sys.Date(), ".txt"),
               quote = FALSE, row.names = FALSE, col.names = FALSE)
   
   #append to the upload doc
   write.table(x = partB, sep = ",", 
-              file = paste0(path, "Completions_PartsAll", Sys.Date(), ".txt"),
+              file = paste0(path, "Completions_PartsAll_", Sys.Date(), ".txt"),
               quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
 }
 
@@ -177,53 +186,42 @@ make_part_B <- function(df, extracips = NULL) {
 ## Part C -- counts of unduplicated students who are completers by race/ethnicity
 #this is counting STUDENTS, not degrees --  requires deduplication
 
+make_part_C <- function(df) {
 
-partC <- startingdf %>%
-  select(Unitid, StudentId, RaceEthnicity, Sex) %>%
+  partC <- df %>%
+           select(Unitid, 
+                  StudentId,
+                  RaceEthnicity, 
+                  Sex) %>%
+           #deduplicate
+           unique() %>%
+           #aggregate and count
+           group_by(Unitid, 
+                    RaceEthnicity, 
+                    Sex) %>%
+           summarize(Count = n()) %>%
+           ungroup() %>%
+           #sort for easy viewing
+           arrange(RaceEthnicity, 
+                   Sex) %>%
+           #format for upload
+           transmute(UNITID = paste0("UNITID=", Unitid),
+                     SURVSECT = "SURVSECT=COM",
+                     PART = "PART=C",
+                     RACE = paste0("RACE=", RaceEthnicity),
+                     SEX = paste0("SEX=", Sex),
+                     COUNT = paste0("COUNT=", Count))
+
+  #just this part
+  write.table(x = partC, sep = ",", 
+              file = paste0(path, "Completions_PartC_", Sys.Date(), ".txt"),
+              quote = FALSE, row.names = FALSE, col.names = FALSE)
   
-  #deduplicate
-  unique() %>%
-  
-  #aggregate and count
-  group_by(Unitid, RaceEthnicity, Sex) %>%
-  summarize(Count = n()) %>%
-  ungroup() %>%
-  
-  #sort for easy viewing
-  arrange(RaceEthnicity,
-          Sex) %>%
-
-  #format for upload
-  mutate(UNITID = paste0("UNITID=", Unitid),
-         SURVSECT = "SURVSECT=COM",
-         PART = "PART=C",
-         RACE = paste0("RACE=", RaceEthnicity),
-         SEX = paste0("SEX=", Sex),
-         COUNT = paste0("COUNT=", Count)) %>% 
-  select(UNITID, 
-         SURVSECT, 
-         PART, 
-         RACE, 
-         SEX, 
-         COUNT) #%>%
-
-  # arrange(UNITID, 
-  #         SURVSECT, 
-  #         PART, 
-  #         RACE, 
-  #         SEX)
-
-
-
-#just this part
-write.table(x = partC, sep=",", 
-            file= paste0(path, "Completions_PartC.txt"),
-            quote = FALSE, row.names = FALSE, col.names = FALSE)
-
-#append to the upload doc
-write.table(x = partC, sep=",", 
-            file=paste0(path, "Completions_PartsAll.txt"),
-            quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
+  #append to the upload doc
+  write.table(x = partC, sep = ",", 
+              file = paste0(path, "Completions_PartsAll_", Sys.Date(), ".txt"),
+              quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
+}
 
 
 
