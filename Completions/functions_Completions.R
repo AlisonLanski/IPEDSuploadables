@@ -7,8 +7,10 @@
 ###
 ## Set up variables and prep CIPs to correct format
 
+## CATCH FOR IF PACKAGE IS INSTALLED
 #load package
 library(tidyverse)
+## INCLUDE DT FOR MAKING PRETTY OUTPUT GUI
 
 #set an output path:
 path <- svDialogs::dlg_dir(default = getwd(), title = "Select the file output location")$res 
@@ -19,10 +21,12 @@ if(!str_detect(path, pattern = "/$")) {
 }
 
 #set the school's unitid (for later)
+## PULL OUT
 ipeds_unitid  <- svDialogs::dlgInput("What is your school's IPEDS Unitid?",)$res
 
 
 #set a dummy studentID (for later)
+## PRE-SET???
 dummy_studentid <- svDialogs::dlgInput("Provide a value that can be used as a dummy-student ID")$res
 
 #if testing: run dummy data file
@@ -30,7 +34,7 @@ dummy_studentid <- svDialogs::dlgInput("Provide a value that can be used as a du
 
 #prep datafiles: CIP codes to 6-digit correctly
 ## CAN ALSO BE USED FOR PREPPING EXTRA CIPS
-prep_datafiles <- function(df) {
+prep_com_data_files <- function(df) {
   
   df <- df %>%
         separate(col = MajorCip, 
@@ -38,7 +42,7 @@ prep_datafiles <- function(df) {
 	                sep = "\\."
                  ) %>%
         mutate(Two = case_when(
-                        nchar(Two) == 1 ~paste0("0", Two),
+                        nchar(Two) == 1 ~ paste0("0", Two),
                         TRUE ~ Two
                        ),
                Four = case_when(
@@ -62,7 +66,7 @@ prep_datafiles <- function(df) {
 
 ## Part A --- Count of completers by major number, cip, level, race, and sex
 
-make_part_A <- function(df, extracips = NULL) {
+make_com_part_A <- function(df, extracips = NULL) {
   
   #prep the extra cips
   if (!is.null(extracips)) {
@@ -109,7 +113,7 @@ make_part_A <- function(df, extracips = NULL) {
 
 ## Part B -- unduplicated list of offerings by major, cip, level, and distanceed status
 
-make_part_B <- function(df, extracips = NULL) {
+make_com_part_B <- function(df, extracips = NULL) {
    
   #prep extra cip codes
   if (!is.null(extracips)) {
@@ -153,7 +157,7 @@ make_part_B <- function(df, extracips = NULL) {
 ## Part C -- counts of unduplicated students who are completers by race/ethnicity
 #this is counting STUDENTS, not degrees --  requires deduplication
 
-make_part_C <- function(df) {
+make_com_part_C <- function(df) {
 
   partC <- df %>%
            select(Unitid, StudentId, RaceEthnicity, Sex) %>%
@@ -228,7 +232,7 @@ dummy_demographics <- data.frame(Unitid = ipeds_unitid,
 
 
 
-make_part_D <- function(df) {
+make_com_part_D <- function(df) {
   
   partD <- df %>%
            select(Unitid, StudentId, DegreeLevel, RaceEthnicity, Sex, Age) %>%
@@ -341,15 +345,15 @@ make_part_D <- function(df) {
                   CRACE46, CRACE47, CRACE23, AGE1, 
                   AGE2, AGE3, AGE4, AGE5)
   
-#just this part
-write.table(x = partD, sep = ",", 
-            file = paste0(path, "Completions_PartD_", Sys.Date(), ".txt"),
-            quote = FALSE, row.names = FALSE, col.names = FALSE)
-
-#append to the upload doc
-write.table(x = partD, sep = ",", 
-            file = paste0(path, "Completions_PartsAll_", Sys.Date(), ".txt"),
-            quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
+  #just this part
+  write.table(x = partD, sep = ",", 
+              file = paste0(path, "Completions_PartD_", Sys.Date(), ".txt"),
+              quote = FALSE, row.names = FALSE, col.names = FALSE)
+  
+  #append to the upload doc
+  write.table(x = partD, sep = ",", 
+              file = paste0(path, "Completions_PartsAll_", Sys.Date(), ".txt"),
+              quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
 }
 
 
@@ -373,7 +377,6 @@ if(("ZRACESEX" %in% colnames(partD)) != 0){
   svDialogs::dlg_message("Warning!  Your results contain unknown values for sex. 
                          Please check your data and rerun from the top.")
 }
-
 
 #Age
 if(("AGE9" %in% colnames(partD)) != 0){
