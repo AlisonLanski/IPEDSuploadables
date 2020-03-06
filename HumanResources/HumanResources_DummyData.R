@@ -1,5 +1,9 @@
 #create dummy data for testing the HR uploadable
 
+#save this out into the package and make it accessible as package data
+#do the same thing for completions
+
+
 n = 1000
 m = 100
 p = 2000
@@ -25,7 +29,6 @@ instructional <- data.frame(Unitid = 111111,
 
 
 #other faculty
-set.seed(4567)
 faculty <- data.frame(Unitid = 111111,
                             EmpId = seq(from = 10000, to = 9999+m),
                             NewHire = sample(0:1, size = m, replace = TRUE, prob = c(.9, .1)),
