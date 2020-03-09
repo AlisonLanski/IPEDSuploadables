@@ -5,3 +5,4 @@ Completions/Completions_PartsAll.txt
 *.txt
 .DS_Store
 HumanResources/Thumbs.db
+.Rproj.user

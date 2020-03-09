@@ -1,0 +1,12 @@
+Package: IPEDSuploadables
+Title: What the Package Does (One Line, Title Case)
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Alison",
+           family = "Lanski",
+           role = c("aut", "cre"),
+           email = "alanski@nd.edu")
+Description: What the package does (one paragraph).
+License: What license it uses
+Encoding: UTF-8
+LazyData: true
