@@ -8,26 +8,23 @@
 ## Set up variables and prep CIPs to correct format
 
 ## CATCH FOR IF PACKAGE IS INSTALLED
-#load package
+#load package -----
 library(tidyverse)
 ## INCLUDE DT FOR MAKING PRETTY OUTPUT GUI
 
-#set an output path:
-path <- svDialogs::dlg_dir(default = getwd(), title = "Select the file output location")$res 
+## Function definitions -----
+set_report_path <- function() {
+  
+  #set an output path:
+  path <- svDialogs::dlg_dir(default = getwd(), title = "Select the file output location")$res 
 
-#make sure the final / is in the path (before the filename)
-if(!str_detect(path, pattern = "/$")) {
-  path <- paste0(path, "/")
+  #make sure the final / is in the path (before the filename)
+  if(!str_detect(path, pattern = "/$")) {
+    path <- paste0(path, "/")
+  }
+  
+  return(path)
 }
-
-#set the school's unitid (for later)
-## PULL OUT
-ipeds_unitid  <- svDialogs::dlgInput("What is your school's IPEDS Unitid?",)$res
-
-
-#set a dummy studentID (for later)
-## PRE-SET???
-dummy_studentid <- svDialogs::dlgInput("Provide a value that can be used as a dummy-student ID")$res
 
 #if testing: run dummy data file
 #source(paste0(path, "CompletionsStartingDf_DummyData.R"))
@@ -54,11 +51,12 @@ prep_com_data_files <- function(df) {
                MajorCip = paste0(Two, '.', Four)
                ) %>%
         select(-Two, -Four)
+  
+  ## Mutate to make student ID character string
+  ## Add a dummy student ID that is a phrase
 
   return(df)
 }
-
-
 
 #####################################################################
 ####
@@ -68,23 +66,23 @@ prep_com_data_files <- function(df) {
 
 make_com_part_A <- function(df, extracips = NULL) {
   
-  #prep the extra cips
-  if (!is.null(extracips)) {
-    extracips_A <- extracips %>% 
-                   select(Unitid, MajorNumber, MajorCip, DegreeLevel, RaceEthnicity, Sex, Count)
-  } else {
-    extracips_A <- data.frame("Unitid" = NA,  "MajorNumber" = NA, "MajorCip" = NA, "DegreeLevel" = NA, 
-                              "RaceEthnicity" = NA, "Sex" = NA, "Count" = NA)
-  }
-
   #produce the uploadable format
   partA <- df %>%
            #aggregate the full data
            group_by(Unitid, MajorNumber, MajorCip, DegreeLevel, RaceEthnicity, Sex) %>%
            summarize(Count = n()) %>% 
-           ungroup() %>%
-           #add extra cips
-           bind_rows(extracips_A) %>%
+           ungroup() 
+  
+  #prep the extra cips
+  if (!is.null(extracips)) {
+    #add extra cips
+    partA <- extracips %>% 
+                select(Unitid, MajorNumber, MajorCip, DegreeLevel, RaceEthnicity, Sex, Count) %>%
+                bind_rows(partA)
+  } 
+  
+  #carry on 
+  partA <- partA %>% 
            #sort for easy viewing
            arrange(MajorNumber, MajorCip, DegreeLevel, RaceEthnicity, Sex) %>%
            #format for upload
@@ -198,10 +196,10 @@ make_com_part_C <- function(df) {
 #want:
 #UNITID=nnnnnn,SURVSECT=COM,PART=D,CTLEVEL=3,CRACE15=nnnnn,CRACE16=nnnnn,CRACE41=nnnnn...
 
-#need to include award levels that have no completers
+make_com_part_D <- function(df) {
 
-#check extracips list for award levels not included in the startingdf
-extralevel_D <- extracips %>% 
+  #check extracips list for award levels not included in the startingdf
+  extralevel_D <- extracips %>% 
                 select(Unitid, DegreeLevel) %>% 
                 unique() %>%
                 filter(!(DegreeLevel %in% startingdf$DegreeLevel)) %>%
@@ -216,24 +214,19 @@ extralevel_D <- extracips %>%
                        ) %>%
                 #reorder for rbind
                 select(Unitid, StudentId, everything())
-
-
-#set up an df with 0-rows to ensure we get all 
-#race/ethnicity, sex, and age categories in the final output
-dummy_demographics <- data.frame(Unitid = ipeds_unitid, 
-                                 StudentId = dummy_studentid, 
-                                 DegreeLevel = max(startingdf$DegreeLevel), 
-                                 RaceEthnicity = c(1:9),
-                                 Sex = c(1, 1, 1, 1, 1, 2, 2, 2, 2), 
-                                 Age = c(15, 20, 25, 30, 35, 40, 45, 50, NA),
-                                 CountRE = 0,
-                                 CountSex = 0, 
-                                 CountAge = 0)
-
-
-
-make_com_part_D <- function(df) {
   
+  #set up an df with 0-rows to ensure we get all 
+  #race/ethnicity, sex, and age categories in the final output
+  dummy_demographics <- data.frame(Unitid = ipeds_unitid, 
+                                   StudentId = dummy_studentid, 
+                                   DegreeLevel = max(startingdf$DegreeLevel), 
+                                   RaceEthnicity = c(1:9),
+                                   Sex = c(1, 1, 1, 1, 1, 2, 2, 2, 2), 
+                                   Age = c(15, 20, 25, 30, 35, 40, 45, 50, NA),
+                                   CountRE = 0,
+                                   CountSex = 0, 
+                                   CountAge = 0)
+    
   partD <- df %>%
            select(Unitid, StudentId, DegreeLevel, RaceEthnicity, Sex, Age) %>%
            #add values which will be summed later
@@ -355,6 +348,22 @@ make_com_part_D <- function(df) {
               file = paste0(path, "Completions_PartsAll_", Sys.Date(), ".txt"),
               quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
 }
+
+## Function calls -----
+## set paths
+path <- set_report_path()
+
+#set the school's unitid (for later)
+## PULL OUT
+ipeds_unitid  <- svDialogs::dlgInput("What is your school's IPEDS Unitid?")$res
+
+#set a dummy studentID (for later)
+## PRE-SET???
+dummy_studentid <- svDialogs::dlgInput("Provide a value that can be used as a dummy-student ID")$res
+
+df <- prep_com_data_files(df = startingdf)
+extracips <- prep_com_data_files(df = extracips)
+make_com_part_A(df = df, extracips = extracips)
 
 
 ############
