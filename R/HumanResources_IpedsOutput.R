@@ -1,4 +1,4 @@
-#### 
+####
 ## Human Resources Uploadable for IPEDS
 ## Producing a key-value text file
 ####
@@ -6,7 +6,7 @@
 
 #########################################################
 ###
-## Set up variables 
+## Set up variables
 
 
 #load package
@@ -14,7 +14,7 @@ library(tidyverse)
 
 
 #set an output path:
-path <- svDialogs::dlg_dir(default = getwd(), title = "Select the file output location")$res 
+path <- svDialogs::dlg_dir(default = getwd(), title = "Select the file output location")$res
 
 #make sure the final / is in the path (before the filename)
 if(!str_detect(path, pattern = "/$")) {
@@ -23,7 +23,7 @@ if(!str_detect(path, pattern = "/$")) {
 
 
 #set the school's unitid (for later)
-ipeds_unitid  <- svDialogs::dlgInput("What is your school's IPEDS Unitid?",)$res
+ipeds_unitid  <- as.numeric(svDialogs::dlgInput("What is your school's IPEDS Unitid?",)$res)
 
 
 #set a dummy employeeID  (for later)
@@ -206,13 +206,13 @@ ipeds_df <- ipeds_df %>%
 
 #RaceEthnicityGender
 if(99 %in% ipeds_df$REG) {
-  svDialogs::dlg_message("Warning! Some RaceEthnicityGender combinations have failed. 
+  svDialogs::dlg_message("Warning! Some RaceEthnicityGender combinations have failed.
                          Please check your Gender and RaceEthnicity values, then rerun from the top.")
 }
 
-#OccCats 
+#OccCats
 if(99 %in% c(ipeds_df$OccCategory1, ipeds_df$OccCategory2, ipeds_df$OccCategory4, ipeds_df$OccCategory5)){
-  svDialogs::dlg_message("Warning!  Some Occupational Category recoding has failed.  
+  svDialogs::dlg_message("Warning!  Some Occupational Category recoding has failed.
                          Please check your OccCategory3 values, then rerun from the top.")
 }
 
@@ -232,12 +232,12 @@ if(sum(!(ipeds_df$Months[ipeds_df$CurrentEmployee == 1] %in% c(8, 9, 10, 11, 12,
 
 
 ###
-### NOTE 
+### NOTE
 ### On the use of sorting (arrange) in each step below
 ###
 ### IPEDS require each part to be in order and specific sorting within each part
 ##  Putting the parts in order is done by appending one a time to output file
-##  Sorting within each part is done by arrange within the data preparation 
+##  Sorting within each part is done by arrange within the data preparation
 
 
 ## Part A1 --- Count of FT Instructional staff by tenure status, academic rank, and race/ethnicity/gender
@@ -259,20 +259,20 @@ if(sum(!(ipeds_df$Months[ipeds_df$CurrentEmployee == 1] %in% c(8, 9, 10, 11, 12,
 ##### TO DO ##### Figure out how to sum things for the last expand.grid addition (see IPEDS notes)
 
 #set up the grid of options
-combos_A1 <- expand.grid(Unitid = ipeds_unitid, 
-                         Tenure = c(1:7), 
+combos_A1 <- expand.grid(Unitid = ipeds_unitid,
+                         Tenure = c(1:7),
                          Rank = c(1:6),
                          REG = c(1:18),
                          Count = 0) %>%
       rbind(expand.grid(Unitid = ipeds_unitid,
                          Tenure = 6,
-                         Rank = 7, 
+                         Rank = 7,
                          REG = 1:18,
                          Count = 0))
 
 #produce the uploadable format
 partA1 <- ipeds_df %>%
-  
+
   filter(CurrentEmployee == 1,
          Instructional == 1,
          FtPt == 'F') %>%
@@ -281,19 +281,19 @@ partA1 <- ipeds_df %>%
          Rank,
          REG,
          Count) %>%
-  
+
   #add extra combinations
   rbind(combos_A1) %>%
-  
+
   #aggregate the full data
   group_by(Unitid, Tenure, Rank, REG) %>%
   summarize(Count = sum(Count)) %>% ungroup() %>%
-  
+
   #sort for easy viewing
   arrange(Tenure,
           Rank,
           REG) %>%
-  
+
   #format for upload
   mutate(UNITID = paste0("UNITID=", Unitid),
          SURVSECT = "SURVSECT=HR1",
@@ -301,23 +301,23 @@ partA1 <- ipeds_df %>%
          TENURE = paste0("TENURE=", Tenure),
          RANK = paste0("RANK=", Rank),
          RACEETHNICITYGENDER = paste0("RACEETHNICITYGENDER=", REG),
-         COUNT = paste0("COUNT=", Count)) %>% 
-  select(UNITID, 
-         SURVSECT, 
-         PART, 
-         TENURE, 
-         RANK, 
-         RACEETHNICITYGENDER, 
+         COUNT = paste0("COUNT=", Count)) %>%
+  select(UNITID,
+         SURVSECT,
+         PART,
+         TENURE,
+         RANK,
+         RACEETHNICITYGENDER,
          COUNT)
 
 
 #just this part
-write.table(x = partA1, sep=",", 
+write.table(x = partA1, sep=",",
             file= paste0(path, "HumanResources_PartA1.txt"),
             quote = FALSE, row.names = FALSE, col.names = FALSE)
 
 #the upload doc
-write.table(x = partA1, sep=",", 
+write.table(x = partA1, sep=",",
             file=paste0(path, "HumanResources_PartsAll.txt"),
             quote = FALSE, row.names = FALSE, col.names = FALSE)
 
@@ -329,7 +329,7 @@ write.table(x = partA1, sep=",",
 
 #include all possible combinations even if count = 0
 
-#want: 
+#want:
 # UNITID=nnnnnn,SURVSECT=HR1,PART=A2,TENURE=1,ISMEDICAL=0,INSTFUNCTION=1,COUNT=nnnnn
 # UNITID=nnnnnn,SURVSECT=HR1,PART=A2,TENURE=1,ISMEDICAL=0,INSTFUNCTION=2,COUNT=nnnnn
 # UNITID=nnnnnn,SURVSECT=HR1,PART=A2,TENURE=1,ISMEDICAL=1,INSTFUNCTION=1,COUNT=nnnnn
@@ -339,15 +339,15 @@ write.table(x = partA1, sep=",",
 
 
 #set up the grid of options
-combos_A2 <- expand.grid(Unitid = ipeds_unitid, 
-                         Tenure = c(1:7), 
+combos_A2 <- expand.grid(Unitid = ipeds_unitid,
+                         Tenure = c(1:7),
                          IsMedical = c(0:1),
                          InstFunction = c(1:3, 5),  #4 is generated by the system (subtotal of 1:3)
                          Count = 0)
 
 #produce the uploadable format
 partA2 <- ipeds_df %>%
-  
+
   filter(CurrentEmployee == 1,
          Instructional == 1, #instructional
          FtPt == 'F') %>%
@@ -356,20 +356,20 @@ partA2 <- ipeds_df %>%
          IsMedical,
          InstFunction,
          Count) %>%
-  
+
   #add extra combinations
   rbind(combos_A2) %>%
-  
+
   #aggregate the full data
   group_by(Unitid, Tenure, IsMedical, InstFunction) %>%
-  summarize(Count = sum(Count)) %>% 
+  summarize(Count = sum(Count)) %>%
   ungroup() %>%
-  
+
   #sort for easy viewing
   arrange(Tenure,
           IsMedical,
           InstFunction) %>%
-  
+
   #format for upload
   mutate(UNITID = paste0("UNITID=", Unitid),
          SURVSECT = "SURVSECT=HR1",
@@ -377,23 +377,23 @@ partA2 <- ipeds_df %>%
          TENURE = paste0("TENURE=", Tenure),
          ISMEDICAL = paste0("ISMEDICAL=", IsMedical),
          INSTFUNCTION = paste0("INSTFUNCTION=", InstFunction),
-         COUNT = paste0("COUNT=", Count)) %>% 
-  select(UNITID, 
-         SURVSECT, 
-         PART, 
-         TENURE, 
-         ISMEDICAL, 
-         INSTFUNCTION, 
+         COUNT = paste0("COUNT=", Count)) %>%
+  select(UNITID,
+         SURVSECT,
+         PART,
+         TENURE,
+         ISMEDICAL,
+         INSTFUNCTION,
          COUNT)
 
 
 #just this part
-write.table(x = partA2, sep=",", 
+write.table(x = partA2, sep=",",
             file= paste0(path, "HumanResources_PartA2.txt"),
             quote = FALSE, row.names = FALSE, col.names = FALSE)
 
 #the upload doc
-write.table(x = partA2, sep=",", 
+write.table(x = partA2, sep=",",
             file=paste0(path, "HumanResources_PartsAll.txt"),
             quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
 
@@ -414,8 +414,8 @@ write.table(x = partA2, sep=",",
 
 
 #set up the grid of options
-combos_B1 <- expand.grid(Unitid = ipeds_unitid, 
-                         OccCategory1 = c(1:17), 
+combos_B1 <- expand.grid(Unitid = ipeds_unitid,
+                         OccCategory1 = c(1:17),
                          REG = c(1:18),
                          Count = 0)
 
@@ -428,41 +428,41 @@ partB1 <- ipeds_df %>%
          OccCategory1,
          REG,
          Count) %>%
-  
+
   #add extra combinations
   rbind(combos_B1) %>%
-  
+
   #aggregate the full data
   group_by(Unitid, OccCategory1, REG) %>%
-  summarize(Count = sum(Count)) %>% 
+  summarize(Count = sum(Count)) %>%
   ungroup() %>%
-  
+
   #sort for easy viewing
   arrange(OccCategory1,
           REG) %>%
-  
+
   #format for upload
   mutate(UNITID = paste0("UNITID=", Unitid),
          SURVSECT = "SURVSECT=HR1",
          PART = "PART=B1",
          OCCCATEGORY1 = paste0("OCCCATEGORY1=", OccCategory1),
          RACEETHNICITYGENDER = paste0("RACEETHNICITYGENDER=", REG),
-         COUNT = paste0("COUNT=", Count)) %>% 
-  select(UNITID, 
-         SURVSECT, 
-         PART, 
+         COUNT = paste0("COUNT=", Count)) %>%
+  select(UNITID,
+         SURVSECT,
+         PART,
          OCCCATEGORY1,
          RACEETHNICITYGENDER,
          COUNT)
 
 
 #just this part
-write.table(x = partB1, sep=",", 
+write.table(x = partB1, sep=",",
             file= paste0(path, "HumanResources_PartB1.txt"),
             quote = FALSE, row.names = FALSE, col.names = FALSE)
 
 #the upload doc
-write.table(x = partB1, sep=",", 
+write.table(x = partB1, sep=",",
             file=paste0(path, "HumanResources_PartsAll.txt"),
             quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
 
@@ -477,7 +477,7 @@ write.table(x = partB1, sep=",",
 # UNITID=nnnnnn,SURVSECT=HR1,PART=B2,TENURE=2,ISMEDICAL=0,OCCCATEGORY1=2,COUNT=nnnnn
 
 #set up the grid of options
-combos_B2 <- expand.grid(Unitid = ipeds_unitid, 
+combos_B2 <- expand.grid(Unitid = ipeds_unitid,
                          Tenure = c(1:7),
                          IsMedical = c(0:1),
                          OccCategory1 = c(2:12),
@@ -485,7 +485,7 @@ combos_B2 <- expand.grid(Unitid = ipeds_unitid,
 
 #produce the uploadable format
 partB2 <- ipeds_df %>%
-  
+
   filter(CurrentEmployee == 1,
          Instructional == 0,
          FtPt == 'F',
@@ -495,20 +495,20 @@ partB2 <- ipeds_df %>%
          IsMedical,
          OccCategory1,
          Count) %>%
-  
+
   #add extra combinations
   rbind(combos_B2) %>%
-  
+
   #aggregate the full data
   group_by(Unitid, Tenure, IsMedical, OccCategory1) %>%
-  summarize(Count = sum(Count)) %>% 
+  summarize(Count = sum(Count)) %>%
   ungroup() %>%
-  
+
   #sort for easy viewing
   arrange(Tenure,
           IsMedical,
           OccCategory1) %>%
-  
+
   #format for upload
   mutate(UNITID = paste0("UNITID=", Unitid),
          SURVSECT = "SURVSECT=HR1",
@@ -516,10 +516,10 @@ partB2 <- ipeds_df %>%
          TENURE = paste0("TENURE=", Tenure),
          ISMEDICAL = paste0("ISMEDICAL=", IsMedical),
          OCCCATEGORY1 = paste0("OCCCATEGORY1=", OccCategory1),
-         COUNT = paste0("COUNT=", Count)) %>% 
-  select(UNITID, 
-         SURVSECT, 
-         PART, 
+         COUNT = paste0("COUNT=", Count)) %>%
+  select(UNITID,
+         SURVSECT,
+         PART,
          TENURE,
          ISMEDICAL,
          OCCCATEGORY1,
@@ -527,12 +527,12 @@ partB2 <- ipeds_df %>%
 
 
 #just this part
-write.table(x = partB2, sep=",", 
+write.table(x = partB2, sep=",",
             file= paste0(path, "HumanResources_PartB2.txt"),
             quote = FALSE, row.names = FALSE, col.names = FALSE)
 
 #the upload doc
-write.table(x = partB2, sep=",", 
+write.table(x = partB2, sep=",",
             file=paste0(path, "HumanResources_PartsAll.txt"),
             quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
 
@@ -554,7 +554,7 @@ combos_B3 <- expand.grid(Unitid = ipeds_unitid,
 
 #produce the uploadable format
 partB3 <- ipeds_df %>%
-  
+
   filter(CurrentEmployee == 1,
          Instructional == 0,
          FtPt == 'F',
@@ -563,41 +563,41 @@ partB3 <- ipeds_df %>%
          IsMedical,
          OccCategory1,
          Count) %>%
-  
+
   #add extra combinations
   rbind(combos_B3) %>%
-  
+
   #aggregate the full data
   group_by(Unitid, IsMedical, OccCategory1) %>%
-  summarize(Count = sum(Count)) %>% 
+  summarize(Count = sum(Count)) %>%
   ungroup() %>%
-  
+
   #sort for easy viewing
   arrange(IsMedical,
           OccCategory1) %>%
-  
+
   #format for upload
   mutate(UNITID = paste0("UNITID=", Unitid),
          SURVSECT = "SURVSECT=HR1",
          PART = "PART=B3",
          ISMEDICAL = paste0("ISMEDICAL=", IsMedical),
          OCCCATEGORY1 = paste0("OCCCATEGORY1=", OccCategory1),
-         COUNT = paste0("COUNT=", Count)) %>% 
-  select(UNITID, 
-         SURVSECT, 
-         PART, 
+         COUNT = paste0("COUNT=", Count)) %>%
+  select(UNITID,
+         SURVSECT,
+         PART,
          ISMEDICAL,
          OCCCATEGORY1,
          COUNT)
 
 
 #just this part
-write.table(x = partB3, sep=",", 
+write.table(x = partB3, sep=",",
             file= paste0(path, "HumanResources_PartB3.txt"),
             quote = FALSE, row.names = FALSE, col.names = FALSE)
 
 #the upload doc
-write.table(x = partB3, sep=",", 
+write.table(x = partB3, sep=",",
             file=paste0(path, "HumanResources_PartsAll.txt"),
             quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
 
@@ -621,7 +621,7 @@ combos_D1 <- expand.grid(Unitid = ipeds_unitid,
 
 #produce the uploadable format
 partD1 <- ipeds_df %>%
-  
+
   filter(CurrentEmployee == 1,
          FtPt == 'P',
          OccCategory1 %in% c(1:18)) %>%
@@ -629,41 +629,41 @@ partD1 <- ipeds_df %>%
          OccCategory1,
          REG,
          Count) %>%
-  
+
   #add extra combinations
   rbind(combos_D1) %>%
-  
+
   #aggregate the full data
   group_by(Unitid, OccCategory1, REG) %>%
-  summarize(Count = sum(Count)) %>% 
+  summarize(Count = sum(Count)) %>%
   ungroup() %>%
-  
+
   #sort for easy viewing
-  arrange(OccCategory1, 
+  arrange(OccCategory1,
           REG) %>%
-  
+
   #format for upload
   mutate(UNITID = paste0("UNITID=", Unitid),
          SURVSECT = "SURVSECT=HR1",
          PART = "PART=D1",
          OCCCATEGORY1 = paste0("OCCCATEGORY1=", OccCategory1),
          RACEETHNICITYGENDER = paste0("RACEETHNICITYGENDER=", REG),
-         COUNT = paste0("COUNT=", Count)) %>% 
-  select(UNITID, 
-         SURVSECT, 
-         PART, 
+         COUNT = paste0("COUNT=", Count)) %>%
+  select(UNITID,
+         SURVSECT,
+         PART,
          OCCCATEGORY1,
          RACEETHNICITYGENDER,
          COUNT)
 
 
 #just this part
-write.table(x = partD1, sep=",", 
+write.table(x = partD1, sep=",",
             file= paste0(path, "HumanResources_PartD1.txt"),
             quote = FALSE, row.names = FALSE, col.names = FALSE)
 
 #the upload doc
-write.table(x = partD1, sep=",", 
+write.table(x = partD1, sep=",",
             file=paste0(path, "HumanResources_PartsAll.txt"),
             quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
 
@@ -686,48 +686,48 @@ combos_D2 <- expand.grid(Unitid = ipeds_unitid,
 
 #produce the uploadable format
 partD2 <- ipeds_df %>%
-  
+
   filter(CurrentEmployee == 1,
          OccCategory4 %in% c(1:3)) %>%
   select(Unitid,
          OccCategory4,
          REG,
          Count) %>%
-  
+
   #add extra combinations
   rbind(combos_D2) %>%
-  
+
   #aggregate the full data
   group_by(Unitid, OccCategory4, REG) %>%
-  summarize(Count = sum(Count)) %>% 
+  summarize(Count = sum(Count)) %>%
   ungroup() %>%
-  
+
   #sort for easy viewing
-  arrange(OccCategory4, 
+  arrange(OccCategory4,
           REG) %>%
-  
+
   #format for upload
   mutate(UNITID = paste0("UNITID=", Unitid),
          SURVSECT = "SURVSECT=HR1",
          PART = "PART=D2",
          OCCCATEGORY4 = paste0("OCCCATEGORY4=", OccCategory4),
          RACEETHNICITYGENDER = paste0("RACEETHNICITYGENDER=", REG),
-         COUNT = paste0("COUNT=", Count)) %>% 
-  select(UNITID, 
-         SURVSECT, 
-         PART, 
+         COUNT = paste0("COUNT=", Count)) %>%
+  select(UNITID,
+         SURVSECT,
+         PART,
          OCCCATEGORY4,
          RACEETHNICITYGENDER,
          COUNT)
 
 
 #just this part
-write.table(x = partD2, sep=",", 
+write.table(x = partD2, sep=",",
             file= paste0(path, "HumanResources_PartD2.txt"),
             quote = FALSE, row.names = FALSE, col.names = FALSE)
 
 #the upload doc
-write.table(x = partD2, sep=",", 
+write.table(x = partD2, sep=",",
             file=paste0(path, "HumanResources_PartsAll.txt"),
             quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
 
@@ -752,7 +752,7 @@ combos_D3 <- expand.grid(Unitid = ipeds_unitid,
 
 #produce the uploadable format
 partD3 <- ipeds_df %>%
-  
+
   filter(CurrentEmployee == 1,
          FtPt == "P",
          OccCategory3 %in% c(1:15)) %>%
@@ -761,20 +761,20 @@ partD3 <- ipeds_df %>%
          IsMedical,
          OccCategory3,
          Count) %>%
-  
+
   #add extra combinations
   rbind(combos_D3) %>%
-  
+
   #aggregate the full data
   group_by(Unitid, Tenure, IsMedical, OccCategory3) %>%
-  summarize(Count = sum(Count)) %>% 
+  summarize(Count = sum(Count)) %>%
   ungroup() %>%
-  
+
   #sort for easy viewing
   arrange(Tenure,
           IsMedical,
           OccCategory3) %>%
-  
+
   #format for upload
   mutate(UNITID = paste0("UNITID=", Unitid),
          SURVSECT = "SURVSECT=HR1",
@@ -782,10 +782,10 @@ partD3 <- ipeds_df %>%
          TENURE = paste0("TENURE=", Tenure),
          ISMEDICAL = paste0("ISMEDICAL=", IsMedical),
          OCCCATEGORY3 = paste0("OCCCATEGORY3=", OccCategory3),
-         COUNT = paste0("COUNT=", Count)) %>% 
-  select(UNITID, 
-         SURVSECT, 
-         PART, 
+         COUNT = paste0("COUNT=", Count)) %>%
+  select(UNITID,
+         SURVSECT,
+         PART,
          TENURE,
          ISMEDICAL,
          OCCCATEGORY3,
@@ -793,12 +793,12 @@ partD3 <- ipeds_df %>%
 
 
 #just this part
-write.table(x = partD3, sep=",", 
+write.table(x = partD3, sep=",",
             file= paste0(path, "HumanResources_PartD3.txt"),
             quote = FALSE, row.names = FALSE, col.names = FALSE)
 
 #the upload doc
-write.table(x = partD3, sep=",", 
+write.table(x = partD3, sep=",",
             file=paste0(path, "HumanResources_PartsAll.txt"),
             quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
 
@@ -820,7 +820,7 @@ combos_D4 <- expand.grid(Unitid = ipeds_unitid,
 
 #produce the uploadable format
 partD4 <- ipeds_df %>%
-  
+
   filter(CurrentEmployee == 1,
          FtPt == "P",
          OccCategory3 %in% c(16:20, 22:24)) %>%
@@ -828,41 +828,41 @@ partD4 <- ipeds_df %>%
          IsMedical,
          OccCategory3,
          Count) %>%
-  
+
   #add extra combinations
   rbind(combos_D4) %>%
-  
+
   #aggregate the full data
   group_by(Unitid, IsMedical, OccCategory3) %>%
-  summarize(Count = sum(Count)) %>% 
+  summarize(Count = sum(Count)) %>%
   ungroup() %>%
-  
+
   #sort for easy viewing
   arrange(IsMedical,
           OccCategory3) %>%
-  
+
   #format for upload
   mutate(UNITID = paste0("UNITID=", Unitid),
          SURVSECT = "SURVSECT=HR1",
          PART = "PART=D4",
          ISMEDICAL = paste0("ISMEDICAL=", IsMedical),
          OCCCATEGORY3 = paste0("OCCCATEGORY3=", OccCategory3),
-         COUNT = paste0("COUNT=", Count)) %>% 
-  select(UNITID, 
-         SURVSECT, 
-         PART, 
+         COUNT = paste0("COUNT=", Count)) %>%
+  select(UNITID,
+         SURVSECT,
+         PART,
          ISMEDICAL,
          OCCCATEGORY3,
          COUNT)
 
 
 #just this part
-write.table(x = partD4, sep=",", 
+write.table(x = partD4, sep=",",
             file= paste0(path, "HumanResources_PartD4.txt"),
             quote = FALSE, row.names = FALSE, col.names = FALSE)
 
 #the upload doc
-write.table(x = partD4, sep=",", 
+write.table(x = partD4, sep=",",
             file=paste0(path, "HumanResources_PartsAll.txt"),
             quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
 
@@ -895,9 +895,9 @@ combos_G1 <- expand.grid(Unitid = ipeds_unitid,
 
 #produce the uploadable format
 partG1 <- ipeds_df %>%
-  
+
   filter(CurrentEmployee == 1,
-         Instructional == 1, #instructional 
+         Instructional == 1, #instructional
          FtPt == "F") %>%  #not listed in uploadable instructions -- verify?
   select(Unitid,
          Rank,
@@ -906,13 +906,13 @@ partG1 <- ipeds_df %>%
          Salary,
          EmpId,
          Count) %>%
-  
+
   #add extra combinations
   rbind(combos_G1) %>%
-  
+
   #reset rank 7 as rank 6
   mutate(Rank = ifelse(Rank == 7, 6, Rank)) %>%
-  
+
   #reshape months and salary
   mutate(months_count = recode(Months,
                                `12` = '12mCount',
@@ -929,7 +929,7 @@ partG1 <- ipeds_df %>%
                              .default = 'ZzSoutlays')) %>%
   spread(key = months_count, value = Count) %>%
   spread(key = salary_sum, value = Salary) %>%
-  
+
   #aggregate the full data
   group_by(Unitid, Rank, Gender) %>%
   summarize(`12mCount` = sum(`12mCount`, na.rm = T),
@@ -945,11 +945,11 @@ partG1 <- ipeds_df %>%
             `ZzSoutlays` = sum(`ZzSoutlays`, na.rm = T) #this will have values for the LessThan9 folks
   ) %>%
   ungroup() %>%
-  
+
   #sort for easy viewing
   arrange(Rank,
           Gender) %>%
-  
+
   #format for upload
   mutate(UNITID = paste0("UNITID=", Unitid),
          SURVSECT = "SURVSECT=HR1",
@@ -967,9 +967,9 @@ partG1 <- ipeds_df %>%
          `10mSoutlays` = paste0("10MSOUTLAYS=", `10mSoutlays`),
          `9mSoutlays` = paste0("9MSOUTLAYS=", `9mSoutlays`),
          `ZzSoutlays` = paste0("ZzSoutlays=", ZzSoutlays)) %>% #here for dubugging purposes
-  select(UNITID, 
-         SURVSECT, 
-         PART, 
+  select(UNITID,
+         SURVSECT,
+         PART,
          RANK,
          GENDER,
          `12mCount`,
@@ -987,12 +987,12 @@ partG1 <- ipeds_df %>%
 
 
 #just this part
-write.table(x = partG1, sep=",", 
+write.table(x = partG1, sep=",",
             file= paste0(path, "HumanResources_PartG1.txt"),
             quote = FALSE, row.names = FALSE, col.names = FALSE)
 
 #the upload doc
-write.table(x = partG1, sep=",", 
+write.table(x = partG1, sep=",",
             file=paste0(path, "HumanResources_PartsAll.txt"),
             quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
 
@@ -1018,7 +1018,7 @@ combos_G2 <- expand.grid(Unitid = ipeds_unitid,
 
 #produce the uploadable format
 partG2 <- ipeds_df %>%
-  
+
   filter(CurrentEmployee == 1,
          Instructional == 0, #non-instructional
          FtPt == "F") %>%  #not listed in uploadable instructions -- verify?
@@ -1027,38 +1027,38 @@ partG2 <- ipeds_df %>%
          Salary,
          EmpId,
          Count) %>%
-  
+
   #add extra combinations
   rbind(combos_G2) %>%
-  
+
   #aggregate the full data
   group_by(Unitid, OccCategory2) %>%
   summarize(Salary = sum(Salary)) %>%
   ungroup() %>%
-  
+
   #sort for easy viewing
   arrange(OccCategory2) %>%
-  
+
   #format for upload
   mutate(UNITID = paste0("UNITID=", Unitid),
          SURVSECT = "SURVSECT=HR1",
          PART = "PART=G2",
          OCCCATEGORY2 = paste0("OCCCATEGORY2=", OccCategory2),
-         SOUTLAYS = paste0("SOUTLAYS=", Salary)) %>% 
-  select(UNITID, 
-         SURVSECT, 
+         SOUTLAYS = paste0("SOUTLAYS=", Salary)) %>%
+  select(UNITID,
+         SURVSECT,
          PART,
          OCCCATEGORY2,
          SOUTLAYS)
 
 
 #just this part
-write.table(x = partG2, sep=",", 
+write.table(x = partG2, sep=",",
             file= paste0(path, "HumanResources_PartG2.txt"),
             quote = FALSE, row.names = FALSE, col.names = FALSE)
 
 #the upload doc
-write.table(x = partG2, sep=",", 
+write.table(x = partG2, sep=",",
             file=paste0(path, "HumanResources_PartsAll.txt"),
             quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
 
@@ -1074,55 +1074,55 @@ write.table(x = partG2, sep=",",
 
 
 #set up the grid of options
-combos_H1 <- expand.grid(Unitid = ipeds_unitid, 
+combos_H1 <- expand.grid(Unitid = ipeds_unitid,
                          Tenure = c(1:7),
                          REG = c(1:18),
                          Count = 0)
 
 #produce the uploadable format
 partH1 <- ipeds_df %>%
-  
-  filter(Instructional == 1, 
+
+  filter(Instructional == 1,
          NewHire == 1,
          FtPt == 'F') %>%
   select(Unitid,
          Tenure,
          REG,
          Count) %>%
-  
+
   #add extra combinations
   rbind(combos_H1) %>%
-  
+
   #aggregate the full data
   group_by(Unitid, Tenure, REG) %>%
   summarize(Count = sum(Count)) %>% ungroup() %>%
-  
+
   #sort for easy viewing
   arrange(Tenure,
           REG) %>%
-  
+
   #format for upload
   mutate(UNITID = paste0("UNITID=", Unitid),
          SURVSECT = "SURVSECT=HR1",
          PART = "PART=H1",
          TENURE = paste0("TENURE=", Tenure),
          RACEETHNICITYGENDER = paste0("RACEETHNICITYGENDER=", REG),
-         COUNT = paste0("COUNT=", Count)) %>% 
-  select(UNITID, 
-         SURVSECT, 
-         PART, 
-         TENURE, 
-         RACEETHNICITYGENDER, 
+         COUNT = paste0("COUNT=", Count)) %>%
+  select(UNITID,
+         SURVSECT,
+         PART,
+         TENURE,
+         RACEETHNICITYGENDER,
          COUNT)
 
 
 #just this part
-write.table(x = partH1, sep=",", 
+write.table(x = partH1, sep=",",
             file= paste0(path, "HumanResources_PartH1.txt"),
             quote = FALSE, row.names = FALSE, col.names = FALSE)
 
 #the upload doc
-write.table(x = partH1, sep=",", 
+write.table(x = partH1, sep=",",
             file=paste0(path, "HumanResources_PartsAll.txt"),
             quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
 
@@ -1141,14 +1141,14 @@ write.table(x = partH1, sep=",",
 
 
 #set up the grid of options
-combos_H2 <- expand.grid(Unitid = ipeds_unitid, 
+combos_H2 <- expand.grid(Unitid = ipeds_unitid,
                          OccCategory5 = c(2:14),
                          REG = c(1:18),
                          Count = 0)
 
 #produce the uploadable format
 partH2 <- ipeds_df %>%
-  
+
   filter(NewHire == 1,
          FtPt == 'F',
          OccCategory5 %in% c(2:14)) %>%
@@ -1156,40 +1156,40 @@ partH2 <- ipeds_df %>%
          OccCategory5,
          REG,
          Count) %>%
-  
+
   #add extra combinations
   rbind(combos_H2) %>%
-  
+
   #aggregate the full data
   group_by(Unitid, OccCategory5, REG) %>%
   summarize(Count = sum(Count)) %>% ungroup() %>%
-  
+
   #sort for easy viewing
   arrange(OccCategory5,
           REG) %>%
-  
+
   #format for upload
   mutate(UNITID = paste0("UNITID=", Unitid),
          SURVSECT = "SURVSECT=HR1",
          PART = "PART=H2",
          OCCCATEGORY5 = paste0("OCCCATEGORY5=", OccCategory5),
          RACEETHNICITYGENDER = paste0("RACEETHNICITYGENDER=", REG),
-         COUNT = paste0("COUNT=", Count)) %>% 
-  select(UNITID, 
-         SURVSECT, 
+         COUNT = paste0("COUNT=", Count)) %>%
+  select(UNITID,
+         SURVSECT,
          PART,
          OCCCATEGORY5,
-         RACEETHNICITYGENDER, 
+         RACEETHNICITYGENDER,
          COUNT)
 
 
 #just this part
-write.table(x = partH2, sep=",", 
+write.table(x = partH2, sep=",",
             file= paste0(path, "HumanResources_PartH2.txt"),
             quote = FALSE, row.names = FALSE, col.names = FALSE)
 
 #the upload doc
-write.table(x = partH2, sep=",", 
+write.table(x = partH2, sep=",",
             file=paste0(path, "HumanResources_PartsAll.txt"),
             quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
 
