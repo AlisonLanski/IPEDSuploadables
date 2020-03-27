@@ -3,16 +3,14 @@
 ## Producing a key-value text file
 ####
 
-#########################################################
-###
-## Set up variables and prep CIPs to correct format
-
 ## CATCH FOR IF PACKAGE IS INSTALLED
-#load package -----
+## Load packages -----
 library(tidyverse)
 ## INCLUDE DT FOR MAKING PRETTY OUTPUT GUI
 
 ## Function definitions -----
+
+## Set path for output files
 set_report_path <- function() {
   
   #set an output path:
@@ -26,10 +24,7 @@ set_report_path <- function() {
   return(path)
 }
 
-#if testing: run dummy data file
-#source(paste0(path, "CompletionsStartingDf_DummyData.R"))
-
-#prep datafiles: CIP codes to 6-digit correctly
+## prep datafiles: CIP codes to 6-digit correctly
 ## CAN ALSO BE USED FOR PREPPING EXTRA CIPS
 prep_com_data_files <- function(df) {
   
@@ -58,12 +53,7 @@ prep_com_data_files <- function(df) {
   return(df)
 }
 
-#####################################################################
-####
-##    Produce upload files
-
 ## Part A --- Count of completers by major number, cip, level, race, and sex
-
 make_com_part_A <- function(df, extracips = NULL) {
   
   #produce the uploadable format
@@ -107,10 +97,7 @@ make_com_part_A <- function(df, extracips = NULL) {
               quote = FALSE, row.names = FALSE, col.names = FALSE)
 }
 
-#########################
-
 ## Part B -- unduplicated list of offerings by major, cip, level, and distanceed status
-
 make_com_part_B <- function(df, extracips = NULL) {
    
   #prep extra cip codes
@@ -150,11 +137,7 @@ make_com_part_B <- function(df, extracips = NULL) {
               quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
 }
 
-#########################
-
 ## Part C -- counts of unduplicated students who are completers by race/ethnicity
-#this is counting STUDENTS, not degrees --  requires deduplication
-
 make_com_part_C <- function(df) {
 
   partC <- df %>%
@@ -186,13 +169,7 @@ make_com_part_C <- function(df) {
               quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
 }
 
-#########################
-
 ## Part D --- count of unique completers at each award level by race/sex/age categories
-
-#want:
-#UNITID=nnnnnn,SURVSECT=COM,PART=D,CTLEVEL=3,CRACE15=nnnnn,CRACE16=nnnnn,CRACE41=nnnnn...
-
 make_com_part_D <- function(df) {
 
   #check extracips list for award levels not included in the startingdf
@@ -346,6 +323,7 @@ make_com_part_D <- function(df) {
               quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
 }
 
+## Master function that calls all other parts
 make_completions <- function(df, extracips = NULL) {
   
   make_com_part_A(df = df, extracips = extracips)
@@ -377,9 +355,7 @@ make_com_part_D(df = df)
 ## or just make it in one line if you so please
 make_completions(df = df, extracips = extracips)
 
-
-############
-## Warnings from recoding failures
+## Warnings from recoding failures -----
 
 #Award Level
 if(("CTLEVEL=9" %in% partD$CTLEVEL) != 0) {
@@ -405,8 +381,5 @@ if(("AGE9" %in% colnames(partD)) != 0){
                          Please check your data and rerun from the top.")
 }
 
-
-#################
-## Status message: finished
-
+## Status message: finished -----
 svDialogs::dlg_message(paste0("Completions file available. Please see results at ", path))
