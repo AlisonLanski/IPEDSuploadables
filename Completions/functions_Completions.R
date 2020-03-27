@@ -368,10 +368,14 @@ dummy_studentid <- svDialogs::dlgInput("Provide a value that can be used as a du
 
 df <- prep_com_data_files(df = startingdf)
 extracips <- prep_com_data_files(df = extracips)
+## make all the files individually
 make_com_part_A(df = df, extracips = extracips)
 make_com_part_B(df = df, extracips = extracips)
 make_com_part_C(df = df)
 make_com_part_D(df = df)
+
+## or just make it in one line if you so please
+make_completions(df = df, extracips = extracips)
 
 
 ############
