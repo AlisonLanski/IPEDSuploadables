@@ -186,9 +186,6 @@ make_com_part_C <- function(df) {
               quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
 }
 
-
-
-
 #########################
 
 ## Part D --- count of unique completers at each award level by race/sex/age categories
@@ -349,6 +346,14 @@ make_com_part_D <- function(df) {
               quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
 }
 
+make_completions <- function(df, extracips = NULL) {
+  
+  make_com_part_A(df = df, extracips = extracips)
+  make_com_part_B(df = df, extracips = extracips)
+  make_com_part_C(df = df)
+  make_com_part_D(df = df)
+}
+
 ## Function calls -----
 ## set paths
 path <- set_report_path()
@@ -364,6 +369,9 @@ dummy_studentid <- svDialogs::dlgInput("Provide a value that can be used as a du
 df <- prep_com_data_files(df = startingdf)
 extracips <- prep_com_data_files(df = extracips)
 make_com_part_A(df = df, extracips = extracips)
+make_com_part_B(df = df, extracips = extracips)
+make_com_part_C(df = df)
+make_com_part_D(df = df)
 
 
 ############
