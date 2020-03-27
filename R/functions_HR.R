@@ -605,7 +605,7 @@ make_hr_part_G1 <- function(df) {
                            Gender = c(1:2),
                            Months = c(8:12),
                            Salary = 0,
-                           EmpId = dummy_id,
+                           EmpId = 'dummy_id',
                            Count = 0)
 
   #produce the uploadable format
@@ -687,7 +687,7 @@ make_hr_part_G2 <- function(df) {
   combos_G2 <- expand.grid(Unitid = ipeds_unitid,
                            OccCategory2 = c(1:13),
                            Salary = 0,
-                           EmpId = dummy_id,
+                           EmpId = 'dummy_id',
                            Count = 0)
 
   #produce the uploadable format

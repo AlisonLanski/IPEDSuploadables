@@ -26,8 +26,8 @@ if(!str_detect(path, pattern = "/$")) {
 ipeds_unitid  <- as.numeric(svDialogs::dlgInput("What is your school's IPEDS Unitid?",)$res)
 
 
-#set a dummy employeeID  (for later)
-dummy_id <- svDialogs::dlgInput("Provide a value that can be used as a dummy-employee ID")$res
+#set a dummy employeeID  (for later); not needed: preset to a string in the functions
+#dummy_id <- svDialogs::dlgInput("Provide a value that can be used as a dummy-employee ID")$res
 
 
 
