@@ -1,4 +1,4 @@
-#### 
+####
 ## Completions Uploadable Functions
 ## Producing a key-value text file
 ####
@@ -12,25 +12,25 @@ library(tidyverse)
 
 ## Set path for output files
 set_report_path <- function() {
-  
+
   #set an output path:
-  path <- svDialogs::dlg_dir(default = getwd(), title = "Select the file output location")$res 
+  path <- svDialogs::dlg_dir(default = getwd(), title = "Select the file output location")$res
 
   #make sure the final / is in the path (before the filename)
   if(!str_detect(path, pattern = "/$")) {
     path <- paste0(path, "/")
   }
-  
+
   return(path)
 }
 
 ## prep datafiles: CIP codes to 6-digit correctly
 ## CAN ALSO BE USED FOR PREPPING EXTRA CIPS
 prep_com_data_files <- function(df) {
-  
+
   df <- df %>%
-        separate(col = MajorCip, 
-	                into = c("Two", "Four"), 
+        separate(col = MajorCip,
+	                into = c("Two", "Four"),
 	                sep = "\\."
                  ) %>%
         mutate(Two = case_when(
@@ -45,34 +45,37 @@ prep_com_data_files <- function(df) {
                       ),
                MajorCip = paste0(Two, '.', Four)
                ) %>%
-        select(-Two, -Four)
-  
-  ## Mutate to make student ID character string
-  ## Add a dummy student ID that is a phrase
+        select(-Two, -Four) %>%
+    mutate(Unitid = as.character(Unitid))
+
+  if('StudentId' %in% colnames(df)) {
+    df <- df %>%
+      mutate(StudentId = as.character(StudentId))
+  }
 
   return(df)
 }
 
 ## Part A --- Count of completers by major number, cip, level, race, and sex
 make_com_part_A <- function(df, extracips = NULL) {
-  
+
   #produce the uploadable format
   partA <- df %>%
            #aggregate the full data
            group_by(Unitid, MajorNumber, MajorCip, DegreeLevel, RaceEthnicity, Sex) %>%
-           summarize(Count = n()) %>% 
-           ungroup() 
-  
+           summarize(Count = n()) %>%
+           ungroup()
+
   #prep the extra cips
   if (!is.null(extracips)) {
     #add extra cips
-    partA <- extracips %>% 
+    partA <- extracips %>%
                 select(Unitid, MajorNumber, MajorCip, DegreeLevel, RaceEthnicity, Sex, Count) %>%
                 bind_rows(partA)
-  } 
-  
-  #carry on 
-  partA <- partA %>% 
+  }
+
+  #carry on
+  partA <- partA %>%
            #sort for easy viewing
            arrange(MajorNumber, MajorCip, DegreeLevel, RaceEthnicity, Sex) %>%
            #format for upload
@@ -85,27 +88,27 @@ make_com_part_A <- function(df, extracips = NULL) {
                      RACE = paste0("RACE=", RaceEthnicity),
                      SEX = paste0("SEX=", Sex),
                      COUNT = paste0("COUNT=", Count))
-         
+
   #just this part
-  write.table(x = partA, sep = ",", 
+  write.table(x = partA, sep = ",",
               file = paste0(path, "Completions_PartA_", Sys.Date(), ".txt"),
               quote = FALSE, row.names = FALSE, col.names = FALSE)
-  
+
   #the upload doc
-  write.table(x = partA, sep = ",", 
+  write.table(x = partA, sep = ",",
               file = paste0(path, "Completions_PartsAll_", Sys.Date(), ".txt"),
               quote = FALSE, row.names = FALSE, col.names = FALSE)
 }
 
 ## Part B -- unduplicated list of offerings by major, cip, level, and distanceed status
 make_com_part_B <- function(df, extracips = NULL) {
-   
+
   #prep extra cip codes
   if (!is.null(extracips)) {
-    extracips_B <- extracips %>% 
+    extracips_B <- extracips %>%
                    select(Unitid, MajorNumber, MajorCip, DegreeLevel, DistanceEd)
   } else {
-    extracips_B <- data.frame("Unitid" = NA, "MajorNumber" = NA, "MajorCip" = NA, 
+    extracips_B <- data.frame("Unitid" = NA, "MajorNumber" = NA, "MajorCip" = NA,
                               "DegreeLevel" = NA, "DistanceEd" = NA)
   }
 
@@ -115,7 +118,7 @@ make_com_part_B <- function(df, extracips = NULL) {
            unique() %>%
            #if we need to add the extra cips, do it here
            bind_rows(extracips_B) %>%
-           #sort for easy viewing 
+           #sort for easy viewing
            arrange(MajorNumber, MajorCip, DegreeLevel, DistanceEd) %>%
            #format for upload
            transmute(UNITID = paste0("UNITID=", Unitid),
@@ -125,14 +128,14 @@ make_com_part_B <- function(df, extracips = NULL) {
                 	   CIPCODE = paste0("CIPCODE=", MajorCip),
    	                 AWLEVEL = paste0("AWLEVEL=", DegreeLevel),
                      DistanceED = paste0("DistanceED=", DistanceEd))
-  
+
   #just this part
-  write.table(x = partB, sep = ",", 
+  write.table(x = partB, sep = ",",
               file = paste0(path, "Completions_PartB_", Sys.Date(), ".txt"),
               quote = FALSE, row.names = FALSE, col.names = FALSE)
-  
+
   #append to the upload doc
-  write.table(x = partB, sep = ",", 
+  write.table(x = partB, sep = ",",
               file = paste0(path, "Completions_PartsAll_", Sys.Date(), ".txt"),
               quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
 }
@@ -159,12 +162,12 @@ make_com_part_C <- function(df) {
                      COUNT = paste0("COUNT=", Count))
 
   #just this part
-  write.table(x = partC, sep = ",", 
+  write.table(x = partC, sep = ",",
               file = paste0(path, "Completions_PartC_", Sys.Date(), ".txt"),
               quote = FALSE, row.names = FALSE, col.names = FALSE)
-  
+
   #append to the upload doc
-  write.table(x = partC, sep = ",", 
+  write.table(x = partC, sep = ",",
               file = paste0(path, "Completions_PartsAll_", Sys.Date(), ".txt"),
               quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
 }
@@ -173,14 +176,14 @@ make_com_part_C <- function(df) {
 make_com_part_D <- function(df) {
 
   #check extracips list for award levels not included in the startingdf
-  extralevel_D <- extracips %>% 
-                select(Unitid, DegreeLevel) %>% 
+  extralevel_D <- extracips %>%
+                select(Unitid, DegreeLevel) %>%
                 unique() %>%
-                filter(!(DegreeLevel %in% startingdf$DegreeLevel)) %>%
+                filter(!(DegreeLevel %in% df$DegreeLevel)) %>%
                 #add dummy data to any award levels found
-                mutate(StudentId = dummy_studentid,
-                       RaceEthnicity = 1, 
-                       Sex = 1, 
+                mutate(StudentId = 'dummy_studentid',
+                       RaceEthnicity = 1,
+                       Sex = 1,
                        Birthdate = lubridate::ymd("1900-01-01"),
                        CountRE = 0,
                        CountSex = 0,
@@ -188,24 +191,25 @@ make_com_part_D <- function(df) {
                        ) %>%
                 #reorder for rbind
                 select(Unitid, StudentId, everything())
-  
-  #set up an df with 0-rows to ensure we get all 
+
+  #set up an df with 0-rows to ensure we get all
   #race/ethnicity, sex, and age categories in the final output
-  dummy_demographics <- data.frame(Unitid = ipeds_unitid, 
-                                   StudentId = dummy_studentid, 
-                                   DegreeLevel = max(startingdf$DegreeLevel), 
+  dummy_demographics <- data.frame(Unitid = ipeds_unitid,
+                                   StudentId = 'dummy_studentid',
+                                   DegreeLevel = max(df$DegreeLevel),
                                    RaceEthnicity = c(1:9),
-                                   Sex = c(1, 1, 1, 1, 1, 2, 2, 2, 2), 
+                                   Sex = c(1, 1, 1, 1, 1, 2, 2, 2, 2),
                                    Age = c(15, 20, 25, 30, 35, 40, 45, 50, NA),
                                    CountRE = 0,
-                                   CountSex = 0, 
-                                   CountAge = 0)
-    
+                                   CountSex = 0,
+                                   CountAge = 0,
+                                   stringsAsFactors = FALSE)
+
   partD <- df %>%
            select(Unitid, StudentId, DegreeLevel, RaceEthnicity, Sex, Age) %>%
            #add values which will be summed later
-           mutate(CountRE = 1, 
-                  CountSex = 1, 
+           mutate(CountRE = 1,
+                  CountSex = 1,
                   CountAge = 1
                   ) %>%
            #add any extra award levels
@@ -261,7 +265,7 @@ make_com_part_D <- function(df) {
                               )
                   ) %>%
            spread(key = AgeGroup, value = CountAge) %>%
-           #aggregate and add counts in spread columns; 
+           #aggregate and add counts in spread columns;
            #extra award levels and dummy demographics have values of 0
            group_by(Unitid, CTLEVEL) %>%
            summarize(CRACE15 = sum(CRACE15, na.rm = T),
@@ -280,7 +284,7 @@ make_com_part_D <- function(df) {
                      AGE3 = sum(AGE3, na.rm = T),
                      AGE4 = sum(AGE4, na.rm = T),
                      AGE5 = sum(AGE5, na.rm = T)
-	              ) %>%  
+	              ) %>%
            ungroup() %>%
            #sort for easier viewing
            arrange(CTLEVEL) %>%
@@ -300,86 +304,67 @@ make_com_part_D <- function(df) {
                   CRACE46 = paste0("CRACE46=", CRACE46),
                   CRACE47 = paste0("CRACE47=", CRACE47),
                   CRACE23 = paste0("CRACE23=", CRACE23),
-                  AGE1 = paste0("AGE1=", AGE1),   
+                  AGE1 = paste0("AGE1=", AGE1),
                   AGE2 = paste0("AGE2=", AGE2),
                   AGE3 = paste0("AGE3=", AGE3),
                   AGE4 = paste0("AGE4=", AGE4),
                   AGE5 = paste0("AGE5=", AGE5)
-           ) %>% 
+           ) %>%
            select(UNITID, SURVSECT, PART, CTLEVEL,
-                  CRACE15, CRACE16, CRACE17, CRACE41, 
-                  CRACE42, CRACE43, CRACE44, CRACE45, 
-                  CRACE46, CRACE47, CRACE23, AGE1, 
+                  CRACE15, CRACE16, CRACE17, CRACE41,
+                  CRACE42, CRACE43, CRACE44, CRACE45,
+                  CRACE46, CRACE47, CRACE23, AGE1,
                   AGE2, AGE3, AGE4, AGE5)
-  
+
   #just this part
-  write.table(x = partD, sep = ",", 
+  write.table(x = partD, sep = ",",
               file = paste0(path, "Completions_PartD_", Sys.Date(), ".txt"),
               quote = FALSE, row.names = FALSE, col.names = FALSE)
-  
+
   #append to the upload doc
-  write.table(x = partD, sep = ",", 
+  write.table(x = partD, sep = ",",
               file = paste0(path, "Completions_PartsAll_", Sys.Date(), ".txt"),
               quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
+
+  #Error messages that would stem from recoding errors
+
+  #Award Level
+  if(("CTLEVEL=9" %in% partD$CTLEVEL) != 0) {
+    svDialogs::dlg_message("Warning! Your Part D results contain unknown values for degree level.
+                         Please check your data and rerun from the top.")
+  }
+
+  #RaceEthnicity
+  if(("ZRACEETH" %in% colnames(partD)) != 0){
+    svDialogs::dlg_message("Warning!  Your results contain unknown values for race/ethnicity.
+                         Please check your data and rerun from the top.")
+  }
+
+  #Sex
+  if(("ZRACESEX" %in% colnames(partD)) != 0){
+    svDialogs::dlg_message("Warning!  Your results contain unknown values for sex.
+                         Please check your data and rerun from the top.")
+  }
+
+  #Age
+  if(("AGE9" %in% colnames(partD)) != 0){
+    svDialogs::dlg_message("Warning!  Your results contain unknown values for age.
+                         Please check your data and rerun from the top.")
+  }
+
+
 }
 
 ## Master function that calls all other parts
 make_completions <- function(df, extracips = NULL) {
-  
+
   make_com_part_A(df = df, extracips = extracips)
   make_com_part_B(df = df, extracips = extracips)
   make_com_part_C(df = df)
   make_com_part_D(df = df)
 }
 
-## Function calls -----
-## set paths
-path <- set_report_path()
 
-#set the school's unitid (for later)
-## PULL OUT
-ipeds_unitid  <- svDialogs::dlgInput("What is your school's IPEDS Unitid?")$res
-
-#set a dummy studentID (for later)
-## PRE-SET???
-dummy_studentid <- svDialogs::dlgInput("Provide a value that can be used as a dummy-student ID")$res
-
-df <- prep_com_data_files(df = startingdf)
-extracips <- prep_com_data_files(df = extracips)
-## make all the files individually
-make_com_part_A(df = df, extracips = extracips)
-make_com_part_B(df = df, extracips = extracips)
-make_com_part_C(df = df)
-make_com_part_D(df = df)
-
-## or just make it in one line if you so please
-make_completions(df = df, extracips = extracips)
-
-## Warnings from recoding failures -----
-
-#Award Level
-if(("CTLEVEL=9" %in% partD$CTLEVEL) != 0) {
-  svDialogs::dlg_message("Warning! Your Part D results contain unknown values for degree level. 
-                         Please check your data and rerun from the top.")
-}
-
-#RaceEthnicity 
-if(("ZRACEETH" %in% colnames(partD)) != 0){
-  svDialogs::dlg_message("Warning!  Your results contain unknown values for race/ethnicity. 
-                         Please check your data and rerun from the top.")
-}
-
-#Sex
-if(("ZRACESEX" %in% colnames(partD)) != 0){
-  svDialogs::dlg_message("Warning!  Your results contain unknown values for sex. 
-                         Please check your data and rerun from the top.")
-}
-
-#Age
-if(("AGE9" %in% colnames(partD)) != 0){
-  svDialogs::dlg_message("Warning!  Your results contain unknown values for age. 
-                         Please check your data and rerun from the top.")
-}
 
 ## Status message: finished -----
-svDialogs::dlg_message(paste0("Completions file available. Please see results at ", path))
+#svDialogs::dlg_message(paste0("Completions file available. Please see results at ", path))
