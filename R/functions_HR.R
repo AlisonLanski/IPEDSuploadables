@@ -666,8 +666,9 @@ make_hr_part_G1 <- function(df) {
                       `12mSoutlays` = paste0("12MSOUTLAYS=", `12mSoutlays`),
                       `11mSoutlays` = paste0("11MSOUTLAYS=", `11mSoutlays`),
                       `10mSoutlays` = paste0("10MSOUTLAYS=", `10mSoutlays`),
-                      `9mSoutlays` = paste0("9MSOUTLAYS=", `9mSoutlays`),
-                      `ZzSoutlays` = paste0("ZzSoutlays=", ZzSoutlays))
+                      `9mSoutlays` = paste0("9MSOUTLAYS=", `9mSoutlays`)#,
+                      #`ZzSoutlays` = paste0("ZzSoutlays=", ZzSoutlays)
+                      )
 
   #just this part
   write.table(x = partG1, sep = ",",
