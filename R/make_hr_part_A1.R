@@ -9,6 +9,7 @@
 #' @return a txt file
 #' @export
 #' @importFrom dplyr bind_rows filter select group_by ungroup arrange transmute
+#' @importFrom rlang .data
 #'
 #'
 make_hr_part_A1 <- function(df, output = "part") {
@@ -30,57 +31,40 @@ make_hr_part_A1 <- function(df, output = "part") {
 
   #produce the uploadable format
   partA1 <- df %>%
-            dplyr::filter(df$CurrentEmployee == 1,
-                   df$Instructional == 1,
-                   df$FtPt == 'F') %>%
-            dplyr::select(df$Unitid,
-                          df$Tenure,
-                          df$Rank,
-                          df$REG,
-                          df$Count) %>%
+            dplyr::filter(.data$CurrentEmployee == 1,
+                          .data$Instructional == 1,
+                          .data$FtPt == 'F') %>%
+            dplyr::select(.data$Unitid,
+                          .data$Tenure,
+                          .data$Rank,
+                          .data$REG,
+                          .data$Count) %>%
             #add extra combinations
             dplyr::bind_rows(combos_A1) %>%
             #aggregate the full data
-            dplyr::group_by(df$Unitid,
-                            df$Tenure,
-                            df$Rank,
-                            df$REG) %>%
-            dplyr::summarize(Count = sum(df$Count)) %>%
+            dplyr::group_by(.data$Unitid,
+                            .data$Tenure,
+                            .data$Rank,
+                            .data$REG) %>%
+            dplyr::summarize(Count = sum(.data$Count)) %>%
             dplyr::ungroup() %>%
             #sort for easy viewing
-            dplyr::arrange(df$Tenure, df$Rank, df$REG) %>%
+            dplyr::arrange(.data$Tenure, .data$Rank, .data$REG) %>%
             #format for upload
-            dplyr::transmute(UNITID = paste0("UNITID=", df$Unitid),
+            dplyr::transmute(UNITID = paste0("UNITID=", .data$Unitid),
                       SURVSECT = "SURVSECT=HR1",
                       PART = "PART=A1",
-                      TENURE = paste0("TENURE=", df$Tenure),
-                      RANK = paste0("RANK=", df$Rank),
-                      RACEETHNICITYGENDER = paste0("RACEETHNICITYGENDER=", df$REG),
-                      COUNT = paste0("COUNT=", df$Count))
+                      TENURE = paste0("TENURE=", .data$Tenure),
+                      RANK = paste0("RANK=", .data$Rank),
+                      RACEETHNICITYGENDER = paste0("RACEETHNICITYGENDER=", .data$REG),
+                      COUNT = paste0("COUNT=", .data$Count))
 
       write_report(df = partA1,
                    component = 'HumanResources',
                    part = "PartA1",
+                   path = path,
                    output = output,
                    append = FALSE)
-
-
-
-  write_report <- function(df, component, part, output, append) {
-
-    if(tolower(output) == 'part' | output == 'both') {
-        write.table(x = df, sep = ",",
-                file = paste0(path, component, "_", part, "_", Sys.Date(), ".txt"),
-                quote = FALSE, row.names = FALSE, col.names = FALSE)
-    }
-    if(tolower(output) == 'full' | output == 'both'){
-      write.table(x = df, sep = ",",
-                  file = paste0(path, component, "_AllParts_", Sys.Date(), ".txt"),
-                  quote = FALSE, row.names = FALSE, col.names = FALSE, append = append)
-    }
-  }
-
-
 
 
 
