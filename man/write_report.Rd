@@ -4,7 +4,7 @@
 \alias{write_report}
 \title{Write the prepared data to a txt file in IPEDS format}
 \usage{
-write_report(df, component, part, path, output, append)
+write_report(df, component, part, output, append = FALSE)
 }
 \arguments{
 \item{df}{a dataframe (prepared via the 'make' scripts)}
@@ -12,8 +12,6 @@ write_report(df, component, part, path, output, append)
 \item{component}{a string (which IPEDS survey)}
 
 \item{part}{a string (which upload part of the survey)}
-
-\item{path}{a string (where the txt file should be saved)}
 
 \item{output}{a string (wanting to write just this part, the entire report, or both)}
 

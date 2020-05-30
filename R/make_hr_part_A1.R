@@ -14,7 +14,7 @@
 #'
 make_hr_part_A1 <- function(df, output = "part") {
 
-  ipeds_unitid <- set_ipeds_unitid()
+  ipeds_unitid <- get_ipeds_unitid(df)
 
   #set up the grid of options
   combos_A1 <- expand.grid(Unitid = ipeds_unitid,
@@ -62,9 +62,7 @@ make_hr_part_A1 <- function(df, output = "part") {
       write_report(df = partA1,
                    component = 'HumanResources',
                    part = "PartA1",
-                   path = path,
-                   output = output,
-                   append = FALSE)
+                   output = output)
 
 
 

@@ -16,7 +16,7 @@
 make_hr_part_B3 <- function(df, output = 'part') {
 
   #set up the grid of options
-  combos_B3 <- expand.grid(Unitid = ipeds_unitid,
+  combos_B3 <- expand.grid(Unitid = get_ipeds_unitid(df),
                            IsMedical = c(0:1),
                            OccCategory1 = c(13:17),
                            Count = 0)
@@ -53,8 +53,6 @@ make_hr_part_B3 <- function(df, output = 'part') {
   #create the txt file
   write_report(df = partB3,
                component = 'HumanResources',
-               path = path,
                part = "PartB3",
-               output = output,
-               append = FALSE)
+               output = output)
 }

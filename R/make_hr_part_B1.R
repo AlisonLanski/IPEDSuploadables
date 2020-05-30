@@ -14,7 +14,7 @@
 make_hr_part_B1 <- function(df, output = 'part') {
 
   #set up the grid of options
-  combos_B1 <- expand.grid(Unitid = ipeds_unitid,
+  combos_B1 <- expand.grid(Unitid = get_ipeds_unitid(df),
                            OccCategory1 = c(1:17),
                            REG = c(1:18),
                            Count = 0)
@@ -40,7 +40,7 @@ make_hr_part_B1 <- function(df, output = 'part') {
             dplyr::arrange(.data$OccCategory1,
                            .data$REG) %>%
             #format for upload
-            dplry::transmute(UNITID = paste0("UNITID=", .data$Unitid),
+            dplyr::transmute(UNITID = paste0("UNITID=", .data$Unitid),
                       SURVSECT = "SURVSECT=HR1",
                       PART = "PART=B1",
                       OCCCATEGORY1 = paste0("OCCCATEGORY1=", .data$OccCategory1),
@@ -49,8 +49,6 @@ make_hr_part_B1 <- function(df, output = 'part') {
 
   write_report(df = partB1,
                component = 'HumanResources',
-               path = path,
                part = "PartB1",
-               output = output,
-               append = FALSE)
+               output = output)
 }

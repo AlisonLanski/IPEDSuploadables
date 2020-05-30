@@ -7,21 +7,21 @@
 #'
 #' @importFrom magrittr '%>%'
 #' @importFrom dplyr mutate recode
-#'
+#' @importFrom rlang .data
 
 prep_hr_data_frame <- function(df) {
 
   df <- df %>%
     #add a combined REG column
-    mutate(REG = ifelse(
-      df$Gender == 1,
-      df$RaceEthnicity,
-      ifelse(df$Gender == 2,
-             df$RaceEthnicity + 9,
+    dplyr::mutate(REG = ifelse(
+      .data$Gender == 1,
+      .data$RaceEthnicity,
+      ifelse(.data$Gender == 2,
+             .data$RaceEthnicity + 9,
              99)
     ),
     #set up other OccCategories based on Version 3 (complete)
-    OccCategory1 = recode(df$OccCategory3,
+    OccCategory1 = dplyr::recode(df$OccCategory3,
                           `1` = 1,
                           `2` = 1,
                           `3` = 1,
@@ -46,7 +46,7 @@ prep_hr_data_frame <- function(df) {
                           `23` = 88, #this way, 99 will indicate problems
                           `24` = 88,
                           .default = 99),
-    OccCategory2 = recode(df$OccCategory3,
+    OccCategory2 = dplyr::recode(.data$OccCategory3,
                           `1` = 88,
                           `2` = 88,
                           `3` = 88,
@@ -71,7 +71,7 @@ prep_hr_data_frame <- function(df) {
                           `23` = 88,
                           `24` = 88,
                           .default = 99),
-    OccCategory4 = recode(df$OccCategory3,
+    OccCategory4 = dplyr::recode(.data$OccCategory3,
                           `1` = 88,
                           `2` = 88,
                           `3` = 88,
@@ -96,7 +96,7 @@ prep_hr_data_frame <- function(df) {
                           `23` = 2,
                           `24` = 3,
                           .default = 99),
-    OccCategory5 = recode(df$OccCategory3,
+    OccCategory5 = dplyr::recode(.data$OccCategory3,
                           `1` = 1,
                           `2` = 1,
                           `3` = 1,
@@ -122,7 +122,7 @@ prep_hr_data_frame <- function(df) {
                           `24` = 88,
                           .default = 99),
     #set up instructional function based on occcat3
-    InstFunction = recode(df$OccCategory3,
+    InstFunction = dplyr::recode(.data$OccCategory3,
                           `1` = 1,
                           `2` = 2,
                           `3` = 3,
@@ -148,7 +148,7 @@ prep_hr_data_frame <- function(df) {
                           `24` = 88,
                           .default = 99),
     #set up an instructional flag based on Occcat3
-    Instructional = recode(df$OccCategory3,
+    Instructional = dplyr::recode(.data$OccCategory3,
                            `1` = 1,
                            `2` = 1,
                            `3` = 1,
@@ -176,7 +176,7 @@ prep_hr_data_frame <- function(df) {
     #set up default: 1 row = Count 1 so we can add later
     Count = 1,
     #specify EmpId as character to avoid type problems
-    EmpId = as.character(df$EmpId))
+    EmpId = as.character(.data$EmpId))
 
   ## Warnings from recoding failures  -----
 
