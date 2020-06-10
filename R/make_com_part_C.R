@@ -2,6 +2,8 @@
 #'
 #' @param df
 #'
+#' @importFrom rlang .data
+#'
 #' @return
 #' @export
 #'

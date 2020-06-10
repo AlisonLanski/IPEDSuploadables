@@ -6,6 +6,8 @@
 #' @importFrom dplyr case_when mutate select
 #' @importFrom tidyr separate
 #' @importFrom magrittr "%>%"
+#' @importFrom rlang .data
+#'
 #' @examples
 prep_com_data_files <- function(df) {
 

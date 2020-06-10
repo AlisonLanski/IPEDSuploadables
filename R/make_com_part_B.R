@@ -3,6 +3,8 @@
 #' @param df
 #' @param extracips
 #'
+#' @importFrom rlang .data
+#'
 #' @return
 #' @export
 #'
