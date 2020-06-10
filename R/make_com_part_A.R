@@ -4,6 +4,8 @@
 #' @param extracips
 #'
 #' @importFrom rlang .data
+#' @importFrom magrittr "%>%"
+#' @importFrom dplyr select group_by summarize ungroup bind_rows arrange transmute
 #'
 #' @return
 #' @export
@@ -14,32 +16,33 @@ make_com_part_A <- function(df, extracips = NULL) {
   #produce the uploadable format
   partA <- df %>%
     #aggregate the full data
-    group_by(Unitid, MajorNumber, MajorCip, DegreeLevel, RaceEthnicity, Sex) %>%
-    summarize(Count = n()) %>%
-    ungroup()
+    dplyr::group_by(.data$Unitid, .data$MajorNumber, .data$MajorCip, .data$DegreeLevel, .data$RaceEthnicity, .data$Sex) %>%
+    dplyr::summarize(Count = n()) %>%
+    dplyr::ungroup()
 
   #prep the extra cips
   if (!is.null(extracips)) {
     #add extra cips
     partA <- extracips %>%
-      select(Unitid, MajorNumber, MajorCip, DegreeLevel, RaceEthnicity, Sex, Count) %>%
-      bind_rows(partA)
+      dplyr::select(.data$Unitid, .data$MajorNumber, .data$MajorCip, .data$DegreeLevel, .data$RaceEthnicity, .data$Sex, .data$Count) %>%
+      dplyr::bind_rows(partA)
   }
 
   #carry on
   partA <- partA %>%
     #sort for easy viewing
-    arrange(MajorNumber, MajorCip, DegreeLevel, RaceEthnicity, Sex) %>%
+    dplyr::arrange(.data$MajorNumber, .data$MajorCip, .data$DegreeLevel, .data$RaceEthnicity, .data$Sex) %>%
     #format for upload
-    transmute(UNITID = paste0("UNITID=", Unitid),
-              SURVSECT = "SURVSECT=COM",
-              PART = "PART=A",
-              MAJORNUM = paste0("MAJORNUM=", MajorNumber),
-              CIPCODE = paste0("CIPCODE=", MajorCip),
-              AWLEVEL = paste0("AWLEVEL=", DegreeLevel),
-              RACE = paste0("RACE=", RaceEthnicity),
-              SEX = paste0("SEX=", Sex),
-              COUNT = paste0("COUNT=", Count))
+    dplyr::transmute(UNITID = paste0("UNITID=", .data$Unitid),
+                     SURVSECT = "SURVSECT=COM",
+                     PART = "PART=A",
+                     MAJORNUM = paste0("MAJORNUM=", .data$MajorNumber),
+                     CIPCODE = paste0("CIPCODE=", .data$MajorCip),
+                     AWLEVEL = paste0("AWLEVEL=", .data$DegreeLevel),
+                     RACE = paste0("RACE=", .data$RaceEthnicity),
+                     SEX = paste0("SEX=", .data$Sex),
+                     COUNT = paste0("COUNT=", .data$Count)
+                     )
 
   #just this part
   write.table(x = partA, sep = ",",

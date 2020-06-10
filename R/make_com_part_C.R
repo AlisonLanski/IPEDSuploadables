@@ -3,6 +3,7 @@
 #' @param df
 #'
 #' @importFrom rlang .data
+#' @importFrom dplyr select group_by summarize ungroup arrange transmute
 #'
 #' @return
 #' @export
@@ -11,22 +12,23 @@
 make_com_part_C <- function(df) {
 
   partC <- df %>%
-    select(Unitid, StudentId, RaceEthnicity, Sex) %>%
+    dplyr::select(.data$Unitid, .data$StudentId, .data$RaceEthnicity, .data$Sex) %>%
     #deduplicate
     unique() %>%
     #aggregate and count
-    group_by(Unitid, RaceEthnicity, Sex) %>%
-    summarize(Count = n()) %>%
-    ungroup() %>%
+    dplyr::group_by(.data$Unitid, .data$RaceEthnicity, .data$Sex) %>%
+    dplyr::summarize(Count = n()) %>%
+    dplyr::ungroup() %>%
     #sort for easy viewing
-    arrange(RaceEthnicity, Sex) %>%
+    dplyr::arrange(.data$RaceEthnicity, .data$Sex) %>%
     #format for upload
-    transmute(UNITID = paste0("UNITID=", Unitid),
-              SURVSECT = "SURVSECT=COM",
-              PART = "PART=C",
-              RACE = paste0("RACE=", RaceEthnicity),
-              SEX = paste0("SEX=", Sex),
-              COUNT = paste0("COUNT=", Count))
+    dplyr::transmute(UNITID = paste0("UNITID=", .data$Unitid),
+                     SURVSECT = "SURVSECT=COM",
+                     PART = "PART=C",
+                     RACE = paste0("RACE=", .data$RaceEthnicity),
+                     SEX = paste0("SEX=", .data$Sex),
+                     COUNT = paste0("COUNT=", .data$Count)
+                     )
 
   #just this part
   write.table(x = partC, sep = ",",

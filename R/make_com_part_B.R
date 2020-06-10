@@ -4,6 +4,7 @@
 #' @param extracips
 #'
 #' @importFrom rlang .data
+#' @importFrom dplyr select bind_rows arrange transmute
 #'
 #' @return
 #' @export
@@ -14,7 +15,7 @@ make_com_part_B <- function(df, extracips = NULL) {
   #prep extra cip codes
   if (!is.null(extracips)) {
     extracips_B <- extracips %>%
-      select(Unitid, MajorNumber, MajorCip, DegreeLevel, DistanceEd)
+      select(.data$Unitid, .data$MajorNumber, .data$MajorCip, .data$DegreeLevel, .data$DistanceEd)
   } else {
     extracips_B <- data.frame("Unitid" = NA, "MajorNumber" = NA, "MajorCip" = NA,
                               "DegreeLevel" = NA, "DistanceEd" = NA)
@@ -22,20 +23,21 @@ make_com_part_B <- function(df, extracips = NULL) {
 
   #prep upload
   partB <- df %>%
-    select(Unitid, MajorNumber, MajorCip, DegreeLevel, DistanceEd) %>%
+    select(.data$Unitid, .data$MajorNumber, .data$MajorCip, .data$DegreeLevel, .data$DistanceEd) %>%
     unique() %>%
     #if we need to add the extra cips, do it here
     bind_rows(extracips_B) %>%
     #sort for easy viewing
-    arrange(MajorNumber, MajorCip, DegreeLevel, DistanceEd) %>%
+    arrange(.data$MajorNumber, .data$MajorCip, .data$DegreeLevel, .data$DistanceEd) %>%
     #format for upload
-    transmute(UNITID = paste0("UNITID=", Unitid),
+    transmute(UNITID = paste0("UNITID=", .data$Unitid),
               SURVSECT = "SURVSECT=COM",
               PART = "PART=B",
-              MAJORNUM = paste0("MAJORNUM=", MajorNumber),
-              CIPCODE = paste0("CIPCODE=", MajorCip),
-              AWLEVEL = paste0("AWLEVEL=", DegreeLevel),
-              DistanceED = paste0("DistanceED=", DistanceEd))
+              MAJORNUM = paste0("MAJORNUM=", .data$MajorNumber),
+              CIPCODE = paste0("CIPCODE=", .data$MajorCip),
+              AWLEVEL = paste0("AWLEVEL=", .data$DegreeLevel),
+              DistanceED = paste0("DistanceED=", .data$DistanceEd)
+              )
 
   #just this part
   write.table(x = partB, sep = ",",
