@@ -10,5 +10,5 @@ Description: What the package does (one paragraph).
 License: What license it uses
 Encoding: UTF-8
 LazyData: true
-Imports: dplyr, lubridate, purrr, stringr, svDialogs, tidyr, magrittr, rlang, utils
-RoxygenNote: 7.1.0
+RoxygenNote: 7.0.2
+Imports: magrittr, dplyr, svDialogs, rlang, utils, tidyr, stringr, rstudioapi
