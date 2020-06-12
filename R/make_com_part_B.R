@@ -1,15 +1,15 @@
 #' Make Completions Part B
 #'
-#' @param df
-#' @param extracips
+#' @param df A dataframe
+#' @param extracips A dataframe
 #'
 #' @importFrom rlang .data
 #' @importFrom dplyr select bind_rows arrange transmute
+#' @importFrom utils write.table
 #'
-#' @return
+#' @return A text file
 #' @export
 #'
-#' @examples
 make_com_part_B <- function(df, extracips = NULL) {
 
   #prep extra cip codes
@@ -40,12 +40,12 @@ make_com_part_B <- function(df, extracips = NULL) {
               )
 
   #just this part
-  write.table(x = partB, sep = ",",
-              file = paste0(path, "Completions_PartB_", Sys.Date(), ".txt"),
-              quote = FALSE, row.names = FALSE, col.names = FALSE)
+  utils::write.table(x = partB, sep = ",",
+                     file = paste0(path, "Completions_PartB_", Sys.Date(), ".txt"),
+                     quote = FALSE, row.names = FALSE, col.names = FALSE)
 
   #append to the upload doc
-  write.table(x = partB, sep = ",",
-              file = paste0(path, "Completions_PartsAll_", Sys.Date(), ".txt"),
-              quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
+  utils::write.table(x = partB, sep = ",",
+                     file = paste0(path, "Completions_PartsAll_", Sys.Date(), ".txt"),
+                     quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
 }

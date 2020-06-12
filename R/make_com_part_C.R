@@ -1,14 +1,14 @@
 #' Make Completions Part C
 #'
-#' @param df
+#' @param df A dataframe
 #'
 #' @importFrom rlang .data
-#' @importFrom dplyr select group_by summarize ungroup arrange transmute
+#' @importFrom dplyr select group_by summarize ungroup arrange transmute n
+#' @importFrom utils write.table
 #'
-#' @return
+#' @return A text file
 #' @export
 #'
-#' @examples
 make_com_part_C <- function(df) {
 
   partC <- df %>%
@@ -17,7 +17,7 @@ make_com_part_C <- function(df) {
     unique() %>%
     #aggregate and count
     dplyr::group_by(.data$Unitid, .data$RaceEthnicity, .data$Sex) %>%
-    dplyr::summarize(Count = n()) %>%
+    dplyr::summarize(Count = dplyr::n()) %>%
     dplyr::ungroup() %>%
     #sort for easy viewing
     dplyr::arrange(.data$RaceEthnicity, .data$Sex) %>%
@@ -31,12 +31,12 @@ make_com_part_C <- function(df) {
                      )
 
   #just this part
-  write.table(x = partC, sep = ",",
-              file = paste0(path, "Completions_PartC_", Sys.Date(), ".txt"),
-              quote = FALSE, row.names = FALSE, col.names = FALSE)
+  utils::write.table(x = partC, sep = ",",
+                     file = paste0(path, "Completions_PartC_", Sys.Date(), ".txt"),
+                     quote = FALSE, row.names = FALSE, col.names = FALSE)
 
   #append to the upload doc
-  write.table(x = partC, sep = ",",
-              file = paste0(path, "Completions_PartsAll_", Sys.Date(), ".txt"),
-              quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
+  utils::write.table(x = partC, sep = ",",
+                     file = paste0(path, "Completions_PartsAll_", Sys.Date(), ".txt"),
+                     quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
 }

@@ -4,7 +4,6 @@
 #' @importFrom svDialogs dlg_dir
 #' @importFrom stringr str_detect
 #'
-#' @examples
 set_report_path <- function() {
 
   #set an output path:

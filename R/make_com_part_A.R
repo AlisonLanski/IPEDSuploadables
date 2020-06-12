@@ -1,23 +1,23 @@
 #' Make Completions Part A
 #'
-#' @param df
-#' @param extracips
+#' @param df A dataframe
+#' @param extracips A dataframe
 #'
 #' @importFrom rlang .data
 #' @importFrom magrittr "%>%"
-#' @importFrom dplyr select group_by summarize ungroup bind_rows arrange transmute
+#' @importFrom dplyr select group_by summarize ungroup bind_rows arrange transmute n
+#' @importFrom utils write.table
 #'
-#' @return
+#' @return A text file
 #' @export
 #'
-#' @examples
 make_com_part_A <- function(df, extracips = NULL) {
 
   #produce the uploadable format
   partA <- df %>%
     #aggregate the full data
     dplyr::group_by(.data$Unitid, .data$MajorNumber, .data$MajorCip, .data$DegreeLevel, .data$RaceEthnicity, .data$Sex) %>%
-    dplyr::summarize(Count = n()) %>%
+    dplyr::summarize(Count = dplyr::n()) %>%
     dplyr::ungroup()
 
   #prep the extra cips
@@ -45,7 +45,7 @@ make_com_part_A <- function(df, extracips = NULL) {
                      )
 
   #just this part
-  write.table(x = partA, sep = ",",
-              file = paste0(path, "Completions_PartA_", Sys.Date(), ".txt"),
-              quote = FALSE, row.names = FALSE, col.names = FALSE)
+  utils::write.table(x = partA, sep = ",",
+                     file = paste0(path, "Completions_PartA_", Sys.Date(), ".txt"),
+                     quote = FALSE, row.names = FALSE, col.names = FALSE)
 }

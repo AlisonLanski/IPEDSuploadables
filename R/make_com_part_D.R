@@ -1,23 +1,24 @@
 #' Make Completions Part D
 #'
-#' @param df
+#' @param df A dataframe
+#' @param extracips A dataframe
 #'
 #' @importFrom rlang .data
-#' @importFrom dplyr select filter mutate bind_rows group_by ungroup summarize arrange
+#' @importFrom dplyr select filter mutate bind_rows group_by ungroup summarize arrange everything recode
 #' @importFrom tidyr spread
 #' @importFrom svDialogs dlg_message
+#' @importFrom utils write.table
 #'
-#' @return
+#' @return A text file
 #' @export
 #'
-#' @examples
-make_com_part_D <- function(df) {
+make_com_part_D <- function(df, extracips = NULL) {
 
   #check extracips list for award levels not included in the startingdf
   extralevel_D <- extracips %>%
     dplyr::select(.data$Unitid, .data$DegreeLevel) %>%
     unique() %>%
-    dplyr::filter(!(DegreeLevel %in% df$DegreeLevel)) %>%
+    dplyr::filter(!(.data$DegreeLevel %in% df$DegreeLevel)) %>%
     #add dummy data to any award levels found
     dplyr::mutate(StudentId = 'dummy_studentid',
                   RaceEthnicity = 1,
@@ -28,11 +29,11 @@ make_com_part_D <- function(df) {
                   CountAge = 0
     ) %>%
     #reorder for rbind
-    dplyr::select(.data$Unitid, .data$StudentId, everything())
+    dplyr::select(.data$Unitid, .data$StudentId, dplyr::everything())
 
   #set up an df with 0-rows to ensure we get all
   #race/ethnicity, sex, and age categories in the final output
-  dummy_demographics <- data.frame(Unitid = ipeds_unitid,
+  dummy_demographics <- data.frame(Unitid = df$Unitid[1],
                                    StudentId = 'dummy_studentid',
                                    DegreeLevel = max(df$DegreeLevel),
                                    RaceEthnicity = c(1:9),
@@ -55,19 +56,19 @@ make_com_part_D <- function(df) {
     #add dummy demographics to make sure the spread works correctly later
     dplyr::bind_rows(dummy_demographics) %>%
     #recode before removing duplicates per student
-    dplyr::mutate(CTLEVEL = recode(.data$DegreeLevel,
-                                    `1` = 1,
-                                    `2` = 2,
-                                    `3` = 3,
-                                    `4` = 2,
-                                    `5` = 4,
-                                    `6` = 7,
-                                    `7` = 5,
-                                    `8` = 7,
-                                    `17` = 6,
-                                    `18` = 6,
-                                    `19` = 6,
-                                    .default = 9)
+    dplyr::mutate(CTLEVEL = dplyr::recode(.data$DegreeLevel,
+                                          `1` = 1,
+                                          `2` = 2,
+                                          `3` = 3,
+                                          `4` = 2,
+                                          `5` = 4,
+                                          `6` = 7,
+                                          `7` = 5,
+                                          `8` = 7,
+                                          `17` = 6,
+                                          `18` = 6,
+                                          `19` = 6,
+                                          .default = 9)
            ) %>%
     dplyr::select(-.data$DegreeLevel) %>%
     #one row per student per level per unitid (keep RE/Sex/Birthdate)
@@ -92,7 +93,7 @@ make_com_part_D <- function(df) {
                                 `2` = "CRACE16",
                                 .default = "ZRACESEX")
     ) %>%
-    tidyr::spread(key = Sex, value = CountSex) %>%
+    tidyr::spread(key = .data$Sex, value = .data$CountSex) %>%
     #recode and spread Age to get IPEDS columns
     dplyr::mutate(AgeGroup = case_when(
                                 floor(.data$Age) < 18 ~"AGE1",
@@ -151,14 +152,14 @@ make_com_part_D <- function(df) {
     )
 
   #just this part
-  write.table(x = partD, sep = ",",
-              file = paste0(path, "Completions_PartD_", Sys.Date(), ".txt"),
-              quote = FALSE, row.names = FALSE, col.names = FALSE)
+  utils::write.table(x = partD, sep = ",",
+                     file = paste0(path, "Completions_PartD_", Sys.Date(), ".txt"),
+                     quote = FALSE, row.names = FALSE, col.names = FALSE)
 
   #append to the upload doc
-  write.table(x = partD, sep = ",",
-              file = paste0(path, "Completions_PartsAll_", Sys.Date(), ".txt"),
-              quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
+  utils::write.table(x = partD, sep = ",",
+                     file = paste0(path, "Completions_PartsAll_", Sys.Date(), ".txt"),
+                     quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
 
   #Error messages that would stem from recoding errors
 

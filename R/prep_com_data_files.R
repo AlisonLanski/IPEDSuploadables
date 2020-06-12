@@ -8,32 +8,31 @@
 #' @importFrom magrittr "%>%"
 #' @importFrom rlang .data
 #'
-#' @examples
 prep_com_data_files <- function(df) {
 
   df <- df %>%
-    separate(col = MajorCip,
+    tidyr::separate(col = .data$MajorCip,
              into = c("Two", "Four"),
              sep = "\\."
     ) %>%
-    mutate(Two = case_when(
-      nchar(Two) == 1 ~ paste0("0", Two),
-      TRUE ~ Two
+    dplyr::mutate(Two = dplyr::case_when(
+      nchar(.data$Two) == 1 ~ paste0("0", .data$Two),
+      TRUE ~ .data$Two
     ),
-    Four = case_when(
-      nchar(Four) == 1 ~ paste0(Four, "000"),
-      nchar(Four) == 2 ~ paste0(Four, "00"),
-      nchar(Four) == 3 ~ paste0(Four, "0"),
-      TRUE ~ Four
+    Four = dplyr::case_when(
+      nchar(.data$Four) == 1 ~ paste0(.data$Four, "000"),
+      nchar(.data$Four) == 2 ~ paste0(.data$Four, "00"),
+      nchar(.data$Four) == 3 ~ paste0(.data$Four, "0"),
+      TRUE ~ .data$Four
     ),
-    MajorCip = paste0(Two, '.', Four)
+    MajorCip = paste0(.data$Two, '.', .data$Four)
     ) %>%
-    select(-Two, -Four) %>%
-    mutate(Unitid = as.character(Unitid))
+    dplyr::select(-.data$Two, -.data$Four) %>%
+    dplyr::mutate(Unitid = as.character(.data$Unitid))
 
   if('StudentId' %in% colnames(df)) {
     df <- df %>%
-      mutate(StudentId = as.character(StudentId))
+      dplyr::mutate(StudentId = as.character(.data$StudentId))
   }
 
   return(df)
