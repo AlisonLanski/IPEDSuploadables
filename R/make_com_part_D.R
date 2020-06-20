@@ -33,7 +33,10 @@ make_com_part_D <- function(df, extracips = NULL) {
 
   #set up an df with 0-rows to ensure we get all
   #race/ethnicity, sex, and age categories in the final output
-  dummy_demographics <- data.frame(Unitid = df$Unitid[1],
+
+  ipeds_unitid <- get_ipeds_unitid(df)
+
+  dummy_demographics <- data.frame(Unitid = ipeds_unitid,
                                    StudentId = 'dummy_studentid',
                                    DegreeLevel = max(df$DegreeLevel),
                                    RaceEthnicity = c(1:9),

@@ -4,7 +4,7 @@
 \alias{make_pretty_files}
 \title{Make Pretty Files}
 \usage{
-make_pretty_files(df)
+make_pretty_files(df = partA)
 }
 \arguments{
 \item{df}{a data frame returned from IPEDS}
@@ -13,6 +13,6 @@ make_pretty_files(df)
 Creates an easy to read output file.
 }
 \examples{
-\dontrun{df <- make_pretty_files(df = partA)}
+df <- make_pretty_files(df = partA)
 
 }
