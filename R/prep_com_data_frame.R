@@ -8,6 +8,8 @@
 #' @importFrom magrittr "%>%"
 #' @importFrom rlang .data
 #'
+#' @export
+#'
 prep_com_data_frame <- function(df) {
 
   df <- df %>%
