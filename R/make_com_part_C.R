@@ -1,7 +1,7 @@
 #' Make Completions Part C
 #'
-#' @param df A dataframe
-#'
+#' @param df A dataframe of student/degree information
+#' @param output A string (\code{"part"}, \code{"full"}, or \code{"both"})#'
 #' @importFrom rlang .data
 #' @importFrom dplyr select group_by summarize ungroup arrange transmute n
 #' @importFrom utils write.table
@@ -9,7 +9,7 @@
 #' @return A text file
 #' @export
 #'
-make_com_part_C <- function(df) {
+make_com_part_C <- function(df, output = "part") {
 
   partC <- df %>%
     dplyr::select(.data$Unitid, .data$StudentId, .data$RaceEthnicity, .data$Sex) %>%
@@ -30,13 +30,8 @@ make_com_part_C <- function(df) {
                      COUNT = paste0("COUNT=", .data$Count)
                      )
 
-  #just this part
-  utils::write.table(x = partC, sep = ",",
-                     file = paste0(path, "Completions_PartC_", Sys.Date(), ".txt"),
-                     quote = FALSE, row.names = FALSE, col.names = FALSE)
-
-  #append to the upload doc
-  utils::write.table(x = partC, sep = ",",
-                     file = paste0(path, "Completions_PartsAll_", Sys.Date(), ".txt"),
-                     quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
+  write_report(df = partC,
+               component = 'Completions',
+               part = "PartC",
+               output = output)
 }

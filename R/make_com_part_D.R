@@ -1,7 +1,8 @@
 #' Make Completions Part D
 #'
-#' @param df A dataframe
-#' @param extracips A dataframe
+#' @param df A dataframe of student/degree information
+#' @param extracips A dataframe of cips offered by the institution but not in \code{'df'}
+#' @param output A string (\code{"part"}, \code{"full"}, or \code{"both"})
 #'
 #' @importFrom rlang .data
 #' @importFrom dplyr select filter mutate bind_rows group_by ungroup summarize arrange everything recode
@@ -12,13 +13,13 @@
 #' @return A text file
 #' @export
 #'
-make_com_part_D <- function(df, extracips = NULL) {
+make_com_part_D <- function(df, extracips = NULL, output = "part") {
 
   #check extracips list for award levels not included in the startingdf
   extralevel_D <- extracips %>%
     dplyr::select(.data$Unitid, .data$DegreeLevel) %>%
     unique() %>%
-    dplyr::filter(!(.data$DegreeLevel %in% df$DegreeLevel)) %>%
+    dplyr::filter(!(.data$DegreeLevel %in% student$DegreeLevel)) %>%
     #add dummy data to any award levels found
     dplyr::mutate(StudentId = 'dummy_studentid',
                   RaceEthnicity = 1,
@@ -34,7 +35,7 @@ make_com_part_D <- function(df, extracips = NULL) {
   #set up an df with 0-rows to ensure we get all
   #race/ethnicity, sex, and age categories in the final output
 
-  ipeds_unitid <- get_ipeds_unitid(df)
+  ipeds_unitid <- as.character(get_ipeds_unitid(df))
 
   dummy_demographics <- data.frame(Unitid = ipeds_unitid,
                                    StudentId = 'dummy_studentid',
@@ -154,15 +155,12 @@ make_com_part_D <- function(df, extracips = NULL) {
                      AGE5 = paste0("AGE5=", .data$AGE5)
     )
 
-  #just this part
-  utils::write.table(x = partD, sep = ",",
-                     file = paste0(path, "Completions_PartD_", Sys.Date(), ".txt"),
-                     quote = FALSE, row.names = FALSE, col.names = FALSE)
+  write_report(df = partD,
+               component = 'Completions',
+               part = "PartD",
+               output = output)
 
-  #append to the upload doc
-  utils::write.table(x = partD, sep = ",",
-                     file = paste0(path, "Completions_PartsAll_", Sys.Date(), ".txt"),
-                     quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
+
 
   #Error messages that would stem from recoding errors
 

@@ -1,7 +1,8 @@
 #' Make Completions Part A
 #'
-#' @param df A dataframe
-#' @param extracips A dataframe
+#' @param df A dataframe of student/degree information
+#' @param extracips A dataframe of cips offered by the institution but not in \code{'df'}
+#' @param output A string (\code{"part"}, \code{"full"}, or \code{"both"})
 #'
 #' @importFrom rlang .data
 #' @importFrom magrittr "%>%"
@@ -11,7 +12,7 @@
 #' @return A text file
 #' @export
 #'
-make_com_part_A <- function(df, extracips = NULL) {
+make_com_part_A <- function(df, extracips = NULL, output = "part") {
 
   #produce the uploadable format
   partA <- df %>%
@@ -44,8 +45,9 @@ make_com_part_A <- function(df, extracips = NULL) {
                      COUNT = paste0("COUNT=", .data$Count)
                      )
 
-  #just this part
-  utils::write.table(x = partA, sep = ",",
-                     file = paste0(path, "Completions_PartA_", Sys.Date(), ".txt"),
-                     quote = FALSE, row.names = FALSE, col.names = FALSE)
+  #create the txt file
+  write_report(df = partA,
+               component = 'Completions',
+               part = "PartA",
+               output = output)
 }

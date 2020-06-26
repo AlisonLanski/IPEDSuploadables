@@ -4,10 +4,12 @@
 \alias{make_com_part_C}
 \title{Make Completions Part C}
 \usage{
-make_com_part_C(df)
+make_com_part_C(df, output = "part")
 }
 \arguments{
-\item{df}{A dataframe}
+\item{df}{A dataframe of student/degree information}
+
+\item{output}{A string (\code{"part"}, \code{"full"}, or \code{"both"})#'}
 }
 \value{
 A text file

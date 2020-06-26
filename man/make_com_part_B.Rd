@@ -4,12 +4,14 @@
 \alias{make_com_part_B}
 \title{Make Completions Part B}
 \usage{
-make_com_part_B(df, extracips = NULL)
+make_com_part_B(df, extracips = NULL, output = "part")
 }
 \arguments{
-\item{df}{A dataframe}
+\item{df}{A dataframe of student/degree information}
 
-\item{extracips}{A dataframe}
+\item{extracips}{A dataframe of cips offered by the institution but not in \code{'df'}}
+
+\item{output}{A string (\code{"part"}, \code{"full"}, or \code{"both"})}
 }
 \value{
 A text file

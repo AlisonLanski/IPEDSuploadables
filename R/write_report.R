@@ -22,6 +22,11 @@ write_report <- function(df, component, part, output, append = FALSE) {
                 quote = FALSE, row.names = FALSE, col.names = FALSE)
   }
   if(tolower(output) == 'full' | output == 'both'){
+    if(grepl(part, pattern = ('A$|A1'))){
+      append <- FALSE
+    } else {
+      append <- TRUE
+    }
     write.table(x = df, sep = ",",
                 file = paste0(output_path, component, "_AllParts_", Sys.Date(), ".txt"),
                 quote = FALSE, row.names = FALSE, col.names = FALSE, append = append)

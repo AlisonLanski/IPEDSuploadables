@@ -1,6 +1,6 @@
 #' Some initial recodes for Completions
 #'
-#' @param df a dataframe of student level data
+#' @param df a dataframe of student level data or cip information
 #'
 #' @return df
 #' @importFrom dplyr case_when mutate select
@@ -8,7 +8,7 @@
 #' @importFrom magrittr "%>%"
 #' @importFrom rlang .data
 #'
-prep_com_data_files <- function(df) {
+prep_com_data_frame <- function(df) {
 
   df <- df %>%
     tidyr::separate(col = .data$MajorCip,

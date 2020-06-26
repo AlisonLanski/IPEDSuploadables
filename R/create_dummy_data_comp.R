@@ -1,58 +1,28 @@
-#################################
-##########################
-####
-### PURPOSE:
-### Script to produce dummy datasets for IPEDS Completions processing
-### One for students and one for CipCodes
-###
-### AUTHOR:
-### Alison Lanski, Notre Dame
-###
-### DATE:
-### 8/28/2019
-
-##########################
-##################
-#####  NOTES
-
-#The final dataset has 100 students with 190 majors.
-#60 students have 1 major for 1 degree
-#8 students have 2 majors for 1 degree
-#17 students have 3 majors (on one degree or as dual-degree)
-#12 students have 4 majors (as dual-degrees; some have one as an MBA)
-#3 students have 5 majors (dual-degree and 4 majors and an MBA)
-
-
-# I use the same seed for each grouping,
-# to ensure that the same students keep getting more things added
-
-# One program/level combination is flagged as distance education
-
-# With the seed and probs, no associates degrees end up in the data (don't worry!)
-
-
-# To fully process completions, we will need to include an example
-# of a CIP code that is a possible major but has no completers
-# and a CIP code in an award level that is possible but has no completers
-# This is the second piece of dummy df produced
-
-##################################################################################
-#############################
-##############################
-##########  SCRIPT FOR STUDENTS
-
-
-#load package
-#(dplyr and magrittr are probably enough)
-
-### we start with 100 students and
-### give them first majors with all possible IPEDS degree levels in the field of Journalism
-### note that with this seed and prob argument, we don't end up with any degree levels 2 or 19
 #' Create dummy data for testing the completions functions
 #'
-#' @description to do: save this out into the package and make it accessible as package data
+#' @description Creates a prepared dataframe to test scripts related to IPEDS Completions reporting.
+#' Produces either a student/degree dataframe or a dataframe of cips previously reported but not in the current student data,
+#' depending on the argument you select
 #'
-#' @param df_type a string 'student' to get the main df needed, 'cip' to get extracips
+#' @details remember: want to save this data out into the package so it's available
+#'
+#' @note The final dataset has 100 students with 190 majors.
+#' 60 students have 1 major for 1 degree
+#' 8 students have 2 majors for 1 degree
+#' 17 students have 3 majors (on one degree or as dual-degree)
+#' 12 students have 4 majors (as dual-degrees; some have one as an MBA)
+#' 3 students have 5 majors (dual-degree and 4 majors and an MBA)
+#' Note: 1 student has a faulty birthdate; this will show the warning "1 failed to parse"
+#' I use the same seed for each grouping,
+#' to ensure that the same students keep getting more things added
+#' One program/level combination is flagged as distance education
+#' With the seed and probs, no associates degrees end up in the data (don't worry!)
+#' To fully process completions, we will need to include an example
+#' of a CIP code that is a possible major but has no completers
+#' and a CIP code in an award level that is possible but has no completers
+#' This is the second piece of dummy df produced
+#'
+#' @param df_type a string: 'student' to get the main df needed, 'cip' to get extracips
 #' @return a dataframe ready for the rest of the comp scripts
 #' @export
 #' @importFrom dplyr mutate select filter anti_join n
