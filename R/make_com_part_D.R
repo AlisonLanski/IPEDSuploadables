@@ -19,7 +19,7 @@ make_com_part_D <- function(df, extracips = NULL, output = "part") {
   extralevel_D <- extracips %>%
     dplyr::select(.data$Unitid, .data$DegreeLevel) %>%
     unique() %>%
-    dplyr::filter(!(.data$DegreeLevel %in% student$DegreeLevel)) %>%
+    dplyr::filter(!(.data$DegreeLevel %in% df$DegreeLevel)) %>%
     #add dummy data to any award levels found
     dplyr::mutate(StudentId = 'dummy_studentid',
                   RaceEthnicity = 1,

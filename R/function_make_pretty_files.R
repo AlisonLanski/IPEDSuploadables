@@ -7,7 +7,7 @@
 #' @importFrom stringr str_replace_all
 #' @importFrom rlang .data
 #'
-#' @examples df <- make_pretty_files(df = partA)
+#' @examples \dontrun{df <- make_pretty_files(df = partA)}
 #'
 #' @export
 

@@ -13,6 +13,6 @@ make_pretty_files(df = partA)
 Creates an easy to read output file.
 }
 \examples{
-df <- make_pretty_files(df = partA)
+\dontrun{df <- make_pretty_files(df = partA)}
 
 }
