@@ -12,3 +12,4 @@ Completions/Completions_PartsAll.txt
 .DS_Store
 HumanResources/Thumbs.db
 .Rproj.user
+inst/doc

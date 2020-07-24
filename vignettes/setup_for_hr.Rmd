@@ -1,0 +1,47 @@
+---
+title: "Set up your data for IPEDS HR processing"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Set up your data for IPEDS HR processing}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup, eval=FALSE, echo=FALSE}
+library(IPEDSuploadables)
+```
+
+## To use the `make_hr` functions, your data must be in the format described below
+
+>
+* One row per person
+* One IPEDS Unitid per file
+* Columns with values and types as described below (additional columns are allowed)
+
+
+```{r specstable, echo=FALSE, warning=FALSE, message=FALSE}
+#figure out why striped isn't working when format = 'html'
+load("../data/specs_HR.rda")
+library(magrittr)
+specs_HR$ACCEPTABLE_VALUES <- stringr::str_replace_all(specs_HR$ACCEPTABLE_VALUES, pattern = "\\n", replacement = "<br>")
+knitr::kable(specs_HR, 
+            format = 'html',
+             escape = FALSE,
+             col.names = c('Column Name', 'Column Type', 'Acceptable Value - Definition')) %>%
+    kableExtra::kable_styling(bootstrap_options = "striped") %>%
+  kableExtra::column_spec(2, italic = TRUE, width = '8em')
+
+```
+
+Notes  
+  
+* In OccCategory3,  `21` is used for an intermediate total and is not a value in the upload file  
+* OccCategory3 values will be recoded in `prep_hr_data_frame` into all necessary rollups, including instructional staff (values 1-4)
+
