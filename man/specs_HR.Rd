@@ -3,7 +3,7 @@
 \docType{data}
 \name{specs_HR}
 \alias{specs_HR}
-\title{Table of data requirements for HR starting datagfame}
+\title{Table of data requirements for HR starting dataframe}
 \format{
 A data frame with 13 rows and 3 columns
 }
@@ -11,6 +11,6 @@ A data frame with 13 rows and 3 columns
 specs_HR
 }
 \description{
-Table of data requirements for HR starting datagfame
+Table of data requirements for HR starting dataframe
 }
 \keyword{datasets}
