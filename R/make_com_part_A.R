@@ -11,7 +11,7 @@
 #' @return A text file
 #' @export
 #'
-make_com_part_A <- function(df, extracips = NULL) {
+make_com_part_A <- function(df, extracips = NULL, output = "part", format = "both") {
 
   #produce the uploadable format
   partA <- df %>%
@@ -44,8 +44,10 @@ make_com_part_A <- function(df, extracips = NULL) {
                      COUNT = paste0("COUNT=", .data$Count)
                      )
 
-  #just this part
-  utils::write.table(x = partA, sep = ",",
-                     file = paste0(path, "Completions_PartA_", Sys.Date(), ".txt"),
-                     quote = FALSE, row.names = FALSE, col.names = FALSE)
+  #create the txt file
+  write_report(df = partA,
+               component = 'Completions',
+               part = "PartA",
+               output = output,
+               format = format)
 }

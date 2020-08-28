@@ -4,7 +4,14 @@
 \alias{write_report}
 \title{Write the prepared data to a txt file in IPEDS format}
 \usage{
-write_report(df, component, part, output, append = FALSE)
+write_report(
+  df,
+  component,
+  part,
+  output,
+  append = FALSE,
+  format = "uploadable"
+)
 }
 \arguments{
 \item{df}{a dataframe (prepared via the 'make' scripts)}
