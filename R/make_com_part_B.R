@@ -10,7 +10,7 @@
 #' @return A text file
 #' @export
 #'
-make_com_part_B <- function(df, extracips = NULL) {
+make_com_part_B <- function(df, extracips = NULL, output = "part", format = "both") {
 
   #prep extra cip codes
   if (!is.null(extracips)) {
@@ -39,13 +39,10 @@ make_com_part_B <- function(df, extracips = NULL) {
               DistanceED = paste0("DistanceED=", .data$DistanceEd)
               )
 
-  #just this part
-  utils::write.table(x = partB, sep = ",",
-                     file = paste0(path, "Completions_PartB_", Sys.Date(), ".txt"),
-                     quote = FALSE, row.names = FALSE, col.names = FALSE)
 
-  #append to the upload doc
-  utils::write.table(x = partB, sep = ",",
-                     file = paste0(path, "Completions_PartsAll_", Sys.Date(), ".txt"),
-                     quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
+  write_report(df = partB,
+               component = 'Completions',
+               part = "PartB",
+               output = output,
+               format = format)
 }

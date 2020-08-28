@@ -12,7 +12,7 @@
 #' @return A text file
 #' @export
 #'
-make_com_part_D <- function(df, extracips = NULL) {
+make_com_part_D <- function(df, extracips = NULL, output = "part", format = "both") {
 
   #check extracips list for award levels not included in the startingdf
   extralevel_D <- extracips %>%
@@ -151,15 +151,11 @@ make_com_part_D <- function(df, extracips = NULL) {
                      AGE5 = paste0("AGE5=", .data$AGE5)
     )
 
-  #just this part
-  utils::write.table(x = partD, sep = ",",
-                     file = paste0(path, "Completions_PartD_", Sys.Date(), ".txt"),
-                     quote = FALSE, row.names = FALSE, col.names = FALSE)
-
-  #append to the upload doc
-  utils::write.table(x = partD, sep = ",",
-                     file = paste0(path, "Completions_PartsAll_", Sys.Date(), ".txt"),
-                     quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
+  write_report(df = partD,
+               component = 'Completions',
+               part = "PartD",
+               output = output,
+               format = format)
 
   #Error messages that would stem from recoding errors
 
