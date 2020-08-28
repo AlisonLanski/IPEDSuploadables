@@ -15,22 +15,34 @@
 #'
 make_com_part_D <- function(df, extracips = NULL, output = "part") {
 
-  #check extracips list for award levels not included in the startingdf
-  extralevel_D <- extracips %>%
-    dplyr::select(.data$Unitid, .data$DegreeLevel) %>%
-    unique() %>%
-    dplyr::filter(!(.data$DegreeLevel %in% df$DegreeLevel)) %>%
-    #add dummy data to any award levels found
-    dplyr::mutate(StudentId = 'dummy_studentid',
-                  RaceEthnicity = 1,
-                  Sex = 1,
-                  Birthdate = lubridate::ymd("1900-01-01"),
-                  CountRE = 0,
-                  CountSex = 0,
-                  CountAge = 0
-    ) %>%
-    #reorder for rbind
-    dplyr::select(.data$Unitid, .data$StudentId, dplyr::everything())
+  if(!is.null(extracips)) {
+    #check extracips list for award levels not included in the startingdf
+    extralevel_D <- extracips %>%
+      dplyr::select(.data$Unitid, .data$DegreeLevel) %>%
+      unique() %>%
+      dplyr::filter(!(.data$DegreeLevel %in% df$DegreeLevel)) %>%
+      #add dummy data to any award levels found
+      dplyr::mutate(StudentId = 'dummy_studentid',
+                    RaceEthnicity = 1,
+                    Sex = 1,
+                    Birthdate = lubridate::ymd("1900-01-01"),
+                    CountRE = 0,
+                    CountSex = 0,
+                    CountAge = 0
+      ) %>%
+      #reorder for rbind
+      dplyr::select(.data$Unitid, .data$StudentId, dplyr::everything())
+  } else {
+    extralevel_D <- data.frame(Unitid = df$Unitid[1],
+                               DegreeLevel = df$DegreeLevel[1],
+                               StudentId = 'dummy_studentid',
+                               RaceEthnicity = 1,
+                               Sex = 1,
+                               Birthdate = lubridate::ymd("1900-01-01"),
+                               CountRE = 0,
+                               CountSex = 0,
+                               CountAge = 0)
+  }
 
   #set up an df with 0-rows to ensure we get all
   #race/ethnicity, sex, and age categories in the final output
