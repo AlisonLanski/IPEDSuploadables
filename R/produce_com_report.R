@@ -10,7 +10,9 @@
 produce_com_report <- function(df, extracips = NULL, part = 'all') {
 
   students <- prep_com_data_frame(df = df)
-  extracips <- prep_com_data_frame(df = extracips)
+  if(!is.null(extracips)){
+    extracips <- prep_com_data_frame(df = extracips)
+  }
 
   if(toupper(part) == 'ALL'){
     make_com_part_A(df = students, extracips = extracips, output = 'full')
