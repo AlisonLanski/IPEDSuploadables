@@ -176,7 +176,9 @@ prep_hr_data_frame <- function(df) {
     #set up default: 1 row = Count 1 so we can add later
     Count = 1,
     #specify EmpId as character to avoid type problems
-    EmpId = as.character(.data$EmpId))
+    EmpId = as.character(.data$EmpId),
+    #specify Unitid as character to avoid type problems
+    Unitid = as.character(.data$Unitid))
 
   ## Warnings from recoding failures  -----
 

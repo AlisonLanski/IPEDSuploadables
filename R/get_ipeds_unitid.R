@@ -4,6 +4,6 @@
 #' @param df a dataframe with ipeds data and one unitid
 #'
 get_ipeds_unitid <- function(df) {
-  ipeds_unitid  <- as.numeric(df$Unitid[1])
+  ipeds_unitid  <- as.character(df$Unitid[1])
   return(ipeds_unitid)
 }
