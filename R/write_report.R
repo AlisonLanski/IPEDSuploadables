@@ -18,12 +18,12 @@ write_report <- function(df, component, part, output, append = FALSE, format = "
     set_report_path()
   }
 
-  if (tolower(output) == "part" | tolower(output) == "both") {
-    if (tolower(format) == "uploadable" | tolower(format) == "both") {
+  if (toupper(output) == "PART" | toupper(output) == "BOTH") {
+    if (toupper(format) == "UPLOADABLE" | toupper(format) == "BOTH") {
       write.table(x = df, sep = ",",
                   file = paste0(output_path, component, "_", part, "_", Sys.Date(), ".txt"),
                   quote = FALSE, row.names = FALSE, col.names = FALSE)
-    } else if (tolower(format) == "readable" | tolower(format) == "both") {
+    } else if (toupper(format) == "READABLE" | toupper(format) == "BOTH") {
       df %>%
         purrr::map_df(~stringr::str_replace_all(., "^[:upper:]+[=]*", "")) %>%
         write.table(sep = ",",
@@ -32,8 +32,8 @@ write_report <- function(df, component, part, output, append = FALSE, format = "
     }
   }
 
-  if (tolower(output) == "full" | tolower(output) == "both") {
-    if (tolower(format) == "uploadable" | tolower(format) == "both") {
+  if (toupper(output) == "FULL" | toupper(output) == "BOTH") {
+    if (toupper(format) == "UPLOADABLE" | toupper(format) == "BOTH") {
       if (grepl(part, pattern = ('A$|A1'))) {
         append <- FALSE
       } else {
@@ -42,7 +42,7 @@ write_report <- function(df, component, part, output, append = FALSE, format = "
       write.table(x = df, sep = ",",
                   file = paste0(output_path, component, "_AllParts_", Sys.Date(), ".txt"),
                   quote = FALSE, row.names = FALSE, col.names = FALSE, append = append)
-    } else if (tolower(format) == "readable" | tolower(format) == "both") {
+    } else if (toupper(format) == "READABLE" | toupper(format) == "BOTH") {
       df %>%
         purrr::map_df(~stringr::str_replace_all(., "^[:upper:]+[=]*", "")) %>%
         write.table(sep = ",",
