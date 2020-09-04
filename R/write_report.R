@@ -9,27 +9,46 @@
 #'
 #' @return a txt file (at the path location)
 #' @importFrom utils write.table
+#' @importFrom purr map_df
+#' @importFrom stringr str_replace_all
 
-write_report <- function(df, component, part, output, append = FALSE) {
+write_report <- function(df, component, part, output, append = FALSE, format = "uploadable") {
 
-  while(!exists(x = 'output_path', envir = globalenv())) {
+  while (!exists(x = "output_path", envir = globalenv())) {
     set_report_path()
   }
 
-  if(tolower(output) == 'part' | output == 'both') {
-    write.table(x = df, sep = ",",
-                file = paste0(output_path, component, "_", part, "_", Sys.Date(), ".txt"),
-                quote = FALSE, row.names = FALSE, col.names = FALSE)
-  }
-  if(tolower(output) == 'full' | output == 'both'){
-    if(grepl(part, pattern = ('A$|A1'))){
-      append <- FALSE
-    } else {
-      append <- TRUE
+  if (tolower(output) == "part" | tolower(output) == "both") {
+    if (tolower(format) == "uploadable") {
+      write.table(x = df, sep = ",",
+                  file = paste0(output_path, component, "_", part, "_", Sys.Date(), ".txt"),
+                  quote = FALSE, row.names = FALSE, col.names = FALSE)
+    } else if (tolower(format) == "readable" | tolower(format) == "both") {
+      df %>%
+        purrr::map_df(~stringr::str_replace_all(., "^[:upper:]+[=]*", "")) %>%
+        write.table(x = ., sep = ",",
+                    file = paste0(output_path, "Readable_", component, "_", part, "_", Sys.Date(), ".txt"),
+                    quote = FALSE, row.names = FALSE, col.names = FALSE)
     }
-    write.table(x = df, sep = ",",
-                file = paste0(output_path, component, "_AllParts_", Sys.Date(), ".txt"),
-                quote = FALSE, row.names = FALSE, col.names = FALSE, append = append)
+  }
+
+  if (tolower(output) == "full" | tolower(output) == "both") {
+    if (tolower(format) == "uploadable" | tolower(format) == "both") {
+      if (grepl(part, pattern = ('A$|A1'))) {
+        append <- FALSE
+      } else {
+        append <- TRUE
+      }
+      write.table(x = df, sep = ",",
+                  file = paste0(output_path, component, "_AllParts_", Sys.Date(), ".txt"),
+                  quote = FALSE, row.names = FALSE, col.names = FALSE, append = append)
+    } else if (tolower(format) == "readable" | tolower(format) == "both") {
+      df %>%
+        purrr::map_df(~stringr::str_replace_all(., "^[:upper:]+[=]*", "")) %>%
+        write.table(x = ., sep = ",",
+                    file = paste0(output_path, "Readable_", component, "_AllParts_", Sys.Date(), ".txt"),
+                    quote = FALSE, row.names = FALSE, col.names = FALSE, append = append)
+    }
   }
 
   print(paste0("Results available at ", output_path, component, ". To change the path, please run set_report_path()'"))

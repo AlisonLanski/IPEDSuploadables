@@ -11,7 +11,8 @@
 #' @return A text file
 #' @export
 #'
-make_com_part_B <- function(df, extracips = NULL, output = "part") {
+
+make_com_part_B <- function(df, extracips = NULL, output = "part", format = "both") {
 
   #prep extra cip codes
   if (!is.null(extracips)) {
@@ -40,9 +41,10 @@ make_com_part_B <- function(df, extracips = NULL, output = "part") {
               DistanceED = paste0("DistanceED=", .data$DistanceEd)
               )
 
+
   write_report(df = partB,
                component = 'Completions',
                part = "PartB",
-               output = output)
-
+               output = output,
+               format = format)
 }

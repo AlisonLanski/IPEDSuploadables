@@ -13,7 +13,8 @@
 #' @return A text file
 #' @export
 #'
-make_com_part_D <- function(df, extracips = NULL, output = "part") {
+
+make_com_part_D <- function(df, extracips = NULL, output = "part", format = "both") {
 
   if(!is.null(extracips)) {
     #check extracips list for award levels not included in the startingdf
@@ -170,9 +171,8 @@ make_com_part_D <- function(df, extracips = NULL, output = "part") {
   write_report(df = partD,
                component = 'Completions',
                part = "PartD",
-               output = output)
-
-
+               output = output,
+               format = format)
 
   #Error messages that would stem from recoding errors
 

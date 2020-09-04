@@ -12,7 +12,10 @@
 #' @return A text file
 #' @export
 #'
-make_com_part_A <- function(df, extracips = NULL, output = "part") {
+
+
+make_com_part_A <- function(df, extracips = NULL, output = "part", format = "both") {
+
 
   #produce the uploadable format
   partA <- df %>%
@@ -49,5 +52,6 @@ make_com_part_A <- function(df, extracips = NULL, output = "part") {
   write_report(df = partA,
                component = 'Completions',
                part = "PartA",
-               output = output)
+               output = output,
+               format = format)
 }

@@ -11,7 +11,7 @@ License: What license it uses
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
-Imports: magrittr, dplyr, svDialogs, rlang, utils, tidyr, stringr, rstudioapi, purrr, lubridate
+Imports: magrittr, dplyr, svDialogs, rlang, utils, tidyr, stringr, rstudioapi, purrr, lubridate, purr
 Suggests: 
     knitr,
     rmarkdown,

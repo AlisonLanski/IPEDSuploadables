@@ -9,7 +9,8 @@
 #' @return A text file
 #' @export
 #'
-make_com_part_C <- function(df, output = "part") {
+
+make_com_part_C <- function(df, output = "part", format = "both") {
 
   partC <- df %>%
     dplyr::select(.data$Unitid, .data$StudentId, .data$RaceEthnicity, .data$Sex) %>%
@@ -33,5 +34,6 @@ make_com_part_C <- function(df, output = "part") {
   write_report(df = partC,
                component = 'Completions',
                part = "PartC",
-               output = output)
+               output = output,
+               format = format)
 }
