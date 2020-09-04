@@ -19,7 +19,7 @@ write_report <- function(df, component, part, output, append = FALSE, format = "
   }
 
   if (tolower(output) == "part" | tolower(output) == "both") {
-    if (tolower(format) == "uploadable") {
+    if (tolower(format) == "uploadable" | tolower(format) == "both") {
       write.table(x = df, sep = ",",
                   file = paste0(output_path, component, "_", part, "_", Sys.Date(), ".txt"),
                   quote = FALSE, row.names = FALSE, col.names = FALSE)

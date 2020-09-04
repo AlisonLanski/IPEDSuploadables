@@ -20,8 +20,11 @@ produce_com_report <- function(df, extracips = NULL, part = 'all') {
     make_com_part_C(df = students, output = 'full')
     make_com_part_D(df = students, extracips = extracips, output = 'full')
   }
-  if(part != 'all') {
-    do.call(paste0("make_com_part_", toupper(part)), list(df, extracips))
+  if(toupper(part) %in% c("A", "B", "D")) {
+    do.call(paste0("make_com_part_", toupper(part)), list(students, extracips))
+  }
+  if(toupper(part) == "C") {
+    do.call(paste0("make_com_part_", toupper(part)), list(students))
   }
 }
 
