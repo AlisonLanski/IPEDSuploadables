@@ -9,7 +9,9 @@ make_com_part_C(df, output = "part", format = "both")
 \arguments{
 \item{df}{A dataframe of student/degree information}
 
-\item{output}{A string (\code{"part"}, \code{"full"}, or \code{"both"})#'}
+\item{output}{A string (\code{"part"}, \code{"full"}, or \code{"both"})}
+
+\item{format}{}
 }
 \value{
 A text file

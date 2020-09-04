@@ -12,6 +12,8 @@ make_com_part_D(df, extracips = NULL, output = "part", format = "both")
 \item{extracips}{A dataframe of cips offered by the institution but not in \code{'df'}}
 
 \item{output}{A string (\code{"part"}, \code{"full"}, or \code{"both"})}
+
+\item{format}{}
 }
 \value{
 A text file

@@ -2,7 +2,7 @@
 #'
 #' @param df A dataframe of student/degree information
 #' @param output A string (\code{"part"}, \code{"full"}, or \code{"both"})
-#' @param format
+#' @param format A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})
 #'
 #' @importFrom rlang .data
 #' @importFrom dplyr select group_by summarize ungroup arrange transmute n

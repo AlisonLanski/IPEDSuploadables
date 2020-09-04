@@ -4,7 +4,7 @@
 \alias{produce_com_report}
 \title{Shortcut function to do all steps to produce a report}
 \usage{
-produce_com_report(df, extracips = NULL, part = "all")
+produce_com_report(df, extracips = NULL, part = "ALL")
 }
 \arguments{
 \item{df}{A dataframe set up according to the readme}

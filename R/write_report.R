@@ -5,6 +5,7 @@
 #' @param part a string (which upload part of the survey)
 #' @param output a string (wanting to write just this part, the entire report, or both)
 #' @param append a logical (if the txt file should append this part (T) or overwrite the entire file(F))
+#' @param format A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})
 #'
 #' @return a txt file (at the path location)
 #' @importFrom utils write.table
