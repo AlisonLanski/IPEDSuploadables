@@ -3,6 +3,7 @@
 #' @param df A dataframe of student/degree information
 #' @param extracips A dataframe of cips offered by the institution but not in \code{'df'}
 #' @param output A string (\code{"part"}, \code{"full"}, or \code{"both"})
+#' @param format
 #'
 #' @importFrom rlang .data
 #' @importFrom dplyr select bind_rows arrange transmute
@@ -29,6 +30,7 @@ make_com_part_B <- function(df, extracips = NULL, output = "part", format = "bot
     unique() %>%
     #if we need to add the extra cips, do it here
     bind_rows(extracips_B) %>%
+    filter(!is.na(.data$Unitid)) %>%
     #sort for easy viewing
     arrange(.data$MajorNumber, .data$MajorCip, .data$DegreeLevel, .data$DistanceEd) %>%
     #format for upload

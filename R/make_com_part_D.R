@@ -3,6 +3,7 @@
 #' @param df A dataframe of student/degree information
 #' @param extracips A dataframe of cips offered by the institution but not in \code{'df'}
 #' @param output A string (\code{"part"}, \code{"full"}, or \code{"both"})
+#' @param format
 #'
 #' @importFrom rlang .data
 #' @importFrom dplyr select filter mutate bind_rows group_by ungroup summarize arrange everything recode

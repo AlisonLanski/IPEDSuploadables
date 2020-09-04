@@ -4,7 +4,7 @@
 \alias{make_com_part_D}
 \title{Make Completions Part D}
 \usage{
-make_com_part_D(df, extracips = NULL, output = "part")
+make_com_part_D(df, extracips = NULL, output = "part", format = "both")
 }
 \arguments{
 \item{df}{A dataframe of student/degree information}
