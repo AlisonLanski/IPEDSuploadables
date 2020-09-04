@@ -43,7 +43,8 @@ make_com_part_D <- function(df, extracips = NULL, output = "part", format = "bot
                                Birthdate = lubridate::ymd("1900-01-01"),
                                CountRE = 0,
                                CountSex = 0,
-                               CountAge = 0)
+                               CountAge = 0,
+                               stringsAsFactors = FALSE)
   }
 
   #set up an df with 0-rows to ensure we get all

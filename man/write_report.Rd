@@ -23,6 +23,8 @@ write_report(
 \item{output}{a string (wanting to write just this part, the entire report, or both)}
 
 \item{append}{a logical (if the txt file should append this part (T) or overwrite the entire file(F))}
+
+\item{format}{A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})}
 }
 \value{
 a txt file (at the path location)

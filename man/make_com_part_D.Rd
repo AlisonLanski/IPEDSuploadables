@@ -13,7 +13,7 @@ make_com_part_D(df, extracips = NULL, output = "part", format = "both")
 
 \item{output}{A string (\code{"part"}, \code{"full"}, or \code{"both"})}
 
-\item{format}{}
+\item{format}{A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})}
 }
 \value{
 A text file

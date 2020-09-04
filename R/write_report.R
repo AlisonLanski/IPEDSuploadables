@@ -26,7 +26,7 @@ write_report <- function(df, component, part, output, append = FALSE, format = "
     } else if (tolower(format) == "readable" | tolower(format) == "both") {
       df %>%
         purrr::map_df(~stringr::str_replace_all(., "^[:upper:]+[=]*", "")) %>%
-        write.table(x = ., sep = ",",
+        write.table(sep = ",",
                     file = paste0(output_path, "Readable_", component, "_", part, "_", Sys.Date(), ".csv"),
                     quote = FALSE, row.names = FALSE, col.names = TRUE)
     }
@@ -45,7 +45,7 @@ write_report <- function(df, component, part, output, append = FALSE, format = "
     } else if (tolower(format) == "readable" | tolower(format) == "both") {
       df %>%
         purrr::map_df(~stringr::str_replace_all(., "^[:upper:]+[=]*", "")) %>%
-        write.table(x = ., sep = ",",
+        write.table(sep = ",",
                     file = paste0(output_path, "Readable_", component, "_AllParts_", Sys.Date(), ".csv"),
                     quote = FALSE, row.names = FALSE, col.names = TRUE, append = append)
     }
