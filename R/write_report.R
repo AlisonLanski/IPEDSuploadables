@@ -9,7 +9,7 @@
 #'
 #' @return a txt file (at the path location)
 #' @importFrom utils write.table
-#' @importFrom purr map_df
+#' @importFrom purrr map_df
 #' @importFrom stringr str_replace_all
 
 write_report <- function(df, component, part, output, append = FALSE, format = "uploadable") {
