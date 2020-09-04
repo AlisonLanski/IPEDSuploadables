@@ -24,7 +24,7 @@ make_com_part_D <- function(df, extracips = NULL, output = "part", format = "bot
       unique() %>%
       dplyr::filter(!(.data$DegreeLevel %in% df$DegreeLevel)) %>%
       #add dummy data to any award levels found
-      dplyr::mutate(StudentId = 'dummy_studentid',
+      dplyr::mutate(StudentId = "dummy_studentid",
                     RaceEthnicity = 1,
                     Sex = 1,
                     Birthdate = lubridate::ymd("1900-01-01"),
@@ -37,7 +37,7 @@ make_com_part_D <- function(df, extracips = NULL, output = "part", format = "bot
   } else {
     extralevel_D <- data.frame(Unitid = df$Unitid[1],
                                DegreeLevel = df$DegreeLevel[1],
-                               StudentId = 'dummy_studentid',
+                               StudentId = "dummy_studentid",
                                RaceEthnicity = 1,
                                Sex = 1,
                                Birthdate = lubridate::ymd("1900-01-01"),
@@ -52,7 +52,7 @@ make_com_part_D <- function(df, extracips = NULL, output = "part", format = "bot
   ipeds_unitid <- as.character(get_ipeds_unitid(df))
 
   dummy_demographics <- data.frame(Unitid = ipeds_unitid,
-                                   StudentId = 'dummy_studentid',
+                                   StudentId = "dummy_studentid",
                                    DegreeLevel = max(df$DegreeLevel),
                                    RaceEthnicity = c(1:9),
                                    Sex = c(1, 1, 1, 1, 1, 2, 2, 2, 2),
@@ -114,7 +114,7 @@ make_com_part_D <- function(df, extracips = NULL, output = "part", format = "bot
     tidyr::spread(key = .data$Sex, value = .data$CountSex) %>%
     #recode and spread Age to get IPEDS columns
     dplyr::mutate(AgeGroup = case_when(
-                                floor(.data$Age) < 18 ~"AGE1",
+                                floor(.data$Age) < 18 ~ "AGE1",
                                 floor(.data$Age) <= 24 ~ "AGE2",
                                 floor(.data$Age) <= 39 ~ "AGE3",
                                 floor(.data$Age) >= 40 ~ "AGE4",
@@ -170,7 +170,7 @@ make_com_part_D <- function(df, extracips = NULL, output = "part", format = "bot
     )
 
   write_report(df = partD,
-               component = 'Completions',
+               component = "Completions",
                part = "PartD",
                output = output,
                format = format)

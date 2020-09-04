@@ -34,7 +34,7 @@ make_com_part_C <- function(df, output = "part", format = "both") {
                      )
 
   write_report(df = partC,
-               component = 'Completions',
+               component = "Completions",
                part = "PartC",
                output = output,
                format = format)

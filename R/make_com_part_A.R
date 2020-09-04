@@ -50,7 +50,7 @@ make_com_part_A <- function(df, extracips = NULL, output = "part", format = "bot
 
   #create the txt file
   write_report(df = partA,
-               component = 'Completions',
+               component = "Completions",
                part = "PartA",
                output = output,
                format = format)

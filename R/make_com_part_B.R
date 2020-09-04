@@ -45,7 +45,7 @@ make_com_part_B <- function(df, extracips = NULL, output = "part", format = "bot
 
 
   write_report(df = partB,
-               component = 'Completions',
+               component = "Completions",
                part = "PartB",
                output = output,
                format = format)

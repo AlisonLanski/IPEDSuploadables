@@ -27,7 +27,7 @@ write_report <- function(df, component, part, output, append = FALSE, format = "
         purrr::map_df(~stringr::str_replace_all(., "^[:upper:]+[=]*", "")) %>%
         write.table(x = ., sep = ",",
                     file = paste0(output_path, "Readable_", component, "_", part, "_", Sys.Date(), ".csv"),
-                    quote = FALSE, row.names = FALSE, col.names = FALSE)
+                    quote = FALSE, row.names = FALSE, col.names = TRUE)
     }
   }
 
@@ -46,7 +46,7 @@ write_report <- function(df, component, part, output, append = FALSE, format = "
         purrr::map_df(~stringr::str_replace_all(., "^[:upper:]+[=]*", "")) %>%
         write.table(x = ., sep = ",",
                     file = paste0(output_path, "Readable_", component, "_AllParts_", Sys.Date(), ".csv"),
-                    quote = FALSE, row.names = FALSE, col.names = FALSE, append = append)
+                    quote = FALSE, row.names = FALSE, col.names = TRUE, append = append)
     }
   }
 

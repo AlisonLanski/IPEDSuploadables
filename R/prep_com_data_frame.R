@@ -32,7 +32,7 @@ prep_com_data_frame <- function(df) {
     dplyr::select(-.data$Two, -.data$Four) %>%
     dplyr::mutate(Unitid = as.character(.data$Unitid))
 
-  if('StudentId' %in% colnames(df)) {
+  if("StudentId" %in% colnames(df)) {
     df <- df %>%
       dplyr::mutate(StudentId = as.character(.data$StudentId))
   }
