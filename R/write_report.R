@@ -1,4 +1,3 @@
-
 #' Write the prepared data to a txt file in IPEDS format
 #'
 #' @param df a dataframe (prepared via the 'make' scripts)
@@ -19,7 +18,7 @@ write_report <- function(df, component, part, output, append = FALSE, format = "
   }
 
   if (tolower(output) == "part" | tolower(output) == "both") {
-    if (tolower(format) == "uploadable") {
+    if (tolower(format) == "uploadable" | tolower(format) == "both") {
       write.table(x = df, sep = ",",
                   file = paste0(output_path, component, "_", part, "_", Sys.Date(), ".txt"),
                   quote = FALSE, row.names = FALSE, col.names = FALSE)
@@ -27,7 +26,7 @@ write_report <- function(df, component, part, output, append = FALSE, format = "
       df %>%
         purrr::map_df(~stringr::str_replace_all(., "^[:upper:]+[=]*", "")) %>%
         write.table(x = ., sep = ",",
-                    file = paste0(output_path, "Readable_", component, "_", part, "_", Sys.Date(), ".txt"),
+                    file = paste0(output_path, "Readable_", component, "_", part, "_", Sys.Date(), ".csv"),
                     quote = FALSE, row.names = FALSE, col.names = FALSE)
     }
   }
@@ -46,7 +45,7 @@ write_report <- function(df, component, part, output, append = FALSE, format = "
       df %>%
         purrr::map_df(~stringr::str_replace_all(., "^[:upper:]+[=]*", "")) %>%
         write.table(x = ., sep = ",",
-                    file = paste0(output_path, "Readable_", component, "_AllParts_", Sys.Date(), ".txt"),
+                    file = paste0(output_path, "Readable_", component, "_AllParts_", Sys.Date(), ".csv"),
                     quote = FALSE, row.names = FALSE, col.names = FALSE, append = append)
     }
   }
