@@ -1,13 +1,14 @@
 Package: IPEDSuploadables
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
-Authors@R: 
-    person(given = "Alison",
-           family = "Lanski",
-           role = c("aut", "cre"),
-           email = "alanski@nd.edu")
-Description: What the package does (one paragraph).
-License: What license it uses
+Title: Transforms institutional data into approved IPEDS uploadable text files and supporting documents
+Version: 1.0.0
+Authors@R: c(
+            person(given = "Alison", family = "Lanski", 
+            role = c("aut", "cre"),
+            email = "alanski@nd.edu"),
+            person("Shiloh", "Bradley", 
+           role = c("aut")))
+Description: Starting from user-supplied institutional data, this package transforms, aggregates, and reshapes the information to produce key-value pair data files that are able to be uploaded to IPEDS through their submission portal. Starting data specifications can be found in the vignettes.  Final files are saved locally to a location of the user's choice. User-friendly readable files can also be produced for purposes of data review and validation. Because IPEDS changes requirements from year to year, the branch name shows which submission year the scripts are valid for. This version only supports Completions and Human Resources.
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
