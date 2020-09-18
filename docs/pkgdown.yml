@@ -1,0 +1,8 @@
+pandoc: 2.7.3
+pkgdown: 1.6.1
+pkgdown_sha: ~
+articles:
+  setup_for_completions: setup_for_completions.html
+  setup_for_hr: setup_for_hr.html
+last_built: 2020-09-18T20:43Z
+
