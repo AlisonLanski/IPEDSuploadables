@@ -21,3 +21,8 @@ You can install the development version from
 # install.packages("devtools")
 devtools::install_github("AlisonLanski/IPEDSuploadables")
 ```
+
+## Website
+
+View the pkgdown version of this site and documentation at
+<https://alisonlanski.github.io/IPEDSuploadables/>
