@@ -76,18 +76,19 @@ make_com_part_D <- function(df, extracips = NULL, output = "part", format = "bot
     dplyr::bind_rows(dummy_demographics) %>%
     #recode before removing duplicates per student
     dplyr::mutate(CTLEVEL = dplyr::recode(.data$DegreeLevel,
-                                          `1` = 1,
-                                          `2` = 2,
-                                          `3` = 3,
-                                          `4` = 2,
-                                          `5` = 4,
-                                          `6` = 7,
-                                          `7` = 5,
-                                          `8` = 7,
-                                          `17` = 6,
-                                          `18` = 6,
-                                          `19` = 6,
-                                          .default = 9)
+                                          "1a" = 8,
+                                          "1b" = 9,
+                                          "2" = 2,
+                                          "3" = 3,
+                                          "4" = 2,
+                                          "5" = 4,
+                                          "6" = 7,
+                                          "7" = 5,
+                                          "8" = 7,
+                                          "17" = 6,
+                                          "18" = 6,
+                                          "19" = 6,
+                                          .default = 99)
            ) %>%
     dplyr::select(-.data$DegreeLevel) %>%
     #one row per student per level per unitid (keep RE/Sex/Birthdate)
@@ -179,7 +180,7 @@ make_com_part_D <- function(df, extracips = NULL, output = "part", format = "bot
   #Error messages that would stem from recoding errors
 
   #Award Level
-  if(("CTLEVEL=9" %in% partD$CTLEVEL) != 0) {
+  if(("CTLEVEL=99" %in% partD$CTLEVEL) != 0) {
     svDialogs::dlg_message("Warning! Your Part D results contain unknown values for degree level.
                          Please check your data and rerun from the top.")
   }

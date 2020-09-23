@@ -30,7 +30,8 @@ prep_com_data_frame <- function(df) {
     MajorCip = paste0(.data$Two, '.', .data$Four)
     ) %>%
     dplyr::select(-.data$Two, -.data$Four) %>%
-    dplyr::mutate(Unitid = as.character(.data$Unitid))
+    dplyr::mutate(Unitid = as.character(.data$Unitid),
+                  DegreeLevel = as.character(.data$DegreeLevel))
 
   if("StudentId" %in% colnames(df)) {
     df <- df %>%
