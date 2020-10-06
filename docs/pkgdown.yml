@@ -4,7 +4,8 @@ pkgdown_sha: ~
 articles:
   setup_for_completions: setup_for_completions.html
   setup_for_hr: setup_for_hr.html
-last_built: 2020-10-05T14:14Z
+  use_completions: use_completions.html
+last_built: 2020-10-06T19:17Z
 urls:
   reference: https://alisonlanski.github.io/IPEDSuploadables//reference
   article: https://alisonlanski.github.io/IPEDSuploadables//articles
