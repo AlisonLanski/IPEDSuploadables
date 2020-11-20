@@ -19,20 +19,20 @@ make_gr200 <- function(df, output = "part", format = "both") {
 
   #produce the uploadable format
   exclusions <- df %>%
-    dplyr::filter(.data$Is_Exclusion == 1) %>%
-    dplyr::group_by(.data$Is_Exclusion) %>%
+    dplyr::filter(.data$IsExclusion == 1) %>%
+    dplyr::group_by(.data$IsExclusion) %>%
     dplyr::summarize(Exclusions = dplyr::n()) %>%
     ungroup()
 
   comp <- df %>%
-    dplyr::filter(.data$Is_Comp == 1) %>%
-    dplyr::group_by(.data$Is_Comp) %>%
+    dplyr::filter(.data$IsComp == 1) %>%
+    dplyr::group_by(.data$IsComp) %>%
     dplyr::summarize(Comp = dplyr::n()) %>%
     ungroup()
 
   se <- df %>%
-    dplyr::filter(.data$Is_Still_Enrolled == 1) %>%
-    dplyr::group_by(.data$Is_Still_Enrolled) %>%
+    dplyr::filter(.data$IsStillEnrolled == 1) %>%
+    dplyr::group_by(.data$IsStillEnrolled) %>%
     dplyr::summarize(StillEnrolled = dplyr::n()) %>%
     ungroup()
 
