@@ -75,7 +75,8 @@
 
       
 
-      </header><script src="use_completions_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="use_completions_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="use_completions_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+<script src="use_completions_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>How to produce an IPEDS Completions upload file</h1>
@@ -91,15 +92,15 @@
 <div id="step-0-installload-the-package" class="section level2">
 <h2 class="hasAnchor">
 <a href="#step-0-installload-the-package" class="anchor"></a>Step 0: Install/Load the package</h2>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="co">#install option 1</span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#install option 1</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"AlisonLanski/IPEDSuploadables"</span><span class="op">)</span>
 
 <span class="co">#install option 2</span>
 <span class="fu">githubinstall</span><span class="fu">::</span><span class="fu">githubinstall</span><span class="op">(</span><span class="st">"IPEDSuploadables"</span><span class="op">)</span>
 
 <span class="co">#load the packages</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">IPEDSuploadables</span><span class="op">)</span></pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">IPEDSuploadables</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="step-1-load-your-institution-data" class="section level2">
 <h2 class="hasAnchor">
@@ -108,9 +109,9 @@
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>dat_student &lt;-<span class="st"> </span>readr<span class="op">::</span>read_csv<span class="op">::</span>(<span class="st">"path/StudentData.csv"</span>)</span>
 <span id="cb2-2"><a href="#cb2-2"></a>dat_cips &lt;-<span class="st"> </span>readr<span class="op">::</span>read_csv<span class="op">::</span>(<span class="st">"path/CipData.csv"</span>)</span></code></pre></div>
 <p>To test the functions without using your own institutional data, you can create dummy data by running<br><em>Note: 1 row will fail to parse in the dummy data: this is an intentionally-incorrect birthdate and does NOT cause anything later to fail</em></p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="va">dat_student</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_dummy_data_com.html">create_dummy_data_com</a></span><span class="op">(</span><span class="op">)</span>
-<span class="va">dat_cips</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_dummy_data_com.html">create_dummy_data_com</a></span><span class="op">(</span><span class="st">"extracips"</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">dat_student</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_dummy_data_com.html">create_dummy_data_com</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">dat_cips</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_dummy_data_com.html">create_dummy_data_com</a></span><span class="op">(</span><span class="st">"extracips"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="step-2-produce-your-ipeds-report" class="section level2">
 <h2 class="hasAnchor">
@@ -122,25 +123,25 @@
 <li>To run only a single part of the report, change “ALL” to “A”, “B”, “C”, or “D”</li>
 <li>The first time you run this function, you’ll be asked to browse to the file location where the report will be saved. This location can be changed later.</li>
 </ul>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="co">#full export</span>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#full export</span>
 <span class="fu"><a href="../reference/produce_com_report.html">produce_com_report</a></span><span class="op">(</span>df <span class="op">=</span> <span class="va">dat_student</span>, extracips <span class="op">=</span> <span class="va">dat_cips</span>, part <span class="op">=</span> <span class="st">"ALL"</span><span class="op">)</span>
 
 <span class="co">#if you have no extracips and want to look at part B</span>
-<span class="fu"><a href="../reference/produce_com_report.html">produce_com_report</a></span><span class="op">(</span><span class="va">dat_student</span>, part <span class="op">=</span> <span class="st">"B"</span><span class="op">)</span></pre></div>
+<span class="fu"><a href="../reference/produce_com_report.html">produce_com_report</a></span><span class="op">(</span><span class="va">dat_student</span>, part <span class="op">=</span> <span class="st">"B"</span><span class="op">)</span></code></pre></div>
 <p>This file will produce a status message for each part that is asked for. When running “all” completions parts, you’ll see the message 4 times even though there is only 1 output file. This is a known bug that doesn’t affect functionality.</p>
 <div id="note-if-you-prefer-to-avoid-the-wrapper-function-you-can-run-its-individual-parts-" class="section level4">
 <h4 class="hasAnchor">
 <a href="#note-if-you-prefer-to-avoid-the-wrapper-function-you-can-run-its-individual-parts-" class="anchor"></a>Note: If you prefer to avoid the wrapper function, you can run its individual parts.</h4>
 <p>First, prep the data by running it through a script which checks for cip-code formatting and regularizes some datatypes<br><em>Prep script is minimal right now; we have plans for more robust checks</em> Then, run the individual component scripts Use the help for these components to see how to produce the txt file, an easier-to-view file, or both.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="va">dat_student</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/prep_com_data_frame.html">prep_com_data_frame</a></span><span class="op">(</span><span class="va">dat_student</span><span class="op">)</span>
-<span class="va">dat_cips</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/prep_com_data_frame.html">prep_com_data_frame</a></span><span class="op">(</span><span class="va">dat_cips</span><span class="op">)</span></pre></div>
-<div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="fu"><a href="../reference/make_com_part_A.html">make_com_part_A</a></span><span class="op">(</span><span class="va">dat_student</span>, <span class="va">extracips</span><span class="op">)</span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">dat_student</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/prep_com_data_frame.html">prep_com_data_frame</a></span><span class="op">(</span><span class="va">dat_student</span><span class="op">)</span>
+<span class="va">dat_cips</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/prep_com_data_frame.html">prep_com_data_frame</a></span><span class="op">(</span><span class="va">dat_cips</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/make_com_part_A.html">make_com_part_A</a></span><span class="op">(</span><span class="va">dat_student</span>, <span class="va">extracips</span><span class="op">)</span>
 <span class="fu"><a href="../reference/make_com_part_B.html">make_com_part_B</a></span><span class="op">(</span><span class="va">dat_student</span>, <span class="va">extracips</span><span class="op">)</span>
 <span class="fu"><a href="../reference/make_com_part_C.html">make_com_part_C</a></span><span class="op">(</span><span class="va">dat_student</span>, <span class="va">extracips</span><span class="op">)</span>
-<span class="fu"><a href="../reference/make_com_part_D.html">make_com_part_D</a></span><span class="op">(</span><span class="va">dat_student_extracips</span><span class="op">)</span></pre></div>
+<span class="fu"><a href="../reference/make_com_part_D.html">make_com_part_D</a></span><span class="op">(</span><span class="va">dat_student_extracips</span><span class="op">)</span></code></pre></div>
 <p>We recommend only using the individual component scripts for troubleshooting. To submit the individual results in Step 4, you’ll need to first combine them into a single text file.</p>
 </div>
 </div>
