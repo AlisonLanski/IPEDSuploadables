@@ -1,7 +1,6 @@
 #' Make Graduation Rates 200
 #'
 #' @param df A dataframe of student/degree information
-#' @param extracips A dataframe of cips offered by the institution but not in \code{'df'}
 #' @param output A string (\code{"part"}, \code{"full"}, or \code{"both"})
 #' @param format A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})
 #'
