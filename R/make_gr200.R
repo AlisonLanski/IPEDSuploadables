@@ -41,7 +41,7 @@ make_gr200 <- function(df, output = "part", format = "both") {
     dplyr::bind_cols(exclusions, comp, se) %>%
     #format for upload
     dplyr::transmute(UNITID = paste0("UNITID=", .data$Unitid),
-                     SURVSECT = "SURVSECT=GR21",
+                     SURVSECT = "SURVSECT=G21",
                      PART = "PART=A",
                      ADEXCL = paste0("ADEXCL=", .data$Exclusions),
                      `COMPY7-8` = paste0("COMPY7-8=", .data$Comp),
