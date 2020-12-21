@@ -7,7 +7,6 @@
 #'
 create_dummy_data_gr <- function(n = 1000, seed = 4567){
 
-  #instructional
   set.seed(seed)
   df <- data.frame(Unitid = 111111,
                    StudentId = seq(from = 1000, to = 999 + n),

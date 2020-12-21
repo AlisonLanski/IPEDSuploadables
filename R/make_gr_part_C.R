@@ -17,9 +17,9 @@ make_gr_part_C <- function(df, output = "part", format = "both") {
   partC <- df %>%
     dplyr::select(.data$Unitid, .data$Section, .data$Line, .data$PellGrant, .data$DirectLoan) %>%
     #deduplicate
-    unique() %>%
+    dplyr::distinct() %>%
     #aggregate and count
-    dplyr::group_by(.data$Unitid, .data$Section, .data$Line) %>%
+    dplyr::group_by(.data$Unitid, .data$Section, .data$Line, .data$PellGrant, .data$DirectLoan) %>%
     dplyr::summarize(Count = dplyr::n()) %>%
     dplyr::ungroup() %>%
     #format for upload
