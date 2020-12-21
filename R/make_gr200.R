@@ -21,19 +21,19 @@ make_gr200 <- function(df, output = "part", format = "both") {
     dplyr::filter(.data$IsExclusion == 1) %>%
     dplyr::group_by(.data$IsExclusion) %>%
     dplyr::summarize(Exclusions = dplyr::n()) %>%
-    ungroup()
+    dplyr::ungroup()
 
   comp <- df %>%
     dplyr::filter(.data$IsComp == 1) %>%
     dplyr::group_by(.data$IsComp) %>%
     dplyr::summarize(Comp = dplyr::n()) %>%
-    ungroup()
+    dplyr::ungroup()
 
   se <- df %>%
     dplyr::filter(.data$IsStillEnrolled == 1) %>%
     dplyr::group_by(.data$IsStillEnrolled) %>%
     dplyr::summarize(StillEnrolled = dplyr::n()) %>%
-    ungroup()
+    dplyr::ungroup()
 
   gr200 <- df %>%
     dplyr::select(.data$Unitid) %>%

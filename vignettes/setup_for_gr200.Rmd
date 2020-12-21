@@ -1,0 +1,49 @@
+---
+title: "Set up your data for IPEDS Graduation Rates 200 processing"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Set up your data for IPEDS Graduation Rates 200 processing}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup, eval=FALSE, echo=FALSE}
+library(IPEDSuploadables)
+```
+
+## To use the `make_gr200` functions, your student completions data must be in the format described below
+
+>
+* One row per person per degree level per cip per major
+* One IPEDS Unitid per file
+* Columns with values and types as described below (additional columns are allowed)
+
+Note: Column names can use any capitalization method you like
+
+```{r create_data_file_in_package, eval=FALSE, echo=FALSE}
+#export spreadsheet with specs from google drive
+#read in with readr
+#then run: use_data(specs_GR200, specs_GR200, overwrite = TRUE) to save as .rda and replace the old file
+```
+
+```{r specstable_df, echo=FALSE, warning=FALSE, message=FALSE}
+#figure out why striped isn't working when format = 'html'
+load("../data/specs_GR200.rda")
+library(magrittr)
+specs_GR200$ACCEPTABLE_VALUES <- stringr::str_replace_all(specs_GR200$ACCEPTABLE_VALUES, pattern = "\\n", replacement = "<br>")
+
+knitr::kable(specs_GR200,
+             format = 'html',
+             escape = FALSE,
+             col.names = c('Column Name', 'Column Type', 'Acceptable Value - Definition')) %>%
+    kableExtra::kable_styling(bootstrap_options = "striped") %>%
+    kableExtra::column_spec(2, italic = TRUE, width = '8em')
+```
+
