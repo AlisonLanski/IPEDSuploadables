@@ -16,7 +16,6 @@
 
 make_gr_part_B <- function(df, output = "part", format = "both") {
 
-
   #produce the uploadable format
   partB <- df %>%
     #aggregate the full data
