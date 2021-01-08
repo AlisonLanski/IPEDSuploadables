@@ -1,5 +1,7 @@
 #' Create dummy data for testing the Grad Rates functions
 #' @description Creates dummy data for testing the Grad Rates functions
+#' @param n Number of rows of data to synthesize
+#' @param seed Seed number to supply to \code{"set.seed()"} to replicate of results
 #' @return a dataframe ready for the rest of the Grad Rates functions
 #' @export
 #'
