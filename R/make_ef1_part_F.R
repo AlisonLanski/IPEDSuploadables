@@ -17,6 +17,13 @@
 
 make_ef1_part_F <- function(df, extracips = NULL, output = "part", format = "both") {
 
+  partF <- partF %>%
+    #format for upload
+    dplyr::transmute(UNITID = paste0("UNITID=", .data$Unitid),
+                     SURVSECT = "SURVSECT=EF1",
+                     PART = "PART=F",
+                     ST_STAFF_RATIO = paste0("ST_STAFF_RATIO=", .data$StaffRatio)
+    )
 
   #create the txt file
   write_report(df = partF,

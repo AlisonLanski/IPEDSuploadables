@@ -17,6 +17,17 @@
 
 make_ef1_part_C <- function(df, extracips = NULL, output = "part", format = "both") {
 
+  partC <- partC %>%
+    #sort for easy viewing
+    dplyr::arrange(.data$Line, .data$HS) %>%
+    #format for upload
+    dplyr::transmute(UNITID = paste0("UNITID=", .data$Unitid),
+                     SURVSECT = "SURVSECT=EF1",
+                     PART = "PART=C",
+                     LINE = paste0("AWLEVEL=", .data$Line),
+                     HS = paste0("RACE=", .data$HS),
+                     COUNT = paste0("COUNT=", .data$Count)
+    )
 
   #create the txt file
   write_report(df = partC,

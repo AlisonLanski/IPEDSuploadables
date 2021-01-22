@@ -17,6 +17,18 @@
 
 make_ef1_part_B <- function(df, extracips = NULL, output = "part", format = "both") {
 
+  partB <- partB %>%
+    #sort for easy viewing
+    dplyr::arrange(.data$Line, .data$Level, .data$Sex) %>%
+    #format for upload
+    dplyr::transmute(UNITID = paste0("UNITID=", .data$Unitid),
+                     SURVSECT = "SURVSECT=EF1",
+                     PART = "PART=B",
+                     LINE = paste0("AWLEVEL=", .data$Line),
+                     SLEVEL = paste0("RACE=", .data$Level),
+                     SEX = paste0("SEX=", .data$Sex),
+                     COUNT = paste0("COUNT=", .data$Count)
+    )
 
   #create the txt file
   write_report(df = partB,

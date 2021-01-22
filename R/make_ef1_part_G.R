@@ -17,6 +17,22 @@
 
 make_ef1_part_G <- function(df, extracips = NULL, output = "part", format = "both") {
 
+  partG <- partG %>%
+    #sort for easy viewing
+    dplyr::arrange(.data$Line) %>%
+    #format for upload
+    dplyr::transmute(UNITID = paste0("UNITID=", .data$Unitid),
+                     SURVSECT = "SURVSECT=EF1",
+                     PART = "PART=G",
+                     LINE = paste0("CIPCODE=", .data$Line),
+                     ENROLL_EXCLUSIVE = paste0("AWLEVEL=", .data$EnrollExclusive),
+                     ENROLL_SOME = paste0("RACE=", .data$EnrollSome),
+                     NOTENROLL = paste0("SEX=", .data$NotEnroll),
+                     INUS_PPS = paste0("INUS_PPS=", .data$PPS),
+                     INUS_NOTPPS = paste0("INUS_NOTPPS=", .data$NotPPS),
+                     INUS_UNKNOWN_STATE = paste0("INUS_UNKNOWN_STATE=", .data$UnknownState),
+                     OUTSIDEUS = paste0("OUTSIDEUS=", .data$OutsideUS)
+    )
 
   #create the txt file
   write_report(df = partG,
