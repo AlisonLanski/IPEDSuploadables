@@ -24,7 +24,7 @@ make_ef1_part_C <- function(df, extracips = NULL, output = "part", format = "bot
     dplyr::transmute(UNITID = paste0("UNITID=", .data$Unitid),
                      SURVSECT = "SURVSECT=EF1",
                      PART = "PART=C",
-                     LINE = paste0("AWLEVEL=", .data$Line),
+                     LINE = paste0("LINE=", .data$Line),
                      HS = paste0("RACE=", .data$HS),
                      COUNT = paste0("COUNT=", .data$Count)
     )

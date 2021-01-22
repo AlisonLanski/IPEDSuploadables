@@ -25,7 +25,7 @@ make_ef1_part_A <- function(df, extracips = NULL, output = "part", format = "bot
                      SURVSECT = "SURVSECT=EF1",
                      PART = "PART=A",
                      CIPCODE = paste0("CIPCODE=", .data$MajorCip),
-                     LINE = paste0("AWLEVEL=", .data$Line),
+                     LINE = paste0("LINE=", .data$Line),
                      RACE = paste0("RACE=", .data$RaceEthnicity),
                      SEX = paste0("SEX=", .data$Sex),
                      COUNT = paste0("COUNT=", .data$Count)
