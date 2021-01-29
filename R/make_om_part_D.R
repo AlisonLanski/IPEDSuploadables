@@ -9,7 +9,6 @@
 #' @return A text file ready for IPEDS upload
 #' @export
 #'
-#' @examples
 #'
 make_om_part_D <- function(df, output = "part", format = "both") {
 
@@ -18,7 +17,8 @@ make_om_part_D <- function(df, output = "part", format = "both") {
   partD_2 <- df %>%
     dplyr::filter(.data$AwardLevel8 == 4,
            .data$Exclusion == FALSE) %>%
-  dplyr::mutate(Enroll = dplyr::recode(.data$EnrolStatus8,
+  dplyr::mutate(Unitid = as.character(.data$Unitid),
+                Enroll = dplyr::recode(.data$EnrollStatus8,
                 `1` = 'Enrolled',
                 `2` = 'Elsewhere',
                 .default = 'Error',
@@ -42,7 +42,8 @@ make_om_part_D <- function(df, output = "part", format = "both") {
 
     partD <- dplyr::full_join(partD_1, partD_2,
                               by = c("Unitid", "CohortType", "Recipient")) %>%
-      replace(., is.na(.), 0) %>%
+      #replace(., is.na(.), 0) %>%
+      dplyr::mutate(dplyr::across(dplyr::everything(), ~tidyr::replace_na(.x, 0))) %>%
 
         #format for upload
     dplyr::transmute(UNITID = paste0("UNITID=", .data$Unitid),

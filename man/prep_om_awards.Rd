@@ -2,21 +2,18 @@
 % Please edit documentation in R/prep_om_awards.R
 \name{prep_om_awards}
 \alias{prep_om_awards}
-\title{Prep df for Outcome Measures part B, C, D}
+\title{Prep extra_awards df for Outcome Measures part B, C, D}
 \usage{
 prep_om_awards(df, award)
 }
 \arguments{
 \item{df}{A dataframe of student statuses}
 
-\item{award}{A string with the df column to use for processing}
+\item{award}{A string with the df column to use for processing depending on the OM part}
 }
 \value{
-A df ready for upload formatting
+A df ready for use in the make_om_part functions B-D
 }
 \description{
 Select correct year, ensure all award levels end up with a column
-}
-\examples{
-
 }

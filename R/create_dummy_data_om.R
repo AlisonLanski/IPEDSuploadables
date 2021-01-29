@@ -20,7 +20,7 @@ create_dummy_data_om <- function(){
                             AwardLevel4 = c(rep(2, 5), rep(3, 8), rep(4, 7)),
                             AwardLevel6 = c(rep(2, 5), rep(3, 10), rep(4, 5)),
                             AwardLevel8 = c(rep(2, 5), rep(3, 11), rep(4, 4)),
-                            EnrolStatus8 = c(rep(4, 18), rep(1, 1), rep(2, 1)),
+                            EnrollStatus8 = c(rep(4, 18), rep(1, 1), rep(2, 1)),
                             stringsAsFactors = FALSE)
 
     return(om_dat)

@@ -1,42 +1,42 @@
-#' Prep df for Outcome Measures part B, C, D
+#' Prep extra_awards df for Outcome Measures part B, C, D
 #'
 #' @description Select correct year, ensure all award levels end up with a column
 #'
 #' @param df A dataframe of student statuses
-#' @param award A string with the df column to use for processing
+#' @param award A string with the df column to use for processing depending on the OM part
 #'
-#' @return A df ready for upload formatting
-#' @export
+#' @return A df ready for use in the make_om_part functions B-D
 #'
-#' @examples
 #'
 prep_om_awards <- function(df, award) {
 
-  extra_awards <- data.frame(expand.grid(Unitid = 999999,#get_ipeds_unitid(om_dat),
+  extra_awards <- data.frame(expand.grid(Unitid = get_ipeds_unitid(df),
                                          CohortType = c(1:4),
                                          Recipient = c(1:2),
                                          Award = c(1:3),
                                          Count = 0)) %>%
-    dplyr::transmute(Unitid,
-                     StudentId = paste0("FakeID", c(1:n())),
-                     CohortType,
-                     Recipient,
-                     Award,
-                     Count)
+    dplyr::transmute(.data$Unitid,
+                     StudentId = paste0("FakeID", c(1:dplyr::n())),
+                     .data$CohortType,
+                     .data$Recipient,
+                     .data$Award,
+                     .data$Count)
 
   #partB <- df %>%
 
   award_df <- df %>%
     dplyr::transmute(.data$Unitid,
-                  .data$StudentId,
+                  StudentId = as.character(.data$StudentId),
                   .data$CohortType,
                   .data$Recipient,
-                  Award = .data[[award]]) %>%
+                  Award = .data[[award]],
+                  .data$Exclusion) %>%
     dplyr::mutate(Count = 1) %>%
 
     #not needed for this report
     dplyr::filter(.data$Award != 4,
                   .data$Exclusion == FALSE) %>%
+    dplyr::select(-.data$Exclusion) %>%
 
     #add extras
     rbind(extra_awards) %>%
@@ -54,7 +54,8 @@ prep_om_awards <- function(df, award) {
     dplyr::arrange(.data$CohortType, .data$Recipient) %>%
 
     #remove empty rows
-    dplyr::filter(!(`1`==0 & `2`==0 & `3`==0))
+    dplyr::filter(!(.data$`1`==0 & .data$`2`==0 & .data$`3`==0))
+
 
   return(award_df)
 

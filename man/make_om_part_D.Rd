@@ -19,6 +19,3 @@ A text file ready for IPEDS upload
 \description{
 Award Status and Enrollment at Eight Years after Entry
 }
-\examples{
-
-}

@@ -18,7 +18,6 @@
 #' @return A text file ready for IPEDS upload
 #' @export
 #'
-#' @examples
 #'
 make_om_part_A <- function(df, output = "part", format = "both") {
 

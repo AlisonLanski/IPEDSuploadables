@@ -19,6 +19,3 @@ A text file ready for IPEDS upload
 \description{
 Establishing the Outcome Measures cohorts
 }
-\examples{
-
-}
