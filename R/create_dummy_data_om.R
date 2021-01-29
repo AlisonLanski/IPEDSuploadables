@@ -16,7 +16,7 @@ create_dummy_data_om <- function(){
                             StudentId = c(100:119),
                             CohortType = c(rep(1, 10), rep(2, 3), rep(3, 7)),
                             Recipient = c(rep(1, 5), rep(2, 15)),
-                            Exclusion = c(rep(FALSE, 16), rep(TRUE, 2), rep(FALSE, 2)),
+                            CohortStatus = c(rep('Include', 16), rep('Exclude', 2), rep('Include', 2)),
                             AwardLevel4 = c(rep(2, 5), rep(3, 8), rep(4, 7)),
                             AwardLevel6 = c(rep(2, 5), rep(3, 10), rep(4, 5)),
                             AwardLevel8 = c(rep(2, 5), rep(3, 11), rep(4, 4)),

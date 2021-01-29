@@ -8,17 +8,17 @@
 #'
 produce_om_report <- function(df, part = "ALL") {
 
-  # students <- prep_com_data_frame(df = df)
+   students <- prep_om_data_frame(df = df)
 
   if (toupper(part) == "ALL") {
-    make_om_part_A(df = df, output = "full")
-    make_om_part_B(df = df, output = "full")
-    make_om_part_C(df = df, output = "full")
-    make_om_part_D(df = df, output = "full")
+    make_om_part_A(df = students, output = "full")
+    make_om_part_B(df = students, output = "full")
+    make_om_part_C(df = students, output = "full")
+    make_om_part_D(df = students, output = "full")
   }
 
   if (toupper(part) %in% c("A", "B", "C", "D")) {
-    do.call(paste0("make_om_part_", toupper(part)), list(df))
+    do.call(paste0("make_om_part_", toupper(part)), list(students))
   }
 
 }
