@@ -18,6 +18,8 @@ make_gr_part_B <- function(df, output = "part", format = "both") {
 
   #produce the uploadable format
   partB <- df %>%
+    #get rid of the total line that is not needed for part B
+    dplyr::filter(.data$Line != 29) %>%
     #aggregate the full data
     dplyr::group_by(.data$Unitid, .data$Section, .data$Line, .data$RaceEthnicity, .data$Sex) %>%
     dplyr::summarize(Count = dplyr::n()) %>%

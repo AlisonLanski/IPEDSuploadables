@@ -15,12 +15,18 @@
 make_gr_part_C <- function(df, output = "part", format = "both") {
 
   partC <- df %>%
-    dplyr::select(.data$Unitid, .data$Section, .data$Line, .data$PellGrant, .data$DirectLoan) %>%
+    dplyr::select(.data$Unitid, .data$StudentId, .data$Section,
+                  .data$Line, .data$PellGrant, .data$DirectLoan) %>%
     #deduplicate
     dplyr::distinct() %>%
+    dplyr::filter(.data$PellGrant == 1 | .data$DirectLoan == 1) %>%
+    dplyr::mutate(Line = ifelse(.data$Line == 1, 10, .data$Line)) %>%
+      dplyr::mutate(Section = ifelse(.data$Line == 10, 2, .data$Section)) %>%
+    dplyr::filter(.data$Section == 2, .data$Line %in% c(10, 18, 29, 45)) %>%
     #aggregate and count
-    dplyr::group_by(.data$Unitid, .data$Section, .data$Line, .data$PellGrant, .data$DirectLoan) %>%
-    dplyr::summarize(Count = dplyr::n()) %>%
+    dplyr::group_by(.data$Unitid, .data$Section, .data$Line) %>%
+    dplyr::summarize(TotalPell = sum(.data$PellGrant),
+                     TotalLoan = sum(.data$DirectLoan)) %>%
     dplyr::ungroup() %>%
     #format for upload
     dplyr::transmute(UNITID = paste0("UNITID=", .data$Unitid),
@@ -28,9 +34,10 @@ make_gr_part_C <- function(df, output = "part", format = "both") {
                      PART = "PART=C",
                      SECTION = paste0("SECTION=", .data$Section),
                      LINE = paste0("LINE=", .data$Line),
-                     PELLGRANT_RCPT = paste0("SEX=", .data$PellGrant),
-                     DIRECTLOAN_RCPT = paste0("DIRECTLOAN_RCPT=", .data$DirectLoan)
-                     )
+                     PELLGRANT_RCPT = paste0("PELLGRANT_RCPT=", .data$TotalPell),
+                     DIRECTLOAN_RCPT = paste0("DIRECTLOAN_RCPT=", .data$TotalLoan)
+    )
+
 
   write_report(df = partC,
                component = "GradRates",
