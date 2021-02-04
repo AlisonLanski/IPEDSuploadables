@@ -6,7 +6,7 @@
 #'
 #' @importFrom rlang .data
 #' @importFrom magrittr "%>%"
-#' @importFrom dplyr select group_by summarize ungroup bind_rows arrange transmute n
+#' @importFrom dplyr group_by summarize ungroup transmute
 #' @importFrom utils write.table
 #'
 #' @return A text file
@@ -16,29 +16,12 @@
 
 make_gr200 <- function(df, output = "part", format = "both") {
 
-  #produce the uploadable format
-  exclusions <- df %>%
-    dplyr::filter(.data$IsExclusion == 1) %>%
-    dplyr::group_by(.data$IsExclusion) %>%
-    dplyr::summarize(Exclusions = dplyr::n()) %>%
-    dplyr::ungroup()
-
-  comp <- df %>%
-    dplyr::filter(.data$IsComp == 1) %>%
-    dplyr::group_by(.data$IsComp) %>%
-    dplyr::summarize(Comp = dplyr::n()) %>%
-    dplyr::ungroup()
-
-  se <- df %>%
-    dplyr::filter(.data$IsStillEnrolled == 1) %>%
-    dplyr::group_by(.data$IsStillEnrolled) %>%
-    dplyr::summarize(StillEnrolled = dplyr::n()) %>%
-    dplyr::ungroup()
-
   gr200 <- df %>%
-    dplyr::select(.data$Unitid) %>%
-    dplyr::distinct() %>%
-    dplyr::bind_cols(exclusions, comp, se) %>%
+    dplyr::group_by(.data$Unitid) %>%
+    dplyr::summarize(Exclusions = sum(.data$IsExclusion),
+                    Comp = sum(.data$IsComp),
+                    StillEnrolled = sum(.data$IsStillEnrolled)) %>%
+    dplyr::ungroup() %>%
     #format for upload
     dplyr::transmute(UNITID = paste0("UNITID=", .data$Unitid),
                      SURVSECT = "SURVSECT=G21",
