@@ -21,7 +21,7 @@ library(IPEDSuploadables)
 ## To use the `make_gr200` functions, your student completions data must be in the format described below
 
 >
-* One row per person per degree level per cip per major
+* One row per person
 * One IPEDS Unitid per file
 * Columns with values and types as described below (additional columns are allowed)
 
@@ -30,7 +30,7 @@ Note: Column names can use any capitalization method you like
 ```{r create_data_file_in_package, eval=FALSE, echo=FALSE}
 #export spreadsheet with specs from google drive
 #read in with readr
-#then run: use_data(specs_GR200, specs_GR200, overwrite = TRUE) to save as .rda and replace the old file
+#then run: use_data(specs_GR200, overwrite = TRUE) to save as .rda and replace the old file
 ```
 
 ```{r specstable_df, echo=FALSE, warning=FALSE, message=FALSE}
