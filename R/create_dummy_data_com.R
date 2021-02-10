@@ -30,7 +30,7 @@
 #' @importFrom lubridate ymd dyears
 #'
 
-create_dummy_data_comp <- function(df_type = 'student'){
+create_dummy_data_com <- function(df_type = 'student'){
   set.seed(1892)
   firstmajors <- data.frame(Unitid = 999999,
                             StudentId = c(100:199),
@@ -41,10 +41,10 @@ create_dummy_data_comp <- function(df_type = 'student'){
                                          size = 100,
                                          replace = T,
                                          prob = c(.47, .53)),
-                            DegreeLevel = sample(x = c(2:8, 17:19),
+                            DegreeLevel = as.character(sample(x = c(2:8, 17:19),
                                                  size = 100,
                                                  replace = T,
-                                                 prob = c(rep(x = .01, 3), .5, .01, .23, .01, .1, .1, .02)),
+                                                 prob = c(rep(x = .01, 3), .5, .01, .23, .01, .1, .1, .02))),
                             MajorNumber = 1,
                             MajorCip = sample(x = c(09.0100, #journalism
                                                     09.0401,
@@ -56,6 +56,8 @@ create_dummy_data_comp <- function(df_type = 'student'){
                                               size = 100,
                                               replace = T),
                             DistanceEd = 2,
+                            DistanceEd31 = NA,
+                            DistanceEd32 = NA,
                             BirthYear = sample(x = c(1977, 1988, 1999, 2002),
                                                size = 100,
                                                replace = T,
@@ -99,13 +101,17 @@ create_dummy_data_comp <- function(df_type = 'student'){
 
   ### then for a random subset,
   ### give them an MBA (degree level 7: regardless of the other degree levels they have)
+  ### make it distance ed (some programs at level and cip, not all)
   set.seed(1892)
   mba <- firstmajors %>%
     filter(.data$StudentId %in% sample(x = .data$StudentId,
                                        size = 10,
                                        replace = T)) %>%
-    mutate(DegreeLevel = 7,
-           MajorCip = 52.0201) #general business admin
+    mutate(DegreeLevel = "7",
+           MajorCip = 52.0201, #general business admin
+           DistanceEd = 3,
+           DistanceEd31 = 1,
+           DistanceEd32 = 0)
 
 
   ### then for a random subset,
@@ -138,7 +144,9 @@ create_dummy_data_comp <- function(df_type = 'student'){
                                     replace = T),
                   DistanceEd = ifelse(.data$DegreeLevel == 5 & .data$MajorCip == 16.0102,
                                       1,
-                                      .data$DistanceEd))
+                                      .data$DistanceEd),
+                  DistanceEd31 = NA,
+                  DistanceEd32 = NA)
 
 
 
@@ -155,12 +163,24 @@ create_dummy_data_comp <- function(df_type = 'student'){
     allcips <- startingdf %>%
       dplyr::select(.data$MajorCip,
                     .data$DegreeLevel,
-                    .data$DistanceEd) %>%
+                    .data$DistanceEd,
+                    .data$DistanceEd31,
+                    .data$DistanceEd32) %>%
       unique() %>%
       #add one more at two levels (one level in use, one not in use)
       rbind(data.frame(MajorCip = 45.1001,
-                       DegreeLevel = c(1, 5),
-                       DistanceEd = 1))
+                       DegreeLevel = c("1b", "5"),
+                       DistanceEd = 1,
+                       DistanceEd31 = NA,
+                       DistanceEd32 = NA)) %>%
+    #add one more with a new cip/level combination that is partial distance ed
+        rbind(data.frame(MajorCip=22.0206,
+                       DegreeLevel = "1a",
+                       DistanceEd = 3,
+                       DistanceEd31 = 0,
+                       DistanceEd32 = 1))
+
+
 
     extracips <-  allcips %>%
       dplyr::anti_join(startingdf) %>%
@@ -174,6 +194,8 @@ create_dummy_data_comp <- function(df_type = 'student'){
              .data$MajorCip,
              .data$DegreeLevel,
              .data$DistanceEd,
+             .data$DistanceEd31,
+             .data$DistanceEd32,
              .data$RaceEthnicity,
              .data$Sex,
              .data$Count)

@@ -59,6 +59,9 @@
     <li>
       <a href="../articles/setup_for_hr.html">Set up your data for IPEDS HR processing</a>
     </li>
+    <li>
+      <a href="../articles/use_completions.html">How to produce an IPEDS Completions upload file</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -95,6 +98,7 @@
 <li>Columns with values and types as described below (additional columns are allowed)</li>
 </ul>
 </blockquote>
+<p>Note: Column names can use any capitalization method you like</p>
 <table class="table table table-striped">
 <thead><tr>
 <th style="text-align:left;">
@@ -113,7 +117,7 @@ Acceptable Value - Definition
 Unitid
 </td>
 <td style="text-align:left;width: 8em; font-style: italic;">
-Character or Numeric
+Numeric
 </td>
 <td style="text-align:left;">
 (relevant unitid; xxxxxx)
@@ -157,10 +161,10 @@ Numeric
 DegreeLevel
 </td>
 <td style="text-align:left;width: 8em; font-style: italic;">
-Numeric
+Character or Numeric
 </td>
 <td style="text-align:left;">
-1 - Postsecondary award, certificate, or diploma of (less than one academic year)<br>less than 900 clock hours<br>less than 30 semester or trimester credit hours<br>less than 45 quarter credit hours<br>2 - Postsecondary award, certificate,or diploma of (at least one but less than two academic years)<br>at least 900 but lessthan 1800 clock hours)<br>at least 30 but less than 60 semester or trimester credit hours<br>at least 45 but less than 90 quarter credit hours<br>3 - <em>Associate’s Degree<br>4 - Postsecondary award, certificate,or diploma of (at least two but less than four academic years)<br>1800 or more clock hours<br>60 or more semester or trimester credit hours<br>90 or more quarter credit hours<br>5 - </em>Bachelor’s Degree or equivalent<br>6 - Postbaccalaureate Certificate<br>7 - <em>Master’s Degree<br>8 - Post-Master’s Certificate<br>17 - </em>Doctor’s degree - research/scholarship<br>18 - <em>Doctor’s degree - professional practice<br>19 - </em>Doctor’s degree - Other<br>* Use only 3, 5, 7, 17, 18 and 19 when reporting second majors.
+1a - Postsecondary award, certificate, or diploma of <br>less than 300 clock hours or<br>less than 9 semester or trimester credit hours or<br>less than 13 quarter credit hours<br>1b - Postsecondary award, certificate, or diploma of <br>300-899 clock hours or<br>9-30 semester or trimester credit hours, or<br>13-44 quarter credit hours<br>2 - Postsecondary award, certificate,or diploma of<br>at least 900 but less than 1800 clock hours or<br>at least 30 but less than 60 semester or trimester credit hours or<br>at least 45 but less than 90 quarter credit hours<br>3 - * Associate’s Degree<br>4 - Postsecondary award, certificate,or diploma of <br>1800 or more clock hours or<br>60 or more semester or trimester credit hours or<br>90 or more quarter credit hours<br>5 - * Bachelor’s Degree or equivalent<br>6 - Postbaccalaureate Certificate<br>7 - * Master’s Degree<br>8 - Post-Master’s Certificate<br>17 - * Doctor’s degree - research/scholarship<br>18 - * Doctor’s degree - professional practice<br>19 - * Doctor’s degree - Other<br>* Use only 3, 5, 7, 17, 18 and 19 when reporting second majors.
 </td>
 </tr>
 <tr>
@@ -193,7 +197,29 @@ DistanceEd
 Numeric
 </td>
 <td style="text-align:left;">
-1 = Distance Ed program<br>2 = Not Distance Ed program
+1 - All programs in this CIP code/award level are distance education<br>2 - None of the programs in this CIP code/award level are distance education<br>3 - Some programs in this CIP code/award level are distance education
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DistanceEd31
+</td>
+<td style="text-align:left;width: 8em; font-style: italic;">
+Numeric
+</td>
+<td style="text-align:left;">
+NULL - if DistanceEd is 1 or 2<br>0 - if DistanceEd is 3 and NO programs in this CIP code/award level have a mandatory onsite component<br>1 - if DistanceEd is 3 and at least one program in the CIP code/award level has a mandatory onsite component
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DistanceEd32
+</td>
+<td style="text-align:left;width: 8em; font-style: italic;">
+Numeric
+</td>
+<td style="text-align:left;">
+NULL- if DistanceEd is 1 or 2<br>0 - if DistanceEd is 3 and NO programs in this CIP code/award level have a non-mandatory onsite component<br>1 - if DistanceEd is 3 and at least one program in the CIP code/award level has a non-mandatory onsite component
 </td>
 </tr>
 <tr>
@@ -237,43 +263,10 @@ Acceptable Value - Definition
 Unitid
 </td>
 <td style="text-align:left;width: 8em; font-style: italic;">
-Character or Numeric
-</td>
-<td style="text-align:left;">
-(relevant unitid; xxxxxx)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-StudentId
-</td>
-<td style="text-align:left;width: 8em; font-style: italic;">
-Character or numeric
-</td>
-<td style="text-align:left;">
-(any unique identifier for your students)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-RaceEthnicity
-</td>
-<td style="text-align:left;width: 8em; font-style: italic;">
 Numeric
 </td>
 <td style="text-align:left;">
-1 - Nonresident alien<br>2 - Hispanic/Latino<br>3 - American Indian or Alaska Native<br>4 - Asian<br>5 - Black or African American<br>6 - Native Hawaiian or Other Pacific Islander<br>7 - White<br>8 - Two or more races<br>9 - Race and ethnicity unknown
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Sex
-</td>
-<td style="text-align:left;width: 8em; font-style: italic;">
-Numeric
-</td>
-<td style="text-align:left;">
-1 - Men<br>2 - Women
+(relevant unitid; multiple unitids per dataframe is acceptable)
 </td>
 </tr>
 <tr>
@@ -281,10 +274,32 @@ Numeric
 DegreeLevel
 </td>
 <td style="text-align:left;width: 8em; font-style: italic;">
+Character or Numeric
+</td>
+<td style="text-align:left;">
+1a - Postsecondary award, certificate, or diploma of <br>less than 300 clock hours or<br>less than 9 semester or trimester credit hours or<br>less than 13 quarter credit hours<br>1b - Postsecondary award, certificate, or diploma of <br>300-899 clock hours or<br>9-30 semester or trimester credit hours, or<br>13-44 quarter credit hours<br>2 - Postsecondary award, certificate,or diploma of<br>at least 900 but less than 1800 clock hours or<br>at least 30 but less than 60 semester or trimester credit hours or<br>at least 45 but less than 90 quarter credit hours<br>3 - * Associate’s Degree<br>4 - Postsecondary award, certificate,or diploma of <br>1800 or more clock hours or<br>60 or more semester or trimester credit hours or<br>90 or more quarter credit hours<br>5 - * Bachelor’s Degree or equivalent<br>6 - Postbaccalaureate Certificate<br>7 - * Master’s Degree<br>8 - Post-Master’s Certificate<br>17 - * Doctor’s degree - research/scholarship<br>18 - * Doctor’s degree - professional practice<br>19 - * Doctor’s degree - Other<br>* Use only 3, 5, 7, 17, 18 and 19 when reporting second majors.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DistanceEd31
+</td>
+<td style="text-align:left;width: 8em; font-style: italic;">
 Numeric
 </td>
 <td style="text-align:left;">
-1 - Postsecondary award, certificate, or diploma of (less than one academic year)<br>less than 900 clock hours<br>less than 30 semester or trimester credit hours<br>less than 45 quarter credit hours<br>2 - Postsecondary award, certificate,or diploma of (at least one but less than two academic years)<br>at least 900 but lessthan 1800 clock hours)<br>at least 30 but less than 60 semester or trimester credit hours<br>at least 45 but less than 90 quarter credit hours<br>3 - <em>Associate’s Degree<br>4 - Postsecondary award, certificate,or diploma of (at least two but less than four academic years)<br>1800 or more clock hours<br>60 or more semester or trimester credit hours<br>90 or more quarter credit hours<br>5 - </em>Bachelor’s Degree or equivalent<br>6 - Postbaccalaureate Certificate<br>7 - <em>Master’s Degree<br>8 - Post-Master’s Certificate<br>17 - </em>Doctor’s degree - research/scholarship<br>18 - <em>Doctor’s degree - professional practice<br>19 - </em>Doctor’s degree - Other<br>* Use only 3, 5, 7, 17, 18 and 19 when reporting second majors.
+NULL - if DistanceEd is 1 or 2<br>0 - if DistanceEd is 3 and NO programs in this CIP code/award level have a mandatory onsite component<br>1 - if DistanceEd is 3 and at least one program in the CIP code/award level has a mandatory onsite component
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DistanceEd32
+</td>
+<td style="text-align:left;width: 8em; font-style: italic;">
+Numeric
+</td>
+<td style="text-align:left;">
+NULL- if DistanceEd is 1 or 2<br>0 - if DistanceEd is 3 and NO programs in this CIP code/award level have a non-mandatory onsite component<br>1 - if DistanceEd is 3 and at least one program in the CIP code/award level has a non-mandatory onsite component
 </td>
 </tr>
 <tr>
@@ -311,24 +326,24 @@ xx.xxxx preferred,<br>x.xxx (etc) accepted
 </tr>
 <tr>
 <td style="text-align:left;">
-DistanceEd
+RaceEthnicity
 </td>
 <td style="text-align:left;width: 8em; font-style: italic;">
 Numeric
 </td>
 <td style="text-align:left;">
-1 = Distance Ed program<br>2 = Not Distance Ed program
+set all values to 1
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Age
+Sex
 </td>
 <td style="text-align:left;width: 8em; font-style: italic;">
 Numeric
 </td>
 <td style="text-align:left;">
-Demical or integer ages
+set all values to 1
 </td>
 </tr>
 </tbody>

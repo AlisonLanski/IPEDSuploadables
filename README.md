@@ -20,6 +20,11 @@ You can install the development version from
 ``` r
 # install.packages("devtools")
 devtools::install_github("AlisonLanski/IPEDSuploadables")
+
+#or use
+
+# install.packages("githubinstall")
+githubinstall::install_github("AlisonLanski/IPEDSuploadables")
 ```
 
 ## Website
