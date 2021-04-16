@@ -39,7 +39,7 @@ prep_om_awards <- function(df, award) {
     dplyr::select(-.data$Exclusion) %>%
 
     #add extras
-    rbind(extra_awards) %>%
+    dplyr::bind_rows(extra_awards) %>%
 
     #make it wide
     tidyr::pivot_wider(names_from = .data$Award, values_from = .data$Count, values_fill = 0) %>%
