@@ -6,13 +6,15 @@
 #' @return A txt file at the path of your choice
 #' @export
 #'
-create_autoupload_format_from_aggregate <- function(df) {
+create_autoupload_format_from_aggregate <- function(df, output_file_name) {
 
-      for (j in 1:nrow(df)) {
-          df %>% stringr::str_glue_data("{colnames(.)}={df[j]},") #%>% ## Need to figure out how to glue COLUMN_NAME=VALUE for every row
-          # write.table(x = df, sep = ",",
-          #             file = paste0(output_path, component, "_", part, "_", Sys.Date(), ".txt"),
-          #             quote = FALSE, row.names = FALSE, col.names = FALSE)
-      }
+  while (!exists(x = "output_path", envir = globalenv())) {
+    set_report_path()
+  }
+
+  map2_dfc(colnames(df), df, paste, sep = "=") %>%
+  unite(col = allunited, ., sep = ',') %>%
+  write.table(x = ., sep = ",",
+              file = paste0(output_path, output_file_name, "_", Sys.Date(), ".txt"),
+              quote = FALSE, row.names = FALSE, col.names = FALSE)
 }
-
