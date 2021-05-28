@@ -1,7 +1,6 @@
 #' Make 12 Month Enrollment Part B
 #'
 #' @param df A dataframe of student/degree information
-#' @param extracips A dataframe of cips offered by the institution but not in \code{'df'}
 #' @param output A string (\code{"part"}, \code{"full"}, or \code{"both"})
 #' @param format A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})
 #'
@@ -15,9 +14,9 @@
 #'
 
 
-make_e1d_part_B <- function(df, extracips = NULL, output = "part", format = "both") {
+make_e1d_part_B <- function(df, output = "part", format = "both") {
 
-  partB <- partB %>%
+  partB <- df %>%
     #format for upload
     dplyr::transmute(UNITID = paste0("UNITID=", .data$Unitid),
                      SURVSECT = "SURVSECT=E1D",
