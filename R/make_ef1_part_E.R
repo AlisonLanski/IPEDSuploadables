@@ -17,7 +17,7 @@
 
 make_ef1_part_E <- function(df, extracips = NULL, output = "part", format = "both") {
 
-  partE <- partE %>%
+  partE <- df %>%
     #format for upload
     dplyr::transmute(UNITID = paste0("UNITID=", .data$Unitid),
                      SURVSECT = "SURVSECT=EF1",

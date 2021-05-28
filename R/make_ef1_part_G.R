@@ -17,7 +17,7 @@
 
 make_ef1_part_G <- function(df, extracips = NULL, output = "part", format = "both") {
 
-  partG <- partG %>%
+  partG <- df %>%
     #sort for easy viewing
     dplyr::arrange(.data$Line) %>%
     #format for upload
