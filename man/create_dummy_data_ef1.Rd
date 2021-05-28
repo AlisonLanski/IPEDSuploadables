@@ -7,11 +7,9 @@
 create_dummy_data_ef1(n = 100, seed = 1234)
 }
 \arguments{
-\item{df}{A dataframe of student/degree information}
+\item{n}{A number}
 
-\item{output}{A string (\code{"part"}, \code{"full"}, or \code{"both"})}
-
-\item{format}{A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})}
+\item{seed}{A number}
 }
 \value{
 A text file

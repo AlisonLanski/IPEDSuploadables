@@ -1,13 +1,12 @@
 #' Make Fall Enrollment Part E
 #'
 #' @param df A dataframe of student/degree information
-#' @param extracips A dataframe of cips offered by the institution but not in \code{'df'}
 #' @param output A string (\code{"part"}, \code{"full"}, or \code{"both"})
 #' @param format A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})
 #'
 #' @importFrom rlang .data
 #' @importFrom magrittr "%>%"
-#' @importFrom dplyr select group_by summarize ungroup bind_rows arrange transmute n
+#' @importFrom dplyr select group_by summarize arrange transmute
 #' @importFrom utils write.table
 #'
 #' @return A text file
@@ -15,7 +14,7 @@
 #'
 
 
-make_ef1_part_E <- function(df, extracips = NULL, output = "part", format = "both") {
+make_ef1_part_E <- function(df, output = "part", format = "both") {
 
   partE <- df %>%
     #format for upload

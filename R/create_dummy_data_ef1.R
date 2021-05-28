@@ -1,8 +1,7 @@
 #' Make Fall Enrollment Dummy Data
 #'
-#' @param df A dataframe of student/degree information
-#' @param output A string (\code{"part"}, \code{"full"}, or \code{"both"})
-#' @param format A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})
+#' @param n A number
+#' @param seed A number
 #'
 #' @importFrom rlang .data
 #' @importFrom magrittr "%>%"

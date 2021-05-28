@@ -7,7 +7,7 @@
 #'
 #' @importFrom rlang .data
 #' @importFrom magrittr "%>%"
-#' @importFrom dplyr select group_by summarize ungroup bind_rows arrange transmute n
+#' @importFrom dplyr select group_by summarise ungroup bind_rows arrange transmute n mutate
 #' @importFrom utils write.table
 #'
 #' @return A text file
@@ -84,7 +84,7 @@ make_ef1_part_C <- function(df, extracips = NULL, output = "part", format = "bot
                                        "Foreign Countries" = "90"
                                        )
                   ) %>%
-    dplyr::group_by(data$Line, .data$HS) %>%
+    dplyr::group_by(.data$Line, .data$HS) %>%
     dplyr::summarise(Count = n()) %>%
     #sort for easy viewing
     dplyr::arrange(.data$Line, .data$HS) %>%

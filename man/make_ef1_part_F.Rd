@@ -4,12 +4,10 @@
 \alias{make_ef1_part_F}
 \title{Make Fall Enrollment Part F}
 \usage{
-make_ef1_part_F(df, extracips = NULL, output = "part", format = "both")
+make_ef1_part_F(df, output = "part", format = "both")
 }
 \arguments{
 \item{df}{A dataframe of student/degree information}
-
-\item{extracips}{A dataframe of cips offered by the institution but not in \code{'df'}}
 
 \item{output}{A string (\code{"part"}, \code{"full"}, or \code{"both"})}
 
