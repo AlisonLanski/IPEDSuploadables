@@ -24,7 +24,7 @@ make_e1d_part_A <- function(df, output = "part", format = "both") {
                   .data$StudentLevel,
                   .data$RaceEthnicity,
                   .data$Sex) %>%
-    dplyr::mutate(.data$Line = case_when(
+    dplyr::mutate(Line = dplyr::case_when(
                                   .data$IsFullTime == 1 & .data$IsFirstTime == 1 & .data$IsDegreeCertSeeking == 1 & .data$StudentLevel == "Undergraduate" ~ 1,
                                   .data$IsFullTime == 1 & .data$IsTransfer == 1 & .data$IsDegreeCertSeeking == 1 & .data$StudentLevel == "Undergraduate" ~ 2,
                                   .data$IsFullTime == 1 & .data$IsFirstTime == 0 & .data$IsTransfer == 0 & .data$IsDegreeCertSeeking == 1 & .data$StudentLevel == "Undergraduate" ~ 3,
@@ -35,23 +35,23 @@ make_e1d_part_A <- function(df, output = "part", format = "both") {
                                   .data$IsFullTime == 0 & .data$IsDegreeCertSeeking == 0 ~ 21,
                                   .data$StudentLevel == "Graduate" ~ 99
                                 ),
-                  .data$RaceEthnicity = dplyr::recode(.data$RaceEthnicity,
-                                                      "NONRS" = 1,
-                                                      "HISPA" = 2,
-                                                      "AIAKN" = 3,
-                                                      "ASIAN" = 4,
-                                                      "BLACK" = 5,
-                                                      "PACIF" = 6,
-                                                      "WHITE" = 7,
-                                                      "MULTI" = 8,
-                                                      "UNKWN" = 9
-                                                      ),
-                  .data$Sex = dplyr::recode(.data$Sex,
-                                            "M" = 1,
-                                            "F" = 2)
+                  RaceEthnicity = dplyr::recode(.data$RaceEthnicity,
+                                                "NONRS" = 1,
+                                                "HISPA" = 2,
+                                                "AIAKN" = 3,
+                                                "ASIAN" = 4,
+                                                "BLACK" = 5,
+                                                "PACIF" = 6,
+                                                "WHITE" = 7,
+                                                "MULTI" = 8,
+                                                "UNKWN" = 9
+                                                ),
+                  Sex = dplyr::recode(.data$Sex,
+                                      "M" = 1,
+                                      "F" = 2)
                   ) %>%
     dplyr::group_by(.data$Line, .data$RaceEthnicity, .data$Sex) %>%
-    dplyr::summarise(.data$Count = n()) %>%
+    dplyr::summarise(Count = n()) %>%
     #sort for easy viewing
     dplyr::arrange(.data$Line, .data$RaceEthnicity, .data$Sex) %>%
     #format for upload

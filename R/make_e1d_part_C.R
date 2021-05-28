@@ -21,7 +21,7 @@ make_e1d_part_C <- function(df, output = "part", format = "both") {
                   .data$StudentLevel,
                   .data$DistanceEdOnly,
                   .data$DistanceEdSome) %>%
-    dplyr::mutate(.data$Line = case_when(
+    dplyr::mutate(Line = case_when(
                                   .data$IsDegreeCertSeeking == 1 & .data$StudentLevel == "Undergraduate" ~ 1,
                                   .data$IsDegreeCertSeeking == 0 & .data$StudentLevel == "Undergraduate" ~ 2,
                                   .data$StudentLevel == "Graduate" ~ 3
@@ -29,8 +29,8 @@ make_e1d_part_C <- function(df, output = "part", format = "both") {
                   ) %>%
     dplyr::select(-c(.data$IsDegreeCertSeeking, .data$StudentLevel)) %>%
     dplyr::group_by(.data$Line) %>%
-    dplyr::summarise(.data$CountDistanceEdOnly = sum(as.numeric(.data$DistanceEdOnly)),
-                     .data$CountDistanceEdSome = sum(as.numeric(.data$DistanceEdSome))
+    dplyr::summarise(CountDistanceEdOnly = sum(as.numeric(.data$DistanceEdOnly)),
+                     CountDistanceEdSome = sum(as.numeric(.data$DistanceEdSome))
                      ) %>%
     #format for upload
     dplyr::transmute(UNITID = paste0("UNITID=", .data$Unitid),
