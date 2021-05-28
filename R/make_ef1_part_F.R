@@ -1,6 +1,6 @@
 #' Make Fall Enrollment Part F
 #'
-#' @param df A dataframe of student/degree information
+#' @param ratio The student-to-faculty ratio
 #' @param output A string (\code{"part"}, \code{"full"}, or \code{"both"})
 #' @param format A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})
 #'
@@ -14,15 +14,13 @@
 #'
 
 
-make_ef1_part_F <- function(df, output = "part", format = "both") {
+make_ef1_part_F <- function(ratio, output = "part", format = "both") {
 
-  partF <- df %>%
-    #format for upload
-    dplyr::transmute(UNITID = paste0("UNITID=", .data$Unitid),
-                     SURVSECT = "SURVSECT=EF1",
-                     PART = "PART=F",
-                     ST_STAFF_RATIO = paste0("ST_STAFF_RATIO=", .data$StaffRatio)
-    )
+  partF <- dplyr::transmute(UNITID = paste0("UNITID=", .data$Unitid),
+                            SURVSECT = "SURVSECT=EF1",
+                            PART = "PART=F",
+                            ST_STAFF_RATIO = paste0("ST_STAFF_RATIO=", ratio)
+                          )
 
   #create the txt file
   write_report(df = partF,
