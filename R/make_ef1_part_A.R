@@ -17,7 +17,44 @@
 
 make_ef1_part_A <- function(df, extracips = NULL, output = "part", format = "both") {
 
-  partA <- partA %>%
+  partA <- df %>%
+    dplyr::select(.data$MajorCIP,
+                  .data$IsFullTime,
+                  .data$IsFirstTime,
+                  .data$IsTransfer,
+                  .data$IsDegreeCertSeeking,
+                  .data$StudentLevel,
+                  .data$RaceEthnicity,
+                  .data$Sex) %>%
+    dplyr::mutate(Line = dplyr::case_when(
+                                      .data$IsFullTime == 1 & .data$IsFirstTime == 1 & .data$IsDegreeCertSeeking == 1 & .data$StudentLevel == "Undergraduate" ~ 1,
+                                      .data$IsFullTime == 1 & .data$IsTransfer == 1 & .data$IsDegreeCertSeeking == 1 & .data$StudentLevel == "Undergraduate" ~ 2,
+                                      .data$IsFullTime == 1 & .data$IsFirstTime == 0 & .data$IsTransfer == 0 & .data$IsDegreeCertSeeking == 1 & .data$StudentLevel == "Undergraduate" ~ 3,
+                                      .data$IsFullTime == 1 & .data$IsDegreeCertSeeking == 0 & .data$StudentLevel == "Undergraduate" ~ 7,
+                                      .data$IsFullTime == 1 & .data$StudentLevel == "Graduate" ~ 11,
+                                      .data$IsFullTime == 0 & .data$IsFirstTime == 1 & .data$IsDegreeCertSeeking == 1 & .data$StudentLevel == "Undergraduate" ~ 15,
+                                      .data$IsFullTime == 0 & .data$IsTransfer == 1 & .data$IsDegreeCertSeeking == 1 & .data$StudentLevel == "Undergraduate" ~ 16,
+                                      .data$IsFullTime == 0 & .data$IsFirstTime == 0 & .data$IsTransfer == 0 & .data$IsDegreeCertSeeking == 1 & .data$StudentLevel == "Undergraduate" ~ 17,
+                                      .data$IsFullTime == 0 & .data$IsDegreeCertSeeking == 0 ~ 21,
+                                      .data$IsFullTime == 0 & .data$StudentLevel == "Graduate" ~ 25
+                                    ),
+                  RaceEthnicity = dplyr::recode(.data$RaceEthnicity,
+                                                "NONRS" = 1,
+                                                "HISPA" = 2,
+                                                "AIAKN" = 3,
+                                                "ASIAN" = 4,
+                                                "BLACK" = 5,
+                                                "PACIF" = 6,
+                                                "WHITE" = 7,
+                                                "MULTI" = 8,
+                                                "UNKWN" = 9
+                                                ),
+                  Sex = dplyr::recode(.data$Sex,
+                                      "M" = 1,
+                                      "F" = 2)
+                  ) %>%
+    dplyr::group_by(.data$MajorCip, .data$Line, .data$RaceEthnicity, .data$Sex) %>%
+    dplyr::summarise(Count = n()) %>%
     #sort for easy viewing
     dplyr::arrange(.data$MajorCip, .data$Line, .data$RaceEthnicity, .data$Sex) %>%
     #format for upload
