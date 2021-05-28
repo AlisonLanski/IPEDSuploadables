@@ -17,7 +17,10 @@
 make_ef1_part_D <- function(df, output = "part", format = "both") {
 
   partD <- df %>%
-    dplyr::select(.data$IsDegreeSeeking, .data$StudentLevel, .data$IsFirstTime) %>%
+    dplyr::select(.data$StudentID,
+                  .data$IsDegreeSeeking,
+                  .data$StudentLevel,
+                  .data$IsFirstTime) %>%
     dplyr::filter(.data$IsDegreeSeeking == 0 & .data$StudentLevel == "Undergraduate" & .data$IsFirstTime == 1) %>%
     dplyr::group_by(.data$IsDegreeSeeking, .data$StudentLevel, .data$IsFirstTime) %>%
     dplyr::summarise(Count = n()) %>%

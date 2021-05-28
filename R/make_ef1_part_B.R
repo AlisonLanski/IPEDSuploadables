@@ -18,7 +18,8 @@
 make_ef1_part_B <- function(df, extracips = NULL, output = "part", format = "both") {
 
   partB <- df %>%
-    dplyr::select(.data$MajorCIP,
+    dplyr::select(.data$StudentID,
+                  .data$MajorCIP,
                   .data$IsFullTime,
                   .data$Age,
                   .data$StudentLevel,

@@ -18,7 +18,8 @@
 make_ef1_part_A <- function(df, extracips = NULL, output = "part", format = "both") {
 
   partA <- df %>%
-    dplyr::select(.data$MajorCIP,
+    dplyr::select(.data$StudentID,
+                  .data$MajorCIP,
                   .data$IsFullTime,
                   .data$IsFirstTime,
                   .data$IsTransfer,
