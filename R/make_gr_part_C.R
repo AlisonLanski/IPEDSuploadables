@@ -3,6 +3,7 @@
 #' @param df A dataframe of student/degree information
 #' @param output A string (\code{"part"}, \code{"full"}, or \code{"both"})
 #' @param format A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})
+#' @param cohort_year A numerical value for the fall cohort
 #'
 #' @importFrom rlang .data
 #' @importFrom dplyr select group_by summarize ungroup arrange transmute n
@@ -12,16 +13,35 @@
 #' @export
 #'
 
-make_gr_part_C <- function(df, output = "part", format = "both") {
+make_gr_part_C <- function(df, output = "part", format = "both", cohort_year = 2013) {
 
   partC <- df %>%
-    dplyr::select(.data$Unitid, .data$StudentId, .data$Section,
-                  .data$Line, .data$PellGrant, .data$DirectLoan) %>%
+    dplyr::select(.data$Unitid,
+                  .data$StudentID,
+                  .data$RaceEthnicity,
+                  .data$Sex,
+                  .data$Cohort,
+                  .data$IsDegreeSeeking,
+                  .data$IsCertSeeking,
+                  .data$IsFirstTime,
+                  .data$IsFullTime,
+                  .data$PellGrant,
+                  .data$DirectLoan
+                  ) %>%
+    dplyr::mutate(Section = case_when(
+                            .data$Cohort == cohort_year ~ 1,
+                            .data$Cohort == cohort_year & .data$IsFullTime == 1 & .data$IsFirstTime == 1 & .data$IsDegreeSeeking == 1 ~ 2,
+                            .data$Cohort == cohort_year & .data$IsFullTime == 1 & .data$IsFirstTime == 1 & (.data$IsDegreeSeeking | .data$IsCertSeeking == 1) ~ 3
+                          ),
+                  Line = case_when(
+
+                          )
+                ) %>%
     #deduplicate
     dplyr::distinct() %>%
-    dplyr::filter(.data$PellGrant == 1 | .data$DirectLoan == 1) %>%
+    dplyr::filter((.data$PellGrant == 1 | .data$DirectLoan == 1)) %>%
     dplyr::mutate(Line = ifelse(.data$Line == 1, 10, .data$Line)) %>%
-      dplyr::mutate(Section = ifelse(.data$Line == 10, 2, .data$Section)) %>%
+    dplyr::mutate(Section = ifelse(.data$Line == 10, 2, .data$Section)) %>%
     dplyr::filter(.data$Section == 2, .data$Line %in% c(10, 18, 29, 45)) %>%
     #aggregate and count
     dplyr::group_by(.data$Unitid, .data$Section, .data$Line) %>%
