@@ -1,13 +1,12 @@
 #' Make Fall Enrollment Part F
 #'
-#' @param ratio The student-to-faculty ratio
 #' @param output A string (\code{"part"}, \code{"full"}, or \code{"both"})
 #' @param format A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})
 #'
 #' @importFrom rlang .data
 #' @importFrom magrittr "%>%"
 #' @importFrom dplyr select group_by summarize arrange transmute n
-#' @importFromt svDialogs dlg_dir
+#' @importFromt svDialogs dlg_input
 #' @importFrom utils write.table
 #'
 #' @return A text file
@@ -17,7 +16,7 @@
 
 make_ef1_part_F <- function(output = "part", format = "both") {
 
-  ratio <- svDialogs::dlg_dir(default = 0, title = "Please enter the student number of your student to faculty ratio")$res
+  ratio <- svDialogs::dlg_input(default = 0, message = "Please enter the student number of your student to faculty ratio")$res
 
   partF <- dplyr::transmute(UNITID = paste0("UNITID=", .data$Unitid),
                             SURVSECT = "SURVSECT=EF1",
