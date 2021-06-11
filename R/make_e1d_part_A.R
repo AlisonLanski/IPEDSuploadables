@@ -17,7 +17,8 @@
 make_e1d_part_A <- function(df, output = "part", format = "both") {
 
   partA <- df %>%
-    dplyr::select(.data$StudentID,
+    dplyr::select(.data$Unitid,
+                  .data$StudentID,
                   .data$IsFullTime,
                   .data$IsFirstTime,
                   .data$IsTransfer,
@@ -51,8 +52,9 @@ make_e1d_part_A <- function(df, output = "part", format = "both") {
                                       "M" = 1,
                                       "F" = 2)
                   ) %>%
-    dplyr::group_by(.data$Line, .data$RaceEthnicity, .data$Sex) %>%
+    dplyr::group_by(.data$Unitid, .data$Line, .data$RaceEthnicity, .data$Sex) %>%
     dplyr::summarise(Count = n()) %>%
+    dplyr::ungroup() %>%
     #sort for easy viewing
     dplyr::arrange(.data$Line, .data$RaceEthnicity, .data$Sex) %>%
     #format for upload
