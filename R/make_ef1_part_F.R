@@ -7,6 +7,7 @@
 #' @importFrom rlang .data
 #' @importFrom magrittr "%>%"
 #' @importFrom dplyr select group_by summarize arrange transmute n
+#' @importFromt svDialogs dlg_dir
 #' @importFrom utils write.table
 #'
 #' @return A text file
@@ -14,7 +15,9 @@
 #'
 
 
-make_ef1_part_F <- function(ratio, output = "part", format = "both") {
+make_ef1_part_F <- function(output = "part", format = "both") {
+
+  ratio <- svDialogs::dlg_dir(default = 0, title = "Please enter the student number of your student to faculty ratio")$res
 
   partF <- dplyr::transmute(UNITID = paste0("UNITID=", .data$Unitid),
                             SURVSECT = "SURVSECT=EF1",
