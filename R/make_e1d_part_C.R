@@ -17,7 +17,8 @@
 make_e1d_part_C <- function(df, output = "part", format = "both") {
 
   partC <- df %>%
-    dplyr::select(.data$StudentID,
+    dplyr::select(.data$Unitid,
+                  .data$StudentID,
                   .data$IsDegreeCertSeeking,
                   .data$StudentLevel,
                   .data$DistanceEdOnly,
@@ -33,6 +34,7 @@ make_e1d_part_C <- function(df, output = "part", format = "both") {
     dplyr::summarise(CountDistanceEdOnly = sum(as.numeric(.data$DistanceEdOnly)),
                      CountDistanceEdSome = sum(as.numeric(.data$DistanceEdSome))
                      ) %>%
+    dplyr::ungroup() %>%
     #format for upload
     dplyr::transmute(UNITID = paste0("UNITID=", .data$Unitid),
                      SURVSECT = "SURVSECT=E1D",
