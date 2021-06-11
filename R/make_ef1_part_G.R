@@ -17,6 +17,22 @@
 make_ef1_part_G <- function(df, output = "part", format = "both") {
 
   partG <- df %>%
+    dplyr::select(.data$Unitid,
+                  .data$StudentID,
+                  .data$IsFullTime,
+                  .data$IsFirstTime,
+                  .data$IsTransfer,
+                  .data$IsDegreeCertSeeking,
+                  .data$Age,
+                  .data$StudentLevel,
+                  .data$RaceEthnicity,
+                  .data$Sex) %>%
+    dplyr::mutate(Line = dplyr::case_when(
+                            .data$IsFullTime == 1 & .data$IsFirstTime == 1 & .data$IsDegreeCertSeeking == 1 & .data$StudentLevel == "Undergraduate" ~ 1,
+                            .data$IsFullTime == 1 & .data$IsTransfer == 1 & .data$IsDegreeCertSeeking == 1 & .data$StudentLevel == "Undergraduate" ~ 2,
+                            .data$IsFullTime == 1 & .data$IsFirstTime == 0 & .data$IsTransfer == 0 & .data$IsDegreeCertSeeking == 1 & .data$StudentLevel == "Undergraduate" ~ 3
+                          )
+                  ) %>%
     #sort for easy viewing
     dplyr::arrange(.data$Line) %>%
     #format for upload

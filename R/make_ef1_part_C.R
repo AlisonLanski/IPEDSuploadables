@@ -18,7 +18,8 @@
 make_ef1_part_C <- function(df, extracips = NULL, output = "part", format = "both") {
 
   partC <- df %>%
-    dplyr::select(.data$StudentID,
+    dplyr::select(.data$Unitid,
+                  .data$StudentID,
                   .data$State,
                   .data$HS) %>%
     dplyr::mutate(Line = dplyr::recode(.data$State,
