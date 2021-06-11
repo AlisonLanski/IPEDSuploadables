@@ -54,20 +54,6 @@ make_ef1_part_B <- function(df, extracips = NULL, output = "part", format = "bot
                                                                            60, 61, 62, 63, 64) ~ 21,
                                   .data$IsFullTime == 0 & .data$Age > 65 ~ 22
                                 ),
-                  RaceEthnicity = dplyr::recode(.data$RaceEthnicity,
-                                                "NONRS" = 1,
-                                                "HISPA" = 2,
-                                                "AIAKN" = 3,
-                                                "ASIAN" = 4,
-                                                "BLACK" = 5,
-                                                "PACIF" = 6,
-                                                "WHITE" = 7,
-                                                "MULTI" = 8,
-                                                "UNKWN" = 9
-                                                ),
-                  Sex = dplyr::recode(.data$Sex,
-                                      "M" = 1,
-                                      "F" = 2),
                   StudentLevel = dplyr::recode(.data$StudentLevel,
                                                "Undergraduate" = 1,
                                                "Graduate" = 3)
