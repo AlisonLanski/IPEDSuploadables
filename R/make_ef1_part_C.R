@@ -1,0 +1,44 @@
+#' Make Fall Enrollment Part C
+#'
+#' @param df A dataframe of student/degree information
+#' @param extracips A dataframe of cips offered by the institution but not in \code{'df'}
+#' @param output A string (\code{"part"}, \code{"full"}, or \code{"both"})
+#' @param format A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})
+#'
+#' @importFrom rlang .data
+#' @importFrom magrittr "%>%"
+#' @importFrom dplyr select group_by summarise ungroup bind_rows arrange transmute n mutate
+#' @importFrom utils write.table
+#'
+#' @return A text file
+#' @export
+#'
+
+
+make_ef1_part_C <- function(df, extracips = NULL, output = "part", format = "both") {
+
+  partC <- df %>%
+    dplyr::select(.data$Unitid,
+                  .data$StudentID,
+                  .data$State,
+                  .data$HS) %>%
+    dplyr::group_by(.data$Line, .data$HS) %>%
+    dplyr::summarise(Count = n()) %>%
+    #sort for easy viewing
+    dplyr::arrange(.data$Line, .data$HS) %>%
+    #format for upload
+    dplyr::transmute(UNITID = paste0("UNITID=", .data$Unitid),
+                     SURVSECT = "SURVSECT=EF1",
+                     PART = "PART=C",
+                     LINE = paste0("LINE=", .data$Line),
+                     HS = paste0("RACE=", .data$HS),
+                     COUNT = paste0("COUNT=", .data$Count)
+    )
+
+  #create the txt file
+  write_report(df = partC,
+               component = "FallEnrollment",
+               part = "PartC",
+               output = output,
+               format = format)
+}
