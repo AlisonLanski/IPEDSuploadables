@@ -13,7 +13,7 @@
 #' @export
 #'
 
-make_gr_part_C <- function(df, output = "part", format = "both", cohort_year = 2013) {
+make_gr_part_C <- function(df, output = "part", format = "both") {
 
   partC <- df %>%
     dplyr::select(.data$Unitid,
@@ -26,15 +26,20 @@ make_gr_part_C <- function(df, output = "part", format = "both", cohort_year = 2
                   .data$IsFirstTime,
                   .data$IsFullTime,
                   .data$PellGrant,
-                  .data$DirectLoan
+                  .data$DirectLoan,
+                  .data$IsExclusion
                   ) %>%
     dplyr::mutate(Section = case_when(
-                            .data$Cohort == cohort_year ~ 1,
-                            .data$Cohort == cohort_year & .data$IsFullTime == 1 & .data$IsFirstTime == 1 & .data$IsDegreeSeeking == 1 ~ 2,
-                            .data$Cohort == cohort_year & .data$IsFullTime == 1 & .data$IsFirstTime == 1 & (.data$IsDegreeSeeking | .data$IsCertSeeking == 1) ~ 3
+                            # 1,
+                            .data$IsFullTime == 1 & .data$IsFirstTime == 1 & .data$IsDegreeSeeking == 1 ~ 2,
+                            .data$IsFullTime == 1 & .data$IsFirstTime == 1 & (.data$IsDegreeSeeking | .data$IsCertSeeking == 1) ~ 3
                           ),
                   Line = case_when(
-
+                            .data$Is2YearProgram == 1 & .data$CompletedIn150 == 1 ~ 11,
+                            .data$Is2YearProgram == 0 & .data$Is2YearProgram == 0 & .data$CompletedIn150 == 1 ~ 12, ## Not sure how to do this one
+                            .data$Is4YearProgram == 1 & .data$CompletedIn150 == 1 ~ 18,
+                            .data$Is4YearProgram == 1 & .data$CompletedIn4Years == 1 ~ 19,
+                            .data$Is4YearProgram == 1 & .data$CompletedIn5Years == 1 ~ 20
                           )
                 ) %>%
     #deduplicate

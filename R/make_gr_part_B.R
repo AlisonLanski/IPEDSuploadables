@@ -3,7 +3,6 @@
 #' @param df A dataframe of student/degree information
 #' @param output A string (\code{"part"}, \code{"full"}, or \code{"both"})
 #' @param format A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})
-#' @param cohort_year A numerical value for the fall cohort
 #'
 #' @importFrom rlang .data
 #' @importFrom magrittr "%>%"
@@ -15,7 +14,7 @@
 #'
 
 
-make_gr_part_B <- function(df, output = "part", format = "both", cohort_year = 2013) {
+make_gr_part_B <- function(df, output = "part", format = "both") {
 
   #produce the uploadable format
   partB <- df %>%
@@ -24,18 +23,25 @@ make_gr_part_B <- function(df, output = "part", format = "both", cohort_year = 2
                   .data$RaceEthnicity,
                   .data$Sex,
                   .data$Cohort,
-                  .data$IsDegreeSeeking,
-                  .data$IsCertSeeking,
+                  .data$Is4YearProgram,
+                  .data$Is2YearProgram,
                   .data$IsFirstTime,
-                  .data$IsFullTime
+                  .data$IsFullTime,
+                  .data$CompletedIn150,
+                  .data$CompletedIn4Years,
+                  .data$CompletedIn5Years
                   ) %>%
     dplyr::mutate(Section = case_when(
-                              .data$Cohort == cohort_year ~ 1,
-                              .data$Cohort == cohort_year & .data$IsFullTime == 1 & .data$IsFirstTime == 1 & .data$IsDegreeSeeking == 1 ~ 2,
-                              .data$Cohort == cohort_year & .data$IsFullTime == 1 & .data$IsFirstTime == 1 & (.data$IsDegreeSeeking | .data$IsCertSeeking == 1) ~ 3
+                               #1, ## Not sure how to incorporate this one
+                               .data$IsFullTime == 1 & .data$IsFirstTime == 1 & .data$IsDegreeSeeking == 1 ~ 2,
+                               .data$IsFullTime == 1 & .data$IsFirstTime == 1 & (.data$IsDegreeSeeking | .data$IsCertSeeking == 1) ~ 3
                             ),
                   Line = case_when(
-
+                              .data$Is2YearProgram == 1 & .data$CompletedIn150 == 1 ~ 11,
+                              .data$Is2YearProgram == 0 & .data$Is2YearProgram == 0 & .data$CompletedIn150 == 1 ~ 12, ## Not sure how to do this one
+                              .data$Is4YearProgram == 1 & .data$CompletedIn150 == 1 ~ 18,
+                              .data$Is4YearProgram == 1 & .data$CompletedIn4Years == 1 ~ 19,
+                              .data$Is4YearProgram == 1 & .data$CompletedIn5Years == 1 ~ 20
                             )
                   ) %>%
     #get rid of the total line that is not needed for part B
