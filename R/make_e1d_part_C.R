@@ -21,7 +21,7 @@ make_e1d_part_C <- function(df, output = "part", format = "both") {
                   .data$StudentID,
                   .data$IsDegreeCertSeeking,
                   .data$StudentLevel,
-                  .data$DistanceEdOnly,
+                  .data$DistanceEdAll,
                   .data$DistanceEdSome) %>%
     dplyr::mutate(Line = case_when(
                                   .data$IsDegreeCertSeeking == 1 & .data$StudentLevel == "Undergraduate" ~ 1,
@@ -30,8 +30,8 @@ make_e1d_part_C <- function(df, output = "part", format = "both") {
                                 )
                   ) %>%
     dplyr::select(-c(.data$IsDegreeCertSeeking, .data$StudentLevel)) %>%
-    dplyr::group_by(.data$Line) %>%
-    dplyr::summarise(CountDistanceEdOnly = sum(as.numeric(.data$DistanceEdOnly)),
+    dplyr::group_by(.data$Unitid, .data$Line) %>%
+    dplyr::summarise(CountDistanceEdAll = sum(as.numeric(.data$DistanceEdAll)),
                      CountDistanceEdSome = sum(as.numeric(.data$DistanceEdSome))
                      ) %>%
     dplyr::ungroup() %>%
@@ -40,7 +40,7 @@ make_e1d_part_C <- function(df, output = "part", format = "both") {
                      SURVSECT = "SURVSECT=E1D",
                      PART = "PART=C",
                      LINE = paste0("LINE=", .data$Line),
-                     ENROLL_EXCLUSIVE = paste0("ENROLL_EXCLUSIVE=", .data$CountDistanceEdOnly),
+                     ENROLL_EXCLUSIVE = paste0("ENROLL_EXCLUSIVE=", .data$CountDistanceEdAll),
                      ENROLL_SOME = paste0("ENROLL_SOME=", .data$CountDistanceEdSome)
                     )
 

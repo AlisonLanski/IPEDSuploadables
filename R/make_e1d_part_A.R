@@ -27,16 +27,48 @@ make_e1d_part_A <- function(df, output = "part", format = "both") {
                   .data$RaceEthnicity,
                   .data$Sex) %>%
     dplyr::mutate(Line = dplyr::case_when(
-                                  .data$IsFullTime == 1 & .data$IsFirstTime == 1 & .data$IsDegreeCertSeeking == 1 & .data$StudentLevel == "Undergraduate" ~ 1,
-                                  .data$IsFullTime == 1 & .data$IsTransfer == 1 & .data$IsDegreeCertSeeking == 1 & .data$StudentLevel == "Undergraduate" ~ 2,
-                                  .data$IsFullTime == 1 & .data$IsFirstTime == 0 & .data$IsTransfer == 0 & .data$IsDegreeCertSeeking == 1 & .data$StudentLevel == "Undergraduate" ~ 3,
-                                  .data$IsFullTime == 1 & .data$IsDegreeCertSeeking == 0 ~ 7,
-                                  .data$IsFullTime == 0 & .data$IsFirstTime == 1 & .data$IsDegreeCertSeeking == 1 & .data$StudentLevel == "Undergraduate" ~ 15,
-                                  .data$IsFullTime == 0 & .data$IsTransfer == 1 & .data$IsDegreeCertSeeking == 1 & .data$StudentLevel == "Undergraduate" ~ 16,
-                                  .data$IsFullTime == 0 & .data$IsFirstTime == 0 & .data$IsTransfer == 0 & .data$IsDegreeCertSeeking == 1 & .data$StudentLevel == "Undergraduate" ~ 17,
-                                  .data$IsFullTime == 0 & .data$IsDegreeCertSeeking == 0 ~ 21,
+                                  .data$IsFullTime == 1 & .data$IsFirstTime == 1 &
+                                    .data$IsDegreeCertSeeking == 1 &
+                                    .data$StudentLevel == "Undergraduate" ~ 1,
+
+                                  .data$IsFullTime == 1 &
+                                    .data$IsTransfer == 1 &
+                                    .data$IsDegreeCertSeeking == 1 &
+                                    .data$StudentLevel == "Undergraduate" ~ 2,
+
+                                  .data$IsFullTime == 1 &
+                                    .data$IsFirstTime == 0 &
+                                    .data$IsTransfer == 0 &
+                                    .data$IsDegreeCertSeeking == 1 &
+                                    .data$StudentLevel == "Undergraduate" ~ 3,
+
+                                  .data$IsFullTime == 1 &
+                                    .data$IsDegreeCertSeeking == 0 &
+                                    .data$StudentLevel == "Undergraduate" ~ 7,
+
+                                  .data$IsFullTime == 0 &
+                                    .data$IsFirstTime == 1 &
+                                    .data$IsDegreeCertSeeking == 1 &
+                                    .data$StudentLevel == "Undergraduate" ~ 15,
+
+                                  .data$IsFullTime == 0 &
+                                    .data$IsTransfer == 1 &
+                                    .data$IsDegreeCertSeeking == 1 &
+                                    .data$StudentLevel == "Undergraduate" ~ 16,
+
+                                  .data$IsFullTime == 0 &
+                                    .data$IsFirstTime == 0 &
+                                    .data$IsTransfer == 0 &
+                                    .data$IsDegreeCertSeeking == 1 &
+                                    .data$StudentLevel == "Undergraduate" ~ 17,
+
+                                  .data$IsFullTime == 0 &
+                                    .data$IsDegreeCertSeeking == 0 &
+                                    .data$StudentLevel == "Undergraduate" ~ 21,
+
                                   .data$StudentLevel == "Graduate" ~ 99
                                 ),
+
                   RaceEthnicity = dplyr::recode(.data$RaceEthnicity,
                                                 "NONRS" = 1,
                                                 "HISPA" = 2,
