@@ -16,16 +16,17 @@
 
 make_e1d_part_B <- function(df, output = "part", format = "both") {
 
-  partB <- df %>%
-    #format for upload
-    dplyr::transmute(UNITID = paste0("UNITID=", .data$Unitid),
-                     SURVSECT = "SURVSECT=E1D",
-                     PART = "PART=B",
-                     CREDHRSU = paste0("CREDHRSU=", .data$CreditHours),
-                     CONTHRS = paste0("CONTHRS=", .data$ClockHours),
-                     CREDHRSG = paste0("CREDHRSG=", .data$CreditHours),
-                     RDOCFTE = paste0("RDOCFTE=", .data$DocFTE)
-    )
+    partB <- df %>%
+      #format for upload
+      dplyr::transmute(UNITID = paste0("UNITID=", .data$Unitid),
+                       SURVSECT = "SURVSECT=E1D",
+                       PART = "PART=B",
+                       CREDHRSU = paste0("CREDHRSU=", .data$CreditHoursUG),
+                       CONTHRS = paste0("CONTHRS=", .data$ClockHoursUG),
+                       CREDHRSG = paste0("CREDHRSG=", .data$CreditHoursGR),
+                       RDOCFTE = paste0("RDOCFTE=", .data$DocFTE)
+      )
+
 
   #create the txt file
   write_report(df = partB,

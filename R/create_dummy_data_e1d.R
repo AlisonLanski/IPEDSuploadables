@@ -43,8 +43,12 @@ create_dummy_data_e1d <- function(df_type = 'student'){
     return(students)
   } else {
     #placeholder
-    instructionalactivity <- students
-    return(instructionalactivity)
+    hrs <- data.frame(Unitid = 999999,
+                      CreditHoursUG = 1000,
+                      CreditHoursGR = 500,
+                      ClockHoursUG = 0,
+                      DocFTE = 8)
+    return(hrs)
   }
 }
 
