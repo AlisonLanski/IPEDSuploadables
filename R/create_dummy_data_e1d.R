@@ -15,9 +15,8 @@
 #' @param df_type a string: 'student' to get the main df needed, 'instr' to get instructionalactivity
 #' @return a dataframe ready for the rest of the e1d scripts
 #' @export
-#' @importFrom dplyr mutate select filter anti_join n
+#' @importFrom dplyr mutate select filter
 #' @importFrom magrittr %>%
-#' @importFrom lubridate ymd dyears
 #'
 
 create_dummy_data_e1d <- function(df_type = 'student'){
