@@ -18,7 +18,7 @@ make_e1d_part_A <- function(df, output = "part", format = "both") {
 
   partA <- df %>%
     dplyr::select(.data$Unitid,
-                  .data$StudentID,
+                  .data$StudentId,
                   .data$IsFullTime,
                   .data$IsFirstTime,
                   .data$IsTransfer,
@@ -67,11 +67,7 @@ make_e1d_part_A <- function(df, output = "part", format = "both") {
                                     .data$StudentLevel == "Undergraduate" ~ 21,
 
                                   .data$StudentLevel == "Graduate" ~ 99
-                                ),
-
-                  Sex = dplyr::recode(.data$Sex,
-                                      "M" = 1,
-                                      "F" = 2)
+                                )
                   ) %>%
     dplyr::group_by(.data$Unitid, .data$Line, .data$RaceEthnicity, .data$Sex) %>%
     dplyr::summarise(Count = n()) %>%

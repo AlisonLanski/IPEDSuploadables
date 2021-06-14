@@ -18,7 +18,7 @@ make_e1d_part_C <- function(df, output = "part", format = "both") {
 
   partC <- df %>%
     dplyr::select(.data$Unitid,
-                  .data$StudentID,
+                  .data$StudentId,
                   .data$IsDegreeCertSeeking,
                   .data$StudentLevel,
                   .data$DistanceEdAll,
