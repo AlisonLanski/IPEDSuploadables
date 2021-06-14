@@ -69,17 +69,6 @@ make_e1d_part_A <- function(df, output = "part", format = "both") {
                                   .data$StudentLevel == "Graduate" ~ 99
                                 ),
 
-                  RaceEthnicity = dplyr::recode(.data$RaceEthnicity,
-                                                "NONRS" = 1,
-                                                "HISPA" = 2,
-                                                "AIAKN" = 3,
-                                                "ASIAN" = 4,
-                                                "BLACK" = 5,
-                                                "PACIF" = 6,
-                                                "WHITE" = 7,
-                                                "MULTI" = 8,
-                                                "UNKWN" = 9
-                                                ),
                   Sex = dplyr::recode(.data$Sex,
                                       "M" = 1,
                                       "F" = 2)
