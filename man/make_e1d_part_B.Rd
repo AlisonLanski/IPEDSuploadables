@@ -7,7 +7,7 @@
 make_e1d_part_B(df, output = "part", format = "both")
 }
 \arguments{
-\item{df}{A dataframe of student/degree information}
+\item{df}{A dataframe with summarized credit hours and student information}
 
 \item{output}{A string (\code{"part"}, \code{"full"}, or \code{"both"})}
 

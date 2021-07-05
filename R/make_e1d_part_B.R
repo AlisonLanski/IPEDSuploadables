@@ -1,6 +1,6 @@
 #' Make 12 Month Enrollment Part B
 #'
-#' @param df A dataframe of student/degree information
+#' @param df A dataframe with summarized credit hours and student information
 #' @param output A string (\code{"part"}, \code{"full"}, or \code{"both"})
 #' @param format A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})
 #'
