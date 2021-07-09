@@ -9,8 +9,6 @@
 #'
 produce_e1d_report <- function(df, hrs, part = "ALL") {
 
-  students <- df
-
 
   if (toupper(part) == "ALL") {
     # out of order because part A was expanded
