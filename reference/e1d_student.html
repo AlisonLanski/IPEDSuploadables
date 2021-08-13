@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create dummy data for testing the completions functions — create_dummy_data_com • IPEDSuploadables</title>
+<title>Dummy student-level data for 12 Month Enrollment parts A and C — e1d_student • IPEDSuploadables</title>
 
 
 <!-- jquery -->
@@ -39,10 +39,8 @@
 
 
 
-<meta property="og:title" content="Create dummy data for testing the completions functions — create_dummy_data_com" />
-<meta property="og:description" content="Creates a prepared dataframe to test scripts related to IPEDS Completions reporting.
-Produces either a student/degree dataframe or a dataframe of cips previously reported but not in the current student data,
-depending on the argument you select" />
+<meta property="og:title" content="Dummy student-level data for 12 Month Enrollment parts A and C — e1d_student" />
+<meta property="og:description" content="Contains 100 fictional student records with all required data" />
 
 
 
@@ -126,52 +124,28 @@ depending on the argument you select" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create dummy data for testing the completions functions</h1>
+    <h1>Dummy student-level data for 12 Month Enrollment parts A and C</h1>
     
-    <div class="hidden name"><code>create_dummy_data_com.Rd</code></div>
+    <div class="hidden name"><code>e1d_student.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Creates a prepared dataframe to test scripts related to IPEDS Completions reporting.
-Produces either a student/degree dataframe or a dataframe of cips previously reported but not in the current student data,
-depending on the argument you select</p>
+    <p>Contains 100 fictional student records with all required data</p>
     </div>
 
-    <pre class="usage"><span class='fu'>create_dummy_data_com</span><span class='op'>(</span>df_type <span class='op'>=</span> <span class='st'>"student"</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='va'>e1d_student</span></pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>df_type</th>
-      <td><p>a string: 'student' to get the main df needed, 'cip' to get extracips</p></td>
-    </tr>
-    </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>a dataframe ready for the rest of the comp scripts</p>
+    <p>A data frame with 100 rows (students) and 11 columns</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>remember: want to save this data out into the package so it's available</p>
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+    <p>See complete information by running <code>?create_dummy_data_e1d.R</code></p>
 
-    <p>The final dataset has 100 students with 190 majors.
-60 students have 1 major for 1 degree
-8 students have 2 majors for 1 degree
-17 students have 3 majors (on one degree or as dual-degree)
-12 students have 4 majors (as dual-degrees; some have one as an MBA)
-3 students have 5 majors (dual-degree and 4 majors and an MBA)
-Note: 1 student has a faulty birthdate; this will show the warning "1 failed to parse"
-I use the same seed for each grouping,
-to ensure that the same students keep getting more things added
-One program/level combination is flagged as distance education
-With the seed and probs, no associates degrees end up in the data (don't worry!)
-To fully process completions, we will need to include an example
-of a CIP code that is a possible major but has no completers
-and a CIP code in an award level that is possible but has no completers
-This is the second piece of dummy df produced</p>
-
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='fu'><a href='produce_e1d_report.html'>produce_e1d_report</a></span><span class='op'>(</span><span class='va'>e1d_student</span>, <span class='va'>e1d_instr</span><span class='op'>)</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

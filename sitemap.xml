@@ -10,7 +10,16 @@
     <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/create_dummy_data_com.html</loc>
   </url>
   <url>
+    <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/create_dummy_data_e1d.html</loc>
+  </url>
+  <url>
     <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/create_dummy_data_hr.html</loc>
+  </url>
+  <url>
+    <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/e1d_instr.html</loc>
+  </url>
+  <url>
+    <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/e1d_student.html</loc>
   </url>
   <url>
     <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/get_ipeds_unitid.html</loc>
@@ -26,6 +35,15 @@
   </url>
   <url>
     <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/make_com_part_D.html</loc>
+  </url>
+  <url>
+    <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/make_e1d_part_A.html</loc>
+  </url>
+  <url>
+    <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/make_e1d_part_B.html</loc>
+  </url>
+  <url>
+    <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/make_e1d_part_C.html</loc>
   </url>
   <url>
     <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/make_hr_part_A1.html</loc>
@@ -76,6 +94,9 @@
     <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/produce_com_report.html</loc>
   </url>
   <url>
+    <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/produce_e1d_report.html</loc>
+  </url>
+  <url>
     <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/produce_hr_report.html</loc>
   </url>
   <url>
@@ -85,10 +106,16 @@
     <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/specs_COM.html</loc>
   </url>
   <url>
+    <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/specs_E1D.html</loc>
+  </url>
+  <url>
     <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/specs_HR.html</loc>
   </url>
   <url>
     <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/write_report.html</loc>
+  </url>
+  <url>
+    <loc>https://alisonlanski.github.io/IPEDSuploadables//articles/setup_for_12monthenrollment.html</loc>
   </url>
   <url>
     <loc>https://alisonlanski.github.io/IPEDSuploadables//articles/setup_for_completions.html</loc>
