@@ -2,11 +2,13 @@
 % Please edit documentation in R/create_dummy_data_ef1.R
 \name{create_dummy_data_ef1}
 \alias{create_dummy_data_ef1}
-\title{Make Fall Enrollment Dummy Data}
+\title{Create dummy data for testing the fall enrollment functions}
 \usage{
-create_dummy_data_ef1(n = 100, seed = 1234)
+create_dummy_data_ef1(df_type = "students", n = 100, seed = 1234)
 }
 \arguments{
+\item{df_type}{A string with the dummy data requested ('students' for parts A-D & G or 'retention' for part E)}
+
 \item{n}{A number}
 
 \item{seed}{A number}
@@ -15,5 +17,7 @@ create_dummy_data_ef1(n = 100, seed = 1234)
 A text file
 }
 \description{
-Make Fall Enrollment Dummy Data
+Creates students and retention dataframes for use in parts A, B, C, D, E, and G.
+Student-faculty ratio (part G) will ask for a number when the function is run and does not need to exist here.
+To create both dataframes, run the function twice with different arguments, and save results into separate objects.
 }

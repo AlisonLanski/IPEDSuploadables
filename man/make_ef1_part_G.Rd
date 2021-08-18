@@ -17,5 +17,5 @@ make_ef1_part_G(df, output = "part", format = "both")
 A text file
 }
 \description{
-Make Fall Enrollment Part G
+Distance Ed component of part A
 }

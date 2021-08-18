@@ -14,7 +14,7 @@
 recode_state <- function(df) {
 
   df <- df %>%
-    dplyr::mutate(Line = dplyr::recode(.data$State,
+    dplyr::mutate(StateNum = dplyr::recode(.data$State,
                                        "AL" = "01",
                                        "AK" = "02",
                                        "AZ" = "04",
@@ -75,7 +75,8 @@ recode_state <- function(df) {
                                        "Palau" = "70",
                                        "Puerto Rico" = "72",
                                        "Virgin Islands" = "78",
-                                       "Foreign Countries" = "90"))
+                                       "Foreign Countries" = "90",
+                                       .missing = "99"))
 
   return(df)
 }

@@ -6,7 +6,7 @@
 #' @importFrom rlang .data
 #' @importFrom magrittr "%>%"
 #' @importFrom dplyr select group_by summarize arrange transmute n
-#' @importFromt svDialogs dlg_input
+#' @importFrom svDialogs dlg_input
 #' @importFrom utils write.table
 #'
 #' @return A text file
@@ -14,15 +14,15 @@
 #'
 
 
-make_ef1_part_F <- function(output = "part", format = "both") {
+make_ef1_part_F <- function(df, output = "part", format = "both") {
 
   ratio <- svDialogs::dlg_input(default = 0, message = "Please enter the student number of your student to faculty ratio")$res
 
-  partF <- dplyr::transmute(UNITID = paste0("UNITID=", .data$Unitid),
-                            SURVSECT = "SURVSECT=EF1",
-                            PART = "PART=F",
-                            ST_STAFF_RATIO = paste0("ST_STAFF_RATIO=", ratio)
-                          )
+  partF <- data.frame(UNITID = paste0("UNITID=", get_ipeds_unitid(df)),
+                      SURVSECT = "SURVSECT=EF1",
+                      PART = "PART=F",
+                      ST_STAFF_RATIO = paste0("ST_STAFF_RATIO=", ratio)
+                     )
 
   #create the txt file
   write_report(df = partF,

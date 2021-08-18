@@ -4,12 +4,10 @@
 \alias{make_ef1_part_B}
 \title{Make Fall Enrollment Part B}
 \usage{
-make_ef1_part_B(df, extracips = NULL, output = "part", format = "both")
+make_ef1_part_B(df, output = "part", format = "both")
 }
 \arguments{
-\item{df}{A dataframe of student/degree information}
-
-\item{extracips}{A dataframe of cips offered by the institution but not in \code{'df'}}
+\item{df}{A dataframe of student information}
 
 \item{output}{A string (\code{"part"}, \code{"full"}, or \code{"both"})}
 
@@ -19,5 +17,5 @@ make_ef1_part_B(df, extracips = NULL, output = "part", format = "both")
 A text file
 }
 \description{
-Make Fall Enrollment Part B
+Student counts by age/gender
 }

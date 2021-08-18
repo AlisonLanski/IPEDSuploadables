@@ -4,7 +4,7 @@
 \alias{make_ef1_part_F}
 \title{Make Fall Enrollment Part F}
 \usage{
-make_ef1_part_F(output = "part", format = "both")
+make_ef1_part_F(df, output = "part", format = "both")
 }
 \arguments{
 \item{output}{A string (\code{"part"}, \code{"full"}, or \code{"both"})}

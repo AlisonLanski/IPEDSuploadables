@@ -1,5 +1,10 @@
-#' Make Fall Enrollment Dummy Data
+#' Create dummy data for testing the fall enrollment functions
 #'
+#' @description Creates students and retention dataframes for use in parts A, B, C, D, E, and G.
+#' Student-faculty ratio (part G) will ask for a number when the function is run and does not need to exist here.
+#' To create both dataframes, run the function twice with different arguments, and save results into separate objects.
+#'
+#' @param df_type A string with the dummy data requested ('students' for parts A-D & G or 'retention' for part E)
 #' @param n A number
 #' @param seed A number
 #'
@@ -12,30 +17,56 @@
 #' @export
 #'
 
-create_dummy_data_ef1 <- function(n = 100, seed = 1234) {
+create_dummy_data_ef1 <- function(df_type = 'students', n = 100, seed = 1234) {
 
-  set.seed(seed)
+  if(df_type == 'students'){
+    set.seed(seed)
 
-  df <- data.frame(
-          Unitid = 999999,
-          MajorCip = sample(x = c(09.0100, #journalism
-                                  09.0401,
-                                  09.0701,
-                                  09.0901,
-                                  09.0999,
-                                  09.1001,
-                                  09.9999),
-                            size = n,
-                            replace = TRUE),
-          IsFullTime = sample(0:1, size = n, replace = TRUE),
-          IsUgrd = sample(0:1, size = n, replace = TRUE),
-          IsDegreeSeeking = sample(0:1, size = n, replace = TRUE),
-          RaceEthnicity = sample(1:9, size = n, replace = TRUE),
-          StateOfResidence = sample(1:90, size = n, replace = TRUE),
-          Age = sample(10:100, size = n, replace = TRUE),
-          Sex = sample(1:2, size = n, replace = TRUE),
-          IsFirstTime = sample(0:1, size = n, replace = TRUE)
-  )
+    df <- data.frame(
+      Unitid = 999999,
+      StudentId = c(1001:(1000+n)),
+      MajorCip = sample(x = c(09.0100, #journalism
+                              26.0000, #on the list
+                              52.0000), #on the list
+                        size = n,
+                        replace = TRUE),
+      IsFullTime = sample(0:1, size = n, replace = TRUE),
+      StudentLevel = sample(c("Undergraduate", "Graduate"), size = n, replace = TRUE),
+      IsDegreeCertSeeking = sample(0:1, size = n, replace = TRUE),
+      RaceEthnicity = sample(1:9, size = n, replace = TRUE),
+      State = sample(1:90, size = n, replace = TRUE),
+      Age = sample(c(17, 18, 19, 20, 21, 22, 25, 32, 43, 55, 68),
+                   size = n,
+                   replace = TRUE,
+                   prob = c(.05, .1, .15, .15, .1, .05, .2, .1, .06, .03, .01)),
+      Sex = sample(1:2, size = n, replace = TRUE),
+      IsFirstTime = sample(0:1, size = n, replace = TRUE),
+      DistanceEd = sample(0:2, size = n, replace = TRUE)
+    ) %>%
+      dplyr::mutate(IsRecentGrad = dplyr::case_when(StudentLevel == 'Undergraduate' & IsFirstTime == 1 ~
+                                               sample(0:1,
+                                                      size = n,
+                                                      replace = TRUE,
+                                                      prob = c(0.2, 0.8))),
+                    IsTransfer = dplyr::case_when(StudentLevel == 'Undergraduate' & IsFirstTime == 0 ~
+                                             sample(0:1,
+                                                    size = n,
+                                                    replace = T))) %>%
+      dplyr::mutate(UnitidState = mode(State))
+  }
+
+    if(df_type == 'retention'){
+    set.seed(seed)
+
+    df <- data.frame(
+      Unitid = 999999,
+      IsFullTime = c(0, 1),
+      OrigCohort = c(500, 1000),
+      Exclusions = c(10, 20),
+      Inclusions = c(1, 2),
+      StillEnrolled = c(450, 925)
+    )
+  }
 
   return(df)
 }

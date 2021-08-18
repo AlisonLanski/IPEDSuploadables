@@ -1,7 +1,8 @@
 #' Make Fall Enrollment Part C
 #'
+#' @description State of origin for first time students
+#'
 #' @param df A dataframe of student/degree information
-#' @param extracips A dataframe of cips offered by the institution but not in \code{'df'}
 #' @param output A string (\code{"part"}, \code{"full"}, or \code{"both"})
 #' @param format A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})
 #'
@@ -15,15 +16,48 @@
 #'
 
 
-make_ef1_part_C <- function(df, extracips = NULL, output = "part", format = "both") {
+make_ef1_part_C <- function(df, output = "part", format = "both") {
 
-  partC <- df %>%
+  partC_all <- df %>%
     dplyr::select(.data$Unitid,
-                  .data$StudentID,
-                  .data$State,
-                  .data$HS) %>%
-    dplyr::group_by(.data$Line, .data$HS) %>%
+                  .data$IsFirstTime,
+                  .data$IsDegreeCertSeeking,
+                  .data$StudentLevel,
+                  .data$State) %>%
+    #recode_state() %>%
+    dplyr::filter(.data$IsFirstTime == 1,
+                  .data$IsDegreeCertSeeking == 1,
+                  .data$StudentLevel == 'Undergraduate') %>%
+    dplyr::mutate(Line = .data$State,
+                  HS = 1) %>%
+    dplyr::group_by(.data$Unitid, .data$Line, .data$HS) %>%
     dplyr::summarise(Count = n()) %>%
+    dplyr::ungroup()
+
+
+  #have to do this separate because we DO want to double-count the recent grads in both parts
+  partC_recent <-  df %>%
+    dplyr::select(.data$Unitid,
+                  .data$IsFirstTime,
+                  .data$IsDegreeCertSeeking,
+                  .data$StudentLevel,
+                  .data$State,
+                  .data$IsRecentGrad) %>%
+    #recode_state() %>%
+    dplyr::filter(.data$IsFirstTime == 1,
+                  .data$IsDegreeCertSeeking == 1,
+                  .data$StudentLevel == 'Undergraduate',
+                  .data$IsRecentGrad == 1) %>%
+    dplyr::mutate(Line = .data$State,
+                  HS = 2) %>%
+    dplyr::group_by(.data$Unitid, .data$Line, .data$HS) %>%
+    dplyr::summarise(Count = n()) %>%
+    dplyr::ungroup()
+
+  #put them together
+  partC <- rbind(partC_all, partC_recent) %>%
+    #remove the unknown-unknowns because the form will calc that for us
+    dplyr::filter(Line != 99) %>%
     #sort for easy viewing
     dplyr::arrange(.data$Line, .data$HS) %>%
     #format for upload
@@ -31,7 +65,7 @@ make_ef1_part_C <- function(df, extracips = NULL, output = "part", format = "bot
                      SURVSECT = "SURVSECT=EF1",
                      PART = "PART=C",
                      LINE = paste0("LINE=", .data$Line),
-                     HS = paste0("RACE=", .data$HS),
+                     HS = paste0("HS=", .data$HS),
                      COUNT = paste0("COUNT=", .data$Count)
     )
 

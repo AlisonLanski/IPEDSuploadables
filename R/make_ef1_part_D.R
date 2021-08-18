@@ -1,5 +1,7 @@
 #' Make Fall Enrollment Part D
 #'
+#' @description Count of new non-degree students
+#'
 #' @param df A dataframe of student/degree information
 #' @param output A string (\code{"part"}, \code{"full"}, or \code{"both"})
 #' @param format A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})
@@ -18,13 +20,13 @@ make_ef1_part_D <- function(df, output = "part", format = "both") {
 
   partD <- df %>%
     dplyr::select(.data$Unitid,
-                  .data$StudentID,
-                  .data$IsDegreeSeeking,
+                  .data$IsDegreeCertSeeking,
                   .data$StudentLevel,
                   .data$IsFirstTime) %>%
-    dplyr::filter(.data$IsDegreeSeeking == 0 & .data$StudentLevel == "Undergraduate" & .data$IsFirstTime == 1) %>%
-    dplyr::group_by(.data$IsDegreeSeeking, .data$StudentLevel, .data$IsFirstTime) %>%
+    dplyr::filter(.data$IsDegreeCertSeeking == 0 & .data$StudentLevel == "Undergraduate" & .data$IsFirstTime == 1) %>%
+    dplyr::group_by(.data$Unitid, .data$IsDegreeCertSeeking, .data$StudentLevel, .data$IsFirstTime) %>%
     dplyr::summarise(Count = n()) %>%
+    dplyr::ungroup() %>%
     #format for upload
     dplyr::transmute(UNITID = paste0("UNITID=", .data$Unitid),
                      SURVSECT = "SURVSECT=EF1",

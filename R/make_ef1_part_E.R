@@ -21,13 +21,16 @@ make_ef1_part_E <- function(df, output = "part", format = "both") {
     dplyr::transmute(UNITID = paste0("UNITID=", .data$Unitid),
                      SURVSECT = "SURVSECT=EF1",
                      PART = "PART=E",
-                     FT_PY_COHORT = paste0("FT_PY_COHORT=", .data$FTPYCohort),
-                     FT_EXCLUSIONS = paste0("FT_EXCLUSIONS=", .data$FTExclusions),
-                     FT_CY_COHORT = paste0("FT_CY_COHORT=", .data$FTCYCohort),
-                     PT_PY_COHORT = paste0("PT_PY_COHORT=", .data$PTPYCohort),
-                     PT_EXCLUSIONS = paste0("PT_EXCLUSIONS=", .data$PTExclusions),
-                     PT_CY_COHORT = paste0("PT_CY_COHORT=", .data$PTCYCohort)
-    )
+                     FT_PY_COHORT = paste0("FT_PY_COHORT=", .data$OrigCohort[.data$IsFullTime == 1]),
+                     FT_EXCLUSIONS = paste0("FT_EXCLUSIONS=", .data$Exclusions[.data$IsFullTime == 1]),
+                     FT_INCLUSIONS = paste0("FT_INCLUSIONS=", .data$Inclusions[.data$IsFullTime == 1]),
+                     FT_CY_COHORT = paste0("FT_CY_COHORT=", .data$StillEnrolled[.data$IsFullTime == 1]),
+                     PT_PY_COHORT = paste0("PT_PY_COHORT=", .data$OrigCohort[.data$IsFullTime == 0]),
+                     PT_EXCLUSIONS = paste0("PT_EXCLUSIONS=", .data$Exclusions[.data$IsFullTime == 0]),
+                     PT_INCLUSIONS = paste0("PT_INCLUSIONS=", .data$Inclusions[.data$IsFullTime == 0]),
+                     PT_CY_COHORT = paste0("PT_CY_COHORT=", .data$StillEnrolled[.data$IsFullTime == 0])
+    ) %>%
+    dplyr::distinct()
 
   #create the txt file
   write_report(df = partE,
