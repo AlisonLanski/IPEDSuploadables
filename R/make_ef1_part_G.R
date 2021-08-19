@@ -58,6 +58,7 @@ make_ef1_part_G <- function(df, output = "part", format = "both") {
               NotPPS = sum(InUS_OutState, na.rm = T),
               UnknownState = sum(InUS_Unknown, na.rm = T),
               OutsideUS = sum(OutUS, na.rm = T)) %>%
+    dplyr::ungroup() %>%
 
     #sort for easy viewing
     dplyr::arrange(.data$Line) %>%

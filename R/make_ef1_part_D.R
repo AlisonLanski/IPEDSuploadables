@@ -22,9 +22,11 @@ make_ef1_part_D <- function(df, output = "part", format = "both") {
     dplyr::select(.data$Unitid,
                   .data$IsDegreeCertSeeking,
                   .data$StudentLevel,
-                  .data$IsFirstTime) %>%
-    dplyr::filter(.data$IsDegreeCertSeeking == 0 & .data$StudentLevel == "Undergraduate" & .data$IsFirstTime == 1) %>%
-    dplyr::group_by(.data$Unitid, .data$IsDegreeCertSeeking, .data$StudentLevel, .data$IsFirstTime) %>%
+                  .data$IsFirstTime,
+                  .data$IsTransfer) %>%
+    dplyr::filter(.data$IsDegreeCertSeeking == 0 & .data$StudentLevel == "Undergraduate" &
+                    (.data$IsFirstTime == 1 | .data$IsTransfer == 1)) %>%
+    dplyr::group_by(.data$Unitid) %>%
     dplyr::summarise(Count = n()) %>%
     dplyr::ungroup() %>%
     #format for upload

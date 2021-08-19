@@ -33,12 +33,12 @@ create_dummy_data_ef1 <- function(df_type = 'students', n = 100, seed = 1234) {
       IsFullTime = sample(0:1, size = n, replace = TRUE),
       StudentLevel = sample(c("Undergraduate", "Graduate"), size = n, replace = TRUE),
       IsDegreeCertSeeking = sample(0:1, size = n, replace = TRUE),
-      RaceEthnicity = sample(1:9, size = n, replace = TRUE),
-      State = sample(1:90, size = n, replace = TRUE),
-      Age = sample(c(17, 18, 19, 20, 21, 22, 25, 32, 43, 55, 68),
+      RaceEthnicity = sample(1:4, size = n, replace = TRUE),
+      State = sample(c(6, 18, 32, 66, 90, 98) , size = n, replace = TRUE),
+      Age = sample(c(17, 18, 20, 22, 25, 32, 43, 68),
                    size = n,
                    replace = TRUE,
-                   prob = c(.05, .1, .15, .15, .1, .05, .2, .1, .06, .03, .01)),
+                   prob = c(.05, .25, .25, .05, .2, .1, .05, .05)),
       Sex = sample(1:2, size = n, replace = TRUE),
       IsFirstTime = sample(0:1, size = n, replace = TRUE),
       DistanceEd = sample(0:2, size = n, replace = TRUE)
@@ -52,7 +52,7 @@ create_dummy_data_ef1 <- function(df_type = 'students', n = 100, seed = 1234) {
                                              sample(0:1,
                                                     size = n,
                                                     replace = T))) %>%
-      dplyr::mutate(UnitidState = mode(State))
+      dplyr::mutate(UnitidState = 6)
   }
 
     if(df_type == 'retention'){

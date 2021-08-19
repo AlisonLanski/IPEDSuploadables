@@ -23,7 +23,6 @@ make_ef1_part_B <- function(df, output = "part", format = "both") {
                   .data$IsFullTime,
                   .data$Age,
                   .data$StudentLevel,
-                  .data$RaceEthnicity,
                   .data$Sex) %>%
     dplyr::mutate(Line = dplyr::case_when(
                                   .data$IsFullTime == 1 & .data$Age <= 17 ~ 1,
@@ -51,7 +50,7 @@ make_ef1_part_B <- function(df, output = "part", format = "both") {
                                                "Undergraduate" = 1,
                                                "Graduate" = 3)
                 ) %>%
-    dplyr::group_by(.data$Unitid, .data$Line, .data$RaceEthnicity, .data$Sex, .data$StudentLevel) %>%
+    dplyr::group_by(.data$Unitid, .data$StudentLevel, .data$Line, .data$Sex) %>%
     dplyr::summarise(Count = n()) %>%
     #sort for easy viewing
     dplyr::arrange(.data$Line, .data$StudentLevel, .data$Sex) %>%
@@ -61,7 +60,7 @@ make_ef1_part_B <- function(df, output = "part", format = "both") {
                      SURVSECT = "SURVSECT=EF1",
                      PART = "PART=B",
                      LINE = paste0("LINE=", .data$Line),
-                     SLEVEL = paste0("RACE=", .data$StudentLevel),
+                     SLEVEL = paste0("SLEVEL=", .data$StudentLevel),
                      SEX = paste0("SEX=", .data$Sex),
                      COUNT = paste0("COUNT=", .data$Count)
                     )
