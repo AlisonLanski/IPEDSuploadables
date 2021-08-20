@@ -1,5 +1,6 @@
 #' Make Fall Enrollment Part F
 #'
+#' @param df A dataframe (either "students" or "retention") as a unitid source
 #' @param output A string (\code{"part"}, \code{"full"}, or \code{"both"})
 #' @param format A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})
 #'

@@ -57,7 +57,7 @@ make_ef1_part_C <- function(df, output = "part", format = "both") {
   #put them together
   partC <- rbind(partC_all, partC_recent) %>%
     #remove the unknown-unknowns because the form will calc that for us
-    dplyr::filter(Line != 99) %>%
+    dplyr::filter(.data$Line != 99) %>%
     #sort for easy viewing
     dplyr::arrange(.data$Line, .data$HS) %>%
     #format for upload

@@ -52,12 +52,12 @@ make_ef1_part_G <- function(df, output = "part", format = "both") {
     dplyr::mutate(Enroll_Exc = ifelse(.data$DistanceEd == 2, 1, 0),
                   Enroll_Some = ifelse(.data$DistanceEd ==1, 1, 0)) %>%
     dplyr::group_by(.data$Unitid, .data$Line) %>%
-    summarize(EnrollExclusive = sum(Enroll_Exc, na.rm = T),
-              EnrollSome = sum(Enroll_Some, na.rm = T),
-              PPS = sum(InUS_InState, na.rm = T),
-              NotPPS = sum(InUS_OutState, na.rm = T),
-              UnknownState = sum(InUS_Unknown, na.rm = T),
-              OutsideUS = sum(OutUS, na.rm = T)) %>%
+    summarize(EnrollExclusive = sum(.data$Enroll_Exc, na.rm = T),
+              EnrollSome = sum(.data$Enroll_Some, na.rm = T),
+              PPS = sum(.data$InUS_InState, na.rm = T),
+              NotPPS = sum(.data$InUS_OutState, na.rm = T),
+              UnknownState = sum(.data$InUS_Unknown, na.rm = T),
+              OutsideUS = sum(.data$OutUS, na.rm = T)) %>%
     dplyr::ungroup() %>%
 
     #sort for easy viewing

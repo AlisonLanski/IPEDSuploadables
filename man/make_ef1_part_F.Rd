@@ -7,6 +7,8 @@
 make_ef1_part_F(df, output = "part", format = "both")
 }
 \arguments{
+\item{df}{A dataframe (either "students" or "retention") as a unitid source}
+
 \item{output}{A string (\code{"part"}, \code{"full"}, or \code{"both"})}
 
 \item{format}{A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})}
