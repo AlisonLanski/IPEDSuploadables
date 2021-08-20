@@ -16,30 +16,30 @@ make_om_part_D <- function(df, output = "part", format = "both") {
 
   partD_2 <- df %>%
             dplyr::filter(.data$AwardLevel8 == 4,
-                     .data$Exclusion == FALSE) %>%
+                          .data$Exclusion == FALSE) %>%
             dplyr::mutate(Unitid = as.character(.data$Unitid),
                           Enroll = dplyr::recode(.data$EnrollStatus8,
-                          `1` = 'Enrolled',
-                          `2` = 'Elsewhere',
-                          .default = 'Error',
-                          .missing = 'Error'),
-                          Count = 1) %>%
-              dplyr::select(.data$Unitid,
-                            .data$StudentId,
-                            .data$CohortType,
-                            .data$Recipient,
-                            .data$Enroll,
-                            .data$Count) %>%
-              tidyr::pivot_wider(names_from = .data$Enroll,
-                                 values_from = .data$Count,
-                                 values_fill = 0) %>%
-              dplyr::select(-.data$StudentId) %>%
-              #aggregate
-              dplyr::group_by(.data$Unitid, .data$CohortType, .data$Recipient)%>%
-              dplyr::summarize(dplyr::across(dplyr::everything(), sum)) %>%
-              dplyr::ungroup()
+                                                `1` = 'Enrolled',
+                                                `2` = 'Elsewhere',
+                                                .default = 'Error',
+                                                .missing = 'Error'),
+                                                Count = 1) %>%
+            dplyr::select(.data$Unitid,
+                          .data$StudentId,
+                          .data$CohortType,
+                          .data$Recipient,
+                          .data$Enroll,
+                          .data$Count) %>%
+            tidyr::pivot_wider(names_from = .data$Enroll,
+                               values_from = .data$Count,
+                               values_fill = 0) %>%
+            dplyr::select(-.data$StudentId) %>%
+            #aggregate
+            dplyr::group_by(.data$Unitid, .data$CohortType, .data$Recipient)%>%
+            dplyr::summarize(dplyr::across(dplyr::everything(), sum)) %>%
+            dplyr::ungroup()
 
-    partD <- dplyr::full_join(partD_1, partD_2,
+  partD <- dplyr::full_join(partD_1, partD_2,
                               by = c("Unitid", "CohortType", "Recipient")) %>%
             dplyr::mutate(dplyr::across(dplyr::everything(), ~tidyr::replace_na(.x, 0))) %>%
             #format for upload
