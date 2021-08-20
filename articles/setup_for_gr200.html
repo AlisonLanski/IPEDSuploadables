@@ -5,13 +5,13 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Set up your data for IPEDS OM processing • IPEDSuploadables</title>
+<title>Set up your data for IPEDS Graduation Rates 200 processing • IPEDSuploadables</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Set up your data for IPEDS OM processing">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Set up your data for IPEDS Graduation Rates 200 processing">
 <meta property="og:description" content="IPEDSuploadables">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -87,23 +87,23 @@
 
       
 
-      </header><script src="setup_for_om_files/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="setup_for_om_files/kePrint-0.0.1/kePrint.js"></script><link href="setup_for_om_files/lightable-0.0.1/lightable.css" rel="stylesheet">
+      </header><script src="setup_for_gr200_files/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="setup_for_gr200_files/kePrint-0.0.1/kePrint.js"></script><link href="setup_for_gr200_files/lightable-0.0.1/lightable.css" rel="stylesheet">
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Set up your data for IPEDS OM processing</h1>
+      <h1 data-toc-skip>Set up your data for IPEDS Graduation Rates 200 processing</h1>
             
       
       
-      <div class="hidden name"><code>setup_for_om.Rmd</code></div>
+      <div class="hidden name"><code>setup_for_gr200.Rmd</code></div>
 
     </div>
 
     
     
-<div id="to-use-the-make_om-functions-your-data-must-be-in-the-format-described-below" class="section level2">
+<div id="to-use-the-make_gr200-functions-your-student-completions-data-must-be-in-the-format-described-below" class="section level2">
 <h2 class="hasAnchor">
-<a href="#to-use-the-make_om-functions-your-data-must-be-in-the-format-described-below" class="anchor"></a>To use the <code>make_om</code> functions, your data must be in the format described below</h2>
+<a href="#to-use-the-make_gr200-functions-your-student-completions-data-must-be-in-the-format-described-below" class="anchor"></a>To use the <code>make_gr200</code> functions, your student completions data must be in the format described below</h2>
 <blockquote>
 <ul>
 <li>One row per person</li>
@@ -111,6 +111,7 @@
 <li>Columns with values and types as described below (additional columns are allowed)</li>
 </ul>
 </blockquote>
+<p>Note: Column names can use any capitalization method you like</p>
 <table class="table table table-striped">
 <thead><tr>
 <th style="text-align:left;">
@@ -137,90 +138,35 @@ Numeric
 </tr>
 <tr>
 <td style="text-align:left;">
-StudentId
-</td>
-<td style="text-align:left;width: 8em; font-style: italic;">
-Numeric or Character
-</td>
-<td style="text-align:left;">
-(any unique identifier for each student)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-CohortType
+IsExclusion
 </td>
 <td style="text-align:left;width: 8em; font-style: italic;">
 Numeric
 </td>
 <td style="text-align:left;">
-1 - First-time, full-time entering students (FTFT)<br>2 - First-time, part-time entering students (FTPT)<br>3 - Non-first-time, full-time entering students (NFTFT)<br>4 - Non-first-time, prat-time entering students (NFTPT)
+1 - Is an exclusion<br>0 - Is not an exclusion
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-RecipientType
+IsComp
 </td>
 <td style="text-align:left;width: 8em; font-style: italic;">
 Numeric
 </td>
 <td style="text-align:left;">
-1 - Pell Grant recipients<br>2 - Non-Pell Grant recipients
+1 - Has graduated<br>0 - Has not graduated
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-CohortStatus
-</td>
-<td style="text-align:left;width: 8em; font-style: italic;">
-Character
-</td>
-<td style="text-align:left;">
-Include - Student is included in the cohort <br>Exclude - Student is excluded from the cohort
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-AwardLevel4
+IsStillEnrolled
 </td>
 <td style="text-align:left;width: 8em; font-style: italic;">
 Numeric
 </td>
 <td style="text-align:left;">
-Status at year 4 <br>1 - Certificates <br>2 - Associates <br>3 - Bachelors <br>4 - None Awarded Yet/Not Relevant
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-AwardLevel6
-</td>
-<td style="text-align:left;width: 8em; font-style: italic;">
-Numeric
-</td>
-<td style="text-align:left;">
-Status at year 6 <br>1 - Certificates <br>2 - Associates <br>3 - Bachelors <br>4 - None Awarded Yet/Not Relevant
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-AwardLevel8
-</td>
-<td style="text-align:left;width: 8em; font-style: italic;">
-Numeric
-</td>
-<td style="text-align:left;">
-Status at year 8 <br>1 - Certificates <br>2 - Associates <br>3 - Bachelors <br>4 - None Awarded Yet/Not Relevant
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-EnrollStatus8
-</td>
-<td style="text-align:left;width: 8em; font-style: italic;">
-Numeric
-</td>
-<td style="text-align:left;">
-Enrollment at year 8 <br>1 - Still enrolled <br>2 - Enrolled elsewhere <br>3 - Unknown <br>4 - Graduated/Not Relevant
+1 - Is still enrolled<br>0 - No longer enrolled
 </td>
 </tr>
 </tbody>

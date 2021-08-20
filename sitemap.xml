@@ -16,6 +16,9 @@
     <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/create_dummy_data_e1d.html</loc>
   </url>
   <url>
+    <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/create_dummy_data_gr200.html</loc>
+  </url>
+  <url>
     <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/create_dummy_data_hr.html</loc>
   </url>
   <url>
@@ -53,6 +56,9 @@
   </url>
   <url>
     <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/make_e1d_part_C.html</loc>
+  </url>
+  <url>
+    <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/make_gr200.html</loc>
   </url>
   <url>
     <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/make_hr_part_A1.html</loc>
@@ -139,6 +145,12 @@
     <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/specs_E1D.html</loc>
   </url>
   <url>
+    <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/specs_GR.html</loc>
+  </url>
+  <url>
+    <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/specs_GR200.html</loc>
+  </url>
+  <url>
     <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/specs_HR.html</loc>
   </url>
   <url>
@@ -152,6 +164,9 @@
   </url>
   <url>
     <loc>https://alisonlanski.github.io/IPEDSuploadables//articles/setup_for_completions.html</loc>
+  </url>
+  <url>
+    <loc>https://alisonlanski.github.io/IPEDSuploadables//articles/setup_for_gr200.html</loc>
   </url>
   <url>
     <loc>https://alisonlanski.github.io/IPEDSuploadables//articles/setup_for_hr.html</loc>

@@ -4,6 +4,7 @@ pkgdown_sha: ~
 articles:
   setup_for_12monthenrollment: setup_for_12monthenrollment.html
   setup_for_completions: setup_for_completions.html
+  setup_for_gr200: setup_for_gr200.html
   setup_for_hr: setup_for_hr.html
   setup_for_om: setup_for_om.html
   use_completions: use_completions.html
