@@ -7,6 +7,9 @@
     <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/IPEDSuploadables.html</loc>
   </url>
   <url>
+    <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/create_autoupload_format_from_aggregate.html</loc>
+  </url>
+  <url>
     <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/create_dummy_data_com.html</loc>
   </url>
   <url>
@@ -14,6 +17,12 @@
   </url>
   <url>
     <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/create_dummy_data_hr.html</loc>
+  </url>
+  <url>
+    <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/create_dummy_data_om.html</loc>
+  </url>
+  <url>
+    <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/dummy_OM.html</loc>
   </url>
   <url>
     <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/e1d_instr.html</loc>
@@ -85,10 +94,28 @@
     <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/make_hr_part_H2.html</loc>
   </url>
   <url>
+    <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/make_om_part_A.html</loc>
+  </url>
+  <url>
+    <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/make_om_part_B.html</loc>
+  </url>
+  <url>
+    <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/make_om_part_C.html</loc>
+  </url>
+  <url>
+    <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/make_om_part_D.html</loc>
+  </url>
+  <url>
     <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/prep_com_data_frame.html</loc>
   </url>
   <url>
     <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/prep_hr_data_frame.html</loc>
+  </url>
+  <url>
+    <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/prep_om_awards.html</loc>
+  </url>
+  <url>
+    <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/prep_om_data_frame.html</loc>
   </url>
   <url>
     <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/produce_com_report.html</loc>
@@ -98,6 +125,9 @@
   </url>
   <url>
     <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/produce_hr_report.html</loc>
+  </url>
+  <url>
+    <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/produce_om_report.html</loc>
   </url>
   <url>
     <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/set_report_path.html</loc>
@@ -112,6 +142,9 @@
     <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/specs_HR.html</loc>
   </url>
   <url>
+    <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/specs_OM.html</loc>
+  </url>
+  <url>
     <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/write_report.html</loc>
   </url>
   <url>
@@ -124,6 +157,12 @@
     <loc>https://alisonlanski.github.io/IPEDSuploadables//articles/setup_for_hr.html</loc>
   </url>
   <url>
+    <loc>https://alisonlanski.github.io/IPEDSuploadables//articles/setup_for_om.html</loc>
+  </url>
+  <url>
     <loc>https://alisonlanski.github.io/IPEDSuploadables//articles/use_completions.html</loc>
+  </url>
+  <url>
+    <loc>https://alisonlanski.github.io/IPEDSuploadables//articles/use_outcomemeasures.html</loc>
   </url>
 </urlset>
