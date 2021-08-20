@@ -1,12 +1,3 @@
-# Outcome measures part A
-# Establishing cohorts
-#
-
-#Is all of this related to grad rates?
-#end up with wide data (not long)
-#ask for wide data
-#maybe later do a prep script that will pivot long to wide and fix stuff
-
 #' Make Outcome Measures Part A
 #'
 #' @description Establishing the Outcome Measures cohorts
@@ -22,25 +13,22 @@
 make_om_part_A <- function(df, output = "part", format = "both") {
 
   partA <- df %>%
-
-    #aggregate the full data
-    dplyr::group_by(.data$Unitid, .data$CohortType, .data$Recipient)%>%
-    dplyr::summarize(CohortCount = dplyr::n(),
-                     ExclusionCount = sum(.data$Exclusion)) %>%
-    dplyr::ungroup() %>%
-
-    #sort for easy viewing
-    dplyr::arrange(.data$CohortType, .data$Recipient) %>%
-
-    #format for upload
-    dplyr::transmute(UNITID = paste0("UNITID=", .data$Unitid),
-                     SURVSECT = "SURVSECT=OM1",
-                     PART = "PART=A",
-                     LINE = paste0("LINE=", .data$CohortType),
-                     RECIPIENT_TYPE = paste0("RECIPIENT_TYPE=", .data$Recipient),
-                     COHORT = paste0("COHORT=", .data$CohortCount),
-                     EXCLUSION = paste0("EXCLUSION=", .data$ExclusionCount)
-    )
+          #aggregate the full data
+          dplyr::group_by(.data$Unitid, .data$CohortType, .data$Recipient)%>%
+          dplyr::summarize(CohortCount = dplyr::n(),
+                           ExclusionCount = sum(.data$Exclusion)) %>%
+          dplyr::ungroup() %>%
+          #sort for easy viewing
+          dplyr::arrange(.data$CohortType, .data$Recipient) %>%
+          #format for upload
+          dplyr::transmute(UNITID = paste0("UNITID=", .data$Unitid),
+                           SURVSECT = "SURVSECT=OM1",
+                           PART = "PART=A",
+                           LINE = paste0("LINE=", .data$CohortType),
+                           RECIPIENT_TYPE = paste0("RECIPIENT_TYPE=", .data$Recipient),
+                           COHORT = paste0("COHORT=", .data$CohortCount),
+                           EXCLUSION = paste0("EXCLUSION=", .data$ExclusionCount)
+          )
 
   #create the txt file
   write_report(df = partA,
@@ -48,5 +36,4 @@ make_om_part_A <- function(df, output = "part", format = "both") {
                part = "PartA",
                output = output,
                format = format)
-
 }

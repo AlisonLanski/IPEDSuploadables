@@ -15,48 +15,38 @@ prep_om_awards <- function(df, award) {
                                          Recipient = c(1:2),
                                          Award = c(1:3),
                                          Count = 0)) %>%
-    dplyr::transmute(.data$Unitid,
-                     StudentId = paste0("FakeID", c(1:dplyr::n())),
-                     .data$CohortType,
-                     .data$Recipient,
-                     .data$Award,
-                     .data$Count)
-
-  #partB <- df %>%
+                  dplyr::transmute(.data$Unitid,
+                                   StudentId = paste0("FakeID", c(1:dplyr::n())),
+                                   .data$CohortType,
+                                   .data$Recipient,
+                                   .data$Award,
+                                   .data$Count)
 
   award_df <- df %>%
-    dplyr::transmute(.data$Unitid,
-                  StudentId = as.character(.data$StudentId),
-                  .data$CohortType,
-                  .data$Recipient,
-                  Award = .data[[award]],
-                  .data$Exclusion) %>%
-    dplyr::mutate(Count = 1) %>%
-
-    #not needed for this report
-    dplyr::filter(.data$Award != 4,
-                  .data$Exclusion == FALSE) %>%
-    dplyr::select(-.data$Exclusion) %>%
-
-    #add extras
-    dplyr::bind_rows(extra_awards) %>%
-
-    #make it wide
-    tidyr::pivot_wider(names_from = .data$Award, values_from = .data$Count, values_fill = 0) %>%
-    dplyr::select(-.data$StudentId) %>%
-
-    #aggregate
-    dplyr::group_by(.data$Unitid, .data$CohortType, .data$Recipient)%>%
-    dplyr::summarize(dplyr::across(dplyr::everything(), sum)) %>%
-    dplyr::ungroup() %>%
-
-    #sort for easy viewing
-    dplyr::arrange(.data$CohortType, .data$Recipient) %>%
-
-    #remove empty rows
-    dplyr::filter(!(.data$`1`==0 & .data$`2`==0 & .data$`3`==0))
-
+              dplyr::transmute(.data$Unitid,
+                            StudentId = as.character(.data$StudentId),
+                            .data$CohortType,
+                            .data$Recipient,
+                            Award = .data[[award]],
+                            .data$Exclusion) %>%
+              dplyr::mutate(Count = 1) %>%
+              #not needed for this report
+              dplyr::filter(.data$Award != 4,
+                            .data$Exclusion == FALSE) %>%
+              dplyr::select(-.data$Exclusion) %>%
+              #add extras
+              dplyr::bind_rows(extra_awards) %>%
+              #make it wide
+              tidyr::pivot_wider(names_from = .data$Award, values_from = .data$Count, values_fill = 0) %>%
+              dplyr::select(-.data$StudentId) %>%
+              #aggregate
+              dplyr::group_by(.data$Unitid, .data$CohortType, .data$Recipient)%>%
+              dplyr::summarize(dplyr::across(dplyr::everything(), sum)) %>%
+              dplyr::ungroup() %>%
+              #sort for easy viewing
+              dplyr::arrange(.data$CohortType, .data$Recipient) %>%
+              #remove empty rows
+              dplyr::filter(!(.data$`1`==0 & .data$`2`==0 & .data$`3`==0))
 
   return(award_df)
-
 }
