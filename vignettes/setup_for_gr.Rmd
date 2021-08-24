@@ -18,12 +18,19 @@ knitr::opts_chunk$set(
 library(IPEDSuploadables)
 ```
 
+```{r spectsimport, eval = FALSE, echo = FALSE}
+specs_GR <-  googlesheets4::read_sheet('1HR0W3N5AgsdwppvTr7CZ4Q2IQtfnTfXMJsSP8l-JtLQ')
+usethis::use_data(specs_GR, overwrite = TRUE) 
+```
+
 ## To use the `make_GR` functions, your data must be in the format described below
 
 >
 * One row per person
 * One IPEDS Unitid per file
 * Columns with values and types as described below (additional columns are allowed)
+
+This population should meet IPEDS rules for inclusion on this report (first-time full-time degree/certificate seekers from the appropriate cohort year).
 
 ```{r specstable, echo=FALSE, warning=FALSE, message=FALSE}
 #figure out why striped isn't working when format = 'html'

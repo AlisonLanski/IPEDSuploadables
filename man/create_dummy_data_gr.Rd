@@ -4,7 +4,7 @@
 \alias{create_dummy_data_gr}
 \title{Create dummy data for testing the Grad Rates functions}
 \usage{
-create_dummy_data_gr(n = 1000, seed = 4567)
+create_dummy_data_gr(n = 100, seed = 4567)
 }
 \arguments{
 \item{n}{Number of rows of data to synthesize}
