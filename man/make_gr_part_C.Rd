@@ -12,6 +12,8 @@ make_gr_part_C(df, output = "part", format = "both")
 \item{output}{A string (\code{"part"}, \code{"full"}, or \code{"both"})}
 
 \item{format}{A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})}
+
+\item{cohort_year}{A numerical value for the fall cohort}
 }
 \value{
 A text file
