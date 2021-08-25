@@ -8,3 +8,6 @@
 ^README\.Rmd$
 ^doc$
 ^Meta$
+^vignettes\.csv$
+^ISSUE_TEMPLATE.md$
+
