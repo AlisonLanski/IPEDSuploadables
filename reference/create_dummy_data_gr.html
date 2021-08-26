@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Make Completions Part D — make_com_part_D • IPEDSuploadables</title>
+<title>Create dummy data for testing the Grad Rates functions — create_dummy_data_gr • IPEDSuploadables</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Make Completions Part D — make_com_part_D" />
-<meta property="og:description" content="Make Completions Part D" />
+<meta property="og:title" content="Create dummy data for testing the Grad Rates functions — create_dummy_data_gr" />
+<meta property="og:description" content="Creates dummy data for testing the Grad Rates functions" />
 
 
 
@@ -136,41 +136,33 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Make Completions Part D</h1>
+    <h1>Create dummy data for testing the Grad Rates functions</h1>
     
-    <div class="hidden name"><code>make_com_part_D.Rd</code></div>
+    <div class="hidden name"><code>create_dummy_data_gr.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Make Completions Part D</p>
+    <p>Creates dummy data for testing the Grad Rates functions</p>
     </div>
 
-    <pre class="usage"><span class='fu'>make_com_part_D</span><span class='op'>(</span><span class='va'>df</span>, extracips <span class='op'>=</span> <span class='cn'>NULL</span>, output <span class='op'>=</span> <span class='st'>"part"</span>, format <span class='op'>=</span> <span class='st'>"both"</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>create_dummy_data_gr</span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>100</span>, seed <span class='op'>=</span> <span class='fl'>4567</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>df</th>
-      <td><p>A dataframe of student/degree information</p></td>
+      <th>n</th>
+      <td><p>Number of rows of data to synthesize</p></td>
     </tr>
     <tr>
-      <th>extracips</th>
-      <td><p>A dataframe of cips offered by the institution but not in <code>'df'</code></p></td>
-    </tr>
-    <tr>
-      <th>output</th>
-      <td><p>A string (<code>"part"</code>, <code>"full"</code>, or <code>"both"</code>)</p></td>
-    </tr>
-    <tr>
-      <th>format</th>
-      <td><p>A string (<code>"uploadable"</code>, <code>"readable"</code>, or <code>"both"</code>)</p></td>
+      <th>seed</th>
+      <td><p>Seed number to supply to <code>"set.seed()"</code> to replicate of results</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A text file</p>
+    <p>a dataframe ready for the rest of the Grad Rates functions</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

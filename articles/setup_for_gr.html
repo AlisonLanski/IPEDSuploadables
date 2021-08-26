@@ -5,13 +5,13 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Set up your data for IPEDS HR processing • IPEDSuploadables</title>
+<title>Set up your data for IPEDS GR processing • IPEDSuploadables</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Set up your data for IPEDS HR processing">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Set up your data for IPEDS GR processing">
 <meta property="og:description" content="IPEDSuploadables">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -90,23 +90,23 @@
 
       
 
-      </header><script src="setup_for_hr_files/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="setup_for_hr_files/kePrint-0.0.1/kePrint.js"></script><link href="setup_for_hr_files/lightable-0.0.1/lightable.css" rel="stylesheet">
+      </header><script src="setup_for_gr_files/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="setup_for_gr_files/kePrint-0.0.1/kePrint.js"></script><link href="setup_for_gr_files/lightable-0.0.1/lightable.css" rel="stylesheet">
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Set up your data for IPEDS HR processing</h1>
+      <h1 data-toc-skip>Set up your data for IPEDS GR processing</h1>
             
       
       
-      <div class="hidden name"><code>setup_for_hr.Rmd</code></div>
+      <div class="hidden name"><code>setup_for_gr.Rmd</code></div>
 
     </div>
 
     
     
-<div id="to-use-the-make_hr-functions-your-data-must-be-in-the-format-described-below" class="section level2">
+<div id="to-use-the-make_gr-functions-your-data-must-be-in-the-format-described-below" class="section level2">
 <h2 class="hasAnchor">
-<a href="#to-use-the-make_hr-functions-your-data-must-be-in-the-format-described-below" class="anchor"></a>To use the <code>make_hr</code> functions, your data must be in the format described below</h2>
+<a href="#to-use-the-make_gr-functions-your-data-must-be-in-the-format-described-below" class="anchor"></a>To use the <code>make_GR</code> functions, your data must be in the format described below</h2>
 <blockquote>
 <ul>
 <li>One row per person</li>
@@ -114,6 +114,7 @@
 <li>Columns with values and types as described below (additional columns are allowed)</li>
 </ul>
 </blockquote>
+<p>This population should meet IPEDS rules for inclusion on this report (first-time full-time degree/certificate seekers from the appropriate cohort year).</p>
 <table class="table table table-striped">
 <thead><tr>
 <th style="text-align:left;">
@@ -132,7 +133,7 @@ Acceptable Value - Definition
 Unitid
 </td>
 <td style="text-align:left;width: 8em; font-style: italic;">
-Character or Numeric
+Numeric
 </td>
 <td style="text-align:left;">
 (relevant unitid; xxxxxx)
@@ -140,13 +141,90 @@ Character or Numeric
 </tr>
 <tr>
 <td style="text-align:left;">
-EmpId
+ProgramType
 </td>
 <td style="text-align:left;width: 8em; font-style: italic;">
-Character or numeric
+Numeric
 </td>
 <td style="text-align:left;">
-(any unique identifier for each employees)
+1 - 2 year program<br>2 - 2-4 year program<br>3 - Bachelor’s or Bachelor’s equivalent program
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+IsComp
+</td>
+<td style="text-align:left;width: 8em; font-style: italic;">
+Numeric
+</td>
+<td style="text-align:left;">
+0 - Did not complete a degree/certificate<br>1 - Completed a degree/certificate
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Completed150
+</td>
+<td style="text-align:left;width: 8em; font-style: italic;">
+Numeric
+</td>
+<td style="text-align:left;">
+0 - Did not complete within 150% time<br>1 - Completed within 150% time
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CompletedFourYears
+</td>
+<td style="text-align:left;width: 8em; font-style: italic;">
+Numeric
+</td>
+<td style="text-align:left;">
+0 - Did not complete within 4 years <br>1 - Completed by 4 years<br>Note: Only needed for ProgramType 3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CompletedFiveYears
+</td>
+<td style="text-align:left;width: 8em; font-style: italic;">
+Numeric
+</td>
+<td style="text-align:left;">
+0 - Did not complete by 5 years<br>1 - Completed by 5 years (and did not complete by 4 years)<br>Note: Only needed for ProgramType 3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+IsTransferOut
+</td>
+<td style="text-align:left;width: 8em; font-style: italic;">
+Numeric
+</td>
+<td style="text-align:left;">
+0 - Did not transfer out<br>1 - Did not complete and transfered out
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+IsExclusion
+</td>
+<td style="text-align:left;width: 8em; font-style: italic;">
+Numeric
+</td>
+<td style="text-align:left;">
+0 - Keep in the revised cohort<br>1 - Exclude from the revised cohort
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+IsStillEnrolled
+</td>
+<td style="text-align:left;width: 8em; font-style: italic;">
+Numeric
+</td>
+<td style="text-align:left;">
+0 - Did complete or is not enrolled<br>1 - Did not complete and is still enrolled
 </td>
 </tr>
 <tr>
@@ -162,7 +240,7 @@ Numeric
 </tr>
 <tr>
 <td style="text-align:left;">
-Gender
+Sex
 </td>
 <td style="text-align:left;width: 8em; font-style: italic;">
 Numeric
@@ -173,111 +251,28 @@ Numeric
 </tr>
 <tr>
 <td style="text-align:left;">
-Rank
+PellGrant
 </td>
 <td style="text-align:left;width: 8em; font-style: italic;">
 Numeric
 </td>
 <td style="text-align:left;">
-1 - Professors<br>2 - Associate professors<br>3 - Assistant professors<br>4 - Instructors<br>5 - Lecturers<br>6 - No academic rank (Faculty)<br>7 - Not faculty
+0 - Does not have Pell Grant<br>1 - Has Pell Grant
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Tenure
+DirectLoan
 </td>
 <td style="text-align:left;width: 8em; font-style: italic;">
 Numeric
 </td>
 <td style="text-align:left;">
-1 - Tenured<br>2 - On tenure track<br>3 - Multi-year contract or employment agreement. Not on Tenure Track or no tenure system<br>4 - Annual contract or employment agreement. Not on Tenure Track or no tenure system<br>5 - Less than annual contract or employment agreement. Not on Tenure Track or no tenure system<br>6 - Without faculty status<br>7 - Indefinite duration (continuing or at-will) contract or employment agreement. Not on Tenure Track or no tenure system
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-IsMedical
-</td>
-<td style="text-align:left;width: 8em; font-style: italic;">
-Numeric
-</td>
-<td style="text-align:left;">
-0 - Not medical school staff<br>1 - Medical school staff
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-NewHire
-</td>
-<td style="text-align:left;width: 8em; font-style: italic;">
-Numeric
-</td>
-<td style="text-align:left;">
-0 - Not a new hire<br>1 - New Hire
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-CurrentEmployee
-</td>
-<td style="text-align:left;width: 8em; font-style: italic;">
-Numeric
-</td>
-<td style="text-align:left;">
-0 - Not a current employee (e.g. a new hire who is not employed on 11/1 of the reporting year)<br>1 - Current employee
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-FtPt
-</td>
-<td style="text-align:left;width: 8em; font-style: italic;">
-Character
-</td>
-<td style="text-align:left;">
-F - Full Time<br>P - Part Time
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Salary
-</td>
-<td style="text-align:left;width: 8em; font-style: italic;">
-Numeric
-</td>
-<td style="text-align:left;">
-xxxxxxx.xx (or just xxxxx): should be the value corresponding with Months (see below)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Months
-</td>
-<td style="text-align:left;width: 8em; font-style: italic;">
-Numeric
-</td>
-<td style="text-align:left;">
-8 - Annual salary covers less than 9 months<br>9 - Annual salary covers 9 months<br>10 - Annual salary covers 10 months<br>11 - Annual salary covers 11 months<br>12 - Annual salary covers 12 months<br>99 - Any other situation/employee which will not be reported and is not included above
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-OccCategory3
-</td>
-<td style="text-align:left;width: 8em; font-style: italic;">
-Numeric
-</td>
-<td style="text-align:left;">
-1 - Primarily Instruction - exclusively credit<br>2 - Primarily Instruction - exclusively not-for-credit<br>3 - Primarily Instruction - Combined credit/not-for-credit<br>4 - Instruction/research/public service<br>5 - Research Staff<br>6 - Public Service Staff<br>7 - Archivists, Curators, and Museum Technicians (25-4010)<br>8 - Librarians and Media Collections Specialists (25-4020)<br>9 - Library Technicians (25-4030)<br>10 - Student and Academic Affairs and Other Education Services Occupations (25-2000 + 25-3000 + 25-9000)<br>11 - Management Occupations (11-0000)<br>12 - Business and Financial Operations Occupations (13-0000)<br>13 - Computer, Engineering, and Science Occupations (15-0000 + 17-0000 + 19-0000)<br>14 - Community, Social Service, Legal, Arts, Design, Entertainment, Sports, and Media Occupations (21-0000 + 23-0000 + 27-0000)<br>15 - Healthcare Practitioners and Technical Occupations (29-0000)<br>16 - Service Occupations (31-0000 + 33-0000 + 35-0000 + 37-0000 + 39-0000)<br>17 - Sales and Related Occupations (41-0000)<br>18 - Office and Administrative Support Occupations (43-0000)<br>19 - Natural Resources, Construction, and Maintenance Occupations (45-0000 + 47-0000 + 49-0000)<br>20 - Production, Transportation, and Material Moving Occupations (51-0000 + 53-0000)<br>22 - Teaching Assistants, Postsecondary (25-9044)<br>23 - Graduate Assistant Research<br>24 - Graduate Assistant Other
+0 - Does not have Direct Loan<br>1 - Has Direct Loan<br>Note: Value 1 can include all students with Direct Loan or only those without Pell
 </td>
 </tr>
 </tbody>
 </table>
-<p>Notes</p>
-<ul>
-<li>In OccCategory3, <code>21</code> is used for an intermediate total and is not a value in the upload file<br>
-</li>
-<li>OccCategory3 values will be recoded in <code>prep_hr_data_frame</code> into all necessary rollups, including instructional staff (values 1-4)</li>
-</ul>
 </div>
   </div>
 
