@@ -8,7 +8,7 @@
 #' @return A txt file at the path of your choice
 #' @export
 #'
-produce_ef1_report <- function(students, retention, cips = FALSE, part = "ALL") {
+produce_ef1_report <- function(students, retention, cips = FALSE, part = "ALL", include_part_c = FALSE) {
 
   students <- prep_ef1_data_frame(students)
 
@@ -16,13 +16,17 @@ produce_ef1_report <- function(students, retention, cips = FALSE, part = "ALL") 
     make_ef1_part_A(df = students, cips = cips, output = "full")
     make_ef1_part_G(df = students, output = "full")
     make_ef1_part_B(df = students, output = "full")
-    make_ef1_part_C(df = students, output = "full")
+
+    if (include_part_c == TRUE) {
+      make_ef1_part_C(df = students, output = "full")
+    }
+
     make_ef1_part_D(df = students, output = "full")
     make_ef1_part_E(df = retention, output = "full")
     make_ef1_part_F(df = students, output = "full")
   }
 
-  if(toupper(part) == "A"){
+  if(toupper(part) == "A") {
     do.call(paste0("make_ef1_part_", toupper(part)), list(students, cips))
   }
   if (toupper(part) %in% c("G", "B", "C", "D", "F")) {
