@@ -43,8 +43,8 @@ write_report <- function(df, component, part, output, append = FALSE, format = "
   }
 
   if (toupper(output) == "FULL" | toupper(output) == "BOTH") {
-    if (toupper(format) == "UPLOADABLE") {
-      if (grepl(part, pattern = ('A$|A1'))) {
+    if (toupper(format) == "UPLOADABLE" | toupper(format) == "BOTH") {
+      if (grepl(part, pattern = ('A$|A1')) | (component == "GradRates" & part == "PartB")) {
         append <- FALSE
       } else {
         append <- TRUE
