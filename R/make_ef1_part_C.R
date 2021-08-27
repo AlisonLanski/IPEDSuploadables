@@ -24,10 +24,9 @@ make_ef1_part_C <- function(df, output = "part", format = "both") {
                   .data$IsDegreeCertSeeking,
                   .data$StudentLevel,
                   .data$State) %>%
-    #recode_state() %>%
     dplyr::filter(.data$IsFirstTime == 1,
                   .data$IsDegreeCertSeeking == 1,
-                  .data$StudentLevel == 'Undergraduate') %>%
+                  .data$StudentLevel == "Undergraduate") %>%
     dplyr::mutate(Line = .data$State,
                   HS = 1) %>%
     dplyr::group_by(.data$Unitid, .data$Line, .data$HS) %>%
@@ -46,7 +45,7 @@ make_ef1_part_C <- function(df, output = "part", format = "both") {
     #recode_state() %>%
     dplyr::filter(.data$IsFirstTime == 1,
                   .data$IsDegreeCertSeeking == 1,
-                  .data$StudentLevel == 'Undergraduate',
+                  .data$StudentLevel == "Undergraduate",
                   .data$IsRecentGrad == 1) %>%
     dplyr::mutate(Line = .data$State,
                   HS = 2) %>%

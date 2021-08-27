@@ -24,11 +24,6 @@ make_ef1_part_G <- function(df, output = "part", format = "both") {
                   .data$StudentLevel,
                   .data$State,
                   .data$DistanceEd) %>%
-    #recode_state() %>%
-    #dplyr::mutate(StateNumAll = StateNum) %>%
-    #dplyr::mutate(State = .data$UnitidState) %>%
-    #recode_state() %>%
-    #dplyr::mutate(StateNumSchool = StateNum) %>%
     dplyr::mutate(InUS_InState = case_when(.data$State == .data$UnitidState &
                                              .data$DistanceEd == 2 ~  1,
                                            TRUE ~ 0),
@@ -44,13 +39,13 @@ make_ef1_part_G <- function(df, output = "part", format = "both") {
                                     TRUE ~ 0)
                   ) %>%
     dplyr::mutate(Line = dplyr::case_when(
-                            .data$IsDegreeCertSeeking == 1 & .data$StudentLevel == 'Undergraduate' ~ 1,
+                            .data$IsDegreeCertSeeking == 1 & .data$StudentLevel == "Undergraduate" ~ 1,
                             .data$IsDegreeCertSeeking == 0 & .data$StudentLevel == "Undergraduate" ~ 2,
                             .data$StudentLevel == "Graduate" ~ 3
                           )
                   ) %>%
     dplyr::mutate(Enroll_Exc = ifelse(.data$DistanceEd == 2, 1, 0),
-                  Enroll_Some = ifelse(.data$DistanceEd ==1, 1, 0)) %>%
+                  Enroll_Some = ifelse(.data$DistanceEd == 1, 1, 0)) %>%
     dplyr::group_by(.data$Unitid, .data$Line) %>%
     summarize(EnrollExclusive = sum(.data$Enroll_Exc, na.rm = T),
               EnrollSome = sum(.data$Enroll_Some, na.rm = T),
@@ -59,7 +54,6 @@ make_ef1_part_G <- function(df, output = "part", format = "both") {
               UnknownState = sum(.data$InUS_Unknown, na.rm = T),
               OutsideUS = sum(.data$OutUS, na.rm = T)) %>%
     dplyr::ungroup() %>%
-
     #sort for easy viewing
     dplyr::arrange(.data$Line) %>%
     #format for upload
@@ -73,7 +67,7 @@ make_ef1_part_G <- function(df, output = "part", format = "both") {
                      INUS_NOTPPS = paste0("INUS_NOTPPS=", .data$NotPPS),
                      INUS_UNKNOWN_STATE = paste0("INUS_UNKNOWN_STATE=", .data$UnknownState),
                      OUTSIDEUS = paste0("OUTSIDEUS=", .data$OutsideUS)
-    )
+                    )
 
   #create the txt file
   write_report(df = partG,

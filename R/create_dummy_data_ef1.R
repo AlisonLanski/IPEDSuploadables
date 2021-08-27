@@ -19,7 +19,7 @@
 
 create_dummy_data_ef1 <- function(df_type = 'students', n = 100, seed = 1234) {
 
-  if(df_type == 'students'){
+  if(df_type == 'students') {
     set.seed(seed)
 
     df <- data.frame(
@@ -43,19 +43,19 @@ create_dummy_data_ef1 <- function(df_type = 'students', n = 100, seed = 1234) {
       IsFirstTime = sample(0:1, size = n, replace = TRUE),
       DistanceEd = sample(0:2, size = n, replace = TRUE)
     ) %>%
-      dplyr::mutate(IsRecentGrad = dplyr::case_when(StudentLevel == 'Undergraduate' & IsFirstTime == 1 ~
+      dplyr::mutate(IsRecentGrad = dplyr::case_when(StudentLevel == "Undergraduate" & IsFirstTime == 1 ~
                                                sample(0:1,
                                                       size = n,
                                                       replace = TRUE,
                                                       prob = c(0.2, 0.8))),
-                    IsTransfer = dplyr::case_when(StudentLevel == 'Undergraduate' & IsFirstTime == 0 ~
+                    IsTransfer = dplyr::case_when(StudentLevel == "Undergraduate" & IsFirstTime == 0 ~
                                              sample(0:1,
                                                     size = n,
                                                     replace = T))) %>%
       dplyr::mutate(UnitidState = 6)
   }
 
-    if(df_type == 'retention'){
+    if(df_type == 'retention') {
     set.seed(seed)
 
     df <- data.frame(
