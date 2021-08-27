@@ -22,19 +22,19 @@ make_ef1_part_G <- function(df, output = "part", format = "both") {
                   .data$StudentId,
                   .data$IsDegreeCertSeeking,
                   .data$StudentLevel,
-                  .data$State,
+                  .data$OnlineState,
                   .data$DistanceEd) %>%
-    dplyr::mutate(InUS_InState = case_when(.data$State == .data$UnitidState &
+    dplyr::mutate(InUS_InState = case_when(.data$OnlineState == .data$UnitidState &
                                              .data$DistanceEd == 2 ~  1,
                                            TRUE ~ 0),
-                  InUS_OutState = case_when(.data$State != .data$UnitidState &
-                                              .data$State <= 78 & .data$UnitidState != 57 &
+                  InUS_OutState = case_when(.data$OnlineState != .data$UnitidState &
+                                              .data$OnlineState <= 78 & .data$UnitidState != 57 &
                                               .data$DistanceEd == 2 ~  1,
                                             TRUE ~ 0),
-                  InUS_Unknown = case_when(.data$State == 57 &
+                  InUS_Unknown = case_when(.data$OnlineState == 57 &
                                              .data$DistanceEd == 2 ~  1,
                                            TRUE ~ 0),
-                  OutUS = case_when(.data$State == 90 &
+                  OutUS = case_when(.data$OnlineState == 90 &
                                       .data$DistanceEd == 2 ~  1,
                                     TRUE ~ 0)
                   ) %>%

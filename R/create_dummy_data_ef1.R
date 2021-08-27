@@ -34,7 +34,7 @@ create_dummy_data_ef1 <- function(df_type = 'students', n = 100, seed = 1234) {
       StudentLevel = sample(c("Undergraduate", "Graduate"), size = n, replace = TRUE),
       IsDegreeCertSeeking = sample(0:1, size = n, replace = TRUE),
       RaceEthnicity = sample(1:4, size = n, replace = TRUE),
-      State = sample(c(6, 18, 32, 66, 90, 98) , size = n, replace = TRUE),
+      AdmitState = sample(c(6, 18, 32, 66, 90, 98) , size = n, replace = TRUE),
       Age = sample(c(17, 18, 20, 22, 25, 32, 43, 68),
                    size = n,
                    replace = TRUE,
@@ -51,7 +51,10 @@ create_dummy_data_ef1 <- function(df_type = 'students', n = 100, seed = 1234) {
                     IsTransfer = dplyr::case_when(StudentLevel == "Undergraduate" & IsFirstTime == 0 ~
                                              sample(0:1,
                                                     size = n,
-                                                    replace = T))) %>%
+                                                    replace = T)),
+                    OnlineState = case_when(AdmitState == 66 ~ 6,
+                                            TRUE ~ AdmitState)
+                    ) %>%
       dplyr::mutate(UnitidState = 6)
   }
 

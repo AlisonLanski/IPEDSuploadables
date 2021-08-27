@@ -4,16 +4,16 @@
 \alias{produce_ef1_report}
 \title{Shortcut function to do all steps to produce a report for Fall Enrollment}
 \usage{
-produce_ef1_report(students, retention, cips = FALSE, part = "ALL")
+produce_ef1_report(students, retention, part = "ALL", include_optional = FALSE)
 }
 \arguments{
 \item{students}{A dataframe set up according to the readme with student data}
 
 \item{retention}{A dataframe set up according to the readme with retention data}
 
-\item{cips}{A boolean indicating if this is a year with a CIP-breakout for Part A (TRUE or FALSE)}
-
 \item{part}{A string with what part of the report you want to produce: 'all', 'A', etc.}
+
+\item{include_optional}{A boolean flag for whether optional parts should be included}
 }
 \value{
 A txt file at the path of your choice

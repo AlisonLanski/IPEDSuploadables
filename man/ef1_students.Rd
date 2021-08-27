@@ -5,7 +5,7 @@
 \alias{ef1_students}
 \title{Dataframe of dummy student data  Fall Enrollment scripts}
 \format{
-A data frame with 100 rows and 15 columns
+A data frame with 100 rows and 16 columns
 }
 \usage{
 ef1_students

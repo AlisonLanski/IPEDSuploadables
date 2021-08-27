@@ -12,7 +12,7 @@ produce_ef1_report <- function(students, retention, part = "ALL", include_option
 
   students <- prep_ef1_data_frame(students)
 
-  cip_year <- (as.numeric(substr(Sys.Date(), 6, 7)) >= 8 + as.numeric(substr(Sys.Date(), 1, 4))) %% 2 == 1
+  cip_year <- ((as.numeric(substr(Sys.Date(), 6, 7)) >= 8) + as.numeric(substr(Sys.Date(), 1, 4))) %% 2 == 1
 
   if (toupper(part) == "ALL") {
     make_ef1_part_A(df = students, cips = cip_year, output = "full")
