@@ -19,11 +19,21 @@ write_report <- function(df, component, part, output, append = FALSE, format = "
   }
 
   if (toupper(output) == "PART" | toupper(output) == "BOTH") {
-    if (toupper(format) == "UPLOADABLE" | toupper(format) == "BOTH") {
+    if (toupper(format) == "UPLOADABLE") {
       write.table(x = df, sep = ",",
                   file = paste0(output_path, component, "_", part, "_", Sys.Date(), ".txt"),
                   quote = FALSE, row.names = FALSE, col.names = FALSE)
-    } else if (toupper(format) == "READABLE" | toupper(format) == "BOTH") {
+    } else if (toupper(format) == "READABLE") {
+      df %>%
+        purrr::map_df(~stringr::str_replace_all(., "^[:upper:]+[=]*", "")) %>%
+        write.table(sep = ",",
+                    file = paste0(output_path, "Readable_", component, "_", part, "_", Sys.Date(), ".csv"),
+                    quote = FALSE, row.names = FALSE, col.names = TRUE)
+    } else if (toupper(format) == "BOTH") {
+      write.table(x = df, sep = ",",
+                  file = paste0(output_path, component, "_", part, "_", Sys.Date(), ".txt"),
+                  quote = FALSE, row.names = FALSE, col.names = FALSE)
+
       df %>%
         purrr::map_df(~stringr::str_replace_all(., "^[:upper:]+[=]*", "")) %>%
         write.table(sep = ",",
@@ -34,6 +44,21 @@ write_report <- function(df, component, part, output, append = FALSE, format = "
 
   if (toupper(output) == "FULL" | toupper(output) == "BOTH") {
     if (toupper(format) == "UPLOADABLE" | toupper(format) == "BOTH") {
+      if (grepl(part, pattern = ('A$|A1')) | (component == "GradRates" & part == "PartB")) {
+        append <- FALSE
+      } else {
+        append <- TRUE
+      }
+      write.table(x = df, sep = ",",
+                  file = paste0(output_path, component, "_AllParts_", Sys.Date(), ".txt"),
+                  quote = FALSE, row.names = FALSE, col.names = FALSE, append = append)
+    } else if (toupper(format) == "READABLE") {
+      df %>%
+        purrr::map_df(~stringr::str_replace_all(., "^[:upper:]+[=]*", "")) %>%
+        write.table(sep = ",",
+                    file = paste0(output_path, "Readable_", component, "_AllParts_", Sys.Date(), ".csv"),
+                    quote = FALSE, row.names = FALSE, col.names = TRUE, append = append)
+    } else if (toupper(format) == "BOTH") {
       if (grepl(part, pattern = ('A$|A1'))) {
         append <- FALSE
       } else {
@@ -42,7 +67,7 @@ write_report <- function(df, component, part, output, append = FALSE, format = "
       write.table(x = df, sep = ",",
                   file = paste0(output_path, component, "_AllParts_", Sys.Date(), ".txt"),
                   quote = FALSE, row.names = FALSE, col.names = FALSE, append = append)
-    } else if (toupper(format) == "READABLE" | toupper(format) == "BOTH") {
+
       df %>%
         purrr::map_df(~stringr::str_replace_all(., "^[:upper:]+[=]*", "")) %>%
         write.table(sep = ",",
