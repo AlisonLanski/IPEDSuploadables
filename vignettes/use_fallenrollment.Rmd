@@ -1,0 +1,117 @@
+---
+title: "How to produce an IPEDS Fall Enrollment upload file"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{How to produce an IPEDS Fall Enrollment upload file}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Step 0: Install/Load the package
+```{r setup, eval=FALSE}
+#install option 1
+devtools::install_github("AlisonLanski/IPEDSuploadables")
+
+#install option 2
+githubinstall::githubinstall("IPEDSuploadables")
+
+#load the packages
+library(IPEDSuploadables)
+```
+
+## Step 1: Load your institution data
+
+Read in your data 
+For setup requirements, consult [this prep vignette](setup_for_fallenrollment.html) for column names, column types, and accepted values.
+
+```{r prep_data, eval = FALSE}
+dat_student <- readr::read_csv::("path/StudentData.csv")
+dat_retention <- readr::read_csv::("path/RetentionData.csv")
+```
+
+
+To test the functions without using your own institutional data, you can use our dummmy data or create a new version by running  
+
+
+```{r dummy_data, eval = FALSE}
+#use the built-in (seed set to 1234)
+dat_students <- ef1_students
+dat_retention <- ef1_retention
+
+#make your own (choose a seed)
+dat_student <- create_dummy_data_ef1(seed = 9999)
+dat_retention <- create_dummy_data_com("retention", seed = 9999)
+```
+
+
+## Step 2: Produce your IPEDS report
+
+Run the wrapper function to produce all portions of your report into a txt for upload. 
+
+* The first two arguments are required: a df of your student data and a df of your retention data.   
+* The first time you run this function, you'll be asked to browse to the file location where the report will be saved. This location can be changed later.
+* Your student-faculty ratio number is collected via pop-up box.  Type a whole number when prompted.
+
+This wrapper function auto-detects the IPEDS submission year and adjusts the sections of cip-based enrollment, student age, and student residence state appropriately.  If you would like to report data in optional years, change the include_optional flag to TRUE. 
+
+```{r produce_report, eval=FALSE}
+#full export
+produce_ef1_report(student = dat_student, retention = dat_retention, part = "ALL")
+
+#if you want to report optional data
+produce_ef1_report(dat_student, date_retention, include_optional = TRUE)
+```
+
+
+This file will produce a status message for each part that is asked for.  When running "all" fall enrollment parts, you'll see the message seven times even though there is only 1 output file.  This is a known bug that doesn't affect functionality.
+
+#### Note: If you prefer to avoid the wrapper function, you can run its individual parts.  
+First, prep the student data by running it through a script which checks for formatting and regularizes some datatypes  
+*Prep script is minimal right now; we have plans for more robust checks*
+Then, run the individual component scripts
+Use the help for these components to see how to produce the txt file, an easier-to-view file, or both.
+
+```{r prep_script, eval = FALSE}
+dat_student <- prep_ef1_data_frame(dat_student)
+```
+
+```{r part_script, eval = FALSE}
+
+#if you wanted to get a preview overall enrollment counts
+produce_ef1_report(dat_student, part = "A")
+
+#for part A, set the argument of "cips" to TRUE if you want to produce enrollment counts by CIP breakouts. 
+make_ef1_part_A(dat_student, cips = TRUE)
+
+make_ef1_part_G(dat_student)
+
+#if you do NOT want to report in an optional year, skip this part
+make_ef1_part_B(dat_student)
+
+#if you do NOT want to report in an optional year, skip this part
+make_ef1_part_C(dat_student)
+
+make_ef1_part_D(dat_student)
+
+make_ef1_part_E(dat_retention)
+
+#this part requires one of your initial dataframes as a way to get your institution's unitid
+make_ef1_part_F(dat_student)
+```
+
+We recommend only using the individual component scripts for troubleshooting.  To submit the individual results in Step 4, you'll need to first combine them into a single text file.
+
+
+## Step 4: Upload your IPEDS report
+
+A. Navigate to the IPEDS submission portal and log in.  
+B. Select "Fall Enrollment", select "key-value pair", then browse to your .txt file and upload.
+C. After your file uploads, continue your standard process to check edits, enter metadata, review results, lock, and submit the survey.
+

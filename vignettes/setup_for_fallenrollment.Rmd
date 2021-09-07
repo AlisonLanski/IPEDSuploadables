@@ -1,0 +1,84 @@
+---
+title: "Set up your data for IPEDS Fall Enrollment processing"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Set up your data for IPEDS Fall Enrollment processing}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup, eval=FALSE, echo=FALSE}
+library(IPEDSuploadables)
+```
+
+## The `make_ef1` scripts require 2 separate dataframes, one with row-level students and one with pre-aggregated retention counts.  
+## *The dataframes must follow the format described below*
+
+
+
+### Student data requirements
+
+>
+* One row per person
+* One IPEDS Unitid per file
+* Columns with values and types as described below in any order (additional columns are allowed)
+
+Column names can use any capitalization method you like.
+
+
+```{r create_data_file_in_package, eval=FALSE, echo=FALSE}
+#export spreadsheet with specs from google drive
+#read in with readr
+specs_EF1 <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1XVcGKtrAwsgKRYvqrbzO13-w8_u3IB2oYft-F5Psxx4/edit", sheet = 1)
+usethis::use_data(specs_EF1, overwrite = TRUE)
+#then run: use_data(specs_COM, specs_COM, overwrite = TRUE) to save as .rda and replace the old file
+```
+
+```{r specstable_df, echo=FALSE, warning=FALSE, message=FALSE}
+#figure out why striped isn't working when format = 'html'
+load("../data/specs_EF1.rda")
+library(magrittr)
+specs_EF1$ACCEPTABLE_VALUES <- stringr::str_replace_all(specs_EF1$ACCEPTABLE_VALUES, pattern = "\\n", replacement = "<br>")
+specs_EF1_students <- specs_EF1[specs_EF1$DATA_FRAME == 'students', 2:4]
+knitr::kable(specs_EF1_students,
+             format = 'html',
+             escape = FALSE,
+             col.names = c('Column Name', 'Column Type', 'Acceptable Value - Definition')) %>%
+    kableExtra::kable_styling(bootstrap_options = "striped") %>%
+  kableExtra::column_spec(2, italic = TRUE, width = '8em')
+
+```
+
+
+
+### Retention data requirements 
+
+>
+* One row for full-time counts, one row for part-time counts
+* One IPEDS Unitid per file
+* Columns with values and types as described below in any order (additional columns are allowed)
+
+
+```{r specstable_com, echo=FALSE, warning=FALSE, message=FALSE}
+#figure out why striped isn't working when format = 'html'
+specs_EF1_retention <- specs_EF1[specs_EF1$DATA_FRAME == 'retention', 2:4]
+knitr::kable(specs_EF1_retention,
+             format = 'html',
+             escape = FALSE,
+             col.names = c('Column Name', 'Column Type', 'Acceptable Value - Definition')) %>%
+    kableExtra::kable_styling(bootstrap_options = "striped") %>%
+  kableExtra::column_spec(2, italic = TRUE, width = '8em')
+
+```
+
+### Student-faculty ratio
+
+This information will be collected via pop-up box. Type the correct number for your institution's ratio when prompted.
+
