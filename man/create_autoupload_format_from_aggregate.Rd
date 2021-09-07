@@ -9,6 +9,8 @@ create_autoupload_format_from_aggregate(df, output_file_name)
 }
 \arguments{
 \item{df}{A dataframe}
+
+\item{output_file_name}{A string containing a file name for your results}
 }
 \value{
 A txt file at the path of your choice

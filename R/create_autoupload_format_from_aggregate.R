@@ -2,6 +2,7 @@
 #' Columns must already be in correct name format.
 #'
 #' @param df A dataframe
+#' @param output_file_name A string containing a file name for your results
 #'
 #' @return A txt file at the path of your choice
 #' @export
@@ -13,8 +14,8 @@ create_autoupload_format_from_aggregate <- function(df, output_file_name) {
   }
 
   purrr::map2_dfc(colnames(df), df, paste, sep = "=") %>%
-  tidyr::unite(col = allunited, ., sep = ',') %>%
-  write.table(x = ., sep = ",",
+  tidyr::unite(col = "allunited", sep = ',') %>%
+  write.table(sep = ",",
               file = paste0(output_path, output_file_name, "_", Sys.Date(), ".txt"),
               quote = FALSE, row.names = FALSE, col.names = FALSE)
 }
