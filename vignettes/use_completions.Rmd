@@ -83,10 +83,10 @@ make_com_part_C(dat_student, extracips)
 make_com_part_D(dat_student_extracips)
 ```
 
-We recommend only using the individual component scripts for troubleshooting.  To submit the individual results in Step 4, you'll need to first combine them into a single text file.
+We recommend only using the individual component scripts for troubleshooting.  To submit the individual results in Step 3, you'll need to first combine them into a single text file.
 
 
-## Step 4: Upload your IPEDS report
+## Step 3: Upload your IPEDS report
 
 A. Navigate to the IPEDS submission portal and log in.  
 B. Select "Completions", select "key-value pair", then browse to your .txt file and upload.

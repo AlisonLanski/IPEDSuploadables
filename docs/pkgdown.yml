@@ -2,10 +2,17 @@ pandoc: 2.7.3
 pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
+  setup_for_12monthenrollment: setup_for_12monthenrollment.html
   setup_for_completions: setup_for_completions.html
+  setup_for_fallenrollment: setup_for_fallenrollment.html
+  setup_for_gr: setup_for_gr.html
+  setup_for_gr200: setup_for_gr200.html
   setup_for_hr: setup_for_hr.html
+  setup_for_om: setup_for_om.html
   use_completions: use_completions.html
-last_built: 2020-10-06T19:17Z
+  use_fallenrollment: use_fallenrollment.html
+  use_outcomemeasures: use_outcomemeasures.html
+last_built: 2021-09-07T20:35Z
 urls:
   reference: https://alisonlanski.github.io/IPEDSuploadables//reference
   article: https://alisonlanski.github.io/IPEDSuploadables//articles

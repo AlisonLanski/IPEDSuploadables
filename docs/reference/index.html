@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">IPEDSuploadables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
       </span>
     </div>
 
@@ -94,13 +94,34 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/setup_for_12monthenrollment.html">Set up your data for IPEDS 12 Month Enrollment processing</a>
+    </li>
+    <li>
       <a href="../articles/setup_for_completions.html">Set up your data for IPEDS Completions processing</a>
+    </li>
+    <li>
+      <a href="../articles/setup_for_fallenrollment.html">Set up your data for IPEDS Fall Enrollment processing</a>
+    </li>
+    <li>
+      <a href="../articles/setup_for_gr.html">Set up your data for IPEDS GR processing</a>
+    </li>
+    <li>
+      <a href="../articles/setup_for_gr200.html">Set up your data for IPEDS Graduation Rates 200 processing</a>
     </li>
     <li>
       <a href="../articles/setup_for_hr.html">Set up your data for IPEDS HR processing</a>
     </li>
     <li>
+      <a href="../articles/setup_for_om.html">Set up your data for IPEDS OM processing</a>
+    </li>
+    <li>
       <a href="../articles/use_completions.html">How to produce an IPEDS Completions upload file</a>
+    </li>
+    <li>
+      <a href="../articles/use_fallenrollment.html">How to produce an IPEDS Fall Enrollment upload file</a>
+    </li>
+    <li>
+      <a href="../articles/use_outcomemeasures.html">How to produce an IPEDS Outcome Measures upload file</a>
     </li>
   </ul>
 </li>
@@ -146,9 +167,40 @@
       <tr>
         
         <td>
+          <p><code><a href="create_autoupload_format_from_aggregate.html">create_autoupload_format_from_aggregate()</a></code> </p>
+        </td>
+        <td><p>Shortcut function to autoformat any file that's already aggregated.
+Columns must already be in correct name format.</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="create_dummy_data_com.html">create_dummy_data_com()</a></code> </p>
         </td>
         <td><p>Create dummy data for testing the completions functions</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="create_dummy_data_e1d.html">create_dummy_data_e1d()</a></code> </p>
+        </td>
+        <td><p>Create dummy data for testing the completions functions</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="create_dummy_data_ef1.html">create_dummy_data_ef1()</a></code> </p>
+        </td>
+        <td><p>Create dummy data for testing the fall enrollment functions</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="create_dummy_data_gr.html">create_dummy_data_gr()</a></code> </p>
+        </td>
+        <td><p>Create dummy data for testing the Grad Rates functions</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="create_dummy_data_gr200.html">create_dummy_data_gr200()</a></code> </p>
+        </td>
+        <td><p>Create dummy data for testing the Grad Rates 200 function</p></td>
       </tr><tr>
         
         <td>
@@ -158,9 +210,51 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="create_dummy_data_om.html">create_dummy_data_om()</a></code> </p>
+        </td>
+        <td><p>Create dummy data for testing the outcome measures functions</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="dummy_OM.html">dummy_OM</a></code> </p>
+        </td>
+        <td><p>Dummy data for test OM functions</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="e1d_instr.html">e1d_instr</a></code> </p>
+        </td>
+        <td><p>Dummy aggregated data for 12 Month Enrollment part B</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="e1d_student.html">e1d_student</a></code> </p>
+        </td>
+        <td><p>Dummy student-level data for 12 Month Enrollment parts A and C</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ef1_retention.html">ef1_retention</a></code> </p>
+        </td>
+        <td><p>Dataframe of dummy retention data for Fall Enrollment scripts</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ef1_students.html">ef1_students</a></code> </p>
+        </td>
+        <td><p>Dataframe of dummy student data  Fall Enrollment scripts</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="get_ipeds_unitid.html">get_ipeds_unitid()</a></code> </p>
         </td>
         <td><p>Grab insititution's Unitid for the IPEDS script</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="gr_students.html">gr_students</a></code> </p>
+        </td>
+        <td><p>Table of dummy student data for the Graduation Rates starting dataframe</p></td>
       </tr><tr>
         
         <td>
@@ -191,6 +285,84 @@
           <p><code><a href="make_com_part_D.html">make_com_part_D()</a></code> </p>
         </td>
         <td><p>Make Completions Part D</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="make_e1d_part_A.html">make_e1d_part_A()</a></code> </p>
+        </td>
+        <td><p>Make 12 Month Enrollment Part A</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="make_e1d_part_B.html">make_e1d_part_B()</a></code> </p>
+        </td>
+        <td><p>Make 12 Month Enrollment Part B</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="make_e1d_part_C.html">make_e1d_part_C()</a></code> </p>
+        </td>
+        <td><p>Make 12 Month Enrollment Part C</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="make_ef1_part_A.html">make_ef1_part_A()</a></code> </p>
+        </td>
+        <td><p>Make Fall Enrollment Part A</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="make_ef1_part_B.html">make_ef1_part_B()</a></code> </p>
+        </td>
+        <td><p>Make Fall Enrollment Part B</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="make_ef1_part_C.html">make_ef1_part_C()</a></code> </p>
+        </td>
+        <td><p>Make Fall Enrollment Part C</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="make_ef1_part_D.html">make_ef1_part_D()</a></code> </p>
+        </td>
+        <td><p>Make Fall Enrollment Part D</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="make_ef1_part_E.html">make_ef1_part_E()</a></code> </p>
+        </td>
+        <td><p>Make Fall Enrollment Part E</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="make_ef1_part_F.html">make_ef1_part_F()</a></code> </p>
+        </td>
+        <td><p>Make Fall Enrollment Part F</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="make_ef1_part_G.html">make_ef1_part_G()</a></code> </p>
+        </td>
+        <td><p>Make Fall Enrollment Part G</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="make_gr200.html">make_gr200()</a></code> </p>
+        </td>
+        <td><p>Make Graduation Rates 200</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="make_gr_part_B.html">make_gr_part_B()</a></code> </p>
+        </td>
+        <td><p>Make Graduation Rates Part B</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="make_gr_part_C.html">make_gr_part_C()</a></code> </p>
+        </td>
+        <td><p>Make Graduation Rates Part C</p></td>
       </tr><tr>
         
         <td>
@@ -272,9 +444,39 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="make_om_part_A.html">make_om_part_A()</a></code> </p>
+        </td>
+        <td><p>Make Outcome Measures Part A</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="make_om_part_B.html">make_om_part_B()</a></code> </p>
+        </td>
+        <td><p>Make Outcome Measures Part B</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="make_om_part_C.html">make_om_part_C()</a></code> </p>
+        </td>
+        <td><p>Make Outcome Measures Part C</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="make_om_part_D.html">make_om_part_D()</a></code> </p>
+        </td>
+        <td><p>Make Outcome Measures Part D</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="prep_com_data_frame.html">prep_com_data_frame()</a></code> </p>
         </td>
         <td><p>Some initial recodes for Completions</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="prep_ef1_data_frame.html">prep_ef1_data_frame()</a></code> </p>
+        </td>
+        <td><p>Some initial recodes for Fall Enrollment</p></td>
       </tr><tr>
         
         <td>
@@ -284,7 +486,37 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="prep_om_awards.html">prep_om_awards()</a></code> </p>
+        </td>
+        <td><p>Prep extra_awards df for Outcome Measures part B, C, D</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="prep_om_data_frame.html">prep_om_data_frame()</a></code> </p>
+        </td>
+        <td><p>Some initial recodes for OutcomeMeasures</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="produce_com_report.html">produce_com_report()</a></code> </p>
+        </td>
+        <td><p>Shortcut function to do all steps to produce a report</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="produce_e1d_report.html">produce_e1d_report()</a></code> </p>
+        </td>
+        <td><p>Shortcut function to do all steps to produce a 12 month Enrollment report</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="produce_ef1_report.html">produce_ef1_report()</a></code> </p>
+        </td>
+        <td><p>Shortcut function to do all steps to produce a report for Fall Enrollment</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="produce_gr_report.html">produce_gr_report()</a></code> </p>
         </td>
         <td><p>Shortcut function to do all steps to produce a report</p></td>
       </tr><tr>
@@ -293,6 +525,24 @@
           <p><code><a href="produce_hr_report.html">produce_hr_report()</a></code> </p>
         </td>
         <td><p>Shortcut function to do all steps to produce a report</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="produce_om_report.html">produce_om_report()</a></code> </p>
+        </td>
+        <td><p>Shortcut function to do all steps to produce a report</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="recode_reg.html">recode_reg()</a></code> </p>
+        </td>
+        <td><p>Recode race/ethnicity and gender</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="recode_state.html">recode_state()</a></code> </p>
+        </td>
+        <td><p>Recode state</p></td>
       </tr><tr>
         
         <td>
@@ -308,9 +558,39 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="specs_E1D.html">specs_E1D</a></code> </p>
+        </td>
+        <td><p>Table of data requirements for 12 Month Enrollment starting dataframes</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="specs_EF1.html">specs_EF1</a></code> </p>
+        </td>
+        <td><p>Table of data requirements for Fall Enrollment starting dataframes</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="specs_GR.html">specs_GR</a></code> </p>
+        </td>
+        <td><p>Table of data requirements for Graduation Rates starting dataframe</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="specs_GR200.html">specs_GR200</a></code> </p>
+        </td>
+        <td><p>Table of data requirements for Grad Rates 200 starting dataframe</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="specs_HR.html">specs_HR</a></code> </p>
         </td>
         <td><p>Table of data requirements for HR starting dataframe</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="specs_OM.html">specs_OM</a></code> </p>
+        </td>
+        <td><p>Table of data requirements for OM starting dataframe</p></td>
       </tr><tr>
         
         <td>
