@@ -5,5 +5,5 @@
 \alias{IPEDSuploadables}
 \title{\code{IPEDSuploadables} package}
 \description{
-Tools to assist in connections to Notre Dame databases
+Tools to assist uploading survey data to IPEDS
 }

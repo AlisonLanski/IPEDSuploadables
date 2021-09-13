@@ -1,6 +1,6 @@
 #' \code{IPEDSuploadables} package
 #'
-#' Tools to assist in connections to Notre Dame databases
+#' Tools to assist uploading survey data to IPEDS
 #'
 #'
 #' @docType package
