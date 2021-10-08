@@ -3,7 +3,7 @@ title: "How to use this package to support your IPEDS reporting"
 description: "This package is will ingest your institutional data, aggregate/reshape that data, and produce a text file which is compatible with the IPEDS report upload requirements."
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{How to use this package}
+  %\VignetteIndexEntry{How to use this package to support your IPEDS reporting}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

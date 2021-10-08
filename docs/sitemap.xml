@@ -4,6 +4,12 @@
     <loc>https://alisonlanski.github.io/IPEDSuploadables//index.html</loc>
   </url>
   <url>
+    <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/com_cips.html</loc>
+  </url>
+  <url>
+    <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/com_students.html</loc>
+  </url>
+  <url>
     <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/create_autoupload_format_from_aggregate.html</loc>
   </url>
   <url>
@@ -28,9 +34,6 @@
     <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/create_dummy_data_om.html</loc>
   </url>
   <url>
-    <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/dummy_OM.html</loc>
-  </url>
-  <url>
     <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/e1d_instr.html</loc>
   </url>
   <url>
@@ -46,7 +49,13 @@
     <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/get_ipeds_unitid.html</loc>
   </url>
   <url>
+    <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/gr200_students.html</loc>
+  </url>
+  <url>
     <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/gr_students.html</loc>
+  </url>
+  <url>
+    <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/hr_staff.html</loc>
   </url>
   <url>
     <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/IPEDSuploadables.html</loc>
@@ -154,6 +163,9 @@
     <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/make_om_part_D.html</loc>
   </url>
   <url>
+    <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/om_students.html</loc>
+  </url>
+  <url>
     <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/prep_com_data_frame.html</loc>
   </url>
   <url>
@@ -220,6 +232,9 @@
     <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/write_report.html</loc>
   </url>
   <url>
+    <loc>https://alisonlanski.github.io/IPEDSuploadables//articles/howto_overall_ipedsuploadables.html</loc>
+  </url>
+  <url>
     <loc>https://alisonlanski.github.io/IPEDSuploadables//articles/setup_for_12monthenrollment.html</loc>
   </url>
   <url>
@@ -239,14 +254,5 @@
   </url>
   <url>
     <loc>https://alisonlanski.github.io/IPEDSuploadables//articles/setup_for_om.html</loc>
-  </url>
-  <url>
-    <loc>https://alisonlanski.github.io/IPEDSuploadables//articles/use_completions.html</loc>
-  </url>
-  <url>
-    <loc>https://alisonlanski.github.io/IPEDSuploadables//articles/use_fallenrollment.html</loc>
-  </url>
-  <url>
-    <loc>https://alisonlanski.github.io/IPEDSuploadables//articles/use_outcomemeasures.html</loc>
   </url>
 </urlset>
