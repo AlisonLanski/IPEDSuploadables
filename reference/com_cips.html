@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Produce IPEDS HR Part H2 — make_hr_part_H2 • IPEDSuploadables</title>
+<title>Dummy cip data for Completions functions — com_cips • IPEDSuploadables</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Produce IPEDS HR Part H2 — make_hr_part_H2" />
-<meta property="og:description" content="Part H2 --- New hires by occupational category, Race/Ethnicity/Gender" />
+<meta property="og:title" content="Dummy cip data for Completions functions — com_cips" />
+<meta property="og:description" content="Contains sample values for extra cip codes" />
 
 
 
@@ -136,34 +136,28 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Produce IPEDS HR Part H2</h1>
+    <h1>Dummy cip data for Completions functions</h1>
     
-    <div class="hidden name"><code>make_hr_part_H2.Rd</code></div>
+    <div class="hidden name"><code>com_cips.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Part H2 --- New hires by occupational category, Race/Ethnicity/Gender</p>
+    <p>Contains sample values for extra cip codes</p>
     </div>
 
-    <pre class="usage"><span class='fu'>make_hr_part_H2</span><span class='op'>(</span><span class='va'>df</span>, output <span class='op'>=</span> <span class='st'>"part"</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='va'>com_cips</span></pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>df</th>
-      <td><p>a dataframe</p></td>
-    </tr>
-    <tr>
-      <th>output</th>
-      <td><p>a string (<code>"part"</code>, <code>"full"</code>, or <code>"both"</code>)</p></td>
-    </tr>
-    </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>a txt file</p>
+    <p>A data frame with 3 rows and 10 columns</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
+    <p>See complete information by running <code>?create_dummy_data_com.R</code></p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='fu'><a href='produce_com_report.html'>produce_com_report</a></span><span class='op'>(</span><span class='va'>com_student</span>, <span class='va'>com_cips</span><span class='op'>)</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
