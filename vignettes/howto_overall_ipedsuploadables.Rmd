@@ -1,0 +1,135 @@
+---
+title: "How to use this package to support your IPEDS reporting"
+description: "This package is will ingest your institutional data, aggregate/reshape that data, and produce a text file which is compatible with the IPEDS report upload requirements."
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{How to use this package}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
+```
+
+A few things to note:
+
+* To use this package, you'll need to prepare your data as indicated in vignettes. The vignettes can all be viewed through the [package website](https://alisonlanski.github.io/IPEDSuploadables/).  
+* IPEDS upload files must be 100% of the requested information for a particular report. In other words, if a report has parts A, B, and C, you must upload all parts in a single file or the upload will fail.  
+
+## Step 0: Install/Load the package
+```{r setup, eval=FALSE}
+#install option 1
+devtools::install_github("AlisonLanski/IPEDSuploadables")
+
+#install option 2
+githubinstall::githubinstall("IPEDSuploadables")
+```
+
+```{r load, eval = TRUE}
+#load the packages
+library(IPEDSuploadables)
+```
+
+## Step 1: Prep your institutional data
+
+The package requires specific column names and values to work correctly. 
+Each IPEDS report has a vignette that spells out requirements and also has sample data you can examine.
+
+| IPEDS Report | Required Dataframes | Sample Data |
+|:--------|:--------|:---------|
+| 12 Month Enrollment  | [students & instructional activity](setup_for_12monthenrollment.html)  |  e1d_student, e1d_instr  |
+| Completions  | [students & extra cips](setup_for_completions.html)  | com_students, com_cips  |
+| Fall Enrollment  | [students & retention aggregate](setup_for_fallenrollment.html)  |  ef1_students, ef1_retention  |
+| Graduation Rates  | [students](setup_for_gr.html)  |  gr_students  |
+| Graduation Rates 200   | [students](setup_for_gr200.html)  |  gr200_students  |
+| Human Resources  | [staff](setup_for_hr.html) | hr_staff  |
+| Outcome Measures  |  [students & instructional activity](setup_for_om.html)  |  om_student  |
+
+
+You can call the sample data as desired to explore it
+```{r dummy_data, eval = TRUE}
+#dataframe of student information for 12 month enrollment
+head(e1d_student)
+```
+
+
+## Step 2: Read in your data and produce your IPEDS report
+
+Each IPEDS report has a single function which will produce all required sub-parts in a single file for upload.  
+
+* Some reports require 2 dataframes  
+* The first time you produce a report through the package, you'll be be asked where it should save.  This can be changed.  
+* The upload file will be saved as a txt file to a location of your choice and will be date-stamped.
+
+Example:
+```{r produce_report, eval=FALSE}
+#full export using sample data
+produce_e1d_report(df = e1d_student, hrs = e1d_instr, part = "ALL")
+```
+
+
+A status message will be displayed as each subpart processes, even though there is only a single output file. This is a known bug that doesn't affect functionality.
+
+### Notes for specific reports
+
+Completions
+
+* The extra cips dataframe is optional and can be left empty if your school has student completions in all cip/award level combinations previously reported
+
+
+Fall Enrollment
+
+* Your student-faculty ratio number is collected via pop-up box.  Type a whole number when prompted.
+
+* The main function auto-detects the IPEDS submission year and adjusts the sections of cip-based enrollment, student age, and student residence state appropriately to be in or out of your report.  If you would like to report data in optional years, change the include_optional flag to TRUE. 
+
+Human Resources
+
+* The script requires one dataframe with all current employees and new hires. If someone is counted in both sections of the report, include them only once in your institutional data with the appropriate flags.
+
+## Step 3: Upload your IPEDS report
+
+A. Navigate to the IPEDS submission portal and log in.  
+B. Select the appropriate report (for example: "12 Month Enrollment"), select "key-value pair", then browse to your .txt file and upload.  
+C. After your file uploads, continue your standard process to check edits, enter metadata, review results, lock, and submit the survey.
+
+
+## Troubleshooting
+
+#### You need to make a data correction after uploading
+Update your base data, rerun the package function, and re-upload to IPEDS.  You can upload as many times as you want to any particular survey.  
+Your keyholder may be able to edit directly in the website, but this method is not recommended since it is not reproducible.
+
+#### IPEDS rejects your upload file or accepts the file but provides an error message
+Common issues include:
+
+* Your data has disallowed values
+* Your upload is missing a sub-part of the report
+* IPEDS is expecting particular information based on previous years of reporting which is inconsistent or missing
+
+*For example, IPEDS wants all previous CIP/Award Level combinations reported on the current upload file. If you have no students in those categories, add any flagged CIP/Award combinations to your extra_cips dataframe,rerun, and reupload to remove this error message*
+
+#### You want to change the local save location for your upload file
+
+Reset your report path
+
+```{r reset_path, eval = FALSE}
+set_report_path()
+```
+
+#### How the package can help you troubleshoot
+
+A few functions have built-in data quality checks which will alert you of disallowed values.  We are working to add more automated checks.  
+
+If you want to examine a single report sub-part in depth, you can create a separate text file with only those values. We are working on ways to view your data in a prettier format. 
+
+Example:
+```{r produce_subreport, eval = FALSE}
+#if you only want to look at 12 month enrollment part B
+produce_e1d_report(e1d_instr, part = "B")
+```
