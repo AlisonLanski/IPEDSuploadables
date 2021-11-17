@@ -6,8 +6,9 @@
 #' @param format A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})
 #'
 #' @importFrom rlang .data
-#' @importFrom dplyr select bind_rows arrange transmute
+#' @importFrom dplyr select bind_rows arrange transmute distinct
 #' @importFrom utils write.table
+#' @importFrom stringr str_to_upper
 #'
 #' @return A text file
 #' @export
@@ -17,36 +18,40 @@ make_com_part_B <- function(df, extracips = NULL, output = "part", format = "bot
 
   #prep extra cip codes
   if (!is.null(extracips)) {
+    extracips <- stringr::str_to_upper(colnames(extracips))
+
     extracips_B <- extracips %>%
-      select(.data$Unitid, .data$MajorNumber, .data$MajorCip, .data$DegreeLevel, .data$DistanceEd, .data$DistanceEd31, .data$DistanceEd32)
+      dplyr::select(.data$UNITID, .data$MAJORNUMBER, .data$MAJORCIP, .data$DEGREELEVEL, .data$DISTANCEED, .data$DISTANCEED31, .data$DISTANCEED32)
   } else {
-    extracips_B <- data.frame("Unitid" = NA, "MajorNumber" = NA, "MajorCip" = NA,
-                              "DegreeLevel" = NA, "DistanceEd" = NA, "DistanceEd31" = NA, "DistanceEd32" = NA)
+    extracips_B <- data.frame("UNITID" = NA, "MAJORNUMBER" = NA, "MAJORCIP" = NA,
+                              "DEGREELEVEL" = NA, "DISTANCEED" = NA, "DISTANCEED31" = NA, "DISTANCEED32" = NA)
   }
+
+  df <- stringr::str_to_upper(colnames(df))
 
   #prep upload
   partB <- df %>%
-    select(.data$Unitid, .data$MajorNumber, .data$MajorCip, .data$DegreeLevel, .data$DistanceEd, .data$DistanceEd31, .data$DistanceEd32) %>%
-    unique() %>%
+    dplyr::select(.data$UNITID, .data$MAJORNUMBER, .data$MAJORCIP, .data$DEGREELEVEL, .data$DISTANCEED, .data$DISTANCEED31, .data$DISTANCEED32) %>%
+    dplyr::distinct() %>%
     #if we need to add the extra cips, do it here
-    bind_rows(extracips_B) %>%
-    filter(!is.na(.data$Unitid)) %>%
+    dplyr::bind_rows(extracips_B) %>%
+    dplyr::filter(!is.na(.data$UNITID)) %>%
     #sort for easy viewing
-    arrange(.data$MajorNumber, .data$MajorCip, .data$DegreeLevel, .data$DistanceEd, .data$DistanceEd31, .data$DistanceEd32) %>%
+    dplyr::arrange(.data$MAJORNUMBER, .data$MAJORCIP, .data$DEGREELEVEL, .data$DISTANCEED, .data$DISTANCEED31, .data$DISTANCEED32) %>%
     #format for upload
-    transmute(UNITID = paste0("UNITID=", .data$Unitid),
-              SURVSECT = "SURVSECT=COM",
-              PART = "PART=B",
-              MAJORNUM = paste0("MAJORNUM=", .data$MajorNumber),
-              CIPCODE = paste0("CIPCODE=", .data$MajorCip),
-              AWLEVEL = paste0("AWLEVEL=", .data$DegreeLevel),
-              #2020 is non-rectangular: this was the best solution I could think of
-              DistanceED = ifelse(.data$DistanceEd != 3,
-                              paste0("DistanceED=", .data$DistanceEd),
-                              paste0("DistanceED=", .data$DistanceEd,
-                                     ",DistanceED31=", .data$DistanceEd31,
-                                     ",DistanceED32=", .data$DistanceEd32))
-              )
+    dplyr::transmute(UNITID = paste0("UNITID=", .data$UNITID),
+                    SURVSECT = "SURVSECT=COM",
+                    PART = "PART=B",
+                    MAJORNUM = paste0("MAJORNUM=", .data$MAJORNUMBER),
+                    CIPCODE = paste0("CIPCODE=", .data$MAJORCIP),
+                    AWLEVEL = paste0("AWLEVEL=", .data$DEGREELEVEL),
+                    #2020 is non-rectangular: this was the best solution I could think of
+                    DistanceED = ifelse(.data$DISTANCEED != 3,
+                                    paste0("DistanceED=", .data$DISTANCEED),
+                                    paste0("DistanceED=", .data$DISTANCEED,
+                                           ",DistanceED31=", .data$DISTANCEED31,
+                                           ",DistanceED32=", .data$DISTANCEED32))
+                    )
 
 
   write_report(df = partB,
