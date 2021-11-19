@@ -9,14 +9,12 @@
 #'
 produce_e1d_report <- function(df, hrs, part = "ALL") {
 
-
   if (toupper(part) == "ALL") {
     # out of order because part A was expanded
     # and the expansion was called "C" in the upload
     make_e1d_part_A(df, output = "full")
     make_e1d_part_C(df, output = "full")
     make_e1d_part_B(hrs, output = "full")
-
   }
 
   if (toupper(part) %in% c("A", "C")) {
