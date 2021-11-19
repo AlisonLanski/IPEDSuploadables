@@ -18,7 +18,7 @@ make_com_part_B <- function(df, extracips = NULL, output = "part", format = "bot
 
   #prep extra cip codes
   if (!is.null(extracips)) {
-    extracips <- stringr::str_to_upper(colnames(extracips))
+    colnames(extracips) <- stringr::str_to_upper(colnames(extracips))
 
     extracips_B <- extracips %>%
       dplyr::select(.data$UNITID, .data$MAJORNUMBER, .data$MAJORCIP, .data$DEGREELEVEL, .data$DISTANCEED, .data$DISTANCEED31, .data$DISTANCEED32)
@@ -27,7 +27,7 @@ make_com_part_B <- function(df, extracips = NULL, output = "part", format = "bot
                               "DEGREELEVEL" = NA, "DISTANCEED" = NA, "DISTANCEED31" = NA, "DISTANCEED32" = NA)
   }
 
-  df <- stringr::str_to_upper(colnames(df))
+  colnames(df) <- stringr::str_to_upper(colnames(df))
 
   #prep upload
   partB <- df %>%

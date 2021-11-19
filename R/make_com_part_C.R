@@ -15,7 +15,7 @@
 
 make_com_part_C <- function(df, output = "part", format = "both") {
 
-  df <- stringr::str_to_upper(colnames(df))
+  colnames(df) <- stringr::str_to_upper(colnames(df))
 
   partC <- df %>%
     dplyr::select(.data$UNITID, .data$STUDENTID, .data$RACEETHNICITY, .data$SEX) %>%

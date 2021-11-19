@@ -18,7 +18,7 @@
 
 make_com_part_A <- function(df, extracips = NULL, output = "part", format = "both") {
 
-  df <- stringr::str_to_upper(colnames(df))
+  colnames(df) <- stringr::str_to_upper(colnames(df))
 
   #produce the uploadable format
   partA <- df %>%
@@ -30,7 +30,7 @@ make_com_part_A <- function(df, extracips = NULL, output = "part", format = "bot
   #prep the extra cips
   if (!is.null(extracips)) {
     #add extra cips
-    extracips <- stringr::str_to_upper(colnames(extracips))
+    colnames(extracips) <- stringr::str_to_upper(colnames(extracips))
 
     partA <- extracips %>%
       dplyr::select(.data$UNITID, .data$MAJORNUMBER, .data$MAJORCIP, .data$DEGREELEVEL, .data$RACEETHNICITY, .data$SEX, .data$COUNT) %>%

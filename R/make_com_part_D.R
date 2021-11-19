@@ -18,10 +18,10 @@
 
 make_com_part_D <- function(df, extracips = NULL, output = "part", format = "both") {
 
-  df <- stringr::str_to_upper(colnames(df))
+  colnames(df) <- stringr::str_to_upper(colnames(df))
 
   if(!is.null(extracips)) {
-    extracips <- stringr::str_to_upper(colnames(extracips))
+    colnames(extracips) <- stringr::str_to_upper(colnames(extracips))
 
     #check extracips list for award levels not included in the startingdf
     extralevel_D <- extracips %>%

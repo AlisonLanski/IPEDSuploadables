@@ -7,6 +7,7 @@
 #' @return A txt file at the path of your choice
 #' @export
 #'
+
 produce_com_report <- function(df, extracips = NULL, part = "ALL") {
 
   students <- prep_com_data_frame(df = df)
