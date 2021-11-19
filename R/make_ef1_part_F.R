@@ -9,11 +9,11 @@
 #' @importFrom dplyr select group_by summarize arrange transmute n
 #' @importFrom svDialogs dlg_input
 #' @importFrom utils write.table
+#' @importFrom stringr str_to_upper
 #'
 #' @return A text file
 #' @export
 #'
-
 
 make_ef1_part_F <- function(df, output = "part", format = "both") {
 

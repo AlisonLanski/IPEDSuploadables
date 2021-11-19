@@ -8,6 +8,7 @@
 #' @return A txt file at the path of your choice
 #' @export
 #'
+
 produce_ef1_report <- function(students, retention, part = "ALL", include_optional = FALSE) {
 
   students <- prep_ef1_data_frame(students)
