@@ -1,21 +1,21 @@
-#" Make Fall Enrollment Part A
-#"
-#" @description Breakdown of students level and demographics; also by designated CIPs in required years
-#"
-#" @param df A dataframe of student information
-#" @param cips A logical indicating if part A  needs to provide breakdowns by particular CIPs
-#" @param output A string (\code{"part"}, \code{"full"}, or \code{"both"})
-#" @param format A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})
-#"
-#" @importFrom rlang .data
-#" @importFrom magrittr "%>%"
-#" @importFrom dplyr select group_by summarize arrange transmute n mutate
-#" @importFrom utils write.table
-#" @importFrom stringr str_to_upper
-#"
-#" @return A text file
-#" @export
-#"
+#' Make Fall Enrollment Part A
+#'
+#' @description Breakdown of students level and demographics; also by designated CIPs in required years
+#'
+#' @param df A dataframe of student information
+#' @param cips A logical indicating if part A  needs to provide breakdowns by particular CIPs
+#' @param output A string (\code{"part"}, \code{"full"}, or \code{"both"})
+#' @param format A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})
+#'
+#' @importFrom rlang .data
+#' @importFrom magrittr "%>%"
+#' @importFrom dplyr select group_by summarize arrange transmute n mutate
+#' @importFrom utils write.table
+#' @importFrom stringr str_to_upper
+#'
+#' @return A text file
+#' @export
+#'
 
 make_ef1_part_A <- function(df, cips = TRUE, output = "part", format = "both") {
 

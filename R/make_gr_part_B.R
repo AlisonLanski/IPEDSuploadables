@@ -8,127 +8,127 @@
 #' @importFrom magrittr "%>%"
 #' @importFrom dplyr select group_by summarize ungroup bind_rows arrange transmute n
 #' @importFrom utils write.table
+#' @importFrom stringr str_to_upper
 #'
 #' @return A text file
 #' @export
 #'
 
-
 make_gr_part_B <- function(df, output = "part", format = "both") {
+
+  colnames(df) <- stringr::str_to_upper(colnames(df))
 
   #####
   #prep section 1 (revised cohort totals)
-  #prep line 1 (everyone by RE/Sex)
+  #prep line 1 (everyone by RE/SEX)
   partB_section1_line1 <- df %>%
-    dplyr::mutate(Section = 1,
-                  Line = 1) %>%
-    dplyr::select(.data$Unitid,
-                  .data$RaceEthnicity,
-                  .data$Sex,
-                  .data$Section,
-                  .data$Line)
+    dplyr::mutate(SECTION = 1,
+                  LINE = 1) %>%
+    dplyr::select(.data$UNITID,
+                  .data$RACEETHNICITY,
+                  .data$SEX,
+                  .data$SECTION,
+                  .data$LINE)
 
-  #prep line 2 (only BA-seeking or equiv by RE/Sex)
+  #prep line 2 (only BA-seeking or equiv by RE/SEX)
   partB_section1_line2 <- df %>%
-    dplyr::filter(.data$ProgramType == 3) %>%
-    dplyr::mutate(Section = 1,
-                  Line = 2) %>%
-    dplyr::select(.data$Unitid,
-                  .data$RaceEthnicity,
-                  .data$Sex,
-                  .data$Section,
-                  .data$Line)
+    dplyr::filter(.data$PROGRAMTYPE == 3) %>%
+    dplyr::mutate(SECTION = 1,
+                  LINE = 2) %>%
+    dplyr::select(.data$UNITID,
+                  .data$RACEETHNICITY,
+                  .data$SEX,
+                  .data$SECTION,
+                  .data$LINE)
 
   #####
   #prep sections 2 and 3
-  #lines 11-18 (completers by program type/pct + RE/Sex)
+  #lines 11-18 (completers by program type/pct + RE/SEX)
   partB_section23_toline18 <- df %>%
-    dplyr::mutate(Section = case_when(
-                               .data$ProgramType == 3 ~ 2,
+    dplyr::mutate(SECTION = case_when(
+                               .data$PROGRAMTYPE == 3 ~ 2,
                                TRUE ~ 3
                             ),
-                  Line = case_when(
-                              .data$ProgramType == 1 & .data$Completed150 == 1 ~ 11,
-                              .data$ProgramType == 2 & .data$Completed150 == 1 ~ 12,
-                              .data$ProgramType == 3 & .data$Completed150 == 1 ~ 18
+                  LINE = case_when(
+                              .data$PROGRAMTYPE == 1 & .data$COMPLETED150 == 1 ~ 11,
+                              .data$PROGRAMTYPE == 2 & .data$COMPLETED150 == 1 ~ 12,
+                              .data$PROGRAMTYPE == 3 & .data$COMPLETED150 == 1 ~ 18
                             )
                   ) %>%
-    dplyr::select(.data$Unitid,
-                  .data$RaceEthnicity,
-                  .data$Sex,
-                  .data$Section,
-                  .data$Line)
+    dplyr::select(.data$UNITID,
+                  .data$RACEETHNICITY,
+                  .data$SEX,
+                  .data$SECTION,
+                  .data$LINE)
 
   ###
   #prep section 2 (BA folks)
-  #lines 19-51 (BA completers by yrs/non-completers by type + RE/Sex)
+  #lines 19-51 (BA completers by yrs/non-completers by type + RE/SEX)
   partB_section2_toline51 <- df %>%
-    dplyr::filter(.data$ProgramType == 3) %>%
-    dplyr::mutate(Section = 2,
-                  Line = case_when(
-                            .data$CompletedFourYears == 1 ~ 19,
-                            .data$CompletedFiveYears == 1 ~ 20,
-                            .data$IsTransferOut == 1 ~ 30,
-                            .data$IsExclusion == 1 ~ 45,
-                            .data$IsStillEnrolled == 1 ~ 51
+    dplyr::filter(.data$PROGRAMTYPE == 3) %>%
+    dplyr::mutate(SECTION = 2,
+                  LINE = case_when(
+                            .data$COMPLETEDFOURYEARS == 1 ~ 19,
+                            .data$COMPLETEDFIVEYEARS == 1 ~ 20,
+                            .data$ISTRANSFEROUT == 1 ~ 30,
+                            .data$ISEXCLUSION == 1 ~ 45,
+                            .data$ISSTILLENROLLED == 1 ~ 51
                             )
     ) %>%
-    dplyr::select(.data$Unitid,
-                  .data$RaceEthnicity,
-                  .data$Sex,
-                  .data$Section,
-                  .data$Line)
-
-
+    dplyr::select(.data$UNITID,
+                  .data$RACEETHNICITY,
+                  .data$SEX,
+                  .data$SECTION,
+                  .data$LINE)
   ###
   #prep section 3 (non-BA folks)
-  #lines 30-51 (non-completers by RE/Sex)
+  #lines 30-51 (non-completers by RE/SEX)
   partB_section3_toline51 <- df %>%
-    dplyr::filter(.data$ProgramType < 3 ) %>%
-    dplyr::mutate(Section = 3,
-                  Line = case_when(
-                    .data$IsTransferOut == 1 ~ 30,
-                    .data$IsExclusion == 1 ~ 45,
-                    .data$IsStillEnrolled == 1 ~ 51
+    dplyr::filter(.data$PROGRAMTYPE < 3 ) %>%
+    dplyr::mutate(SECTION = 3,
+                  LINE = case_when(
+                    .data$ISTRANSFEROUT == 1 ~ 30,
+                    .data$ISEXCLUSION == 1 ~ 45,
+                    .data$ISSTILLENROLLED == 1 ~ 51
                   )
     ) %>%
-    dplyr::select(.data$Unitid,
-                  .data$RaceEthnicity,
-                  .data$Sex,
-                  .data$Section,
-                  .data$Line)
+    dplyr::select(.data$UNITID,
+                  .data$RACEETHNICITY,
+                  .data$SEX,
+                  .data$SECTION,
+                  .data$LINE)
 
 
   #put it all together and count things up
-  partB <- bind_rows(partB_section1_line1,
-                     partB_section1_line2,
-                     partB_section23_toline18,
-                     partB_section2_toline51,
-                     partB_section3_toline51) %>%
+  partB <- dplyr::bind_rows(partB_section1_line1,
+                            partB_section1_line2,
+                            partB_section23_toline18,
+                            partB_section2_toline51,
+                            partB_section3_toline51) %>%
     #remove extraneous rows
-    dplyr::filter(!is.na(.data$Line)) %>%
+    dplyr::filter(!is.na(.data$LINE)) %>%
     #aggregate
-    dplyr::group_by(.data$Unitid,
-                    .data$Section,
-                    .data$Line,
-                    .data$RaceEthnicity,
-                    .data$Sex) %>%
-    dplyr::summarize(Count = dplyr::n()) %>%
+    dplyr::group_by(.data$UNITID,
+                    .data$SECTION,
+                    .data$LINE,
+                    .data$RACEETHNICITY,
+                    .data$SEX) %>%
+    dplyr::summarize(COUNT = dplyr::n()) %>%
     dplyr::ungroup() %>%
     #sort for easy viewing
-    dplyr::arrange(.data$Section,
-                   .data$Line,
-                   .data$RaceEthnicity,
-                   .data$Sex) %>%
+    dplyr::arrange(.data$SECTION,
+                   .data$LINE,
+                   .data$RACEETHNICITY,
+                   .data$SEX) %>%
     #format for upload
-    dplyr::transmute(UNITID = paste0("UNITID=", .data$Unitid),
+    dplyr::transmute(UNITID = paste0("UNITID=", .data$UNITID),
                      SURVSECT = "SURVSECT=GR1",
                      PART = "PART=B",
-                     SECTION = paste0("SECTION=", .data$Section),
-                     LINE = paste0("LINE=", .data$Line),
-                     RACE = paste0("RACE=", .data$RaceEthnicity),
-                     SEX = paste0("SEX=", .data$Sex),
-                     COUNT = paste0("COUNT=", .data$Count)
+                     SECTION = paste0("SECTION=", .data$SECTION),
+                     LINE = paste0("LINE=", .data$LINE),
+                     RACE = paste0("RACE=", .data$RACEETHNICITY),
+                     SEX = paste0("SEX=", .data$SEX),
+                     COUNT = paste0("COUNT=", .data$COUNT)
     )
 
   #create the txt file
