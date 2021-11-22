@@ -6,6 +6,7 @@
 #' @return A txt file at the path of your choice
 #' @export
 #'
+
 produce_om_report <- function(df, part = "ALL") {
 
    students <- prep_om_data_frame(df = df)
@@ -20,6 +21,5 @@ produce_om_report <- function(df, part = "ALL") {
   if (toupper(part) %in% c("A", "B", "C", "D")) {
     do.call(paste0("make_om_part_", toupper(part)), list(students))
   }
-
 }
 

@@ -13,7 +13,7 @@
 #' @export
 #'
 
-make_hr_part_D3 <- function(df,output = "part") {
+make_hr_part_D3 <- function(df, output = "part") {
 
   colnames(df) <- stringr::str_to_upper(colnames(df))
 

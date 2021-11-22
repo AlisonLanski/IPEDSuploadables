@@ -15,6 +15,8 @@
 
 make_hr_part_B1 <- function(df, output = "part") {
 
+  colnames(df) <- stringr::str_to_upper(colnames(df))
+
   #set up the grid of options
   combos_B1 <- expand.grid(UNITID = get_ipeds_unitid(df),
                            OCCCATEGORY1 = c(1:17),

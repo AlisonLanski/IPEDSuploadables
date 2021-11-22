@@ -186,19 +186,19 @@ prep_hr_data_frame <- function(df) {
   ## Warnings from recoding failures  -----
 
   #RACEETHNICITYGENDER
-  if(99 %in% df$REG) {
+  if (99 %in% df$REG) {
     print("Warning! Some RACEETHNICITYGENDER combinations have failed.
                          Please check your GENDER and RACEETHNICITY values, then rerun from the top.")
   }
 
   #OccCats
-  if(99 %in% c(df$OCCCATEGORY1, df$OCCCATEGORY2, df$OCCCATEGORY4, df$OCCCATEGORY5)){
+  if (99 %in% c(df$OCCCATEGORY1, df$OCCCATEGORY2, df$OCCCATEGORY4, df$OCCCATEGORY5)) {
     print("Warning!  Some Occupational Category recoding has failed.
                          Please check your OCCCATEGORY3 values, then rerun from the top.")
   }
 
   #MONTHS (for Salary-spread); only matters for current employees
-  if(sum(!(df$MONTHS[df$CURRENTEMPLOYEE == 1] %in% c(8, 9, 10, 11, 12, 99))) != 0){
+  if (sum(!(df$MONTHS[df$CURRENTEMPLOYEE == 1] %in% c(8, 9, 10, 11, 12, 99))) != 0) {
     print("Warning!  Some MONTHS values are not allowed and will break the Salary calculation in G1.
                          Please check your data to ensure use of 8, 9, 10, 11, 12, and 99 only, then rerun from the top.")
   }
