@@ -9,7 +9,7 @@
 
 produce_om_report <- function(df, part = "ALL") {
 
-   students <- prep_om_data_frame(df = df)
+  students <- prep_om_data_frame(df = df)
 
   if (toupper(part) == "ALL") {
     make_om_part_A(df = students, output = "full")

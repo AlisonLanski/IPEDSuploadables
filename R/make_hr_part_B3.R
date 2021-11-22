@@ -13,7 +13,7 @@
 #' @export
 #'
 
-make_hr_part_B3 <- function(df, output = "part") {
+make_hr_part_B3 <- function(df, output = "part", format = "both") {
 
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
@@ -56,5 +56,6 @@ make_hr_part_B3 <- function(df, output = "part") {
   write_report(df = partB3,
                component = "HumanResources",
                part = "PartB3",
-               output = output)
+               output = output,
+               format = format)
 }
