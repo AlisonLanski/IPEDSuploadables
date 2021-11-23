@@ -11,6 +11,7 @@
 #' @return A txt file at the path of your choice
 #' @export
 #'
+
 create_autoupload_format_from_aggregate <- function(df, output_file_name) {
 
   while (!exists(x = "output_path", envir = globalenv())) {

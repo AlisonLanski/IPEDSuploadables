@@ -4,6 +4,7 @@
 #'
 #' @param df a dataframe
 #' @param output a string (\code{"part"}, \code{"full"}, or \code{"both"})
+#' @param format A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})
 #'
 #' @importFrom dplyr bind_rows filter select bind_rows group_by summarize ungroup arrange transmute
 #' @importFrom rlang .data

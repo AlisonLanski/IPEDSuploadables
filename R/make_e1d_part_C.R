@@ -14,7 +14,6 @@
 #' @export
 #'
 
-
 make_e1d_part_C <- function(df, output = "part", format = "both") {
 
   colnames(df) <- stringr::str_to_upper(colnames(df))
@@ -32,8 +31,10 @@ make_e1d_part_C <- function(df, output = "part", format = "both") {
                                   .data$STUDENTLEVEL == "Graduate" ~ 3
                                 )
                   ) %>%
-    dplyr::select(-c(.data$ISDEGREECERTSEEKING, .data$STUDENTLEVEL)) %>%
-    dplyr::group_by(.data$UNITID, .data$LINE) %>%
+    dplyr::select(-c(.data$ISDEGREECERTSEEKING,
+                     .data$STUDENTLEVEL)) %>%
+    dplyr::group_by(.data$UNITID,
+                    .data$LINE) %>%
     dplyr::summarise(CountDISTANCEEDALL = sum(as.numeric(.data$DISTANCEEDALL)),
                      CountDISTANCEEDSOME = sum(as.numeric(.data$DISTANCEEDSOME))
                      ) %>%

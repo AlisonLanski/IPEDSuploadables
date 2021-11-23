@@ -21,38 +21,59 @@ make_com_part_B <- function(df, extracips = NULL, output = "part", format = "bot
     colnames(extracips) <- stringr::str_to_upper(colnames(extracips))
 
     extracips_B <- extracips %>%
-      dplyr::select(.data$UNITID, .data$MAJORNUMBER, .data$MAJORCIP, .data$DEGREELEVEL, .data$DISTANCEED, .data$DISTANCEED31, .data$DISTANCEED32)
+                   dplyr::select(.data$UNITID,
+                                 .data$MAJORNUMBER,
+                                 .data$MAJORCIP,
+                                 .data$DEGREELEVEL,
+                                 .data$DISTANCEED,
+                                 .data$DISTANCEED31,
+                                 .data$DISTANCEED32)
   } else {
-    extracips_B <- data.frame("UNITID" = NA, "MAJORNUMBER" = NA, "MAJORCIP" = NA,
-                              "DEGREELEVEL" = NA, "DISTANCEED" = NA, "DISTANCEED31" = NA, "DISTANCEED32" = NA)
+    extracips_B <- data.frame("UNITID" = NA,
+                              "MAJORNUMBER" = NA,
+                              "MAJORCIP" = NA,
+                              "DEGREELEVEL" = NA,
+                              "DISTANCEED" = NA,
+                              "DISTANCEED31" = NA,
+                              "DISTANCEED32" = NA)
   }
 
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
   #prep upload
   partB <- df %>%
-    dplyr::select(.data$UNITID, .data$MAJORNUMBER, .data$MAJORCIP, .data$DEGREELEVEL, .data$DISTANCEED, .data$DISTANCEED31, .data$DISTANCEED32) %>%
-    dplyr::distinct() %>%
-    #if we need to add the extra cips, do it here
-    dplyr::bind_rows(extracips_B) %>%
-    dplyr::filter(!is.na(.data$UNITID)) %>%
-    #sort for easy viewing
-    dplyr::arrange(.data$MAJORNUMBER, .data$MAJORCIP, .data$DEGREELEVEL, .data$DISTANCEED, .data$DISTANCEED31, .data$DISTANCEED32) %>%
-    #format for upload
-    dplyr::transmute(UNITID = paste0("UNITID=", .data$UNITID),
-                    SURVSECT = "SURVSECT=COM",
-                    PART = "PART=B",
-                    MAJORNUM = paste0("MAJORNUM=", .data$MAJORNUMBER),
-                    CIPCODE = paste0("CIPCODE=", .data$MAJORCIP),
-                    AWLEVEL = paste0("AWLEVEL=", .data$DEGREELEVEL),
-                    #2020 is non-rectangular: this was the best solution I could think of
-                    DistanceED = ifelse(.data$DISTANCEED != 3,
-                                    paste0("DistanceED=", .data$DISTANCEED),
-                                    paste0("DistanceED=", .data$DISTANCEED,
-                                           ",DistanceED31=", .data$DISTANCEED31,
-                                           ",DistanceED32=", .data$DISTANCEED32))
-                    )
-
+           dplyr::select(.data$UNITID,
+                         .data$MAJORNUMBER,
+                         .data$MAJORCIP,
+                         .data$DEGREELEVEL,
+                         .data$DISTANCEED,
+                         .data$DISTANCEED31,
+                         .data$DISTANCEED32) %>%
+           dplyr::distinct() %>%
+           #if we need to add the extra cips, do it here
+           dplyr::bind_rows(extracips_B) %>%
+           dplyr::filter(!is.na(.data$UNITID)) %>%
+           #sort for easy viewing
+           dplyr::arrange(.data$MAJORNUMBER,
+                          .data$MAJORCIP,
+                          .data$DEGREELEVEL,
+                          .data$DISTANCEED,
+                          .data$DISTANCEED31,
+                          .data$DISTANCEED32) %>%
+           #format for upload
+           dplyr::transmute(UNITID = paste0("UNITID=", .data$UNITID),
+                            SURVSECT = "SURVSECT=COM",
+                            PART = "PART=B",
+                            MAJORNUM = paste0("MAJORNUM=", .data$MAJORNUMBER),
+                            CIPCODE = paste0("CIPCODE=", .data$MAJORCIP),
+                            AWLEVEL = paste0("AWLEVEL=", .data$DEGREELEVEL),
+                            #2020 is non-rectangular: this was the best solution I could think of
+                            DistanceED = ifelse(.data$DISTANCEED != 3,
+                                            paste0("DistanceED=", .data$DISTANCEED),
+                                            paste0("DistanceED=", .data$DISTANCEED,
+                                                   ",DistanceED31=", .data$DISTANCEED31,
+                                                   ",DistanceED32=", .data$DISTANCEED32))
+                            )
 
   write_report(df = partB,
                component = "Completions",

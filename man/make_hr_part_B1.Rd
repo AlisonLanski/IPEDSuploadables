@@ -4,16 +4,18 @@
 \alias{make_hr_part_B1}
 \title{Produce IPEDS HR Part B1}
 \usage{
-make_hr_part_B1(df, output = "part")
+make_hr_part_B1(df, output = "part", format = "both")
 }
 \arguments{
 \item{df}{a dataframe}
 
 \item{output}{a string (\code{"part"}, \code{"full"}, or \code{"both"})}
+
+\item{format}{A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})}
 }
 \value{
 a txt file
 }
 \description{
-HR Part B1 --- Count of FT Non-instructional staff by occupational category
+HR Part B1 --- COUNT of FT Non-instructional staff by occupational category
 }

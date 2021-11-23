@@ -21,22 +21,22 @@ make_ef1_part_D <- function(df, output = "part", format = "both") {
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
   partD <- df %>%
-    dplyr::select(.data$UNITID,
-                  .data$ISDEGREECERTSEEKING,
-                  .data$STUDENTLEVEL,
-                  .data$ISFIRSTTIME,
-                  .data$ISTRANSFER) %>%
-    dplyr::filter(.data$ISDEGREECERTSEEKING == 0 & .data$STUDENTLEVEL == "Undergraduate" &
-                    (.data$ISFIRSTTIME == 1 | .data$ISTRANSFER == 1)) %>%
-    dplyr::group_by(.data$UNITID) %>%
-    dplyr::summarise(COUNT = n()) %>%
-    dplyr::ungroup() %>%
-    #format for upload
-    dplyr::transmute(UNITID = paste0("UNITID=", .data$UNITID),
-                     SURVSECT = "SURVSECT=EF1",
-                     PART = "PART=D",
-                     COUNT = paste0("COUNT=", .data$COUNT)
-                    )
+           dplyr::select(.data$UNITID,
+                         .data$ISDEGREECERTSEEKING,
+                         .data$STUDENTLEVEL,
+                         .data$ISFIRSTTIME,
+                         .data$ISTRANSFER) %>%
+           dplyr::filter(.data$ISDEGREECERTSEEKING == 0 & .data$STUDENTLEVEL == "Undergraduate" &
+                           (.data$ISFIRSTTIME == 1 | .data$ISTRANSFER == 1)) %>%
+           dplyr::group_by(.data$UNITID) %>%
+           dplyr::summarise(COUNT = n()) %>%
+           dplyr::ungroup() %>%
+           #format for upload
+           dplyr::transmute(UNITID = paste0("UNITID=", .data$UNITID),
+                            SURVSECT = "SURVSECT=EF1",
+                            PART = "PART=D",
+                            COUNT = paste0("COUNT=", .data$COUNT)
+                           )
 
   #create the txt file
   write_report(df = partD,

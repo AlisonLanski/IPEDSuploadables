@@ -125,7 +125,7 @@ prep_hr_data_frame <- function(df) {
                                                     `24` = 88,
                                                     .default = 99),
                       #set up instructional function based on occcat3
-                      InstFunction = dplyr::recode(.data$OCCCATEGORY3,
+                      INSTFUNCTION = dplyr::recode(.data$OCCCATEGORY3,
                                                     `1` = 1,
                                                     `2` = 2,
                                                     `3` = 3,

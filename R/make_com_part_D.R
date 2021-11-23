@@ -25,20 +25,23 @@ make_com_part_D <- function(df, extracips = NULL, output = "part", format = "bot
 
     #check extracips list for award levels not included in the startingdf
     extralevel_D <- extracips %>%
-      dplyr::select(.data$UNITID, .data$DEGREELEVEL) %>%
-      dplyr::distinct() %>%
-      dplyr::filter(!(.data$DEGREELEVEL %in% df$DEGREELEVEL)) %>%
-      #add dummy data to any award levels found
-      dplyr::mutate(STUDENTID = "dummy_studentid",
-                    RACEETHNICITY = 1,
-                    SEX = 1,
-                    BIRTHDATE = lubridate::ymd("1900-01-01"),
-                    COUNTRE = 0,
-                    COUNTSEX = 0,
-                    COUNTAGE = 0
-      ) %>%
-      #reorder for rbind
-      dplyr::select(.data$UNITID, .data$STUDENTID, dplyr::everything())
+                    dplyr::select(.data$UNITID,
+                                  .data$DEGREELEVEL) %>%
+                    dplyr::distinct() %>%
+                    dplyr::filter(!(.data$DEGREELEVEL %in% df$DEGREELEVEL)) %>%
+                    #add dummy data to any award levels found
+                    dplyr::mutate(STUDENTID = "dummy_studentid",
+                                  RACEETHNICITY = 1,
+                                  SEX = 1,
+                                  BIRTHDATE = lubridate::ymd("1900-01-01"),
+                                  COUNTRE = 0,
+                                  COUNTSEX = 0,
+                                  COUNTAGE = 0
+                    ) %>%
+                    #reorder for rbind
+                    dplyr::select(.data$UNITID,
+                                  .data$STUDENTID,
+                                  dplyr::everything())
   } else {
     extralevel_D <- data.frame(UNITID = df$UNITID[1],
                                STUDENTID = "dummy_studentid",
@@ -69,7 +72,12 @@ make_com_part_D <- function(df, extracips = NULL, output = "part", format = "bot
                                    stringsAsFactors = FALSE)
 
   partD <- df %>%
-    dplyr::select(.data$UNITID, .data$STUDENTID, .data$DEGREELEVEL, .data$RACEETHNICITY, .data$SEX, .data$AGE) %>%
+    dplyr::select(.data$UNITID,
+                  .data$STUDENTID,
+                  .data$DEGREELEVEL,
+                  .data$RACEETHNICITY,
+                  .data$SEX,
+                  .data$AGE) %>%
     #add values which will be summed later
     dplyr::mutate(COUNTRE = 1,
                   COUNTSEX = 1,

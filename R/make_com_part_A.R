@@ -15,17 +15,21 @@
 #' @export
 #'
 
-
 make_com_part_A <- function(df, extracips = NULL, output = "part", format = "both") {
 
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
   #produce the uploadable format
   partA <- df %>%
-    #aggregate the full data
-    dplyr::group_by(.data$UNITID, .data$MAJORNUMBER, .data$MAJORCIP, .data$DEGREELEVEL, .data$RACEETHNICITY, .data$SEX) %>%
-    dplyr::summarize(COUNT = dplyr::n()) %>%
-    dplyr::ungroup()
+           #aggregate the full data
+           dplyr::group_by(.data$UNITID,
+                           .data$MAJORNUMBER,
+                           .data$MAJORCIP,
+                           .data$DEGREELEVEL,
+                           .data$RACEETHNICITY,
+                           .data$SEX) %>%
+           dplyr::summarize(COUNT = dplyr::n()) %>%
+           dplyr::ungroup()
 
   #prep the extra cips
   if (!is.null(extracips)) {
@@ -33,14 +37,24 @@ make_com_part_A <- function(df, extracips = NULL, output = "part", format = "bot
     colnames(extracips) <- stringr::str_to_upper(colnames(extracips))
 
     partA <- extracips %>%
-      dplyr::select(.data$UNITID, .data$MAJORNUMBER, .data$MAJORCIP, .data$DEGREELEVEL, .data$RACEETHNICITY, .data$SEX, .data$COUNT) %>%
-      dplyr::bind_rows(partA)
+             dplyr::select(.data$UNITID,
+                           .data$MAJORNUMBER,
+                           .data$MAJORCIP,
+                           .data$DEGREELEVEL,
+                           .data$RACEETHNICITY,
+                           .data$SEX,
+                           .data$COUNT) %>%
+             dplyr::bind_rows(partA)
   }
 
   #carry on
   partA <- partA %>%
     #sort for easy viewing
-    dplyr::arrange(.data$MAJORNUMBER, .data$MAJORCIP, .data$DEGREELEVEL, .data$RACEETHNICITY, .data$SEX) %>%
+    dplyr::arrange(.data$MAJORNUMBER,
+                   .data$MAJORCIP,
+                   .data$DEGREELEVEL,
+                   .data$RACEETHNICITY,
+                   .data$SEX) %>%
     #format for upload
     dplyr::transmute(UNITID = paste0("UNITID=", .data$UNITID),
                      SURVSECT = "SURVSECT=COM",

@@ -4,7 +4,13 @@
 \alias{produce_e1d_report}
 \title{Shortcut function to do all steps to produce a 12 month Enrollment report}
 \usage{
-produce_e1d_report(df, hrs, part = "ALL")
+produce_e1d_report(
+  df,
+  hrs,
+  part = "ALL",
+  output = "full",
+  format = "uploadable"
+)
 }
 \arguments{
 \item{df}{A dataframe set up according to the readme for students}
@@ -12,6 +18,10 @@ produce_e1d_report(df, hrs, part = "ALL")
 \item{hrs}{A dataframe set up according to the readme for instructional activity}
 
 \item{part}{A string with what part of the reprt you want to produce: 'all', 'A', etc.}
+
+\item{output}{A string (\code{"part"}, \code{"full"}, or \code{"both"})}
+
+\item{format}{A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})}
 }
 \value{
 A txt file at the path of your choice

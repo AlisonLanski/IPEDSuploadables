@@ -20,19 +20,19 @@ make_gr200 <- function(df, output = "part", format = "both") {
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
   gr200 <- df %>%
-    dplyr::group_by(.data$UNITID) %>%
-    dplyr::summarize(EXCLUSIONS = sum(.data$ISEXCLUSION),
-                     COMP = sum(.data$ISCOMP),
-                     STILLENROLLED = sum(.data$ISSTILLENROLLED)) %>%
-    dplyr::ungroup() %>%
-    #format for upload
-    dplyr::transmute(UNITID = paste0("UNITID=", .data$UNITID),
-                     SURVSECT = "SURVSECT=G21",
-                     PART = "PART=A",
-                     ADEXCL = paste0("ADEXCL=", .data$EXCLUSIONS),
-                     `COMPY7-8` = paste0("COMPY7-8=", .data$COMP),
-                     STILLENROLLED = paste0("STILLENROLLED=", .data$STILLENROLLED),
-                     )
+           dplyr::group_by(.data$UNITID) %>%
+           dplyr::summarize(EXCLUSIONS = sum(.data$ISEXCLUSION),
+                            COMP = sum(.data$ISCOMP),
+                            STILLENROLLED = sum(.data$ISSTILLENROLLED)) %>%
+           dplyr::ungroup() %>%
+           #format for upload
+           dplyr::transmute(UNITID = paste0("UNITID=", .data$UNITID),
+                            SURVSECT = "SURVSECT=G21",
+                            PART = "PART=A",
+                            ADEXCL = paste0("ADEXCL=", .data$EXCLUSIONS),
+                            `COMPY7-8` = paste0("COMPY7-8=", .data$COMP),
+                            STILLENROLLED = paste0("STILLENROLLED=", .data$STILLENROLLED),
+                            )
 
   #create the txt file
   write_report(df = gr200,

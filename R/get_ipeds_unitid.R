@@ -2,7 +2,7 @@
 #'
 #' @param df a dataframe with ipeds data and one unitid
 #'
-#' @importFrom string str_to_upper
+#' @importFrom stringr str_to_upper
 #'
 #' @return a numeric unitid
 #' @export

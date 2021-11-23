@@ -18,23 +18,29 @@ make_com_part_C <- function(df, output = "part", format = "both") {
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
   partC <- df %>%
-    dplyr::select(.data$UNITID, .data$STUDENTID, .data$RACEETHNICITY, .data$SEX) %>%
-    #deduplicate
-    dplyr::distinct() %>%
-    #aggregate and count
-    dplyr::group_by(.data$UNITID, .data$RACEETHNICITY, .data$SEX) %>%
-    dplyr::summarize(COUNT = dplyr::n()) %>%
-    dplyr::ungroup() %>%
-    #sort for easy viewing
-    dplyr::arrange(.data$RACEETHNICITY, .data$SEX) %>%
-    #format for upload
-    dplyr::transmute(UNITID = paste0("UNITID=", .data$UNITID),
-                     SURVSECT = "SURVSECT=COM",
-                     PART = "PART=C",
-                     RACE = paste0("RACE=", .data$RACEETHNICITY),
-                     SEX = paste0("SEX=", .data$SEX),
-                     COUNT = paste0("COUNT=", .data$COUNT)
-                     )
+           dplyr::select(.data$UNITID,
+                         .data$STUDENTID,
+                         .data$RACEETHNICITY,
+                         .data$SEX) %>%
+           #deduplicate
+           dplyr::distinct() %>%
+           #aggregate and count
+           dplyr::group_by(.data$UNITID,
+                           .data$RACEETHNICITY,
+                           .data$SEX) %>%
+           dplyr::summarize(COUNT = dplyr::n()) %>%
+           dplyr::ungroup() %>%
+           #sort for easy viewing
+           dplyr::arrange(.data$RACEETHNICITY,
+                          .data$SEX) %>%
+           #format for upload
+           dplyr::transmute(UNITID = paste0("UNITID=", .data$UNITID),
+                            SURVSECT = "SURVSECT=COM",
+                            PART = "PART=C",
+                            RACE = paste0("RACE=", .data$RACEETHNICITY),
+                            SEX = paste0("SEX=", .data$SEX),
+                            COUNT = paste0("COUNT=", .data$COUNT)
+                            )
 
   write_report(df = partC,
                component = "Completions",

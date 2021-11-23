@@ -31,7 +31,7 @@ prep_com_data_frame <- function(df) {
       nchar(.data$Four) == 3 ~ paste0(.data$Four, "0"),
       TRUE ~ .data$Four
     ),
-    MAJORCIP = paste0(.data$Two, '.', .data$Four)
+    MAJORCIP = paste0(.data$Two, ".", .data$Four)
     ) %>%
     dplyr::select(-.data$Two, -.data$Four) %>%
     dplyr::mutate(UNITID = as.character(.data$UNITID),

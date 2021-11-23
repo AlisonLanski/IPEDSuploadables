@@ -4,16 +4,18 @@
 \alias{make_hr_part_A1}
 \title{Produce IPEDS HR Part A1}
 \usage{
-make_hr_part_A1(df, output = "part")
+make_hr_part_A1(df, output = "part", format = "both")
 }
 \arguments{
 \item{df}{a dataframe}
 
-\item{output}{a string (\code{"part"}, \code{"full"}, or \code{"both"})}
+\item{output}{A string (\code{"part"}, \code{"full"}, or \code{"both"})}
+
+\item{format}{A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})}
 }
 \value{
 a txt file
 }
 \description{
-Part A1 --- Count of FT Instructional staff by tenure status, academic rank, and race/ethnicity/gender
+Part A1 --- COUNT of FT INSTRUCTIONAL staff by tenure status, academic rank, and race/ethnicity/gender
 }

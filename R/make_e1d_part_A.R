@@ -14,7 +14,6 @@
 #' @export
 #'
 
-
 make_e1d_part_A <- function(df, output = "part", format = "both") {
 
   colnames(df) <- stringr::str_to_upper(colnames(df))
@@ -72,11 +71,16 @@ make_e1d_part_A <- function(df, output = "part", format = "both") {
                                   .data$STUDENTLEVEL == "Graduate" ~ 99
                                 )
                   ) %>%
-    dplyr::group_by(.data$UNITID, .data$LINE, .data$RACEETHNICITY, .data$SEX) %>%
+    dplyr::group_by(.data$UNITID,
+                    .data$LINE,
+                    .data$RACEETHNICITY,
+                    .data$SEX) %>%
     dplyr::summarise(COUNT = n()) %>%
     dplyr::ungroup() %>%
     #sort for easy viewing
-    dplyr::arrange(.data$LINE, .data$RACEETHNICITY, .data$SEX) %>%
+    dplyr::arrange(.data$LINE,
+                   .data$RACEETHNICITY,
+                   .data$SEX) %>%
     #format for upload
     dplyr::transmute(UNITID = paste0("UNITID=", .data$UNITID),
                      SURVSECT = "SURVSECT=E1D",

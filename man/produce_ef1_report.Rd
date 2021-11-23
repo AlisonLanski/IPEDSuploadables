@@ -4,7 +4,14 @@
 \alias{produce_ef1_report}
 \title{Shortcut function to do all steps to produce a report for Fall Enrollment}
 \usage{
-produce_ef1_report(students, retention, part = "ALL", include_optional = FALSE)
+produce_ef1_report(
+  students,
+  retention,
+  part = "ALL",
+  include_optional = FALSE,
+  output = "full",
+  format = "uploadable"
+)
 }
 \arguments{
 \item{students}{A dataframe set up according to the readme with student data}
@@ -14,6 +21,10 @@ produce_ef1_report(students, retention, part = "ALL", include_optional = FALSE)
 \item{part}{A string with what part of the report you want to produce: 'all', 'A', etc.}
 
 \item{include_optional}{A boolean flag for whether optional parts should be included}
+
+\item{output}{A string (\code{"part"}, \code{"full"}, or \code{"both"})}
+
+\item{format}{A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})}
 }
 \value{
 A txt file at the path of your choice

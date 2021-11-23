@@ -17,5 +17,5 @@ make_om_part_D(df, output = "part", format = "both")
 A text file ready for IPEDS upload
 }
 \description{
-Award Status and Enrollment at Eight Years after Entry
+Award Status and ENROLLment at Eight Years after Entry
 }

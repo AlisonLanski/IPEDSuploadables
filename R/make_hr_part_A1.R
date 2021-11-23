@@ -3,7 +3,8 @@
 #' @description  Part A1 --- COUNT of FT INSTRUCTIONAL staff by tenure status, academic rank, and race/ethnicity/gender
 #'
 #' @param df a dataframe
-#' @param output a string (\code{"part"}, \code{"full"}, or \code{"both"})
+#' @param output A string (\code{"part"}, \code{"full"}, or \code{"both"})
+#' @param format A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})
 #'
 #' @importFrom dplyr bind_rows filter select group_by ungroup arrange transmute
 #' @importFrom rlang .data
