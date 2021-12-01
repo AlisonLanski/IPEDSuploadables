@@ -35,15 +35,15 @@ produce_ef1_report <- function(students, retention, part = "ALL", include_option
   }
 
   if(toupper(part) == "A") {
-    do.call(paste0("make_ef1_part_", toupper(part)), list(students, cip_year))
+    do.call(paste0("make_ef1_part_", toupper(part)), list(students, cip_year, output, format))
   }
 
   if (toupper(part) %in% c("G", "B", "C", "D", "F")) {
-    do.call(paste0("make_ef1_part_", toupper(part)), list(students))
+    do.call(paste0("make_ef1_part_", toupper(part)), list(students, output, format))
   }
 
   if (toupper(part) == "E") {
-    do.call(paste0("make_ef1_part_", toupper(part)), list(retention))
+    do.call(paste0("make_ef1_part_", toupper(part)), list(retention, output, format))
   }
 }
 

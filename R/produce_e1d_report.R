@@ -21,11 +21,11 @@ produce_e1d_report <- function(df, hrs, part = "ALL", output = "full", format = 
   }
 
   if (toupper(part) %in% c("A", "C")) {
-    do.call(paste0("make_e1d_part_", toupper(part)), list(df))
+    do.call(paste0("make_e1d_part_", toupper(part)), list(df, output, format))
   }
 
   if (toupper(part) == "B") {
-    do.call(paste0("make_e1d_part_", toupper(part)), list(hrs))
+    do.call(paste0("make_e1d_part_", toupper(part)), list(hrs, output, format))
   }
 }
 
