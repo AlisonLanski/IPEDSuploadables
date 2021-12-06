@@ -32,7 +32,7 @@ make_gr_part_B <- function(df, output = "part", format = "both") {
 
   #prep line 2 (only BA-seeking or equiv by RE/SEX)
   partB_section1_line2 <- df %>%
-                          dplyr::filter(.data$PROGRAMTYPE == 3) %>%
+                          dplyr::filter(.data$ENTERINGPROGRAMTYPE == 3) %>%
                           dplyr::mutate(SECTION = 1,
                                         LINE = 2) %>%
                           dplyr::select(.data$UNITID,
@@ -42,17 +42,17 @@ make_gr_part_B <- function(df, output = "part", format = "both") {
                                         .data$LINE)
 
   #####
-  #prep sections 2 and 3
-  #lines 11-18 (completers by program type/pct + RE/SEX)
+  #prep section 2
+  #lines 11-18 (all completers by current program type/pct + RE/SEX)
   partB_section23_toline18 <- df %>%
                               dplyr::mutate(SECTION = case_when(
-                                                         .data$PROGRAMTYPE == 3 ~ 2,
+                                                         .data$ENTERINGPROGRAMTYPE == 3 ~ 2,
                                                          TRUE ~ 3
                                                       ),
                                             LINE = case_when(
-                                                        .data$PROGRAMTYPE == 1 & .data$COMPLETED150 == 1 ~ 11,
-                                                        .data$PROGRAMTYPE == 2 & .data$COMPLETED150 == 1 ~ 12,
-                                                        .data$PROGRAMTYPE == 3 & .data$COMPLETED150 == 1 ~ 18
+                                                        .data$CURRENTPROGRAMTYPE == 1 & .data$COMPLETED150 == 1 ~ 11,
+                                                        .data$CURRENTPROGRAMTYPE == 2 & .data$COMPLETED150 == 1 ~ 12,
+                                                        .data$CURRENTPROGRAMTYPE == 3 & .data$COMPLETED150 == 1 ~ 18
                                                       )
                                             ) %>%
                               dplyr::select(.data$UNITID,
@@ -65,13 +65,21 @@ make_gr_part_B <- function(df, output = "part", format = "both") {
   #prep section 2 (BA folks)
   #lines 19-51 (BA completers by yrs/non-completers by type + RE/SEX)
   partB_section2_toline51 <- df %>%
-                             dplyr::filter(.data$PROGRAMTYPE == 3) %>%
+                             dplyr::filter(.data$ENTERINGPROGRAMTYPE == 3) %>%
                              dplyr::mutate(SECTION = 2,
                                            LINE = case_when(
-                                                     .data$COMPLETEDFOURYEARS == 1 ~ 19,
-                                                     .data$COMPLETEDFIVEYEARS == 1 ~ 20,
+                                                     .data$CURRENTPROGRAMTYPE == 3 &
+                                                       .data$COMPLETED150 == 1 &
+                                                       .data$COMPLETEDFOURYEARS == 1 ~ 19,
+
+                                                     .data$CURRENTPROGRAMTYPE == 3 &
+                                                       .data$COMPLETED150 == 1 &
+                                                       .data$COMPLETEDFIVEYEARS == 1 ~ 20,
+
                                                      .data$ISTRANSFEROUT == 1 ~ 30,
+
                                                      .data$ISEXCLUSION == 1 ~ 45,
+
                                                      .data$ISSTILLENROLLED == 1 ~ 51
                                                      )
                              ) %>%
@@ -85,7 +93,7 @@ make_gr_part_B <- function(df, output = "part", format = "both") {
   #prep section 3 (non-BA folks)
   #lines 30-51 (non-completers by RE/SEX)
   partB_section3_toline51 <- df %>%
-                             dplyr::filter(.data$PROGRAMTYPE < 3 ) %>%
+                             dplyr::filter(.data$ENTERINGPROGRAMTYPE < 3 ) %>%
                              dplyr::mutate(SECTION = 3,
                                            LINE = case_when(
                                              .data$ISTRANSFEROUT == 1 ~ 30,

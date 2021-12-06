@@ -20,7 +20,7 @@ make_gr_part_C <- function(df, output = "part", format = "both") {
   #everyone
   partC_toline10 <- df %>%
                     dplyr::mutate(SECTION = case_when(
-                                              .data$PROGRAMTYPE == 3 ~ 2,
+                                              .data$ENTERINGPROGRAMTYPE == 3 ~ 2,
                                               TRUE ~ 3
                                               ),
                                   LINE = 10) %>%
@@ -30,11 +30,14 @@ make_gr_part_C <- function(df, output = "part", format = "both") {
                                   .data$SECTION,
                                   .data$LINE)
 
-  #BA completers by 150
+  #BA/nonBA completers by 150
   partC_toline18 <- df %>%
-                    dplyr::filter(.data$PROGRAMTYPE == 3,
-                                  .data$COMPLETED150 == 1) %>%
-                    dplyr::mutate(SECTION = 2,
+                    dplyr::filter(.data$COMPLETED150 == 1,
+                                  .data$CURRENTPROGRAMTYPE == 3) %>%
+                    dplyr::mutate(SECTION = case_when(
+                                              .data$ENTERINGPROGRAMTYPE == 3 ~ 2,
+                                              TRUE ~ 3
+                                              ),
                                   LINE = 18) %>%
                     dplyr::select(.data$UNITID,
                                   .data$PELLGRANT,
@@ -45,7 +48,7 @@ make_gr_part_C <- function(df, output = "part", format = "both") {
   #everyone by 150 and exclusions
   partC_toline45 <- df %>%
                     dplyr::mutate(SECTION = case_when(
-                                                .data$PROGRAMTYPE == 3 ~ 2,
+                                                .data$ENTERINGPROGRAMTYPE == 3 ~ 2,
                                                 TRUE ~ 3),
                                   LINE = case_when(.data$COMPLETED150 == 1 ~ 29,
                                                    .data$ISEXCLUSION == 1 ~ 45)
