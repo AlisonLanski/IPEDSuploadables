@@ -5,7 +5,7 @@
 \alias{gr_students}
 \title{Table of dummy student data for the Graduation Rates starting dataframe}
 \format{
-A data frame with 100 rows and 13 columns
+A data frame with 101 rows and 13 columns
 }
 \usage{
 gr_students
@@ -14,6 +14,8 @@ gr_students
 Table of dummy student data for the Graduation Rates starting dataframe
 }
 \details{
-Includes only 3 Race/Ethnicity categories for simpler code.
+Includes only 3 Race/Ethnicity categories [6, 7, 8] for simpler
+  code; one student (a program-switcher) has a 4th category [1] for easy
+  tracking
 }
 \keyword{datasets}
