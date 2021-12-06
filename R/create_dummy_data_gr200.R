@@ -13,7 +13,7 @@ create_dummy_data_gr200 <- function(n = 1000, seed = 4567) {
   set.seed(seed)
 
   df <- data.frame(Unitid = 111111,
-                   StudentID = seq(from = 1000, to = 999 + n),
+                   StudentId = seq(from = 1000, to = 999 + n),
                    IsExclusion = sample(0:1, size = n, replace = TRUE, prob = c(.999, .001)),
                    IsComp = sample(0:1, size = n, replace = TRUE, prob = c(.7, .3)),
                    IsStillEnrolled = sample(0:1, size = n, replace = TRUE, prob = c(.1, .9))
