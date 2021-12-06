@@ -9,7 +9,7 @@
 #'
 #' @importFrom utils write.table
 #' @importFrom purrr map_df
-#' @importFrom stringr str_replace_all
+#' @importFrom stringr str_remove_all
 #'
 #' @return a txt file (at the path location)
 #' @export
@@ -28,7 +28,7 @@ write_report <- function(df, component, part, output, append = FALSE, format = "
                   quote = FALSE, row.names = FALSE, col.names = FALSE)
     } else if (toupper(format) == "READABLE") {
       df %>%
-        purrr::map_df(~stringr::str_replace_all(., "^[:upper:]+\\d*[=]*", "")) %>%
+        purrr::map_df(~stringr::str_remove_all(., "^.+=")) %>%
         write.table(sep = ",",
                     file = paste0(output_path, "Readable_", component, "_", part, "_", Sys.Date(), ".csv"),
                     quote = FALSE, row.names = FALSE, col.names = TRUE)
@@ -38,7 +38,7 @@ write_report <- function(df, component, part, output, append = FALSE, format = "
                   quote = FALSE, row.names = FALSE, col.names = FALSE)
 
       df %>%
-        purrr::map_df(~stringr::str_replace_all(., "^[:upper:]+\\d*[=]*", "")) %>%
+        purrr::map_df(~stringr::str_remove_all(., "^.+=")) %>%
         write.table(sep = ",",
                     file = paste0(output_path, "Readable_", component, "_", part, "_", Sys.Date(), ".csv"),
                     quote = FALSE, row.names = FALSE, col.names = TRUE)
@@ -57,7 +57,7 @@ write_report <- function(df, component, part, output, append = FALSE, format = "
                   quote = FALSE, row.names = FALSE, col.names = FALSE, append = append)
     } else if (toupper(format) == "READABLE") {
       df %>%
-        purrr::map_df(~stringr::str_replace_all(., "^[:upper:]+\\d*[=]*", "")) %>%
+        purrr::map_df(~stringr::str_remove_all(., "^.+=")) %>%
         write.table(sep = ",",
                     file = paste0(output_path, "Readable_", component, "_AllParts_", Sys.Date(), ".csv"),
                     quote = FALSE, row.names = FALSE, col.names = TRUE, append = append)
@@ -72,7 +72,7 @@ write_report <- function(df, component, part, output, append = FALSE, format = "
                   quote = FALSE, row.names = FALSE, col.names = FALSE, append = append)
 
       df %>%
-        purrr::map_df(~stringr::str_replace_all(., "^[:upper:]+\\d*[=]*", "")) %>%
+        purrr::map_df(~stringr::str_remove_all(., "^.+=")) %>%
         write.table(sep = ",",
                     file = paste0(output_path, "Readable_", component, "_AllParts_", Sys.Date(), ".csv"),
                     quote = FALSE, row.names = FALSE, col.names = TRUE, append = append)
