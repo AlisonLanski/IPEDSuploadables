@@ -28,9 +28,10 @@ library(IPEDSuploadables)
 Note: Column names can use any capitalization method you like
 
 ```{r create_data_file_in_package, eval=FALSE, echo=FALSE}
-#export spreadsheet with specs from google drive
-#read in with readr
-#then run: use_data(specs_GR200, overwrite = TRUE) to save as .rda and replace the old file
+#read in from google drive
+specs_GR200 <-  googlesheets4::read_sheet('1d-bXGayjLWO1dta4OvaX8EWN9fVnLD9K3HefUJrT4sI')
+#save it
+use_data(specs_GR200, overwrite = TRUE) 
 ```
 
 ```{r specstable_df, echo=FALSE, warning=FALSE, message=FALSE}
