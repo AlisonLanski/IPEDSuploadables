@@ -14,7 +14,6 @@
 #' @export
 #'
 
-
 make_ef1_part_F <- function(df, output = "part", format = "both") {
 
   ratio <- svDialogs::dlg_input(default = 0, message = "Please enter the student number of your student to faculty ratio")$res

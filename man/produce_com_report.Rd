@@ -4,7 +4,13 @@
 \alias{produce_com_report}
 \title{Shortcut function to do all steps to produce a report}
 \usage{
-produce_com_report(df, extracips = NULL, part = "ALL")
+produce_com_report(
+  df,
+  extracips = NULL,
+  part = "ALL",
+  output = "full",
+  format = "uploadable"
+)
 }
 \arguments{
 \item{df}{A dataframe set up according to the readme}
@@ -12,6 +18,10 @@ produce_com_report(df, extracips = NULL, part = "ALL")
 \item{extracips}{A dataframe set up according to the readme (optional)}
 
 \item{part}{A string with what part of the reprt you want to produce: 'all', 'A', etc.}
+
+\item{output}{A string (\code{"part"}, \code{"full"}, or \code{"both"})}
+
+\item{format}{A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})}
 }
 \value{
 A txt file at the path of your choice

@@ -8,80 +8,87 @@
 #' @importFrom magrittr "%>%"
 #' @importFrom dplyr select group_by summarize ungroup bind_rows arrange transmute n
 #' @importFrom utils write.table
+#' @importFrom stringr str_to_upper
 #'
 #' @return A text file
 #' @export
 #'
 
-
 make_e1d_part_A <- function(df, output = "part", format = "both") {
 
+  colnames(df) <- stringr::str_to_upper(colnames(df))
+
   partA <- df %>%
-    dplyr::select(.data$Unitid,
-                  .data$StudentId,
-                  .data$IsFullTime,
-                  .data$IsFirstTime,
-                  .data$IsTransfer,
-                  .data$IsDegreeCertSeeking,
-                  .data$StudentLevel,
-                  .data$RaceEthnicity,
-                  .data$Sex) %>%
-    dplyr::mutate(Line = dplyr::case_when(
-                                  .data$IsFullTime == 1 & .data$IsFirstTime == 1 &
-                                    .data$IsDegreeCertSeeking == 1 &
-                                    .data$StudentLevel == "Undergraduate" ~ 1,
+    dplyr::select(.data$UNITID,
+                  .data$STUDENTID,
+                  .data$ISFULLTIME,
+                  .data$ISFIRSTTIME,
+                  .data$ISTRANSFER,
+                  .data$ISDEGREECERTSEEKING,
+                  .data$STUDENTLEVEL,
+                  .data$RACEETHNICITY,
+                  .data$SEX) %>%
+    dplyr::mutate(LINE = dplyr::case_when(
+                                  .data$ISFULLTIME == 1 & .data$ISFIRSTTIME == 1 &
+                                    .data$ISDEGREECERTSEEKING == 1 &
+                                    .data$STUDENTLEVEL == "Undergraduate" ~ 1,
 
-                                  .data$IsFullTime == 1 &
-                                    .data$IsTransfer == 1 &
-                                    .data$IsDegreeCertSeeking == 1 &
-                                    .data$StudentLevel == "Undergraduate" ~ 2,
+                                  .data$ISFULLTIME == 1 &
+                                    .data$ISTRANSFER == 1 &
+                                    .data$ISDEGREECERTSEEKING == 1 &
+                                    .data$STUDENTLEVEL == "Undergraduate" ~ 2,
 
-                                  .data$IsFullTime == 1 &
-                                    .data$IsFirstTime == 0 &
-                                    .data$IsTransfer == 0 &
-                                    .data$IsDegreeCertSeeking == 1 &
-                                    .data$StudentLevel == "Undergraduate" ~ 3,
+                                  .data$ISFULLTIME == 1 &
+                                    .data$ISFIRSTTIME == 0 &
+                                    .data$ISTRANSFER == 0 &
+                                    .data$ISDEGREECERTSEEKING == 1 &
+                                    .data$STUDENTLEVEL == "Undergraduate" ~ 3,
 
-                                  .data$IsFullTime == 1 &
-                                    .data$IsDegreeCertSeeking == 0 &
-                                    .data$StudentLevel == "Undergraduate" ~ 7,
+                                  .data$ISFULLTIME == 1 &
+                                    .data$ISDEGREECERTSEEKING == 0 &
+                                    .data$STUDENTLEVEL == "Undergraduate" ~ 7,
 
-                                  .data$IsFullTime == 0 &
-                                    .data$IsFirstTime == 1 &
-                                    .data$IsDegreeCertSeeking == 1 &
-                                    .data$StudentLevel == "Undergraduate" ~ 15,
+                                  .data$ISFULLTIME == 0 &
+                                    .data$ISFIRSTTIME == 1 &
+                                    .data$ISDEGREECERTSEEKING == 1 &
+                                    .data$STUDENTLEVEL == "Undergraduate" ~ 15,
 
-                                  .data$IsFullTime == 0 &
-                                    .data$IsTransfer == 1 &
-                                    .data$IsDegreeCertSeeking == 1 &
-                                    .data$StudentLevel == "Undergraduate" ~ 16,
+                                  .data$ISFULLTIME == 0 &
+                                    .data$ISTRANSFER == 1 &
+                                    .data$ISDEGREECERTSEEKING == 1 &
+                                    .data$STUDENTLEVEL == "Undergraduate" ~ 16,
 
-                                  .data$IsFullTime == 0 &
-                                    .data$IsFirstTime == 0 &
-                                    .data$IsTransfer == 0 &
-                                    .data$IsDegreeCertSeeking == 1 &
-                                    .data$StudentLevel == "Undergraduate" ~ 17,
+                                  .data$ISFULLTIME == 0 &
+                                    .data$ISFIRSTTIME == 0 &
+                                    .data$ISTRANSFER == 0 &
+                                    .data$ISDEGREECERTSEEKING == 1 &
+                                    .data$STUDENTLEVEL == "Undergraduate" ~ 17,
 
-                                  .data$IsFullTime == 0 &
-                                    .data$IsDegreeCertSeeking == 0 &
-                                    .data$StudentLevel == "Undergraduate" ~ 21,
+                                  .data$ISFULLTIME == 0 &
+                                    .data$ISDEGREECERTSEEKING == 0 &
+                                    .data$STUDENTLEVEL == "Undergraduate" ~ 21,
 
-                                  .data$StudentLevel == "Graduate" ~ 99
+                                  .data$STUDENTLEVEL == "Graduate" ~ 99
                                 )
                   ) %>%
-    dplyr::group_by(.data$Unitid, .data$Line, .data$RaceEthnicity, .data$Sex) %>%
-    dplyr::summarise(Count = n()) %>%
+    dplyr::group_by(.data$UNITID,
+                    .data$LINE,
+                    .data$RACEETHNICITY,
+                    .data$SEX) %>%
+    dplyr::summarise(COUNT = n()) %>%
     dplyr::ungroup() %>%
     #sort for easy viewing
-    dplyr::arrange(.data$Line, .data$RaceEthnicity, .data$Sex) %>%
+    dplyr::arrange(.data$LINE,
+                   .data$RACEETHNICITY,
+                   .data$SEX) %>%
     #format for upload
-    dplyr::transmute(UNITID = paste0("UNITID=", .data$Unitid),
+    dplyr::transmute(UNITID = paste0("UNITID=", .data$UNITID),
                      SURVSECT = "SURVSECT=E1D",
                      PART = "PART=A",
-                     LINE = paste0("LINE=", .data$Line),
-                     RACE = paste0("RACE=", .data$RaceEthnicity),
-                     SEX = paste0("SEX=", .data$Sex),
-                     COUNT = paste0("COUNT=", .data$Count)
+                     LINE = paste0("LINE=", .data$LINE),
+                     RACE = paste0("RACE=", .data$RACEETHNICITY),
+                     SEX = paste0("SEX=", .data$SEX),
+                     COUNT = paste0("COUNT=", .data$COUNT)
                     )
 
   #create the txt file

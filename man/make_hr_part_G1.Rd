@@ -4,16 +4,18 @@
 \alias{make_hr_part_G1}
 \title{Produce IPEDS HR Part G1}
 \usage{
-make_hr_part_G1(df, output = "part")
+make_hr_part_G1(df, output = "part", format = "both")
 }
 \arguments{
 \item{df}{a dataframe}
 
 \item{output}{a string (\code{"part"}, \code{"full"}, or \code{"both"})}
+
+\item{format}{A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})}
 }
 \value{
 a txt file
 }
 \description{
-Part G1 --- Salaries of Instructional staff
+Part G1 --- Salaries of INSTRUCTIONAL staff
 }

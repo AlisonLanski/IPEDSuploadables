@@ -6,10 +6,11 @@
 #' @param format A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})
 #'
 #' @importFrom rlang .data
-#' @importFrom dplyr select filter mutate bind_rows group_by ungroup summarize arrange everything recode
+#' @importFrom dplyr select filter mutate bind_rows group_by ungroup summarize arrange everything recode distinct
 #' @importFrom tidyr spread
 #' @importFrom svDialogs dlg_message
 #' @importFrom utils write.table
+#' @importFrom stringr str_to_upper
 #'
 #' @return A text file
 #' @export
@@ -17,33 +18,40 @@
 
 make_com_part_D <- function(df, extracips = NULL, output = "part", format = "both") {
 
+  colnames(df) <- stringr::str_to_upper(colnames(df))
+
   if(!is.null(extracips)) {
+    colnames(extracips) <- stringr::str_to_upper(colnames(extracips))
+
     #check extracips list for award levels not included in the startingdf
     extralevel_D <- extracips %>%
-      dplyr::select(.data$Unitid, .data$DegreeLevel) %>%
-      unique() %>%
-      dplyr::filter(!(.data$DegreeLevel %in% df$DegreeLevel)) %>%
-      #add dummy data to any award levels found
-      dplyr::mutate(StudentId = "dummy_studentid",
-                    RaceEthnicity = 1,
-                    Sex = 1,
-                    Birthdate = lubridate::ymd("1900-01-01"),
-                    CountRE = 0,
-                    CountSex = 0,
-                    CountAge = 0
-      ) %>%
-      #reorder for rbind
-      dplyr::select(.data$Unitid, .data$StudentId, dplyr::everything())
+                    dplyr::select(.data$UNITID,
+                                  .data$DEGREELEVEL) %>%
+                    dplyr::distinct() %>%
+                    dplyr::filter(!(.data$DEGREELEVEL %in% df$DEGREELEVEL)) %>%
+                    #add dummy data to any award levels found
+                    dplyr::mutate(STUDENTID = "dummy_studentid",
+                                  RACEETHNICITY = 1,
+                                  SEX = 1,
+                                  BIRTHDATE = lubridate::ymd("1900-01-01"),
+                                  COUNTRE = 0,
+                                  COUNTSEX = 0,
+                                  COUNTAGE = 0
+                    ) %>%
+                    #reorder for rbind
+                    dplyr::select(.data$UNITID,
+                                  .data$STUDENTID,
+                                  dplyr::everything())
   } else {
-    extralevel_D <- data.frame(Unitid = df$Unitid[1],
-                               DegreeLevel = df$DegreeLevel[1],
-                               StudentId = "dummy_studentid",
-                               RaceEthnicity = 1,
-                               Sex = 1,
-                               Birthdate = lubridate::ymd("1900-01-01"),
-                               CountRE = 0,
-                               CountSex = 0,
-                               CountAge = 0,
+    extralevel_D <- data.frame(UNITID = df$UNITID[1],
+                               STUDENTID = "dummy_studentid",
+                               DEGREELEVEL = df$DEGREELEVEL[1],
+                               RACEETHNICITY = 1,
+                               SEX = 1,
+                               BIRTHDATE = lubridate::ymd("1900-01-01"),
+                               COUNTRE = 0,
+                               COUNTSEX = 0,
+                               COUNTAGE = 0,
                                stringsAsFactors = FALSE)
   }
 
@@ -52,30 +60,35 @@ make_com_part_D <- function(df, extracips = NULL, output = "part", format = "bot
 
   ipeds_unitid <- as.character(get_ipeds_unitid(df))
 
-  dummy_demographics <- data.frame(Unitid = ipeds_unitid,
-                                   StudentId = "dummy_studentid",
-                                   DegreeLevel = max(df$DegreeLevel),
-                                   RaceEthnicity = c(1:9),
-                                   Sex = c(1, 1, 1, 1, 1, 2, 2, 2, 2),
-                                   Age = c(15, 20, 25, 30, 35, 40, 45, 50, NA),
-                                   CountRE = 0,
-                                   CountSex = 0,
-                                   CountAge = 0,
+  dummy_demographics <- data.frame(UNITID = ipeds_unitid,
+                                   STUDENTID = "dummy_studentid",
+                                   DEGREELEVEL = max(df$DEGREELEVEL),
+                                   RACEETHNICITY = c(1:9),
+                                   SEX = c(1, 1, 1, 1, 1, 2, 2, 2, 2),
+                                   AGE = c(15, 20, 25, 30, 35, 40, 45, 50, NA),
+                                   COUNTRE = 0,
+                                   COUNTSEX = 0,
+                                   COUNTAGE = 0,
                                    stringsAsFactors = FALSE)
 
   partD <- df %>%
-    dplyr::select(.data$Unitid, .data$StudentId, .data$DegreeLevel, .data$RaceEthnicity, .data$Sex, .data$Age) %>%
+    dplyr::select(.data$UNITID,
+                  .data$STUDENTID,
+                  .data$DEGREELEVEL,
+                  .data$RACEETHNICITY,
+                  .data$SEX,
+                  .data$AGE) %>%
     #add values which will be summed later
-    dplyr::mutate(CountRE = 1,
-                  CountSex = 1,
-                  CountAge = 1
+    dplyr::mutate(COUNTRE = 1,
+                  COUNTSEX = 1,
+                  COUNTAGE = 1
     ) %>%
     #add any extra award levels
     dplyr::bind_rows(extralevel_D) %>%
     #add dummy demographics to make sure the spread works correctly later
     dplyr::bind_rows(dummy_demographics) %>%
     #recode before removing duplicates per student
-    dplyr::mutate(CTLEVEL = dplyr::recode(.data$DegreeLevel,
+    dplyr::mutate(CTLEVEL = dplyr::recode(.data$DEGREELEVEL,
                                           "1a" = 8,
                                           "1b" = 9,
                                           "2" = 2,
@@ -90,11 +103,11 @@ make_com_part_D <- function(df, extracips = NULL, output = "part", format = "bot
                                           "19" = 6,
                                           .default = 99)
            ) %>%
-    dplyr::select(-.data$DegreeLevel) %>%
+    dplyr::select(-.data$DEGREELEVEL) %>%
     #one row per student per level per unitid (keep RE/Sex/Birthdate)
-    unique() %>%
+    dplyr::distinct() %>%
     #recode and spread RaceEthnicity to get IPEDS columns
-    dplyr::mutate(RaceEthnicity = recode(.data$RaceEthnicity,
+    dplyr::mutate(RACEETHNICITY = recode(.data$RACEETHNICITY,
                                           `1` = "CRACE17",
                                           `2` = "CRACE41",
                                           `3` = "CRACE42",
@@ -106,28 +119,28 @@ make_com_part_D <- function(df, extracips = NULL, output = "part", format = "bot
                                           `9` = "CRACE23",
                                           .default = "ZRACEETH")
     ) %>%
-    tidyr::spread(key = .data$RaceEthnicity, value = .data$CountRE) %>%
+    tidyr::spread(key = .data$RACEETHNICITY, value = .data$COUNTRE) %>%
     #recode and spread Sex to get IPEDS columns
-    dplyr::mutate(Sex = recode(.data$Sex,
+    dplyr::mutate(SEX = recode(.data$SEX,
                                 `1` = "CRACE15",
                                 `2` = "CRACE16",
                                 .default = "ZRACESEX")
     ) %>%
-    tidyr::spread(key = .data$Sex, value = .data$CountSex) %>%
+    tidyr::spread(key = .data$SEX, value = .data$COUNTSEX) %>%
     #recode and spread Age to get IPEDS columns
     dplyr::mutate(AgeGroup = case_when(
-                                floor(.data$Age) < 18 ~ "AGE1",
-                                floor(.data$Age) <= 24 ~ "AGE2",
-                                floor(.data$Age) <= 39 ~ "AGE3",
-                                floor(.data$Age) >= 40 ~ "AGE4",
-                                is.na(.data$Age) ~ "AGE5",
+                                floor(.data$AGE) < 18 ~ "AGE1",
+                                floor(.data$AGE) <= 24 ~ "AGE2",
+                                floor(.data$AGE) <= 39 ~ "AGE3",
+                                floor(.data$AGE) >= 40 ~ "AGE4",
+                                is.na(.data$AGE) ~ "AGE5",
                                 TRUE ~ "AGE9"
                               )
     ) %>%
-    tidyr::spread(key = .data$AgeGroup, value = .data$CountAge) %>%
+    tidyr::spread(key = .data$AgeGroup, value = .data$COUNTAGE) %>%
     #aggregate and add counts in spread columns;
     #extra award levels and dummy demographics have values of 0
-    dplyr::group_by(.data$Unitid, .data$CTLEVEL) %>%
+    dplyr::group_by(.data$UNITID, .data$CTLEVEL) %>%
     dplyr::summarize(CRACE15 = sum(.data$CRACE15, na.rm = T),
                      CRACE16 = sum(.data$CRACE16, na.rm = T),
                      CRACE17 = sum(.data$CRACE17, na.rm = T),
@@ -149,7 +162,7 @@ make_com_part_D <- function(df, extracips = NULL, output = "part", format = "bot
     #sort for easier viewing
     dplyr::arrange(.data$CTLEVEL) %>%
     #format for upload
-    dplyr::transmute(UNITID = paste0("UNITID=", .data$Unitid),
+    dplyr::transmute(UNITID = paste0("UNITID=", .data$UNITID),
                      SURVSECT = "SURVSECT=COM",
                      PART = "PART=D",
                      CTLEVEL = paste0("CTLEVEL=", .data$CTLEVEL),

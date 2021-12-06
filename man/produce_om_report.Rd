@@ -4,12 +4,16 @@
 \alias{produce_om_report}
 \title{Shortcut function to do all steps to produce a report}
 \usage{
-produce_om_report(df, part = "ALL")
+produce_om_report(df, part = "ALL", output = "full", format = "uploadable")
 }
 \arguments{
 \item{df}{A dataframe set up according to the readme}
 
 \item{part}{A string with what part of the report you want to produce: 'all', 'A', etc.}
+
+\item{output}{A string (\code{"part"}, \code{"full"}, or \code{"both"})}
+
+\item{format}{A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})}
 }
 \value{
 A txt file at the path of your choice

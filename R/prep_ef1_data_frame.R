@@ -2,20 +2,24 @@
 #'
 #' @param df a dataframe of student level data
 #'
-#' @return df
 #' @importFrom dplyr case_when mutate select
 #' @importFrom tidyr separate
 #' @importFrom magrittr "%>%"
 #' @importFrom rlang .data
+#' @importFrom stringr str_to_upper
 #'
+#' @return df
 #' @export
 #'
+
 prep_ef1_data_frame <- function(df) {
 
+  colnames(df) <- stringr::str_to_upper(colnames(df))
+
   df <- df %>%
-    tidyr::separate(col = .data$MajorCip,
-             into = c("Two", "Four"),
-             sep = "\\.", fill = 'right'
+    tidyr::separate(col = .data$MAJORCIP,
+                    into = c("Two", "Four"),
+                    sep = "\\.", fill = "right"
     ) %>%
     dplyr::mutate(Two = dplyr::case_when(
       nchar(.data$Two) == 1 ~ paste0("0", .data$Two),
@@ -28,14 +32,14 @@ prep_ef1_data_frame <- function(df) {
       nchar(.data$Four) == 3 ~ paste0(.data$Four, "0"),
       TRUE ~ .data$Four
     ),
-    MajorCip = paste0(.data$Two, '.', .data$Four)
+    MAJORCIP = paste0(.data$Two, ".", .data$Four)
     ) %>%
     dplyr::select(-.data$Two, -.data$Four) %>%
-    dplyr::mutate(Unitid = as.character(.data$Unitid))
+    dplyr::mutate(UNITID = as.character(.data$UNITID))
 
-  if("StudentId" %in% colnames(df)) {
+  if("STUDENTID" %in% colnames(df)) {
     df <- df %>%
-      dplyr::mutate(StudentId = as.character(.data$StudentId))
+      dplyr::mutate(STUDENTID = as.character(.data$STUDENTID))
   }
 
   return(df)

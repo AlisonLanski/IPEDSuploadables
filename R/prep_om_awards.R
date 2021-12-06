@@ -5,48 +5,60 @@
 #' @param df A dataframe of student statuses
 #' @param award A string with the df column to use for processing depending on the OM part
 #'
+#' @importFrom dplyr transmute mutate filter select bind_rows n group_by summarize across everything arrange
+#' @importFrom tidyr pivot_wider
+#' @importFrom stringr str_to_upper
+#'
 #' @return A df ready for use in the make_om_part functions B-D
+#' @export
 #'
-#'
+
 prep_om_awards <- function(df, award) {
 
-  extra_awards <- data.frame(expand.grid(Unitid = get_ipeds_unitid(df),
-                                         CohortType = c(1:4),
-                                         Recipient = c(1:2),
-                                         Award = c(1:3),
-                                         Count = 0)) %>%
-                  dplyr::transmute(.data$Unitid,
-                                   StudentId = paste0("FakeID", c(1:dplyr::n())),
-                                   .data$CohortType,
-                                   .data$Recipient,
-                                   .data$Award,
-                                   .data$Count)
+  colnames(df) <- stringr::str_to_upper(colnames(df))
+
+  extra_awards <- data.frame(expand.grid(UNITID = get_ipeds_unitid(df),
+                                         COHORTTYPE = c(1:4),
+                                         RECIPIENT = c(1:2),
+                                         AWARD = c(1:3),
+                                         COUNT = 0)) %>%
+                  dplyr::transmute(.data$UNITID,
+                                   STUDENTID = paste0("FakeID", c(1:dplyr::n())),
+                                   .data$COHORTTYPE,
+                                   .data$RECIPIENT,
+                                   .data$AWARD,
+                                   .data$COUNT)
 
   award_df <- df %>%
-              dplyr::transmute(.data$Unitid,
-                            StudentId = as.character(.data$StudentId),
-                            .data$CohortType,
-                            .data$Recipient,
-                            Award = .data[[award]],
-                            .data$Exclusion) %>%
-              dplyr::mutate(Count = 1) %>%
+              dplyr::transmute(.data$UNITID,
+                               STUDENTID = as.character(.data$STUDENTID),
+                               .data$COHORTTYPE,
+                               .data$RECIPIENT,
+                               AWARD = .data[[award]],
+                               .data$EXCLUSION) %>%
+              dplyr::mutate(COUNT = 1) %>%
               #not needed for this report
-              dplyr::filter(.data$Award != 4,
-                            .data$Exclusion == FALSE) %>%
-              dplyr::select(-.data$Exclusion) %>%
+              dplyr::filter(.data$AWARD != 4,
+                            .data$EXCLUSION == FALSE) %>%
+              dplyr::select(-.data$EXCLUSION) %>%
               #add extras
               dplyr::bind_rows(extra_awards) %>%
               #make it wide
-              tidyr::pivot_wider(names_from = .data$Award, values_from = .data$Count, values_fill = 0) %>%
-              dplyr::select(-.data$StudentId) %>%
+              tidyr::pivot_wider(names_from = .data$AWARD,
+                                 values_from = .data$COUNT,
+                                 values_fill = 0) %>%
+              dplyr::select(-.data$STUDENTID) %>%
               #aggregate
-              dplyr::group_by(.data$Unitid, .data$CohortType, .data$Recipient)%>%
+              dplyr::group_by(.data$UNITID,
+                              .data$COHORTTYPE,
+                              .data$RECIPIENT)%>%
               dplyr::summarize(dplyr::across(dplyr::everything(), sum)) %>%
               dplyr::ungroup() %>%
               #sort for easy viewing
-              dplyr::arrange(.data$CohortType, .data$Recipient) %>%
+              dplyr::arrange(.data$COHORTTYPE,
+                             .data$RECIPIENT) %>%
               #remove empty rows
-              dplyr::filter(!(.data$`1`==0 & .data$`2`==0 & .data$`3`==0))
+              dplyr::filter(!(.data$`1` == 0 & .data$`2` == 0 & .data$`3` == 0))
 
   return(award_df)
 }
