@@ -28,9 +28,9 @@ library(IPEDSuploadables)
 ```{r dataprep, echo=FALSE, eval=FALSE, message=FALSE}
 #export spreadsheet with specs from google drive
 #read in with readr
-specs_OM <- readr::read_csv(here::here("vignettes", "OM_Variable_Definitions - Sheet1.csv"))
+specs_OM <- googlesheets4::read_sheet('1e1o9Omor7jWwxKRncgzvFbz67sUxKqSkPtSW_B-8jr0')
 #then run 
-use_data(specs_OM, specs_OM, overwrite = TRUE) #to save as .rda and replace the old file
+use_data(specs_OM, overwrite = TRUE) #to save as .rda and replace the old file
 
 ```
 
