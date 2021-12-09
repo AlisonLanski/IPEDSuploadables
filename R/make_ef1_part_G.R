@@ -28,20 +28,16 @@ make_ef1_part_G <- function(df, output = "part", format = "both") {
                          .data$STUDENTLEVEL,
                          .data$ONLINESTATE,
                          .data$DISTANCEED) %>%
-           dplyr::mutate(INUS_INSTATE = case_when(.data$ONLINESTATE == .data$UNITIDSTATE &
-                                                    .data$DISTANCEED == 2 ~  1,
-                                                  TRUE ~ 0),
-                         INUS_OUTSTATE = case_when(.data$ONLINESTATE != .data$UNITIDSTATE &
-                                                     .data$ONLINESTATE <= 78 & .data$UNITIDSTATE != 57 &
-                                                     .data$DISTANCEED == 2 ~  1,
-                                                   TRUE ~ 0),
-                         INUS_UNKNOWN = case_when(.data$ONLINESTATE == 57 &
-                                                    .data$DISTANCEED == 2 ~  1,
-                                                  TRUE ~ 0),
-                         OUTUS = case_when(.data$ONLINESTATE == 90 &
-                                             .data$DISTANCEED == 2 ~  1,
-                                           TRUE ~ 0)
-                         ) %>%
+            dplyr::mutate(StateGroup = case_when(.data$DISTANCEED != 2 ~ 'Nope',
+                                         .data$ONLINESTATE == .data$UNITIDSTATE ~ 'INUS_INSTATE',
+                                         .data$ONLINESTATE == 57 ~ 'INUS_UNKNOWN',
+                                         .data$ONLINESTATE <= 78 ~ 'INUS_OUTSTATE',
+                                         .data$ONLINESTATE == 90 ~ 'OUTUS',
+                                         TRUE ~ 'Nope'),
+                          counter = 1) %>%
+            tidyr::pivot_wider(names_from = .data$StateGroup,
+                               values_from = .data$counter, values_fill = 0) %>%
+            dplyr::select(-.data$Nope) %>%
            dplyr::mutate(LINE = dplyr::case_when(
                                    .data$ISDEGREECERTSEEKING == 1 & .data$STUDENTLEVEL == "Undergraduate" ~ 1,
                                    .data$ISDEGREECERTSEEKING == 0 & .data$STUDENTLEVEL == "Undergraduate" ~ 2,
