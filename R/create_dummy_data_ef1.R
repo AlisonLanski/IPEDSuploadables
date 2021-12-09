@@ -9,7 +9,7 @@
 #' @param seed A number
 #'
 #' @importFrom rlang .data
-#' @importFrom magrittr "%>%"
+#' 
 #' @importFrom dplyr select group_by summarize ungroup bind_rows arrange transmute n
 #' @importFrom utils write.table
 #'

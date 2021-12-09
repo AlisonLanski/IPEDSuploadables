@@ -7,7 +7,7 @@
 #' @param format A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})
 #'
 #' @importFrom rlang .data
-#' @importFrom magrittr "%>%"
+#' 
 #' @importFrom dplyr select group_by summarise filter arrange transmute n
 #' @importFrom utils write.table
 #' @importFrom stringr str_to_upper

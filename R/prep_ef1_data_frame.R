@@ -4,7 +4,7 @@
 #'
 #' @importFrom dplyr case_when mutate select
 #' @importFrom tidyr separate
-#' @importFrom magrittr "%>%"
+#' 
 #' @importFrom rlang .data
 #' @importFrom stringr str_to_upper
 #'

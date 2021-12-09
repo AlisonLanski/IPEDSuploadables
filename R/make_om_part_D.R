@@ -25,7 +25,7 @@ make_om_part_D <- function(df, output = "part", format = "both") {
   #### What happened to everyone else?
   #d2 dummy: need all columns after pivot; counts set to 0 to avoid changing totals
   d2_dummy <- data.frame(
-    expand_grid(UNITID = get_ipeds_unitid(df),
+    tidyr::expand_grid(UNITID = get_ipeds_unitid(df),
                 COHORTTYPE = c(1:4),
                 RECIPIENT = c(1:2),
                 ENROLLED = 0,

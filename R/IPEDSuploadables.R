@@ -5,10 +5,11 @@
 #'
 #' @docType package
 #' @name IPEDSuploadables
+#' @importFrom magrittr %>%
 
 NULL
 
-## quiets concerns of R CMD check re: the DBI outputs that we need from the connect scripts
+## quiets concerns of R CMD check re: output path; or at least it used to
 if(getRversion() >= "2.15.1")  utils::globalVariables(c('output_path'))
 
 

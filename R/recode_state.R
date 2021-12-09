@@ -3,7 +3,7 @@
 #' @param df A dataframe of student information
 #'
 #' @importFrom rlang .data
-#' @importFrom magrittr "%>%"
+#' 
 #' @importFrom dplyr mutate
 #'
 #' @return A text file
