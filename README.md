@@ -58,5 +58,5 @@ To access vignettes locally (instead of through the website) add an
 argument:
 
 ``` r
-devtools::install_github("AlisonLanski/IpedsUpladables", build_vignettes = TRUE)
+devtools::install_github("AlisonLanski/IPEDSuploadables", build_vignettes = TRUE)
 ```
