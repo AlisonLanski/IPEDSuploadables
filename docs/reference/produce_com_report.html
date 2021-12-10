@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">IPEDSuploadables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.1</span>
       </span>
     </div>
 
@@ -145,7 +145,13 @@
     <p>Shortcut function to do all steps to produce a report</p>
     </div>
 
-    <pre class="usage"><span class='fu'>produce_com_report</span>(<span class='kw'>df</span>, extracips = <span class='kw'>NULL</span>, part = <span class='st'>"ALL"</span>)</pre>
+    <pre class="usage"><span class='fu'>produce_com_report</span>(
+  <span class='kw'>df</span>,
+  extracips = <span class='kw'>NULL</span>,
+  part = <span class='st'>"ALL"</span>,
+  output = <span class='st'>"full"</span>,
+  format = <span class='st'>"uploadable"</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -161,6 +167,14 @@
     <tr>
       <th>part</th>
       <td><p>A string with what part of the reprt you want to produce: 'all', 'A', etc.</p></td>
+    </tr>
+    <tr>
+      <th>output</th>
+      <td><p>A string (<code>"part"</code>, <code>"full"</code>, or <code>"both"</code>)</p></td>
+    </tr>
+    <tr>
+      <th>format</th>
+      <td><p>A string (<code>"uploadable"</code>, <code>"readable"</code>, or <code>"both"</code>)</p></td>
     </tr>
     </table>
 
@@ -179,7 +193,7 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by Alison Lanski, Shiloh Bradley.</p>
+  <p>Developed by Alison Lanski, Shiloh Fling.</p>
 </div>
 
 <div class="pkgdown">

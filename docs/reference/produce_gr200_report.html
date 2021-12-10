@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Dataframe of dummy student data  Fall Enrollment scripts — ef1_students • IPEDSuploadables</title>
+<title>Grad Rates 200 wrapper function to produce report — produce_gr200_report • IPEDSuploadables</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Dataframe of dummy student data  Fall Enrollment scripts — ef1_students" />
-<meta property="og:description" content="Using the default number of students and random seed, this data provides a population that touches most available categories of student reporting. Some columns use only a selection of possible values to reduce complexity." />
+<meta property="og:title" content="Grad Rates 200 wrapper function to produce report — produce_gr200_report" />
+<meta property="og:description" content="Grad Rates 200 wrapper function to produce report" />
 
 
 
@@ -136,21 +136,41 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Dataframe of dummy student data  Fall Enrollment scripts</h1>
+    <h1>Grad Rates 200 wrapper function to produce report</h1>
     
-    <div class="hidden name"><code>ef1_students.Rd</code></div>
+    <div class="hidden name"><code>produce_gr200_report.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Using the default number of students and random seed, this data provides a population that touches most available categories of student reporting. Some columns use only a selection of possible values to reduce complexity.</p>
+    <p>Grad Rates 200 wrapper function to produce report</p>
     </div>
 
-    <pre class="usage"><span class='kw'>ef1_students</span></pre>
+    <pre class="usage"><span class='fu'>produce_gr200_report</span>(<span class='kw'>df</span>, part = <span class='st'>"all"</span>, output = <span class='st'>"full"</span>, format = <span class='st'>"uploadable"</span>)</pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>df</th>
+      <td><p>a dataframe set up according to the readme</p></td>
+    </tr>
+    <tr>
+      <th>part</th>
+      <td><p>a string with what part of the report you want to produce "all", "A1", etc.</p></td>
+    </tr>
+    <tr>
+      <th>output</th>
+      <td><p>A string (<code>"part"</code>, <code>"full"</code>, or <code>"both"</code>)</p></td>
+    </tr>
+    <tr>
+      <th>format</th>
+      <td><p>A string (<code>"uploadable"</code>, <code>"readable"</code>, or <code>"both"</code>)</p></td>
+    </tr>
+    </table>
 
-    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A data frame with 100 rows and 16 columns</p>
+    <p>a txt file at the path of your choice</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

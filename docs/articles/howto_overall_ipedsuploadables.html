@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">IPEDSuploadables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.1</span>
       </span>
     </div>
 
@@ -114,7 +114,7 @@
 <a href="#step-0-installload-the-package" class="anchor"></a>Step 0: Install/Load the package</h2>
 <div class="sourceCode" id="cb1"><pre class="downlit">
 <span class="co">#install option 1</span>
-<span class="kw">devtools</span>::<span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"AlisonLanski/IPEDSuploadables"</span>)
+<span class="kw">devtools</span>::<span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html">install_github</a></span>(<span class="st">"AlisonLanski/IPEDSuploadables"</span>)
 
 <span class="co">#install option 2</span>
 <span class="kw">githubinstall</span>::<span class="fu">githubinstall</span>(<span class="st">"IPEDSuploadables"</span>)
@@ -271,11 +271,17 @@ Your keyholder may be able to edit directly in the website, but this method is n
 <h4 class="hasAnchor">
 <a href="#how-the-package-can-help-you-troubleshoot" class="anchor"></a>How the package can help you troubleshoot</h4>
 <p>A few functions have built-in data quality checks which will alert you of disallowed values. We are working to add more automated checks.</p>
-<p>If you want to examine a single report sub-part in depth, you can create a separate text file with only those values. We are working on ways to view your data in a prettier format.</p>
+<p>If you want to examine a single report sub-part in depth, you can create a separate text file with only those values.</p>
 <p>Example:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit">
 <span class="co">#if you only want to look at 12 month enrollment part B</span>
 <span class="fu"><a href="../reference/produce_e1d_report.html">produce_e1d_report</a></span>(<span class="kw">e1d_instr</span>, part = <span class="st">"B"</span>)
+</pre></div>
+<p>You can also produce a csv version of the part’s text file, for more readable output (still using IPEDS upload-required column names)</p>
+<p>Example:</p>
+<div class="sourceCode" id="cb7"><pre class="downlit">
+<span class="co">#text files make my eyes bleed! let's use a csv</span>
+<span class="fu"><a href="../reference/produce_e1d_report.html">produce_e1d_report</a></span>(hrs = <span class="kw">e1d_instr</span>, part = <span class="st">"B"</span>, format = <span class="st">"readable"</span>)
 </pre></div>
 </div>
 </div>
@@ -292,7 +298,7 @@ Your keyholder may be able to edit directly in the website, but this method is n
 
 
       <footer><div class="copyright">
-  <p>Developed by Alison Lanski, Shiloh Bradley.</p>
+  <p>Developed by Alison Lanski, Shiloh Fling.</p>
 </div>
 
 <div class="pkgdown">

@@ -126,10 +126,19 @@ set_report_path()
 
 A few functions have built-in data quality checks which will alert you of disallowed values.  We are working to add more automated checks.  
 
-If you want to examine a single report sub-part in depth, you can create a separate text file with only those values. We are working on ways to view your data in a prettier format. 
+If you want to examine a single report sub-part in depth, you can create a separate text file with only those values.
 
 Example:
 ```{r produce_subreport, eval = FALSE}
 #if you only want to look at 12 month enrollment part B
 produce_e1d_report(e1d_instr, part = "B")
 ```
+
+You can also produce a csv version of the part's text file, for more readable output (still using IPEDS upload-required column names)  
+  
+Example:
+```{r produce_prettyfile, eval = FALSE}
+#text files make my eyes bleed! let's use a csv
+produce_e1d_report(hrs = e1d_instr, part = "B", format = "readable")
+```
+

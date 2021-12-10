@@ -3,11 +3,10 @@
 #' @param df A dataframe of student information
 #'
 #' @importFrom rlang .data
-#' 
+#'
 #' @importFrom dplyr mutate
 #'
 #' @return A text file
-#' @export
 #'
 
 

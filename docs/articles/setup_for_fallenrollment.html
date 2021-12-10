@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">IPEDSuploadables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.1</span>
       </span>
     </div>
 
@@ -119,9 +119,10 @@
 <li>One row per person</li>
 <li>One IPEDS Unitid per file</li>
 <li>Columns with values and types as described below in any order (additional columns are allowed)</li>
+<li>Double-starred column names (**) are only required in years when IPEDS collects that information. In off-years, you can omit the columns or enter any placeholder value.</li>
 </ul>
 </blockquote>
-<p>Column names can use any capitalization method you like.</p>
+<p>Column names can use any capitalization method you like. Do <strong>NOT</strong> include (**) in the column names.</p>
 <table class="table table table-striped">
 <thead><tr>
 <th style="text-align:left;">
@@ -203,13 +204,13 @@ Numeric
 </tr>
 <tr>
 <td style="text-align:left;">
-IsRecentGrad
+IsRecentGrad**
 </td>
 <td style="text-align:left;width: 8em; font-style: italic;">
 Numeric
 </td>
 <td style="text-align:left;">
-0 - Did not graduate from high school in the previous 12 months<br>1 - Graduated from high school in the previous 12 months<br>*Not required in optional years (omit column or use any value you desire)
+0 - Did not graduate from high school in the previous 12 months<br>1 - Graduated from high school in the previous 12 months
 </td>
 </tr>
 <tr>
@@ -221,17 +222,6 @@ Numeric
 </td>
 <td style="text-align:left;">
 0 - Not degree/certificate seeking<br>1 - Degree/Certificate seeking
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-MajorCip
-</td>
-<td style="text-align:left;width: 8em; font-style: italic;">
-Character or Numeric
-</td>
-<td style="text-align:left;">
-xx.xxxx preferred,<br>x.xxx (etc) accepted
 </td>
 </tr>
 <tr>
@@ -269,24 +259,24 @@ Numeric
 </tr>
 <tr>
 <td style="text-align:left;">
-Age
+Age**
 </td>
 <td style="text-align:left;width: 8em; font-style: italic;">
 Numeric
 </td>
 <td style="text-align:left;">
-Any number<br>*Not required in optional years (omit column or use any value you desire)
+Any number
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-AdmitState
+AdmitState**
 </td>
 <td style="text-align:left;width: 8em; font-style: italic;">
 Numeric
 </td>
 <td style="text-align:left;">
-1-98: FIPS code for student state of residence at the time of admission; can see list of options on the IPEDS Fall Enrollment blank submission form. Note: Only required for first-time undergraduates<br>*Not required in optional years (omit column or use any value you desire)
+1-98: FIPS code for student state of residence at the time of admission; can see list of options on the IPEDS Fall Enrollment blank submission form. <br>Note: Only required for first-time undergraduates
 </td>
 </tr>
 <tr>
@@ -297,7 +287,7 @@ OnlineState
 Numeric
 </td>
 <td style="text-align:left;">
-1-98: FIPS code for student state of residence when enrolled entirely in online classes; can see list of options on the IPEDS Fall Enrollment blank submission form. Note: Only required for fully-online students
+1-98: FIPS code for student state of residence when enrolled entirely in online classes; can see list of options on the IPEDS Fall Enrollment blank submission form. <br>Note: Only required for fully-online students
 </td>
 </tr>
 <tr>
@@ -309,6 +299,105 @@ Numeric
 </td>
 <td style="text-align:left;">
 1-98: The FIPS code for your institution
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cip130000**
+</td>
+<td style="text-align:left;width: 8em; font-style: italic;">
+Numeric
+</td>
+<td style="text-align:left;">
+0 - Not Applicable<br>1 - Student has declared a major under this 6-digit cip code
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cip140000**
+</td>
+<td style="text-align:left;width: 8em; font-style: italic;">
+Numeric
+</td>
+<td style="text-align:left;">
+0 - Not Applicable<br>1 - Student has declared a major under this 6-digit cip code
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cip260000**
+</td>
+<td style="text-align:left;width: 8em; font-style: italic;">
+Numeric
+</td>
+<td style="text-align:left;">
+0 - Not Applicable<br>1 - Student has declared a major under this 6-digit cip code
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cip270000**
+</td>
+<td style="text-align:left;width: 8em; font-style: italic;">
+Numeric
+</td>
+<td style="text-align:left;">
+0 - Not Applicable<br>1 - Student has declared a major under this 6-digit cip code
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cip400000**
+</td>
+<td style="text-align:left;width: 8em; font-style: italic;">
+Numeric
+</td>
+<td style="text-align:left;">
+0 - Not Applicable<br>1 - Student has declared a major under this 6-digit cip code
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cip520000**
+</td>
+<td style="text-align:left;width: 8em; font-style: italic;">
+Numeric
+</td>
+<td style="text-align:left;">
+0 - Not Applicable<br>1 - Student has declared a major under this 6-digit cip code
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cip220101**
+</td>
+<td style="text-align:left;width: 8em; font-style: italic;">
+Numeric
+</td>
+<td style="text-align:left;">
+0 - Not Applicable<br>1 - Student has declared a major under this 6-digit cip code
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cip510401**
+</td>
+<td style="text-align:left;width: 8em; font-style: italic;">
+Numeric
+</td>
+<td style="text-align:left;">
+0 - Not Applicable<br>1 - Student has declared a major under this 6-digit cip code
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cip511201**
+</td>
+<td style="text-align:left;width: 8em; font-style: italic;">
+Numeric
+</td>
+<td style="text-align:left;">
+0 - Not Applicable<br>1 - Student has declared a major under this 6-digit cip code
 </td>
 </tr>
 </tbody>
@@ -425,7 +514,7 @@ Number of prior-year first-time students who are still enrolled in the current y
 
 
       <footer><div class="copyright">
-  <p>Developed by Alison Lanski, Shiloh Bradley.</p>
+  <p>Developed by Alison Lanski, Shiloh Fling.</p>
 </div>
 
 <div class="pkgdown">

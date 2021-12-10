@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">IPEDSuploadables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.1</span>
       </span>
     </div>
 
@@ -140,24 +140,24 @@ Numeric
 </tr>
 <tr>
 <td style="text-align:left;">
-ProgramType
+EnteringProgramType
 </td>
 <td style="text-align:left;width: 8em; font-style: italic;">
 Numeric
 </td>
 <td style="text-align:left;">
-1 - 2 year program<br>2 - 2-4 year program<br>3 - Bachelor’s or Bachelor’s equivalent program
+1 - Less than 2 year program<br>2 - 2-4 year program<br>3 - Bachelor’s or Bachelor’s equivalent program<br>Note: The program type of the student’s entering cohort
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-IsComp
+CurrentProgramType
 </td>
 <td style="text-align:left;width: 8em; font-style: italic;">
 Numeric
 </td>
 <td style="text-align:left;">
-0 - Did not complete a degree/certificate<br>1 - Completed a degree/certificate
+1 - Less than 2 year program<br>2 - 2-4 year program<br>3 - Bachelor’s or Bachelor’s equivalent program<br>Note: The student’s program type at the time of this report
 </td>
 </tr>
 <tr>
@@ -179,7 +179,7 @@ CompletedFourYears
 Numeric
 </td>
 <td style="text-align:left;">
-0 - Did not complete within 4 years <br>1 - Completed by 4 years<br>Note: Only needed for ProgramType 3
+0 - Did not complete within 4 years <br>1 - Completed by 4 years<br>Note: Only needed for EnteringProgramType 3
 </td>
 </tr>
 <tr>
@@ -190,7 +190,7 @@ CompletedFiveYears
 Numeric
 </td>
 <td style="text-align:left;">
-0 - Did not complete by 5 years<br>1 - Completed by 5 years (and did not complete by 4 years)<br>Note: Only needed for ProgramType 3
+0 - Did not complete by 5 years<br>1 - Completed by 5 years (and did not complete by 4 years)<br>Note: Only needed for EnteringProgramType 3
 </td>
 </tr>
 <tr>
@@ -286,7 +286,7 @@ Numeric
 
 
       <footer><div class="copyright">
-  <p>Developed by Alison Lanski, Shiloh Bradley.</p>
+  <p>Developed by Alison Lanski, Shiloh Fling.</p>
 </div>
 
 <div class="pkgdown">
