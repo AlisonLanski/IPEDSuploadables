@@ -1,13 +1,13 @@
 #' Make Fall Enrollment Part D
 #'
-#' @description COUNT of new non-degree students
+#' @description Count of new non-degree students
 #'
 #' @param df A dataframe of student/degree information
 #' @param output A string (\code{"part"}, \code{"full"}, or \code{"both"})
 #' @param format A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})
 #'
 #' @importFrom rlang .data
-#' 
+#'
 #' @importFrom dplyr select group_by summarise filter arrange transmute n
 #' @importFrom utils write.table
 #' @importFrom stringr str_to_upper

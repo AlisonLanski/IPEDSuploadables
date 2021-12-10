@@ -2,7 +2,7 @@
 % Please edit documentation in R/make_ef1_part_G.R
 \name{make_ef1_part_G}
 \alias{make_ef1_part_G}
-\title{Make Fall Enrollment Part G (distance ed)}
+\title{Make Fall Enrollment Part G}
 \usage{
 make_ef1_part_G(df, output = "part", format = "both")
 }
@@ -17,5 +17,5 @@ make_ef1_part_G(df, output = "part", format = "both")
 A text file
 }
 \description{
-Distance Ed component of part
+Distance Ed counts
 }

@@ -1,6 +1,6 @@
-#' Make Fall Enrollment Part G (distance ed)
+#' Make Fall Enrollment Part G
 #'
-#' @description Distance Ed component of part
+#' @description Distance Ed counts
 #'
 #' @param df A dataframe of student/degree information
 #' @param output A string (\code{"part"}, \code{"full"}, or \code{"both"})
