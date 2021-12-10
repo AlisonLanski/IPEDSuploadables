@@ -17,5 +17,5 @@ make_ef1_part_G(df, output = "part", format = "both")
 A text file
 }
 \description{
-Distance Ed component of part
+Distance Ed counts
 }

@@ -7,7 +7,6 @@
 #'
 #' @importFrom rlang .data
 #' @importFrom dplyr select filter mutate bind_rows group_by ungroup summarize arrange everything recode distinct
-#' @importFrom tidyr spread
 #' @importFrom svDialogs dlg_message
 #' @importFrom utils write.table
 #' @importFrom stringr str_to_upper
@@ -119,14 +118,14 @@ make_com_part_D <- function(df, extracips = NULL, output = "part", format = "bot
                                           `9` = "CRACE23",
                                           .default = "ZRACEETH")
     ) %>%
-    tidyr::spread(key = .data$RACEETHNICITY, value = .data$COUNTRE) %>%
+    tidyr::pivot_wider(names_from = .data$RACEETHNICITY, values_from = .data$COUNTRE) %>%
     #recode and spread Sex to get IPEDS columns
     dplyr::mutate(SEX = recode(.data$SEX,
                                 `1` = "CRACE15",
                                 `2` = "CRACE16",
                                 .default = "ZRACESEX")
     ) %>%
-    tidyr::spread(key = .data$SEX, value = .data$COUNTSEX) %>%
+    tidyr::pivot_wider(names_from = .data$SEX, values_from = .data$COUNTSEX) %>%
     #recode and spread Age to get IPEDS columns
     dplyr::mutate(AgeGroup = case_when(
                                 floor(.data$AGE) < 18 ~ "AGE1",
@@ -137,7 +136,7 @@ make_com_part_D <- function(df, extracips = NULL, output = "part", format = "bot
                                 TRUE ~ "AGE9"
                               )
     ) %>%
-    tidyr::spread(key = .data$AgeGroup, value = .data$COUNTAGE) %>%
+    tidyr::pivot_wider(names_from = .data$AgeGroup, values_from = .data$COUNTAGE) %>%
     #aggregate and add counts in spread columns;
     #extra award levels and dummy demographics have values of 0
     dplyr::group_by(.data$UNITID, .data$CTLEVEL) %>%

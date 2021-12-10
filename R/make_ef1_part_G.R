@@ -1,13 +1,13 @@
 #' Make Fall Enrollment Part G
 #'
-#' @description Distance Ed component of part
+#' @description Distance Ed counts
 #'
 #' @param df A dataframe of student/degree information
 #' @param output A string (\code{"part"}, \code{"full"}, or \code{"both"})
 #' @param format A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})
 #'
 #' @importFrom rlang .data
-#' @importFrom magrittr "%>%"
+#'
 #' @importFrom dplyr select group_by summarize arrange transmute n
 #' @importFrom utils write.table
 #' @importFrom stringr str_to_upper
@@ -20,6 +20,18 @@ make_ef1_part_G <- function(df, output = "part", format = "both") {
 
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
+  #need to have all options pre-pivot
+  partG_dummy <- tidyr::expand_grid(UNITID = get_ipeds_unitid(df),
+                                    UNITIDSTATE = df$UNITIDSTATE[1],
+                                    STUDENTID = "thisisastudentid",
+                                    ISDEGREECERTSEEKING = c(0, 1),
+                                    STUDENTLEVEL = c("Undergraduate", "Graduate"),
+                                    ONLINESTATE = c(6, 57, 78, 90), #cover all the options
+                                    DISTANCEED = c(1,2),
+                                    counter = 0,
+                                    dummyrow = 1) %>%
+                 dplyr::mutate(STUDENTID = paste0(.data$STUDENTID, 1:dplyr::n()))
+
   partG <- df %>%
            dplyr::select(.data$UNITID,
                          .data$UNITIDSTATE,
@@ -28,28 +40,25 @@ make_ef1_part_G <- function(df, output = "part", format = "both") {
                          .data$STUDENTLEVEL,
                          .data$ONLINESTATE,
                          .data$DISTANCEED) %>%
-           dplyr::mutate(INUS_INSTATE = case_when(.data$ONLINESTATE == .data$UNITIDSTATE &
-                                                    .data$DISTANCEED == 2 ~  1,
-                                                  TRUE ~ 0),
-                         INUS_OUTSTATE = case_when(.data$ONLINESTATE != .data$UNITIDSTATE &
-                                                     .data$ONLINESTATE <= 78 & .data$UNITIDSTATE != 57 &
-                                                     .data$DISTANCEED == 2 ~  1,
-                                                   TRUE ~ 0),
-                         INUS_UNKNOWN = case_when(.data$ONLINESTATE == 57 &
-                                                    .data$DISTANCEED == 2 ~  1,
-                                                  TRUE ~ 0),
-                         OUTUS = case_when(.data$ONLINESTATE == 90 &
-                                             .data$DISTANCEED == 2 ~  1,
-                                           TRUE ~ 0)
-                         ) %>%
-           dplyr::mutate(LINE = dplyr::case_when(
-                                   .data$ISDEGREECERTSEEKING == 1 & .data$STUDENTLEVEL == "Undergraduate" ~ 1,
+            dplyr::mutate(counter = 1,
+                          dummyrow = 0) %>%
+            dplyr::bind_rows(partG_dummy) %>%
+            dplyr::mutate(StateGroup = dplyr::case_when(.data$DISTANCEED != 2 ~ 'Nope',
+                                         .data$ONLINESTATE == .data$UNITIDSTATE ~ 'INUS_INSTATE',
+                                         .data$ONLINESTATE == 57 ~ 'INUS_UNKNOWN',
+                                         .data$ONLINESTATE <= 78 ~ 'INUS_OUTSTATE',
+                                         .data$ONLINESTATE == 90 ~ 'OUTUS',
+                                         TRUE ~ 'Nope')) %>%
+            tidyr::pivot_wider(names_from = .data$StateGroup,
+                               values_from = .data$counter, values_fill = 0) %>%
+            dplyr::select(-.data$Nope) %>%
+           dplyr::mutate(LINE = dplyr::case_when(.data$ISDEGREECERTSEEKING == 1 & .data$STUDENTLEVEL == "Undergraduate" ~ 1,
                                    .data$ISDEGREECERTSEEKING == 0 & .data$STUDENTLEVEL == "Undergraduate" ~ 2,
                                    .data$STUDENTLEVEL == "Graduate" ~ 3
                                  )
                          ) %>%
-           dplyr::mutate(ENROLL_EXC = ifelse(.data$DISTANCEED == 2, 1, 0),
-                         ENROLL_SOME = ifelse(.data$DISTANCEED == 1, 1, 0)) %>%
+           dplyr::mutate(ENROLL_EXC = ifelse(.data$DISTANCEED == 2 & .data$dummyrow == 0, 1, 0),
+                         ENROLL_SOME = ifelse(.data$DISTANCEED == 1 & .data$dummyrow == 0, 1, 0)) %>%
            dplyr::group_by(.data$UNITID,
                            .data$LINE) %>%
            dplyr::summarize(ENROLLEXCLUSIVE = sum(.data$ENROLL_EXC, na.rm = T),

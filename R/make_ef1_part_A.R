@@ -8,7 +8,7 @@
 #' @param format A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})
 #'
 #' @importFrom rlang .data
-#' @importFrom magrittr "%>%"
+#'
 #' @importFrom dplyr select group_by summarize arrange transmute n mutate bind_rows
 #' @importFrom utils write.table
 #' @importFrom stringr str_to_upper
@@ -23,14 +23,22 @@ make_ef1_part_A <- function(df, cips = TRUE, output = "part", format = "both") {
 
   partA_prep <- df %>%
                 dplyr::select(.data$UNITID,
-                              .data$MAJORCIP,
                               .data$ISFULLTIME,
                               .data$ISFIRSTTIME,
                               .data$ISTRANSFER,
                               .data$ISDEGREECERTSEEKING,
                               .data$STUDENTLEVEL,
                               .data$RACEETHNICITY,
-                              .data$SEX) %>%
+                              .data$SEX,
+                              .data$CIP130000,
+                              .data$CIP140000,
+                              .data$CIP260000,
+                              .data$CIP270000,
+                              .data$CIP400000,
+                              .data$CIP520000,
+                              .data$CIP220101,
+                              .data$CIP510401,
+                              .data$CIP511201) %>%
                 dplyr::mutate(LINE = dplyr::case_when(
                                       .data$ISFULLTIME == 1 & .data$ISFIRSTTIME == 1 & .data$ISDEGREECERTSEEKING == 1 & .data$STUDENTLEVEL == "Undergraduate" ~ 1,
                                       .data$ISFULLTIME == 1 & .data$ISTRANSFER == 1 & .data$ISDEGREECERTSEEKING == 1 & .data$STUDENTLEVEL == "Undergraduate" ~ 2,
@@ -59,24 +67,24 @@ make_ef1_part_A <- function(df, cips = TRUE, output = "part", format = "both") {
                               .data$SEX) %>%
                dplyr::ungroup()
 
-  partA_cips <- partA_prep %>%
-                dplyr::filter(.data$MAJORCIP %in% c("13.0000", "14.0000", "26.0000",
-                                                    "27.0000", "40.0000", "52.0000",
-                                                    "22.0101", "51.0401", "51.1201")) %>%
-                dplyr::group_by(.data$UNITID,
-                                .data$MAJORCIP,
-                                .data$LINE,
-                                .data$RACEETHNICITY,
-                                .data$SEX) %>%
-                dplyr::summarise(COUNT = n()) %>%
-                #sort for easy viewing
-                dplyr::arrange(.data$MAJORCIP,
-                               .data$LINE,
-                               .data$RACEETHNICITY,
-                               .data$SEX) %>%
-                dplyr::ungroup()
 
   if(cips == TRUE){
+    partA_cips <- partA_prep %>%
+      tidyr::pivot_longer(cols = dplyr::matches("CIP"), names_to = "MAJORCIP", values_to = "CipFlag") %>%
+      dplyr::filter(.data$CipFlag == 1) %>%
+      dplyr::mutate(MAJORCIP = paste0(substr(.data$MAJORCIP, 4, 5), ".", substring(.data$MAJORCIP, 6, 9))) %>%
+      dplyr::group_by(.data$UNITID,
+                      .data$MAJORCIP,
+                      .data$LINE,
+                      .data$RACEETHNICITY,
+                      .data$SEX) %>%
+      dplyr::summarise(COUNT = n()) %>%
+      #sort for easy viewing
+      dplyr::arrange(.data$MAJORCIP,
+                     .data$LINE,
+                     .data$RACEETHNICITY,
+                     .data$SEX) %>%
+      dplyr::ungroup()
     partA_ready <- dplyr::bind_rows(partA_all,
                                     partA_cips)
   } else {

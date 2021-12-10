@@ -2,7 +2,6 @@
 #'
 #' @param df a dataframe
 #'
-#' @importFrom magrittr '%>%'
 #' @importFrom dplyr mutate recode
 #' @importFrom rlang .data
 #' @importFrom stringr str_to_upper

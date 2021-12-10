@@ -17,5 +17,5 @@ make_ef1_part_D(df, output = "part", format = "both")
 A text file
 }
 \description{
-COUNT of new non-degree students
+Count of new non-degree students
 }

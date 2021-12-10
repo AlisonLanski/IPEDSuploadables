@@ -16,7 +16,7 @@
 #' @return a dataframe ready for the rest of the e1d scripts
 #' @export
 #' @importFrom dplyr mutate select filter
-#' @importFrom magrittr %>%
+#' 
 #'
 
 create_dummy_data_e1d <- function(df_type = 'student'){

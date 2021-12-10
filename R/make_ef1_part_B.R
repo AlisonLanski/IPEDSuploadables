@@ -1,13 +1,13 @@
 #' Make Fall Enrollment Part B
 #'
-#' @description Student COUNTs by AGE/gender
+#' @description Student Counts by Age/gender
 #'
 #' @param df A dataframe of student information
 #' @param output A string (\code{"part"}, \code{"full"}, or \code{"both"})
 #' @param format A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})
 #'
 #' @importFrom rlang .data
-#' @importFrom magrittr "%>%"
+#'
 #' @importFrom dplyr select group_by summarise arrange transmute n mutate
 #' @importFrom utils write.table
 #' @importFrom stringr str_to_upper
