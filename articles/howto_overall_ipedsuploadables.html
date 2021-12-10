@@ -262,11 +262,16 @@ Your keyholder may be able to edit directly in the website, but this method is n
 <h4 id="how-the-package-can-help-you-troubleshoot">How the package can help you troubleshoot<a class="anchor" aria-label="anchor" href="#how-the-package-can-help-you-troubleshoot"></a>
 </h4>
 <p>A few functions have built-in data quality checks which will alert you of disallowed values. We are working to add more automated checks.</p>
-<p>If you want to examine a single report sub-part in depth, you can create a separate text file with only those values. We are working on ways to view your data in a prettier format.</p>
+<p>If you want to examine a single report sub-part in depth, you can create a separate text file with only those values.</p>
 <p>Example:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#if you only want to look at 12 month enrollment part B</span>
 <span class="fu"><a href="../reference/produce_e1d_report.html">produce_e1d_report</a></span><span class="op">(</span><span class="va">e1d_instr</span>, part <span class="op">=</span> <span class="st">"B"</span><span class="op">)</span></code></pre></div>
+<p>You can also produce a csv version of the part’s text file, for more readable output (still using IPEDS upload-required column names)</p>
+<p>Example:</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#text files make my eyes bleed! let's use a csv</span>
+<span class="fu"><a href="../reference/produce_e1d_report.html">produce_e1d_report</a></span><span class="op">(</span>hrs <span class="op">=</span> <span class="va">e1d_instr</span>, part <span class="op">=</span> <span class="st">"B"</span>, format <span class="op">=</span> <span class="st">"readable"</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
   </div>
