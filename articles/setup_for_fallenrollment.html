@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,18 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">IPEDSuploadables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.1</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -104,26 +100,27 @@
 
     
     
-<div id="the-make_ef1-scripts-require-2-separate-dataframes-one-with-row-level-students-and-one-with-pre-aggregated-retention-counts-" class="section level2">
-<h2 class="hasAnchor">
-<a href="#the-make_ef1-scripts-require-2-separate-dataframes-one-with-row-level-students-and-one-with-pre-aggregated-retention-counts-" class="anchor"></a>The <code>make_ef1</code> scripts require 2 separate dataframes, one with row-level students and one with pre-aggregated retention counts.</h2>
-</div>
-<div id="the-dataframes-must-follow-the-format-described-below" class="section level2">
-<h2 class="hasAnchor">
-<a href="#the-dataframes-must-follow-the-format-described-below" class="anchor"></a><em>The dataframes must follow the format described below</em>
+<div class="section level2">
+<h2 id="the-make_ef1-scripts-require-2-separate-dataframes-one-with-row-level-students-and-one-with-pre-aggregated-retention-counts-">The <code>make_ef1</code> scripts require 2 separate dataframes, one with row-level students and one with pre-aggregated retention counts.<a class="anchor" aria-label="anchor" href="#the-make_ef1-scripts-require-2-separate-dataframes-one-with-row-level-students-and-one-with-pre-aggregated-retention-counts-"></a>
 </h2>
-<div id="student-data-requirements" class="section level3">
-<h3 class="hasAnchor">
-<a href="#student-data-requirements" class="anchor"></a>Student data requirements</h3>
+</div>
+<div class="section level2">
+<h2 id="the-dataframes-must-follow-the-format-described-below">
+<em>The dataframes must follow the format described below</em><a class="anchor" aria-label="anchor" href="#the-dataframes-must-follow-the-format-described-below"></a>
+</h2>
+<div class="section level3">
+<h3 id="student-data-requirements">Student data requirements<a class="anchor" aria-label="anchor" href="#student-data-requirements"></a>
+</h3>
 <blockquote>
 <ul>
 <li>One row per person</li>
 <li>One IPEDS Unitid per file</li>
 <li>Columns with values and types as described below in any order (additional columns are allowed)</li>
+<li>Double-starred column names (**) are only required in years when IPEDS collects that information. In off-years, you can omit the columns or enter any placeholder value.</li>
 </ul>
 </blockquote>
-<p>Column names can use any capitalization method you like.</p>
-<table class="table table table-striped">
+<p>Column names can use any capitalization method you like. Do <strong>NOT</strong> include (**) in the column names.</p>
+<table class="table table table-striped" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
 Column Name
@@ -204,13 +201,13 @@ Numeric
 </tr>
 <tr>
 <td style="text-align:left;">
-IsRecentGrad
+IsRecentGrad**
 </td>
 <td style="text-align:left;width: 8em; font-style: italic;">
 Numeric
 </td>
 <td style="text-align:left;">
-0 - Did not graduate from high school in the previous 12 months<br>1 - Graduated from high school in the previous 12 months<br>*Not required in optional years (omit column or use any value you desire)
+0 - Did not graduate from high school in the previous 12 months<br>1 - Graduated from high school in the previous 12 months
 </td>
 </tr>
 <tr>
@@ -222,17 +219,6 @@ Numeric
 </td>
 <td style="text-align:left;">
 0 - Not degree/certificate seeking<br>1 - Degree/Certificate seeking
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-MajorCip
-</td>
-<td style="text-align:left;width: 8em; font-style: italic;">
-Character or Numeric
-</td>
-<td style="text-align:left;">
-xx.xxxx preferred,<br>x.xxx (etc) accepted
 </td>
 </tr>
 <tr>
@@ -270,24 +256,24 @@ Numeric
 </tr>
 <tr>
 <td style="text-align:left;">
-Age
+Age**
 </td>
 <td style="text-align:left;width: 8em; font-style: italic;">
 Numeric
 </td>
 <td style="text-align:left;">
-Any number<br>*Not required in optional years (omit column or use any value you desire)
+Any number
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-AdmitState
+AdmitState**
 </td>
 <td style="text-align:left;width: 8em; font-style: italic;">
 Numeric
 </td>
 <td style="text-align:left;">
-1-98: FIPS code for student state of residence at the time of admission; can see list of options on the IPEDS Fall Enrollment blank submission form. Note: Only required for first-time undergraduates<br>*Not required in optional years (omit column or use any value you desire)
+1-98: FIPS code for student state of residence at the time of admission; can see list of options on the IPEDS Fall Enrollment blank submission form. <br>Note: Only required for first-time undergraduates
 </td>
 </tr>
 <tr>
@@ -298,7 +284,7 @@ OnlineState
 Numeric
 </td>
 <td style="text-align:left;">
-1-98: FIPS code for student state of residence when enrolled entirely in online classes; can see list of options on the IPEDS Fall Enrollment blank submission form. Note: Only required for fully-online students
+1-98: FIPS code for student state of residence when enrolled entirely in online classes; can see list of options on the IPEDS Fall Enrollment blank submission form. <br>Note: Only required for fully-online students
 </td>
 </tr>
 <tr>
@@ -312,12 +298,111 @@ Numeric
 1-98: The FIPS code for your institution
 </td>
 </tr>
+<tr>
+<td style="text-align:left;">
+Cip130000**
+</td>
+<td style="text-align:left;width: 8em; font-style: italic;">
+Numeric
+</td>
+<td style="text-align:left;">
+0 - Not Applicable<br>1 - Student has declared a major under this 6-digit cip code
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cip140000**
+</td>
+<td style="text-align:left;width: 8em; font-style: italic;">
+Numeric
+</td>
+<td style="text-align:left;">
+0 - Not Applicable<br>1 - Student has declared a major under this 6-digit cip code
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cip260000**
+</td>
+<td style="text-align:left;width: 8em; font-style: italic;">
+Numeric
+</td>
+<td style="text-align:left;">
+0 - Not Applicable<br>1 - Student has declared a major under this 6-digit cip code
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cip270000**
+</td>
+<td style="text-align:left;width: 8em; font-style: italic;">
+Numeric
+</td>
+<td style="text-align:left;">
+0 - Not Applicable<br>1 - Student has declared a major under this 6-digit cip code
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cip400000**
+</td>
+<td style="text-align:left;width: 8em; font-style: italic;">
+Numeric
+</td>
+<td style="text-align:left;">
+0 - Not Applicable<br>1 - Student has declared a major under this 6-digit cip code
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cip520000**
+</td>
+<td style="text-align:left;width: 8em; font-style: italic;">
+Numeric
+</td>
+<td style="text-align:left;">
+0 - Not Applicable<br>1 - Student has declared a major under this 6-digit cip code
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cip220101**
+</td>
+<td style="text-align:left;width: 8em; font-style: italic;">
+Numeric
+</td>
+<td style="text-align:left;">
+0 - Not Applicable<br>1 - Student has declared a major under this 6-digit cip code
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cip510401**
+</td>
+<td style="text-align:left;width: 8em; font-style: italic;">
+Numeric
+</td>
+<td style="text-align:left;">
+0 - Not Applicable<br>1 - Student has declared a major under this 6-digit cip code
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cip511201**
+</td>
+<td style="text-align:left;width: 8em; font-style: italic;">
+Numeric
+</td>
+<td style="text-align:left;">
+0 - Not Applicable<br>1 - Student has declared a major under this 6-digit cip code
+</td>
+</tr>
 </tbody>
 </table>
 </div>
-<div id="retention-data-requirements" class="section level3">
-<h3 class="hasAnchor">
-<a href="#retention-data-requirements" class="anchor"></a>Retention data requirements</h3>
+<div class="section level3">
+<h3 id="retention-data-requirements">Retention data requirements<a class="anchor" aria-label="anchor" href="#retention-data-requirements"></a>
+</h3>
 <blockquote>
 <ul>
 <li>One row for full-time counts, one row for part-time counts</li>
@@ -325,7 +410,7 @@ Numeric
 <li>Columns with values and types as described below in any order (additional columns are allowed)</li>
 </ul>
 </blockquote>
-<table class="table table table-striped">
+<table class="table table table-striped" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
 </th>
@@ -342,7 +427,7 @@ Acceptable Value - Definition
 <tbody>
 <tr>
 <td style="text-align:left;">
-17
+25
 </td>
 <td style="text-align:left;width: 8em; font-style: italic;">
 Unitid
@@ -356,7 +441,7 @@ Numeric
 </tr>
 <tr>
 <td style="text-align:left;">
-18
+26
 </td>
 <td style="text-align:left;width: 8em; font-style: italic;">
 IsFullTime
@@ -370,7 +455,7 @@ Numeric
 </tr>
 <tr>
 <td style="text-align:left;">
-19
+27
 </td>
 <td style="text-align:left;width: 8em; font-style: italic;">
 OrigCohort
@@ -384,7 +469,7 @@ Number of first-time students in the prior-year cohort
 </tr>
 <tr>
 <td style="text-align:left;">
-20
+28
 </td>
 <td style="text-align:left;width: 8em; font-style: italic;">
 Exclusions
@@ -398,7 +483,7 @@ Number of first-time students to be excluded (removed) from the prior-year cohor
 </tr>
 <tr>
 <td style="text-align:left;">
-21
+29
 </td>
 <td style="text-align:left;width: 8em; font-style: italic;">
 Inclusions
@@ -412,7 +497,7 @@ Number of first-time students to be included (added) to the prior-year cohort
 </tr>
 <tr>
 <td style="text-align:left;">
-22
+30
 </td>
 <td style="text-align:left;width: 8em; font-style: italic;">
 StillEnrolled
@@ -427,9 +512,9 @@ Number of prior-year first-time students who are still enrolled in the current y
 </tbody>
 </table>
 </div>
-<div id="student-faculty-ratio" class="section level3">
-<h3 class="hasAnchor">
-<a href="#student-faculty-ratio" class="anchor"></a>Student-faculty ratio</h3>
+<div class="section level3">
+<h3 id="student-faculty-ratio">Student-faculty ratio<a class="anchor" aria-label="anchor" href="#student-faculty-ratio"></a>
+</h3>
 <p>This information will be collected via pop-up box. Type the correct number for your institution’s ratio when prompted.</p>
 </div>
 </div>
@@ -446,11 +531,13 @@ Number of prior-year first-time students who are still enrolled in the current y
 
 
       <footer><div class="copyright">
-  <p>Developed by Alison Lanski, Shiloh Bradley.</p>
+  <p></p>
+<p>Developed by Alison Lanski, Shiloh Fling.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
@@ -458,6 +545,8 @@ Number of prior-year first-time students who are still enrolled in the current y
 
   
 
+
+  
 
   </body>
 </html>

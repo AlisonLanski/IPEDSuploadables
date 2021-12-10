@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,18 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">IPEDSuploadables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.1</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -109,9 +105,9 @@
 </li>
 <li>IPEDS upload files must be 100% of the requested information for a particular report. In other words, if a report has parts A, B, and C, you must upload all parts in a single file or the upload will fail.</li>
 </ul>
-<div id="step-0-installload-the-package" class="section level2">
-<h2 class="hasAnchor">
-<a href="#step-0-installload-the-package" class="anchor"></a>Step 0: Install/Load the package</h2>
+<div class="section level2">
+<h2 id="step-0-installload-the-package">Step 0: Install/Load the package<a class="anchor" aria-label="anchor" href="#step-0-installload-the-package"></a>
+</h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#install option 1</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"AlisonLanski/IPEDSuploadables"</span><span class="op">)</span>
@@ -120,11 +116,11 @@
 <span class="fu">githubinstall</span><span class="fu">::</span><span class="fu">githubinstall</span><span class="op">(</span><span class="st">"IPEDSuploadables"</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#load the packages</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">IPEDSuploadables</span><span class="op">)</span></code></pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">IPEDSuploadables</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="step-1-prep-your-institutional-data" class="section level2">
-<h2 class="hasAnchor">
-<a href="#step-1-prep-your-institutional-data" class="anchor"></a>Step 1: Prep your institutional data</h2>
+<div class="section level2">
+<h2 id="step-1-prep-your-institutional-data">Step 1: Prep your institutional data<a class="anchor" aria-label="anchor" href="#step-1-prep-your-institutional-data"></a>
+</h2>
 <p>The package requires specific column names and values to work correctly. Each IPEDS report has a vignette that spells out requirements and also has sample data you can examine.</p>
 <table class="table">
 <colgroup>
@@ -178,7 +174,7 @@
 <p>You can call the sample data as desired to explore it</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#dataframe of student information for 12 month enrollment</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">e1d_student</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">e1d_student</span><span class="op">)</span>
 <span class="co">#&gt;   Unitid StudentId IsFullTime IsFirstTime IsTransfer IsDegreeCertSeeking</span>
 <span class="co">#&gt; 1 999999       100          1           1          0                   1</span>
 <span class="co">#&gt; 2 999999       101          1           1          0                   0</span>
@@ -194,9 +190,9 @@
 <span class="co">#&gt; 5 Undergraduate             1   1             0              1</span>
 <span class="co">#&gt; 6 Undergraduate             1   2             0              0</span></code></pre></div>
 </div>
-<div id="step-2-read-in-your-data-and-produce-your-ipeds-report" class="section level2">
-<h2 class="hasAnchor">
-<a href="#step-2-read-in-your-data-and-produce-your-ipeds-report" class="anchor"></a>Step 2: Read in your data and produce your IPEDS report</h2>
+<div class="section level2">
+<h2 id="step-2-read-in-your-data-and-produce-your-ipeds-report">Step 2: Read in your data and produce your IPEDS report<a class="anchor" aria-label="anchor" href="#step-2-read-in-your-data-and-produce-your-ipeds-report"></a>
+</h2>
 <p>Each IPEDS report has a single function which will produce all required sub-parts in a single file for upload.</p>
 <ul>
 <li>Some reports require 2 dataframes<br>
@@ -210,9 +206,9 @@
 <code class="sourceCode R"><span class="co">#full export using sample data</span>
 <span class="fu"><a href="../reference/produce_e1d_report.html">produce_e1d_report</a></span><span class="op">(</span>df <span class="op">=</span> <span class="va">e1d_student</span>, hrs <span class="op">=</span> <span class="va">e1d_instr</span>, part <span class="op">=</span> <span class="st">"ALL"</span><span class="op">)</span></code></pre></div>
 <p>A status message will be displayed as each subpart processes, even though there is only a single output file. This is a known bug that doesn’t affect functionality.</p>
-<div id="notes-for-specific-reports" class="section level3">
-<h3 class="hasAnchor">
-<a href="#notes-for-specific-reports" class="anchor"></a>Notes for specific reports</h3>
+<div class="section level3">
+<h3 id="notes-for-specific-reports">Notes for specific reports<a class="anchor" aria-label="anchor" href="#notes-for-specific-reports"></a>
+</h3>
 <p>Completions</p>
 <ul>
 <li>The extra cips dataframe is optional and can be left empty if your school has student completions in all cip/award level combinations previously reported</li>
@@ -228,25 +224,25 @@
 </ul>
 </div>
 </div>
-<div id="step-3-upload-your-ipeds-report" class="section level2">
-<h2 class="hasAnchor">
-<a href="#step-3-upload-your-ipeds-report" class="anchor"></a>Step 3: Upload your IPEDS report</h2>
+<div class="section level2">
+<h2 id="step-3-upload-your-ipeds-report">Step 3: Upload your IPEDS report<a class="anchor" aria-label="anchor" href="#step-3-upload-your-ipeds-report"></a>
+</h2>
 <p>A. Navigate to the IPEDS submission portal and log in.<br>
 B. Select the appropriate report (for example: “12 Month Enrollment”), select “key-value pair”, then browse to your .txt file and upload.<br>
 C. After your file uploads, continue your standard process to check edits, enter metadata, review results, lock, and submit the survey.</p>
 </div>
-<div id="troubleshooting" class="section level2">
-<h2 class="hasAnchor">
-<a href="#troubleshooting" class="anchor"></a>Troubleshooting</h2>
-<div id="you-need-to-make-a-data-correction-after-uploading" class="section level4">
-<h4 class="hasAnchor">
-<a href="#you-need-to-make-a-data-correction-after-uploading" class="anchor"></a>You need to make a data correction after uploading</h4>
+<div class="section level2">
+<h2 id="troubleshooting">Troubleshooting<a class="anchor" aria-label="anchor" href="#troubleshooting"></a>
+</h2>
+<div class="section level4">
+<h4 id="you-need-to-make-a-data-correction-after-uploading">You need to make a data correction after uploading<a class="anchor" aria-label="anchor" href="#you-need-to-make-a-data-correction-after-uploading"></a>
+</h4>
 <p>Update your base data, rerun the package function, and re-upload to IPEDS. You can upload as many times as you want to any particular survey.<br>
 Your keyholder may be able to edit directly in the website, but this method is not recommended since it is not reproducible.</p>
 </div>
-<div id="ipeds-rejects-your-upload-file-or-accepts-the-file-but-provides-an-error-message" class="section level4">
-<h4 class="hasAnchor">
-<a href="#ipeds-rejects-your-upload-file-or-accepts-the-file-but-provides-an-error-message" class="anchor"></a>IPEDS rejects your upload file or accepts the file but provides an error message</h4>
+<div class="section level4">
+<h4 id="ipeds-rejects-your-upload-file-or-accepts-the-file-but-provides-an-error-message">IPEDS rejects your upload file or accepts the file but provides an error message<a class="anchor" aria-label="anchor" href="#ipeds-rejects-your-upload-file-or-accepts-the-file-but-provides-an-error-message"></a>
+</h4>
 <p>Common issues include:</p>
 <ul>
 <li>Your data has disallowed values</li>
@@ -255,16 +251,16 @@ Your keyholder may be able to edit directly in the website, but this method is n
 </ul>
 <p><em>For example, IPEDS wants all previous CIP/Award Level combinations reported on the current upload file. If you have no students in those categories, add any flagged CIP/Award combinations to your extra_cips dataframe,rerun, and reupload to remove this error message</em></p>
 </div>
-<div id="you-want-to-change-the-local-save-location-for-your-upload-file" class="section level4">
-<h4 class="hasAnchor">
-<a href="#you-want-to-change-the-local-save-location-for-your-upload-file" class="anchor"></a>You want to change the local save location for your upload file</h4>
+<div class="section level4">
+<h4 id="you-want-to-change-the-local-save-location-for-your-upload-file">You want to change the local save location for your upload file<a class="anchor" aria-label="anchor" href="#you-want-to-change-the-local-save-location-for-your-upload-file"></a>
+</h4>
 <p>Reset your report path</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/set_report_path.html">set_report_path</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="how-the-package-can-help-you-troubleshoot" class="section level4">
-<h4 class="hasAnchor">
-<a href="#how-the-package-can-help-you-troubleshoot" class="anchor"></a>How the package can help you troubleshoot</h4>
+<div class="section level4">
+<h4 id="how-the-package-can-help-you-troubleshoot">How the package can help you troubleshoot<a class="anchor" aria-label="anchor" href="#how-the-package-can-help-you-troubleshoot"></a>
+</h4>
 <p>A few functions have built-in data quality checks which will alert you of disallowed values. We are working to add more automated checks.</p>
 <p>If you want to examine a single report sub-part in depth, you can create a separate text file with only those values. We are working on ways to view your data in a prettier format.</p>
 <p>Example:</p>
@@ -286,11 +282,13 @@ Your keyholder may be able to edit directly in the website, but this method is n
 
 
       <footer><div class="copyright">
-  <p>Developed by Alison Lanski, Shiloh Bradley.</p>
+  <p></p>
+<p>Developed by Alison Lanski, Shiloh Fling.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
@@ -298,6 +296,8 @@ Your keyholder may be able to edit directly in the website, but this method is n
 
   
 
+
+  
 
   </body>
 </html>
