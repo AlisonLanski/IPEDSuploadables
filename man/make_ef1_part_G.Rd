@@ -2,7 +2,7 @@
 % Please edit documentation in R/make_ef1_part_G.R
 \name{make_ef1_part_G}
 \alias{make_ef1_part_G}
-\title{Make Fall Enrollment Part G}
+\title{Make Fall Enrollment Part G (distance ed)}
 \usage{
 make_ef1_part_G(df, output = "part", format = "both")
 }

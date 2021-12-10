@@ -9,7 +9,7 @@
 #' @param seed A number
 #'
 #' @importFrom rlang .data
-#' 
+#'
 #' @importFrom dplyr select group_by summarize ungroup bind_rows arrange transmute n
 #' @importFrom utils write.table
 #'
@@ -25,11 +25,6 @@ create_dummy_data_ef1 <- function(df_type = 'students', n = 100, seed = 1234) {
     df <- data.frame(
       Unitid = 999999,
       StudentId = c(1001:(1000+n)),
-      MajorCip = sample(x = c(09.0100, #journalism
-                              26.0000, #on the list
-                              52.0000), #on the list
-                        size = n,
-                        replace = TRUE),
       IsFullTime = sample(0:1, size = n, replace = TRUE),
       StudentLevel = sample(c("Undergraduate", "Graduate"), size = n, replace = TRUE),
       IsDegreeCertSeeking = sample(0:1, size = n, replace = TRUE),
@@ -55,8 +50,19 @@ create_dummy_data_ef1 <- function(df_type = 'students', n = 100, seed = 1234) {
                     OnlineState = case_when(AdmitState == 66 ~ 6,
                                             TRUE ~ AdmitState)
                     ) %>%
-      dplyr::mutate(UnitidState = 6)
+      dplyr::mutate(UnitidState = 6) %>%
+      dplyr::mutate(Cip130000 = 0,
+                    Cip140000 = 0,
+                    Cip260000 = sample(x = c(0:1), size = n, prob = c(.75, .25),  replace = TRUE),
+                    Cip270000 = 0,
+                    Cip400000 = 0,
+                    Cip520000 = sample(x = c(0, 1), size = n, prob = c(.5, .5), replace = TRUE),
+                    Cip220101 = 0,
+                    Cip510401 = 0,
+                    Cip511201 = 0)
   }
+
+
 
     if(df_type == 'retention') {
     set.seed(seed)

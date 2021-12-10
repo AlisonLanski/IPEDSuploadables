@@ -2,7 +2,7 @@
 % Please edit documentation in R/make_ef1_part_F.R
 \name{make_ef1_part_F}
 \alias{make_ef1_part_F}
-\title{Make Fall Enrollment Part F}
+\title{Make Fall Enrollment Part F (retention)}
 \usage{
 make_ef1_part_F(df, output = "part", format = "both")
 }
@@ -17,5 +17,5 @@ make_ef1_part_F(df, output = "part", format = "both")
 A text file
 }
 \description{
-Make Fall Enrollment Part F
+Make Fall Enrollment Part F (retention)
 }
