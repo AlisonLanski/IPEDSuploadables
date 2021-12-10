@@ -26,7 +26,7 @@
 #' @return a dataframe ready for the rest of the comp scripts
 #' @export
 #' @importFrom dplyr mutate select filter anti_join n
-#' @importFrom magrittr %>%
+#' 
 #' @importFrom lubridate ymd dyears
 #'
 

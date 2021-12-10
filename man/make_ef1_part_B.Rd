@@ -17,5 +17,5 @@ make_ef1_part_B(df, output = "part", format = "both")
 A text file
 }
 \description{
-Student counts by age/gender
+Student Counts by Age/gender
 }

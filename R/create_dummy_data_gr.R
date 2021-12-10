@@ -16,7 +16,7 @@ create_dummy_data_gr <- function(n = 100, seed = 4567) {
                                           prob = c(.6, .3, .1)
                                           ),
                    Sex = sample(1:2, size = n, replace = TRUE),
-                   ProgramType = sample(1:3,
+                   EnteringProgramType = sample(1:3,
                                         size = n,
                                         replace = TRUE,
                                         prob = c(.2, .1, .7)
@@ -31,7 +31,7 @@ create_dummy_data_gr <- function(n = 100, seed = 4567) {
                                       )
                    ) %>%
     dplyr::mutate(
-      DirectLoan = dplyr::case_when(PellGrant == 0 ~
+      DirectLoan = dplyr::case_when(.data$PellGrant == 0 ~
                                       sample(0:1,
                                              size = n,
                                              replace = TRUE,
@@ -40,7 +40,7 @@ create_dummy_data_gr <- function(n = 100, seed = 4567) {
                                     TRUE ~ as.integer(0)
                                     ),
 
-      IsExclusion = dplyr::case_when(IsComp == 0 ~
+      IsExclusion = dplyr::case_when(.data$IsComp == 0 ~
                                        sample(0:1,
                                               size = n,
                                               replace = TRUE,
@@ -48,8 +48,8 @@ create_dummy_data_gr <- function(n = 100, seed = 4567) {
                                               ),
                                      TRUE ~ as.integer(0)
                                      ),
-      IsTransferOut = dplyr::case_when(IsComp == 0 &
-                                         IsExclusion == 0 ~
+      IsTransferOut = dplyr::case_when(.data$IsComp == 0 &
+                                         .data$IsExclusion == 0 ~
                                          sample(0:1,
                                                 size = n,
                                                 replace = TRUE,
@@ -57,14 +57,14 @@ create_dummy_data_gr <- function(n = 100, seed = 4567) {
                                                 ),
                                        TRUE ~ as.integer(0)
                                     ),
-      IsStillEnrolled = dplyr::case_when(IsComp == 0 &
-                                           IsExclusion == 0 &
-                                           IsTransferOut == 0 ~
+      IsStillEnrolled = dplyr::case_when(.data$IsComp == 0 &
+                                           .data$IsExclusion == 0 &
+                                           .data$IsTransferOut == 0 ~
                                            1,
                                          TRUE ~ 0),
-
-      CompletedFourYears = dplyr::case_when(IsComp == 1 &
-                                              ProgramType == 3 ~
+      CurrentProgramType = .data$EnteringProgramType,
+      CompletedFourYears = dplyr::case_when(.data$IsComp == 1 &
+                                              .data$EnteringProgramType == 3 ~
                                               sample(0:1,
                                                      size = n,
                                                      replace = TRUE,
@@ -72,9 +72,9 @@ create_dummy_data_gr <- function(n = 100, seed = 4567) {
                                                      ),
                                             TRUE ~ as.integer(0)
                                             ),
-      CompletedFiveYears = dplyr::case_when(IsComp == 1 &
-                                              ProgramType == 3 &
-                                              CompletedFourYears == 0 ~
+      CompletedFiveYears = dplyr::case_when(.data$IsComp == 1 &
+                                              .data$EnteringProgramType == 3 &
+                                              .data$CompletedFourYears == 0 ~
                                               sample(0:1,
                                                      size = n,
                                                      replace = TRUE,
@@ -82,18 +82,35 @@ create_dummy_data_gr <- function(n = 100, seed = 4567) {
                                                      ),
                                             TRUE ~ as.integer(0)
                                             ),
-      Completed150 = dplyr::case_when(IsComp == 0 ~
+      Completed150 = dplyr::case_when(.data$IsComp == 0 ~
                                         0,
-                                      ProgramType == 3 ~
+                                      .data$EnteringProgramType == 3 ~
                                         1,
-                                      ProgramType < 3 ~
+                                      .data$EnteringProgramType < 3 ~
                                         as.double(sample(0:1,
                                                size = n,
                                                replace = TRUE,
                                                prob = c(.1, .9)
                                                ))
                                       )
-      )
+            ) %>%
+    #add 1 person who switches from 2-4 yr to BA
+    rbind(data.frame(Unitid = 111111,
+          RaceEthnicity = 1,
+          Sex = 1,
+          EnteringProgramType = 2,
+          IsComp = 1,
+          PellGrant = 1,
+          DirectLoan = 1,
+          IsExclusion = 0,
+          IsTransferOut = 0,
+          IsStillEnrolled = 0,
+          CurrentProgramType = 3,
+          CompletedFourYears = 1,
+          CompletedFiveYears = 0,
+          Completed150 = 1
+          )) %>%
+    select(-.data$IsComp)
 
 
 return(df)

@@ -17,5 +17,5 @@ make_ef1_part_E(df, output = "part", format = "both")
 A text file
 }
 \description{
-Make Fall Enrollment Part E
+Retention counts
 }

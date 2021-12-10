@@ -4,12 +4,16 @@
 \alias{produce_gr_report}
 \title{Shortcut function to do all steps to produce a report}
 \usage{
-produce_gr_report(df, part = "all")
+produce_gr_report(df, part = "all", output = "full", format = "uploadable")
 }
 \arguments{
 \item{df}{a dataframe set up according to the readme}
 
-\item{part}{a string with what part of the report you want to produce 'all', 'A1', etc.}
+\item{part}{a string with what part of the report you want to produce "all", "A1", etc.}
+
+\item{output}{A string (\code{"part"}, \code{"full"}, or \code{"both"})}
+
+\item{format}{A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})}
 }
 \value{
 a txt file at the path of your choice

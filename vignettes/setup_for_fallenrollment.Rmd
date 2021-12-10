@@ -29,8 +29,9 @@ library(IPEDSuploadables)
 * One row per person
 * One IPEDS Unitid per file
 * Columns with values and types as described below in any order (additional columns are allowed)
+* Double-starred column names (**) are only required in years when IPEDS collects that information. In off-years, you can omit the columns or enter any placeholder value. 
 
-Column names can use any capitalization method you like.
+Column names can use any capitalization method you like. Do **NOT** include (**) in the column names.
 
 
 ```{r create_data_file_in_package, eval=FALSE, echo=FALSE}
