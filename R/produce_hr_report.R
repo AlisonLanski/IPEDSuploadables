@@ -30,6 +30,6 @@ produce_hr_report <- function(df, part = "all", output = "full", format = "uploa
   }
 
   if(part != "all") {
-    do.call(paste0("make_hr_part_", toupper(part)), list(df, output, format))
+    do.call(paste0("make_hr_part_", toupper(part)), list(df, output = 'part', format))
   }
 }
