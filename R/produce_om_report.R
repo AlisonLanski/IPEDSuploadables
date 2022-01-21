@@ -21,7 +21,7 @@ produce_om_report <- function(df, part = "ALL", output = "full", format = "uploa
   }
 
   if (toupper(part) %in% c("A", "B", "C", "D")) {
-    do.call(paste0("make_om_part_", toupper(part)), list(students, output, format))
+    do.call(paste0("make_om_part_", toupper(part)), list(students, output = "part", format))
   }
 }
 

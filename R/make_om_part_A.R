@@ -17,14 +17,26 @@ make_om_part_A <- function(df, output = "part", format = "both") {
 
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
+  #make sure we will end up with all possible reporting combinations
+  dummyA <- expand.grid(UNITID = get_ipeds_unitid(df),
+                        COHORTTYPE = c(1, 2, 3, 4),
+                        RECIPIENT = c(1, 2),
+                        COUNTED = 0,
+                        EXCLUSION = FALSE)
+
   partA <- df %>%
+          #add extra rows
+          dplyr::mutate(COUNTED = 1) %>%
+          dplyr::bind_rows(dummyA) %>%
+
           #aggregate the full data
           dplyr::group_by(.data$UNITID,
                           .data$COHORTTYPE,
                           .data$RECIPIENT)%>%
-          dplyr::summarize(COHORTCOUNT = dplyr::n(),
+          dplyr::summarize(COHORTCOUNT = sum(.data$COUNTED),
                            EXCLUSIONCOUNT = sum(.data$EXCLUSION)) %>%
           dplyr::ungroup() %>%
+
           #sort for easy viewing
           dplyr::arrange(.data$COHORTTYPE,
                          .data$RECIPIENT) %>%

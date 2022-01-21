@@ -52,14 +52,16 @@ make_om_part_D <- function(df, output = "part", format = "both") {
     tidyr::pivot_wider(names_from = .data$ENROLL,
                        values_from = .data$COUNT,
                        values_fill = 0) %>%
+
+    #add empty rows for completeness
+    bind_rows(d2_dummy) %>%
+
     dplyr::select(.data$UNITID,
                   .data$COHORTTYPE,
                   .data$RECIPIENT,
                   .data$ENROLLED,
                   .data$ELSEWHERE) %>%
 
-    #add empty rows for completeness
-    bind_rows(d2_dummy) %>%
     #aggregate
     dplyr::group_by(.data$UNITID,
                     .data$COHORTTYPE,

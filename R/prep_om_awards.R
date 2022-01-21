@@ -56,9 +56,7 @@ prep_om_awards <- function(df, award) {
               dplyr::ungroup() %>%
               #sort for easy viewing
               dplyr::arrange(.data$COHORTTYPE,
-                             .data$RECIPIENT) %>%
-              #remove empty rows
-              dplyr::filter(!(.data$`1` == 0 & .data$`2` == 0 & .data$`3` == 0))
+                             .data$RECIPIENT)
 
   return(award_df)
 }
