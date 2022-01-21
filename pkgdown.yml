@@ -1,5 +1,5 @@
 pandoc: 2.7.3
-pkgdown: 2.0.1
+pkgdown: 2.0.2
 pkgdown_sha: ~
 articles:
   howto_overall_ipedsuploadables: howto_overall_ipedsuploadables.html
@@ -10,7 +10,7 @@ articles:
   setup_for_gr200: setup_for_gr200.html
   setup_for_hr: setup_for_hr.html
   setup_for_om: setup_for_om.html
-last_built: 2021-12-10T21:50Z
+last_built: 2022-01-21T21:58Z
 urls:
   reference: https://alisonlanski.github.io/IPEDSuploadables/reference
   article: https://alisonlanski.github.io/IPEDSuploadables/articles
