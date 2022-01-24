@@ -30,7 +30,7 @@ make_ef1_part_D <- function(df, output = "part", format = "both") {
                                                   .data$STUDENTLEVEL == "Undergraduate" &
                                                   (.data$ISFIRSTTIME == 1 | .data$ISTRANSFER == 1))) %>%
            dplyr::group_by(.data$UNITID) %>%
-           dplyr::summarise(COUNT = sum(NEWNONDEGREE, na.rm = T)) %>%
+           dplyr::summarise(COUNT = sum(.data$NEWNONDEGREE, na.rm = T)) %>%
            dplyr::ungroup() %>%
            #format for upload
            dplyr::transmute(UNITID = paste0("UNITID=", .data$UNITID),
