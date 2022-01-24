@@ -26,10 +26,11 @@ make_ef1_part_D <- function(df, output = "part", format = "both") {
                          .data$STUDENTLEVEL,
                          .data$ISFIRSTTIME,
                          .data$ISTRANSFER) %>%
-           dplyr::filter(.data$ISDEGREECERTSEEKING == 0 & .data$STUDENTLEVEL == "Undergraduate" &
-                           (.data$ISFIRSTTIME == 1 | .data$ISTRANSFER == 1)) %>%
+           dplyr::mutate(NEWNONDEGREE = as.numeric(.data$ISDEGREECERTSEEKING == 0 &
+                                                  .data$STUDENTLEVEL == "Undergraduate" &
+                                                  (.data$ISFIRSTTIME == 1 | .data$ISTRANSFER == 1))) %>%
            dplyr::group_by(.data$UNITID) %>%
-           dplyr::summarise(COUNT = n()) %>%
+           dplyr::summarise(COUNT = sum(NEWNONDEGREE, na.rm = T)) %>%
            dplyr::ungroup() %>%
            #format for upload
            dplyr::transmute(UNITID = paste0("UNITID=", .data$UNITID),
