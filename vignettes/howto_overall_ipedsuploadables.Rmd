@@ -20,6 +20,7 @@ A few things to note:
 
 * To use this package, you'll need to prepare your data as indicated in vignettes. The vignettes can all be viewed through the [package website](https://alisonlanski.github.io/IPEDSuploadables/).  
 * IPEDS upload files must be 100% of the requested information for a particular report. In other words, if a report has parts A, B, and C, you must upload all parts in a single file or the upload will fail.  
+* To create an upload-ready file based on your own data preparation, see [How to produce other key-value uploads](howto_use_autoformat.html)
 
 ## Step 0: Install/Load the package
 ```{r setup, eval=FALSE}
