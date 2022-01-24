@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Grad Rates 200 wrapper function to produce report — produce_gr200_report • IPEDSuploadables</title>
+<title>Shortcut function to turn a dataframe into key-value pairs — apply_upload_format • IPEDSuploadables</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Grad Rates 200 wrapper function to produce report — produce_gr200_report" />
-<meta property="og:description" content="Grad Rates 200 wrapper function to produce report" />
+<meta property="og:title" content="Shortcut function to turn a dataframe into key-value pairs — apply_upload_format" />
+<meta property="og:description" content="Shortcut function to turn a dataframe into key-value pairs" />
 
 
 
@@ -139,41 +139,29 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Grad Rates 200 wrapper function to produce report</h1>
+    <h1>Shortcut function to turn a dataframe into key-value pairs</h1>
     
-    <div class="hidden name"><code>produce_gr200_report.Rd</code></div>
+    <div class="hidden name"><code>apply_upload_format.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Grad Rates 200 wrapper function to produce report</p>
+    <p>Shortcut function to turn a dataframe into key-value pairs</p>
     </div>
 
-    <pre class="usage"><span class='fu'>produce_gr200_report</span>(<span class='kw'>df</span>, part = <span class='st'>"all"</span>, output = <span class='st'>"full"</span>, format = <span class='st'>"uploadable"</span>)</pre>
+    <pre class="usage"><span class='fu'>apply_upload_format</span>(<span class='kw'>df</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>df</th>
-      <td><p>a dataframe set up according to the readme</p></td>
-    </tr>
-    <tr>
-      <th>part</th>
-      <td><p>a string with what part of the report you want to produce "all", "A1", etc.</p></td>
-    </tr>
-    <tr>
-      <th>output</th>
-      <td><p>A string (<code>"part"</code>, <code>"full"</code>, or <code>"both"</code>)</p></td>
-    </tr>
-    <tr>
-      <th>format</th>
-      <td><p>A string (<code>"uploadable"</code>, <code>"readable"</code>, or <code>"both"</code>)</p></td>
+      <td><p>dataframe with upload-compatible column names in upload-compatible order</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a txt file at the path of your choice</p>
+    <p>a dataframe with one column and upload-compatible rows</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
