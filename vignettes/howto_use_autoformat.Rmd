@@ -40,9 +40,10 @@ If you want the package to help you with aggregation and (some) recoding, look a
 This provides a start-to-finish example of preparing an admissions submission based on sample data. Always check your results after you upload your txt file to the IPEDS submission portal,
 
 ### Start with institutional data for applicants 
-```{r setup, eval=FALSE}
+```{r setup}
 #load packages
 library(dplyr)
+library(magrittr)
 library(IPEDSuploadables)
 ```
 
@@ -158,9 +159,9 @@ produce_other_report(partA, partB, partC, survey = "Admissions")
 ```
 
 ```{r showfinal, echo=FALSE, eval=TRUE, message=FALSE}
-rbind(apply_upload_format(partA),
-      apply_upload_format(partB),
-      apply_upload_format(partC)) %>%
+rbind(IPEDSuploadables:::apply_upload_format(partA),
+      IPEDSuploadables:::apply_upload_format(partB),
+      IPEDSuploadables:::apply_upload_format(partC)) %>%
   knitr::kable(format = 'html',
                row.names = FALSE,
                col.names = '')
