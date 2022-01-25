@@ -115,7 +115,8 @@
 <li>Get help converting your data into a key-value pair format</li>
 <li>Get help combining parts with different numbers of columns</li>
 </ul>
-<p>If you want the package to help you with aggregation and (some) recoding, look at the “setup” vignettes for supported uploads.</p>
+<p>If you want the package to help you with aggregation and (some) recoding, look at the “setup” vignettes for supported uploads</p>
+<p><em>Note: the <code>produce_other_report</code> function can be used to prepare any key-value pair file for an automated submission process (IPEDS or non-IPEDS)</em></p>
 </div>
 <div id="general-process" class="section level2">
 <h2 class="hasAnchor">
@@ -142,14 +143,6 @@
 <div class="sourceCode" id="cb1"><pre class="downlit">
 <span class="co">#load packages</span>
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://dplyr.tidyverse.org">dplyr</a></span>)
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Attaching package: 'dplyr'</span>
-<span class="co">#&gt; The following objects are masked from 'package:stats':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     filter, lag</span>
-<span class="co">#&gt; The following objects are masked from 'package:base':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     intersect, setdiff, setequal, union</span>
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw">magrittr</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw">IPEDSuploadables</span>)
 </pre></div>
@@ -1197,7 +1190,7 @@ B
 <span class="kw">adm_enr</span> <span class="op">&lt;-</span> <span class="kw">adm_dat</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(<span class="kw">Enroll</span> <span class="op">==</span> <span class="fl">1</span>)
 
-<span class="co">#we do not supply ACT individual test percentiles, I guess.</span>
+<span class="co">#in this example we are not supplying ACT test percentiles by subject</span>
 <span class="kw">partC</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(UNITID = <span class="fl">999999</span>,
                     SURVSECT = <span class="st">'ADM'</span>,
                     PART = <span class="st">'C'</span>,

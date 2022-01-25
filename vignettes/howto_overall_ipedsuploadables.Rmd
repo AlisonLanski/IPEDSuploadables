@@ -51,6 +51,7 @@ Each IPEDS report has a vignette that spells out requirements and also has sampl
 | Human Resources  | [staff](setup_for_hr.html) | hr_staff  |
 | Outcome Measures  |  [students & instructional activity](setup_for_om.html)  |  om_student  |
 
+To create files for non-supported reports, see [How to produce other key-value uploads](howto_use_autoformat.html)
 
 You can call the sample data as desired to explore it
 ```{r dummy_data, eval = TRUE}

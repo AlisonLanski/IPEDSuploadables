@@ -23,7 +23,9 @@ Follow the instructions if you want to ...
 * Get help combining parts with different numbers of columns 
 
 
-If you want the package to help you with aggregation and (some) recoding, look at the "setup" vignettes for supported uploads.  
+If you want the package to help you with aggregation and (some) recoding, look at the "setup" vignettes for supported uploads
+
+*Note: the `produce_other_report` function can be used to prepare any key-value pair file for an automated submission process (IPEDS or non-IPEDS)*
 
 
 ## General Process
@@ -40,7 +42,7 @@ If you want the package to help you with aggregation and (some) recoding, look a
 This provides a start-to-finish example of preparing an admissions submission based on sample data. Always check your results after you upload your txt file to the IPEDS submission portal,
 
 ### Start with institutional data for applicants 
-```{r setup}
+```{r setup, message=FALSE}
 #load packages
 library(dplyr)
 library(magrittr)
@@ -122,7 +124,7 @@ knitr::kable(partB,
 adm_enr <- adm_dat %>%
   filter(Enroll == 1)
 
-#we do not supply ACT individual test percentiles, I guess.
+#in this example we are not supplying ACT test percentiles by subject
 partC <- data.frame(UNITID = 999999,
                     SURVSECT = 'ADM',
                     PART = 'C',
