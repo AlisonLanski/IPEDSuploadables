@@ -11,8 +11,10 @@ apply_upload_format <- function(df) {
     set_report_path()
   }
 
-  colnames(df) <- stringr::str_to_upper(colnames(df))
-
-  purrr::map2_dfc(colnames(df), df, paste, sep = "=") %>%
+  # turn colnames into s named vector first;
+  # this removes a warning message from map2_dfc
+  # might as well do upper at the same time
+  stats::setNames(toupper(colnames(df)), colnames(df)) %>%
+  purrr::map2_dfc(df, paste, sep = "=") %>%
     tidyr::unite(col = "allunited", sep = ',')
 }
