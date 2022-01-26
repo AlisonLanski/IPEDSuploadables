@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">IPEDSuploadables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.2.3</span>
       </span>
     </div>
 
@@ -55,6 +55,9 @@
   <ul class="dropdown-menu" role="menu">
 <li>
       <a href="../articles/howto_overall_ipedsuploadables.html">How to use this package to support your IPEDS reporting</a>
+    </li>
+    <li>
+      <a href="../articles/howto_use_autoformat.html">How to produce other key-value uploads</a>
     </li>
     <li>
       <a href="../articles/setup_for_12monthenrollment.html">Set up your data for IPEDS 12 Month Enrollment processing</a>
@@ -107,7 +110,10 @@
 <ul>
 <li>To use this package, you’ll need to prepare your data as indicated in vignettes. The vignettes can all be viewed through the <a href="https://alisonlanski.github.io/IPEDSuploadables/">package website</a>.<br>
 </li>
-<li>IPEDS upload files must be 100% of the requested information for a particular report. In other words, if a report has parts A, B, and C, you must upload all parts in a single file or the upload will fail.</li>
+<li>IPEDS upload files must be 100% of the requested information for a particular report. In other words, if a report has parts A, B, and C, you must upload all parts in a single file or the upload will fail.<br>
+</li>
+<li>To create an upload-ready file based on your own data preparation, see <a href="howto_use_autoformat.html">How to produce other key-value uploads</a>
+</li>
 </ul>
 <div id="step-0-installload-the-package" class="section level2">
 <h2 class="hasAnchor">
@@ -177,6 +183,7 @@
 </tr>
 </tbody>
 </table>
+<p>To create files for non-supported reports, see <a href="howto_use_autoformat.html">How to produce other key-value uploads</a></p>
 <p>You can call the sample data as desired to explore it</p>
 <div class="sourceCode" id="cb3"><pre class="downlit">
 <span class="co">#dataframe of student information for 12 month enrollment</span>

@@ -34,6 +34,10 @@ institution-types for existing reports*
   - Fall Enrollment: 4-year degree granting institutions
   - Human Resources: degree granting institutions with more than 15 FTE
 
+*Note: the package now contains assistance to convert a report-ready
+dataframe into a key-value pair text file. This feature can be used for
+non-supported reports or for non-IPEDS key-value reporting*
+
 ## Website
 
 View the pkgdown version of this site and documentation at
