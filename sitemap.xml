@@ -16,6 +16,9 @@
     <loc>https://alisonlanski.github.io/IPEDSuploadables/articles/howto_overall_ipedsuploadables.html</loc>
   </url>
   <url>
+    <loc>https://alisonlanski.github.io/IPEDSuploadables/articles/howto_use_autoformat.html</loc>
+  </url>
+  <url>
     <loc>https://alisonlanski.github.io/IPEDSuploadables/articles/index.html</loc>
   </url>
   <url>
@@ -49,13 +52,13 @@
     <loc>https://alisonlanski.github.io/IPEDSuploadables/reference/IPEDSuploadables.html</loc>
   </url>
   <url>
+    <loc>https://alisonlanski.github.io/IPEDSuploadables/reference/apply_upload_format.html</loc>
+  </url>
+  <url>
     <loc>https://alisonlanski.github.io/IPEDSuploadables/reference/com_cips.html</loc>
   </url>
   <url>
     <loc>https://alisonlanski.github.io/IPEDSuploadables/reference/com_students.html</loc>
-  </url>
-  <url>
-    <loc>https://alisonlanski.github.io/IPEDSuploadables/reference/create_autoupload_format_from_aggregate.html</loc>
   </url>
   <url>
     <loc>https://alisonlanski.github.io/IPEDSuploadables/reference/create_dummy_data_com.html</loc>
@@ -245,6 +248,9 @@
   </url>
   <url>
     <loc>https://alisonlanski.github.io/IPEDSuploadables/reference/produce_om_report.html</loc>
+  </url>
+  <url>
+    <loc>https://alisonlanski.github.io/IPEDSuploadables/reference/produce_other_report.html</loc>
   </url>
   <url>
     <loc>https://alisonlanski.github.io/IPEDSuploadables/reference/recode_reg.html</loc>
