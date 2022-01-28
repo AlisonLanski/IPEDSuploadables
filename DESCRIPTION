@@ -1,6 +1,6 @@
 Package: IPEDSuploadables
 Title: Transforms institutional data into approved IPEDS uploadable text files and supporting documents
-Version: 2.2.3
+Version: 2.2.4
 Authors@R: c(
             person(given = "Alison", family = "Lanski", 
             role = c("aut", "cre"),
