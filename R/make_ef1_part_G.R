@@ -26,7 +26,7 @@ make_ef1_part_G <- function(df, output = "part", format = "both") {
                                     STUDENTID = "thisisastudentid",
                                     ISDEGREECERTSEEKING = c(0, 1),
                                     STUDENTLEVEL = c("Undergraduate", "Graduate"),
-                                    ONLINESTATE = c(6, 57, 78, 90), #cover all the options
+                                    ONLINESTATE = c(df$UNITIDSTATE[1], 6, 57, 78, 90), #cover all the options
                                     DISTANCEED = c(1,2),
                                     counter = 0,
                                     dummyrow = 1) %>%
