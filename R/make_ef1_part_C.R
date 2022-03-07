@@ -44,7 +44,6 @@ make_ef1_part_C <- function(df) {
                                 .data$STUDENTLEVEL,
                                 .data$ADMITSTATE,
                                 .data$ISRECENTGRAD) %>%
-                  #recode_state() %>%
                   dplyr::filter(.data$ISFIRSTTIME == 1,
                                 .data$ISDEGREECERTSEEKING == 1,
                                 .data$STUDENTLEVEL == "Undergraduate",
