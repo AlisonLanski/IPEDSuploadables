@@ -7,14 +7,12 @@
 
 apply_upload_format <- function(df) {
 
-  while (!exists(x = "output_path", envir = globalenv())) {
-    set_report_path()
-  }
-
-  # turn colnames into s named vector first;
+  # turn colnames into a named vector first;
   # this removes a warning message from map2_dfc
-  # might as well do upper at the same time
-  stats::setNames(toupper(colnames(df)), colnames(df)) %>%
+  # do NOT want to set colnames toupper here,
+  #   because survey might want different caps method
+  #   set it by survey (this is on the user for "other" surveys)
+  stats::setNames(colnames(df), colnames(df)) %>%
   purrr::map2_dfc(df, paste, sep = "=") %>%
     tidyr::unite(col = "allunited", sep = ',')
 }

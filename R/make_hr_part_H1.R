@@ -3,8 +3,6 @@
 #' @description  Part H1 --- Full-time new hire instructional staff by tenure status and race/ethnicity/gender
 #'
 #' @param df a dataframe
-#' @param output a string (\code{"part"}, \code{"full"}, or \code{"both"})
-#' @param format A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})
 #'
 #' @importFrom dplyr bind_rows filter select bind_rows group_by summarize ungroup arrange transmute
 #' @importFrom tidyr pivot_wider
@@ -15,7 +13,7 @@
 #' @export
 #'
 
-make_hr_part_H1 <- function(df, output = "part", format = "both") {
+make_hr_part_H1 <- function(df) {
 
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
@@ -46,17 +44,11 @@ make_hr_part_H1 <- function(df, output = "part", format = "both") {
             dplyr::arrange(.data$TENURE,
                            .data$REG) %>%
             #format for upload
-            dplyr::transmute(UNITID = paste0("UNITID=", .data$UNITID),
-                             SURVSECT = "SURVSECT=HR1",
-                             PART = "PART=H1",
-                             TENURE = paste0("TENURE=", .data$TENURE),
-                             RACEETHNICITYGENDER = paste0("RACEETHNICITYGENDER=", .data$REG),
-                             COUNT = paste0("COUNT=", .data$COUNT))
-
-  #create the txt file
-  write_report(df = partH1,
-               component = "HumanResources",
-               part = "PartH1",
-               output = output,
-               format = format)
+            dplyr::transmute(UNITID = .data$UNITID,
+                             SURVSECT = "HR1",
+                             PART = "H1",
+                             TENURE = .data$TENURE,
+                             RACEETHNICITYGENDER = .data$REG,
+                             COUNT = .data$COUNT
+                             )
 }

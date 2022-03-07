@@ -3,8 +3,6 @@
 #' @description  Part A1 --- COUNT of FT INSTRUCTIONAL staff by tenure status, academic rank, and race/ethnicity/gender
 #'
 #' @param df a dataframe
-#' @param output A string (\code{"part"}, \code{"full"}, or \code{"both"})
-#' @param format A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})
 #'
 #' @importFrom dplyr bind_rows filter select group_by ungroup arrange transmute
 #' @importFrom rlang .data
@@ -14,7 +12,7 @@
 #' @export
 #'
 
-make_hr_part_A1 <- function(df, output = "part", format = "both") {
+make_hr_part_A1 <- function(df) {
 
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
@@ -56,18 +54,13 @@ make_hr_part_A1 <- function(df, output = "part", format = "both") {
                            .data$RANK,
                            .data$REG) %>%
             #format for upload
-            dplyr::transmute(UNITID = paste0("UNITID=", .data$UNITID),
-                             SURVSECT = "SURVSECT=HR1",
-                             PART = "PART=A1",
-                             TENURE = paste0("TENURE=", .data$TENURE),
-                             RANK = paste0("RANK=", .data$RANK),
-                             RACEETHNICITYGENDER = paste0("RACEETHNICITYGENDER=", .data$REG),
-                             COUNT = paste0("COUNT=", .data$COUNT))
-
-  write_report(df = partA1,
-               component = "HumanResources",
-               part = "PartA1",
-               output = output,
-               format = format)
+            dplyr::transmute(UNITID = .data$UNITID,
+                             SURVSECT = "HR1",
+                             PART = "A1",
+                             TENURE = .data$TENURE,
+                             RANK =  .data$RANK,
+                             RACEETHNICITYGENDER = .data$REG,
+                             COUNT = .data$COUNT
+                             )
 
 }

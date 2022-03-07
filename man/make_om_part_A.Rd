@@ -4,14 +4,10 @@
 \alias{make_om_part_A}
 \title{Make Outcome Measures Part A}
 \usage{
-make_om_part_A(df, output = "part", format = "both")
+make_om_part_A(df)
 }
 \arguments{
 \item{df}{A dataframe of student statuses}
-
-\item{output}{A string (\code{"part"}, \code{"full"}, or \code{"both"})}
-
-\item{format}{A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})}
 }
 \value{
 A text file ready for IPEDS upload

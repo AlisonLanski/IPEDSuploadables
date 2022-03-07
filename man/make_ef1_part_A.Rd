@@ -4,16 +4,12 @@
 \alias{make_ef1_part_A}
 \title{Make Fall Enrollment Part A}
 \usage{
-make_ef1_part_A(df, cips = TRUE, output = "part", format = "both")
+make_ef1_part_A(df, cips = TRUE)
 }
 \arguments{
 \item{df}{A dataframe of student information}
 
 \item{cips}{A logical indicating if part A  needs to provide breakdowns by particular CIPs}
-
-\item{output}{A string (\code{"part"}, \code{"full"}, or \code{"both"})}
-
-\item{format}{A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})}
 }
 \value{
 A text file

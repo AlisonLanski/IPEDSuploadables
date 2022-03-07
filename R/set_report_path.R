@@ -14,8 +14,4 @@ set_report_path <- function() {
     path <- paste0(path, "/")
   }
 
-  # Return path object to environment
-  # Better not to send it to global, but figuring out a real environment is hard
-  assign(x = "output_path", value = path, envir = globalenv())
-
 }

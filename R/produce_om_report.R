@@ -1,27 +1,60 @@
-#' Shortcut function to do all steps to produce a report
+#' Shortcut function to produce a report for Outcome Measures
 #'
 #' @param df A dataframe set up according to the readme
-#' @param part A string with what part of the report you want to produce: 'all', 'A', etc.
-#' @param output A string (\code{"part"}, \code{"full"}, or \code{"both"})
-#' @param format A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})
+#' @param part A string with what part of the report you want to produce: 'all',
+#'   'A', etc.
+#' @param format A string (\code{"uploadable"} will produce a properly formatted
+#'   upload file. \code{"readable"} will produce a csv of the upload file (only
+#'   works for one part at a time). \code{"both"} will provide both options, but
+#'   only works with one part at a time.
 #'
-#' @return A txt file at the path of your choice
+#' @return A txt or csv file at the path of your choice
 #' @export
 #'
 
-produce_om_report <- function(df, part = "ALL", output = "full", format = "uploadable") {
+produce_om_report <- function(df, part = "ALL", format = "uploadable") {
+
+  stopifnot(toupper(part) %in% c("A", "B", "C", "D", "ALL"),
+            toupper(format) %in% c("UPLOADABLE", "READABLE", "BOTH"))
 
   students <- prep_om_data_frame(df = df)
+  output_path <- set_report_path()
+  survey = 'OutcomeMeasures'
 
-  if (toupper(part) == "ALL") {
-    make_om_part_A(df = students, output = output, format = format)
-    make_om_part_B(df = students, output = output, format = format)
-    make_om_part_C(df = students, output = output, format = format)
-    make_om_part_D(df = students, output = output, format = format)
-  }
+  #uploadable means spit out a txt file
+  if(toupper(part) == 'ALL') {
 
-  if (toupper(part) %in% c("A", "B", "C", "D")) {
-    do.call(paste0("make_om_part_", toupper(part)), list(students, output = "part", format))
-  }
+      write_report(
+        make_om_part_A(df = students),
+        make_om_part_B(df = students),
+        make_om_part_C(df = students),
+        make_om_part_D(df = students),
+        survey = survey,
+        part = 'AllParts',
+        output_path = output_path
+        )
+
+    } else if(toupper(part) %in% c("A", "B", "C", "D")) {
+
+        if(toupper(format) %in% c("UPLOADABLE", "BOTH")){
+          write_report(
+            do.call(paste0("make_om_part_", toupper(part)), list(students)),
+            survey = survey,
+            part = paste0("Part", toupper(part)),
+            output_path = output_path
+          )
+        }
+
+        if(toupper(format) %in% c("BOTH", "READABLE")){
+          write_report_csv(
+            do.call(paste0("make_om_part_", toupper(part)), list(students)),
+            survey = 'OutcomeMeasures',
+            part = paste0("Part", toupper(part)),
+            output_path = output_path
+            )
+        }
+
+      }
+
 }
 

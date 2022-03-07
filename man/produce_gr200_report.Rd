@@ -4,19 +4,18 @@
 \alias{produce_gr200_report}
 \title{Grad Rates 200 wrapper function to produce report}
 \usage{
-produce_gr200_report(df, part = "all", output = "full", format = "uploadable")
+produce_gr200_report(df, format = "uploadable")
 }
 \arguments{
 \item{df}{a dataframe set up according to the readme}
 
-\item{part}{a string with what part of the report you want to produce "all", "A1", etc.}
-
-\item{output}{A string (\code{"part"}, \code{"full"}, or \code{"both"})}
-
-\item{format}{A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})}
+\item{format}{A string (\code{"uploadable"} will produce a properly formatted
+upload file. \code{"readable"} will produce a csv of the upload file (only
+works for one part at a time). \code{"both"} will provide both options, but
+only works with one part at a time.}
 }
 \value{
-a txt file at the path of your choice
+A txt or csv file at the path of your choice
 }
 \description{
 Grad Rates 200 wrapper function to produce report

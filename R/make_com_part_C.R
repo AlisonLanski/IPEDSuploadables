@@ -1,8 +1,6 @@
 #' Make Completions Part C
 #'
 #' @param df A dataframe of student/degree information
-#' @param output A string (\code{"part"}, \code{"full"}, or \code{"both"})
-#' @param format A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})
 #'
 #' @importFrom rlang .data
 #' @importFrom dplyr select group_by summarize ungroup arrange transmute n distinct
@@ -13,7 +11,7 @@
 #' @export
 #'
 
-make_com_part_C <- function(df, output = "part", format = "both") {
+make_com_part_C <- function(df) {
 
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
@@ -34,17 +32,11 @@ make_com_part_C <- function(df, output = "part", format = "both") {
            dplyr::arrange(.data$RACEETHNICITY,
                           .data$SEX) %>%
            #format for upload
-           dplyr::transmute(UNITID = paste0("UNITID=", .data$UNITID),
-                            SURVSECT = "SURVSECT=COM",
-                            PART = "PART=C",
-                            RACE = paste0("RACE=", .data$RACEETHNICITY),
-                            SEX = paste0("SEX=", .data$SEX),
-                            COUNT = paste0("COUNT=", .data$COUNT)
+           dplyr::transmute(UNITID = .data$UNITID,
+                            SURVSECT = "COM",
+                            PART = "C",
+                            RACE = .data$RACEETHNICITY,
+                            SEX = .data$SEX,
+                            COUNT = .data$COUNT
                             )
-
-  write_report(df = partC,
-               component = "Completions",
-               part = "PartC",
-               output = output,
-               format = format)
 }

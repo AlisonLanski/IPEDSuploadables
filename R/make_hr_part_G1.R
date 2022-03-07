@@ -3,8 +3,6 @@
 #' @description  Part G1 --- Salaries of INSTRUCTIONAL staff
 #'
 #' @param df a dataframe
-#' @param output a string (\code{"part"}, \code{"full"}, or \code{"both"})
-#' @param format A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})
 #'
 #' @importFrom dplyr bind_rows filter select bind_rows group_by summarize ungroup arrange transmute
 #' @importFrom tidyr pivot_wider
@@ -15,7 +13,7 @@
 #' @export
 #'
 
-make_hr_part_G1 <- function(df, output = "part", format = "both") {
+make_hr_part_G1 <- function(df) {
 
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
@@ -80,28 +78,23 @@ make_hr_part_G1 <- function(df, output = "part", format = "both") {
             dplyr::arrange(.data$RANK,
                            .data$GENDER) %>%
             #format for upload
-            dplyr::transmute(UNITID = paste0("UNITID=", .data$UNITID),
-                             SURVSECT = "SURVSECT=HR1",
-                             PART = "PART=G1",
-                             RANK = paste0("RANK=", .data$RANK),
-                             GENDER = paste0("GENDER=", .data$GENDER),
-                             `12mCOUNT` = paste0("12MCOUNT=", .data$`12mCOUNT`),
-                             `11mCOUNT` = paste0("11MCOUNT=", .data$`11mCOUNT`),
-                             `10mCOUNT` = paste0("10MCOUNT=", .data$`10mCOUNT`),
-                             `9mCOUNT` = paste0("9MCOUNT=", .data$`9mCOUNT`),
-                             `LessThan9mCOUNT` = paste0("LESSTHAN9MCOUNT=", .data$LessThan9mCOUNT),
-                             #`ZzCOUNT` = paste0("ZzCOUNT=", .data$ZzCOUNT),
-                             `12mSoutlays` = paste0("12MSOUTLAYS=", .data$`12mSoutlays`),
-                             `11mSoutlays` = paste0("11MSOUTLAYS=", .data$`11mSoutlays`),
-                             `10mSoutlays` = paste0("10MSOUTLAYS=", .data$`10mSoutlays`),
-                             `9mSoutlays` = paste0("9MSOUTLAYS=", .data$`9mSoutlays`)#,
-                             #`ZzSoutlays` = paste0("ZzSoutlays=", ZzSoutlays)
+            dplyr::transmute(UNITID = .data$UNITID,
+                             SURVSECT = "HR1",
+                             PART = "G1",
+                             RANK = .data$RANK,
+                             GENDER = .data$GENDER,
+                             `12MCOUNT` =  .data$`12mCOUNT`,
+                             `11MCOUNT` = .data$`11mCOUNT`,
+                             `10MCOUNT` = .data$`10mCOUNT`,
+                             `9MCOUNT` = .data$`9mCOUNT`,
+                             `LESSTHAN9MCOUNT` = .data$LessThan9mCOUNT,
+                             #dont report the ZZ to ipeds
+                             #`ZzCOUNT` =  .data$ZzCOUNT,
+                             `12MSOUTLAYS` = .data$`12mSoutlays`,
+                             `11MSOUTLAYS` = .data$`11mSoutlays`,
+                             `10MSOUTLAYS` = .data$`10mSoutlays`,
+                             `9MSOUTLAYS` = .data$`9mSoutlays`#,
+                             #`ZzSoutlays` = .data$ZzSoutlays
                              )
 
-  #create the txt file
-  write_report(df = partG1,
-               component = "HumanResources",
-               part = "PartG1",
-               output = output,
-               format = format)
 }

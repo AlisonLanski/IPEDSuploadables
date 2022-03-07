@@ -3,8 +3,6 @@
 #' @description Distance Ed counts
 #'
 #' @param df A dataframe of student/degree information
-#' @param output A string (\code{"part"}, \code{"full"}, or \code{"both"})
-#' @param format A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})
 #'
 #' @importFrom rlang .data
 #'
@@ -16,7 +14,7 @@
 #' @export
 #'
 
-make_ef1_part_G <- function(df, output = "part", format = "both") {
+make_ef1_part_G <- function(df) {
 
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
@@ -71,22 +69,16 @@ make_ef1_part_G <- function(df, output = "part", format = "both") {
            #sort for easy viewing
            dplyr::arrange(.data$LINE) %>%
            #format for upload
-           dplyr::transmute(UNITID = paste0("UNITID=", .data$UNITID),
-                            SURVSECT = "SURVSECT=EF1",
-                            PART = "PART=G",
-                            LINE = paste0("LINE=", .data$LINE),
-                            ENROLL_EXCLUSIVE = paste0("ENROLL_EXCLUSIVE=", .data$ENROLLEXCLUSIVE),
-                            ENROLL_SOME = paste0("ENROLL_SOME=", .data$ENROLLSOME),
-                            INUS_PPS = paste0("INUS_PPS=", .data$PPS),
-                            INUS_NOTPPS = paste0("INUS_NOTPPS=", .data$NOTPPS),
-                            INUS_UNKNOWN_STATE = paste0("INUS_UNKNOWN_STATE=", .data$UNKNOWNSTATE),
-                            OUTSIDEUS = paste0("OUTSIDEUS=", .data$OUTSIDEUS)
+           dplyr::transmute(UNITID = .data$UNITID,
+                            SURVSECT = "EF1",
+                            PART = "G",
+                            LINE = .data$LINE,
+                            ENROLL_EXCLUSIVE = .data$ENROLLEXCLUSIVE,
+                            ENROLL_SOME = .data$ENROLLSOME,
+                            INUS_PPS = .data$PPS,
+                            INUS_NOTPPS = .data$NOTPPS,
+                            INUS_UNKNOWN_STATE = .data$UNKNOWNSTATE,
+                            OUTSIDEUS = .data$OUTSIDEUS
                            )
 
-  #create the txt file
-  write_report(df = partG,
-               component = "FallEnrollment",
-               part = "PartG",
-               output = output,
-               format = format)
 }

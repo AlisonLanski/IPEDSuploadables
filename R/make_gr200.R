@@ -1,11 +1,9 @@
 #' Make Graduation Rates 200
 #'
 #' @param df A dataframe of student/degree information
-#' @param output A string (\code{"part"}, \code{"full"}, or \code{"both"})
-#' @param format A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})
 #'
 #' @importFrom rlang .data
-#' 
+#'
 #' @importFrom dplyr group_by summarize ungroup transmute
 #' @importFrom utils write.table
 #' @importFrom stringr str_to_upper
@@ -15,7 +13,7 @@
 #'
 
 
-make_gr200 <- function(df, output = "part", format = "both") {
+make_gr200 <- function(df) {
 
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
@@ -26,18 +24,12 @@ make_gr200 <- function(df, output = "part", format = "both") {
                             STILLENROLLED = sum(.data$ISSTILLENROLLED)) %>%
            dplyr::ungroup() %>%
            #format for upload
-           dplyr::transmute(UNITID = paste0("UNITID=", .data$UNITID),
-                            SURVSECT = "SURVSECT=G21",
-                            PART = "PART=A",
-                            ADEXCL = paste0("ADEXCL=", .data$EXCLUSIONS),
-                            `COMPY7-8` = paste0("COMPY7-8=", .data$COMP),
-                            STILLENROLLED = paste0("STILLENROLLED=", .data$STILLENROLLED),
+           dplyr::transmute(UNITID = .data$UNITID,
+                            SURVSECT = "G21",
+                            PART = "A",
+                            ADEXCL = .data$EXCLUSIONS,
+                            `COMPY7-8` = .data$COMP,
+                            STILLENROLLED = .data$STILLENROLLED,
                             )
 
-  #create the txt file
-  write_report(df = gr200,
-               component = "GR200",
-               part = "AllData",
-               output = output,
-               format = format)
 }
