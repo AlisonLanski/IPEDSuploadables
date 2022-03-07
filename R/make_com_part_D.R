@@ -14,6 +14,8 @@
 
 make_com_part_D <- function(df, extracips = NULL) {
 
+  stopifnot()
+
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
   if(!is.null(extracips)) {
@@ -179,33 +181,5 @@ make_com_part_D <- function(df, extracips = NULL) {
                      AGE4 = .data$AGE4,
                      AGE5 = .data$AGE5
     )
-
-  #Error messages that would stem from recoding errors
-
-  #Award Level
-  if(("CTLEVEL=99" %in% partD$CTLEVEL) != 0) {
-    warning("Warning! Your Part D results contain unknown values for degree level.
-                         Please check your data and rerun from the top.")
-  }
-
-  #RaceEthnicity
-  if(("ZRACEETH" %in% colnames(partD)) != 0) {
-    warning("Warning!  Your results contain unknown values for race/ethnicity.
-                         Please check your data and rerun from the top.")
-  }
-
-  #Sex
-  if(("ZRACESEX" %in% colnames(partD)) != 0) {
-    warning("Warning!  Your results contain unknown values for sex.
-                         Please check your data and rerun from the top.")
-  }
-
-  #Age
-  if(("AGE9" %in% colnames(partD)) != 0) {
-    warning("Warning!  Your results contain unknown values for age.
-                         Please check your data and rerun from the top.")
-  }
-
-  return(partD)
 
 }
