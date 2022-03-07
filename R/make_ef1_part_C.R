@@ -6,7 +6,7 @@
 #'
 #' @importFrom rlang .data
 #'
-#' @importFrom dplyr select group_by summarise ungroup bind_rows arrange transmute n mutate bind_rows
+#' @importFrom dplyr select group_by ungroup bind_rows arrange transmute n mutate bind_rows
 #' @importFrom utils write.table
 #' @importFrom stringr str_to_upper
 #'
@@ -32,7 +32,7 @@ make_ef1_part_C <- function(df) {
                dplyr::group_by(.data$UNITID,
                                .data$LINE,
                                .data$HS) %>%
-               dplyr::summarise(COUNT = n()) %>%
+               dplyr::summarize(COUNT = n()) %>%
                dplyr::ungroup()
 
 
@@ -53,7 +53,7 @@ make_ef1_part_C <- function(df) {
                   dplyr::group_by(.data$UNITID,
                                   .data$LINE,
                                   .data$HS) %>%
-                  dplyr::summarise(COUNT = n()) %>%
+                  dplyr::summarize(COUNT = n()) %>%
                   dplyr::ungroup()
 
   #put them together

@@ -6,7 +6,7 @@
 #'
 #' @importFrom rlang .data
 #'
-#' @importFrom dplyr select group_by summarise arrange transmute n mutate
+#' @importFrom dplyr select group_by summarize arrange transmute n mutate
 #' @importFrom utils write.table
 #' @importFrom stringr str_to_upper
 #'
@@ -54,7 +54,7 @@ make_ef1_part_B <- function(df) {
                            .data$STUDENTLEVEL,
                            .data$LINE,
                            .data$SEX) %>%
-           dplyr::summarise(COUNT = n()) %>%
+           dplyr::summarize(COUNT = n()) %>%
            #sort for easy viewing
            dplyr::arrange(.data$LINE,
                           .data$STUDENTLEVEL,

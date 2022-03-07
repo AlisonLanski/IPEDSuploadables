@@ -6,7 +6,7 @@
 #'
 #' @importFrom rlang .data
 #'
-#' @importFrom dplyr select group_by summarise filter arrange transmute n
+#' @importFrom dplyr select group_by filter arrange transmute n
 #' @importFrom utils write.table
 #' @importFrom stringr str_to_upper
 #'
@@ -28,7 +28,7 @@ make_ef1_part_D <- function(df) {
                                                   .data$STUDENTLEVEL == "Undergraduate" &
                                                   (.data$ISFIRSTTIME == 1 | .data$ISTRANSFER == 1))) %>%
            dplyr::group_by(.data$UNITID) %>%
-           dplyr::summarise(COUNT = sum(.data$NEWNONDEGREE, na.rm = T)) %>%
+           dplyr::summarize(COUNT = sum(.data$NEWNONDEGREE, na.rm = T)) %>%
            dplyr::ungroup() %>%
            #format for upload
            dplyr::transmute(UNITID = .data$UNITID,

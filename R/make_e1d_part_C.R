@@ -33,7 +33,7 @@ make_e1d_part_C <- function(df) {
                      .data$STUDENTLEVEL)) %>%
     dplyr::group_by(.data$UNITID,
                     .data$LINE) %>%
-    dplyr::summarise(CountDISTANCEEDALL = sum(as.numeric(.data$DISTANCEEDALL)),
+    dplyr::summarize(CountDISTANCEEDALL = sum(as.numeric(.data$DISTANCEEDALL)),
                      CountDISTANCEEDSOME = sum(as.numeric(.data$DISTANCEEDSOME))
                      ) %>%
     dplyr::ungroup() %>%

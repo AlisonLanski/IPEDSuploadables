@@ -58,7 +58,7 @@ make_ef1_part_A <- function(df, cips = TRUE) {
                                .data$LINE,
                                .data$RACEETHNICITY,
                                .data$SEX) %>%
-               dplyr::summarise(COUNT = n()) %>%
+               dplyr::summarize(COUNT = n()) %>%
                #sort for easy viewing
                dplyr::arrange(.data$LINE,
                               .data$RACEETHNICITY,
@@ -76,7 +76,7 @@ make_ef1_part_A <- function(df, cips = TRUE) {
                       .data$LINE,
                       .data$RACEETHNICITY,
                       .data$SEX) %>%
-      dplyr::summarise(COUNT = n()) %>%
+      dplyr::summarize(COUNT = n()) %>%
       #sort for easy viewing
       dplyr::arrange(.data$MAJORCIP,
                      .data$LINE,

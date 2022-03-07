@@ -73,7 +73,7 @@ make_e1d_part_A <- function(df) {
                     .data$LINE,
                     .data$RACEETHNICITY,
                     .data$SEX) %>%
-    dplyr::summarise(COUNT = n()) %>%
+    dplyr::summarize(COUNT = n()) %>%
     dplyr::ungroup() %>%
     #sort for easy viewing
     dplyr::arrange(.data$LINE,
