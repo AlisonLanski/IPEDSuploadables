@@ -32,7 +32,8 @@ make_hr_part_G1 <- function(df, output = "part", format = "both") {
   partG1 <- df %>%
             dplyr::filter(.data$CURRENTEMPLOYEE == 1,
                           .data$INSTRUCTIONAL == 1, #instructional
-                          .data$FTPT == "F") %>%  #not listed in uploadable instructions -- verify?
+                          .data$ISMEDICAL == 0, #non-medical
+                          .data$FTPT == "F") %>%
             dplyr::select(.data$UNITID,
                           .data$RANK,
                           .data$GENDER,
