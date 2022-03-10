@@ -3,8 +3,6 @@
 #' @description  Part B2 --- Full-time non-instructional staff by tenure, medical school, and occupational category
 #'
 #' @param df a dataframe
-#' @param output a string (\code{"part"}, \code{"full"}, or \code{"both"})
-#' @param format A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})
 #'
 #' @importFrom dplyr bind_rows filter select bind_rows group_by summarize ungroup arrange transmute
 #' @importFrom rlang .data
@@ -14,7 +12,7 @@
 #' @export
 #'
 
-make_hr_part_B2 <- function(df, output = "part", format = "both") {
+make_hr_part_B2 <- function(df) {
 
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
@@ -50,18 +48,12 @@ make_hr_part_B2 <- function(df, output = "part", format = "both") {
                            .data$ISMEDICAL,
                            .data$OCCCATEGORY1) %>%
             #format for upload
-            dplyr::transmute(UNITID = paste0("UNITID=", .data$UNITID),
-                             SURVSECT = "SURVSECT=HR1",
-                             PART = "PART=B2",
-                             TENURE = paste0("TENURE=", .data$TENURE),
-                             ISMEDICAL = paste0("ISMEDICAL=", .data$ISMEDICAL),
-                             OCCCATEGORY1 = paste0("OCCCATEGORY1=", .data$OCCCATEGORY1),
-                             COUNT = paste0("COUNT=", .data$COUNT))
-
-  #create the txt file
-  write_report(df = partB2,
-               component = "HumanResources",
-               part = "PartB2",
-               output = output,
-               format = format)
+            dplyr::transmute(UNITID = .data$UNITID,
+                             SURVSECT = "HR1",
+                             PART = "B2",
+                             TENURE = .data$TENURE,
+                             ISMEDICAL = .data$ISMEDICAL,
+                             OCCCATEGORY1 = .data$OCCCATEGORY1,
+                             COUNT = .data$COUNT
+                             )
 }

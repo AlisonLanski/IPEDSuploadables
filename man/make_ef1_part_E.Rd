@@ -4,14 +4,10 @@
 \alias{make_ef1_part_E}
 \title{Make Fall Enrollment Part E}
 \usage{
-make_ef1_part_E(df, output = "part", format = "both")
+make_ef1_part_E(df)
 }
 \arguments{
 \item{df}{A dataframe of student/degree information}
-
-\item{output}{A string (\code{"part"}, \code{"full"}, or \code{"both"})}
-
-\item{format}{A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})}
 }
 \value{
 A text file

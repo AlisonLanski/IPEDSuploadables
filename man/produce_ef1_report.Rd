@@ -9,7 +9,6 @@ produce_ef1_report(
   retention,
   part = "ALL",
   include_optional = FALSE,
-  output = "full",
   format = "uploadable"
 )
 }
@@ -22,12 +21,13 @@ produce_ef1_report(
 
 \item{include_optional}{A boolean flag for whether optional parts should be included}
 
-\item{output}{A string (\code{"part"}, \code{"full"}, or \code{"both"})}
-
-\item{format}{A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})}
+\item{format}{A string (\code{"uploadable"} will produce a properly formatted
+upload file. \code{"readable"} will produce a csv of the upload file (only
+works for one part at a time). \code{"both"} will provide both options, but
+only works with one part at a time.}
 }
 \value{
-A txt file at the path of your choice
+A txt or csv file at the path of your choice
 }
 \description{
 Shortcut function to do all steps to produce a report for Fall Enrollment

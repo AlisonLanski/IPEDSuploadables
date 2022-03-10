@@ -4,14 +4,10 @@
 \alias{make_hr_part_A1}
 \title{Produce IPEDS HR Part A1}
 \usage{
-make_hr_part_A1(df, output = "part", format = "both")
+make_hr_part_A1(df)
 }
 \arguments{
 \item{df}{a dataframe}
-
-\item{output}{A string (\code{"part"}, \code{"full"}, or \code{"both"})}
-
-\item{format}{A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})}
 }
 \value{
 a txt file

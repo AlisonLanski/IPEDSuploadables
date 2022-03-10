@@ -3,8 +3,6 @@
 #' @description  HR Part B1 --- COUNT of FT Non-instructional staff by occupational category
 #'
 #' @param df a dataframe
-#' @param output a string (\code{"part"}, \code{"full"}, or \code{"both"})
-#' @param format A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})
 #'
 #' @importFrom dplyr bind_rows filter select bind_rows group_by summarize ungroup arrange transmute
 #' @importFrom rlang .data
@@ -14,7 +12,7 @@
 #' @export
 #'
 
-make_hr_part_B1 <- function(df, output = "part", format = "both") {
+make_hr_part_B1 <- function(df) {
 
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
@@ -45,16 +43,11 @@ make_hr_part_B1 <- function(df, output = "part", format = "both") {
             dplyr::arrange(.data$OCCCATEGORY1,
                            .data$REG) %>%
             #format for upload
-            dplyr::transmute(UNITID = paste0("UNITID=", .data$UNITID),
-                             SURVSECT = "SURVSECT=HR1",
-                             PART = "PART=B1",
-                             OCCCATEGORY1 = paste0("OCCCATEGORY1=", .data$OCCCATEGORY1),
-                             RACEETHNICITYGENDER = paste0("RACEETHNICITYGENDER=", .data$REG),
-                             COUNT = paste0("COUNT=", .data$COUNT))
-
-  write_report(df = partB1,
-               component = "HumanResources",
-               part = "PartB1",
-               output = output,
-               format = format)
+              dplyr::transmute(UNITID = .data$UNITID,
+                             SURVSECT = "HR1",
+                             PART = "B1",
+                             OCCCATEGORY1 = .data$OCCCATEGORY1,
+                             RACEETHNICITYGENDER = .data$REG,
+                             COUNT = .data$COUNT
+                             )
 }

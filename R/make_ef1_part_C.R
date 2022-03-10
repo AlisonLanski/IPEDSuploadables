@@ -3,12 +3,10 @@
 #' @description State of origin for first time students
 #'
 #' @param df A dataframe of student/degree information
-#' @param output A string (\code{"part"}, \code{"full"}, or \code{"both"})
-#' @param format A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})
 #'
 #' @importFrom rlang .data
-#' 
-#' @importFrom dplyr select group_by summarise ungroup bind_rows arrange transmute n mutate bind_rows
+#'
+#' @importFrom dplyr select group_by ungroup bind_rows arrange transmute n mutate bind_rows
 #' @importFrom utils write.table
 #' @importFrom stringr str_to_upper
 #'
@@ -16,7 +14,7 @@
 #' @export
 #'
 
-make_ef1_part_C <- function(df, output = "part", format = "both") {
+make_ef1_part_C <- function(df) {
 
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
@@ -34,7 +32,7 @@ make_ef1_part_C <- function(df, output = "part", format = "both") {
                dplyr::group_by(.data$UNITID,
                                .data$LINE,
                                .data$HS) %>%
-               dplyr::summarise(COUNT = n()) %>%
+               dplyr::summarize(COUNT = n()) %>%
                dplyr::ungroup()
 
 
@@ -46,7 +44,6 @@ make_ef1_part_C <- function(df, output = "part", format = "both") {
                                 .data$STUDENTLEVEL,
                                 .data$ADMITSTATE,
                                 .data$ISRECENTGRAD) %>%
-                  #recode_state() %>%
                   dplyr::filter(.data$ISFIRSTTIME == 1,
                                 .data$ISDEGREECERTSEEKING == 1,
                                 .data$STUDENTLEVEL == "Undergraduate",
@@ -56,7 +53,7 @@ make_ef1_part_C <- function(df, output = "part", format = "both") {
                   dplyr::group_by(.data$UNITID,
                                   .data$LINE,
                                   .data$HS) %>%
-                  dplyr::summarise(COUNT = n()) %>%
+                  dplyr::summarize(COUNT = n()) %>%
                   dplyr::ungroup()
 
   #put them together
@@ -68,18 +65,12 @@ make_ef1_part_C <- function(df, output = "part", format = "both") {
            dplyr::arrange(.data$LINE,
                           .data$HS) %>%
            #format for upload
-           dplyr::transmute(UNITID = paste0("UNITID=", .data$UNITID),
-                            SURVSECT = "SURVSECT=EF1",
-                            PART = "PART=C",
-                            LINE = paste0("LINE=", .data$LINE),
-                            HS = paste0("HS=", .data$HS),
-                            COUNT = paste0("COUNT=", .data$COUNT)
+           dplyr::transmute(UNITID = .data$UNITID,
+                            SURVSECT = "EF1",
+                            PART = "C",
+                            LINE = .data$LINE,
+                            HS = .data$HS,
+                            COUNT = .data$COUNT
            )
 
-  #create the txt file
-  write_report(df = partC,
-               component = "FallEnrollment",
-               part = "PartC",
-               output = output,
-               format = format)
 }

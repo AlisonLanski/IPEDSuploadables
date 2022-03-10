@@ -3,12 +3,10 @@
 #' @description Student Counts by Age/gender
 #'
 #' @param df A dataframe of student information
-#' @param output A string (\code{"part"}, \code{"full"}, or \code{"both"})
-#' @param format A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})
 #'
 #' @importFrom rlang .data
 #'
-#' @importFrom dplyr select group_by summarise arrange transmute n mutate
+#' @importFrom dplyr select group_by summarize arrange transmute n mutate
 #' @importFrom utils write.table
 #' @importFrom stringr str_to_upper
 #'
@@ -16,7 +14,7 @@
 #' @export
 #'
 
-make_ef1_part_B <- function(df, output = "part", format = "both") {
+make_ef1_part_B <- function(df) {
 
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
@@ -56,26 +54,20 @@ make_ef1_part_B <- function(df, output = "part", format = "both") {
                            .data$STUDENTLEVEL,
                            .data$LINE,
                            .data$SEX) %>%
-           dplyr::summarise(COUNT = n()) %>%
+           dplyr::summarize(COUNT = n()) %>%
            #sort for easy viewing
            dplyr::arrange(.data$LINE,
                           .data$STUDENTLEVEL,
                           .data$SEX) %>%
            dplyr::ungroup() %>%
            #format for upload
-           dplyr::transmute(UNITID = paste0("UNITID=", .data$UNITID),
-                            SURVSECT = "SURVSECT=EF1",
-                            PART = "PART=B",
-                            LINE = paste0("LINE=", .data$LINE),
-                            SLEVEL = paste0("SLEVEL=", .data$STUDENTLEVEL),
-                            SEX = paste0("SEX=", .data$SEX),
-                            COUNT = paste0("COUNT=", .data$COUNT)
+           dplyr::transmute(UNITID = .data$UNITID,
+                            SURVSECT = "EF1",
+                            PART = "B",
+                            LINE = .data$LINE,
+                            SLEVEL = .data$STUDENTLEVEL,
+                            SEX = .data$SEX,
+                            COUNT = .data$COUNT
                            )
 
-  #create the txt file
-  write_report(df = partB,
-               component = "FallEnrollment",
-               part = "PartB",
-               output = output,
-               format = format)
 }

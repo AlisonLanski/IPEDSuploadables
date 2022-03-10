@@ -1,11 +1,9 @@
 #' Make Graduation Rates Part B
 #'
 #' @param df A dataframe of student/degree information
-#' @param output A string (\code{"part"}, \code{"full"}, or \code{"both"})
-#' @param format A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})
 #'
 #' @importFrom rlang .data
-#' 
+#'
 #' @importFrom dplyr select group_by summarize ungroup bind_rows arrange transmute n
 #' @importFrom utils write.table
 #' @importFrom stringr str_to_upper
@@ -14,7 +12,7 @@
 #' @export
 #'
 
-make_gr_part_B <- function(df, output = "part", format = "both") {
+make_gr_part_B <- function(df) {
 
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
@@ -130,20 +128,14 @@ make_gr_part_B <- function(df, output = "part", format = "both") {
                          .data$RACEETHNICITY,
                          .data$SEX) %>%
           #format for upload
-          dplyr::transmute(UNITID = paste0("UNITID=", .data$UNITID),
-                           SURVSECT = "SURVSECT=GR1",
-                           PART = "PART=B",
-                           SECTION = paste0("SECTION=", .data$SECTION),
-                           LINE = paste0("LINE=", .data$LINE),
-                           RACE = paste0("RACE=", .data$RACEETHNICITY),
-                           SEX = paste0("SEX=", .data$SEX),
-                           COUNT = paste0("COUNT=", .data$COUNT)
+          dplyr::transmute(UNITID = .data$UNITID,
+                           SURVSECT = "GR1",
+                           PART = "B",
+                           SECTION = .data$SECTION,
+                           LINE = .data$LINE,
+                           RACE = .data$RACEETHNICITY,
+                           SEX = .data$SEX,
+                           COUNT = .data$COUNT
           )
 
-  #create the txt file
-  write_report(df = partB,
-               component = "GradRates",
-               part = "PartB",
-               output = output,
-               format = format)
 }

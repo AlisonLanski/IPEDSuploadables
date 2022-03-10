@@ -1,11 +1,9 @@
 #' Make 12 Month Enrollment Part A
 #'
 #' @param df A dataframe of student/degree information
-#' @param output A string (\code{"part"}, \code{"full"}, or \code{"both"})
-#' @param format A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})
 #'
 #' @importFrom rlang .data
-#' 
+#'
 #' @importFrom dplyr select group_by summarize ungroup bind_rows arrange transmute n
 #' @importFrom utils write.table
 #' @importFrom stringr str_to_upper
@@ -14,7 +12,7 @@
 #' @export
 #'
 
-make_e1d_part_A <- function(df, output = "part", format = "both") {
+make_e1d_part_A <- function(df) {
 
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
@@ -75,26 +73,20 @@ make_e1d_part_A <- function(df, output = "part", format = "both") {
                     .data$LINE,
                     .data$RACEETHNICITY,
                     .data$SEX) %>%
-    dplyr::summarise(COUNT = n()) %>%
+    dplyr::summarize(COUNT = n()) %>%
     dplyr::ungroup() %>%
     #sort for easy viewing
     dplyr::arrange(.data$LINE,
                    .data$RACEETHNICITY,
                    .data$SEX) %>%
     #format for upload
-    dplyr::transmute(UNITID = paste0("UNITID=", .data$UNITID),
-                     SURVSECT = "SURVSECT=E1D",
-                     PART = "PART=A",
-                     LINE = paste0("LINE=", .data$LINE),
-                     RACE = paste0("RACE=", .data$RACEETHNICITY),
-                     SEX = paste0("SEX=", .data$SEX),
-                     COUNT = paste0("COUNT=", .data$COUNT)
+    dplyr::transmute(UNITID = .data$UNITID,
+                     SURVSECT = "E1D",
+                     PART = "A",
+                     LINE = .data$LINE,
+                     RACE = .data$RACEETHNICITY,
+                     SEX = .data$SEX,
+                     COUNT = .data$COUNT
                     )
 
-  #create the txt file
-  write_report(df = partA,
-               component = "12MonthEnrollment",
-               part = "PartA",
-               output = output,
-               format = format)
 }
