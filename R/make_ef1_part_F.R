@@ -12,7 +12,7 @@
 
 make_ef1_part_F <- function(df) {
 
-  ratio <- svDialogs::dlg_input(default = 0, message = "Please enter the your student/faculty ratio as a whole number")$res
+  ratio <- svDialogs::dlg_input(default = 0, message = "Please enter your student/faculty ratio as a whole number")$res
 
   partF <- data.frame(UNITID = get_ipeds_unitid(df),
                       SURVSECT = "EF1",

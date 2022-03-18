@@ -14,8 +14,6 @@
 
 make_com_part_D <- function(df, extracips = NULL) {
 
-  stopifnot()
-
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
   if(!is.null(extracips)) {
