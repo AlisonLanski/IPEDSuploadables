@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 library(IPEDSuploadables)
 ```
 
-## To use the `make_gr200` functions, your student completions data must be in the format described below
+## To use the `produce_gr200_report` function, your student graduation data must be in the format described below
 
 >
 * One row per person

@@ -23,7 +23,7 @@ specs_GR <-  googlesheets4::read_sheet('1HR0W3N5AgsdwppvTr7CZ4Q2IQtfnTfXMJsSP8l-
 usethis::use_data(specs_GR, overwrite = TRUE) 
 ```
 
-## To use the `make_GR` functions, your data must be in the format described below
+## To use the `produce_gr_report` function, your student graduation data must be in the format described below
 
 >
 * One row per person

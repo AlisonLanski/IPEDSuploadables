@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 library(IPEDSuploadables)
 ```
 
-## To use the `make_com` functions, your student completions data must be in the format described below
+## To use the `produce_com_report` function, your student completions data must be in the format described below
 
 >
 * One row per person per degree level per cip per major

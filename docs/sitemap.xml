@@ -205,12 +205,6 @@
     <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/produce_other_report.html</loc>
   </url>
   <url>
-    <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/recode_reg.html</loc>
-  </url>
-  <url>
-    <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/recode_state.html</loc>
-  </url>
-  <url>
     <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/set_report_path.html</loc>
   </url>
   <url>
@@ -236,6 +230,9 @@
   </url>
   <url>
     <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/write_report.html</loc>
+  </url>
+  <url>
+    <loc>https://alisonlanski.github.io/IPEDSuploadables//reference/write_report_csv.html</loc>
   </url>
   <url>
     <loc>https://alisonlanski.github.io/IPEDSuploadables//articles/howto_overall_ipedsuploadables.html</loc>
