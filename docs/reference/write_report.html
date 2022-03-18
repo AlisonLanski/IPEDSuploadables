@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Write the prepared data to a txt file in IPEDS format — write_report • IPEDSuploadables</title>
+<title>Write the prepared data to a txt file in key-value format — write_report • IPEDSuploadables</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Write the prepared data to a txt file in IPEDS format — write_report" />
-<meta property="og:description" content="Write the prepared data to a txt file in IPEDS format" />
+<meta property="og:title" content="Write the prepared data to a txt file in key-value format — write_report" />
+<meta property="og:description" content="Write the prepared data to a txt file in key-value format" />
 
 
 
@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">IPEDSuploadables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.2.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.3.5</span>
       </span>
     </div>
 
@@ -139,56 +139,46 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Write the prepared data to a txt file in IPEDS format</h1>
+    <h1>Write the prepared data to a txt file in key-value format</h1>
     
     <div class="hidden name"><code>write_report.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Write the prepared data to a txt file in IPEDS format</p>
+    <p>Write the prepared data to a txt file in key-value format</p>
     </div>
 
-    <pre class="usage"><span class='fu'>write_report</span>(
-  <span class='kw'>df</span>,
-  <span class='kw'>component</span>,
-  <span class='kw'>part</span>,
-  <span class='kw'>output</span>,
-  append = <span class='fl'>FALSE</span>,
-  format = <span class='st'>"uploadable"</span>
-)</pre>
+    <pre class="usage"><span class='fu'>write_report</span>(<span class='kw'>...</span>, <span class='kw'>survey</span>, <span class='kw'>part</span>, <span class='kw'>output_path</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>df</th>
-      <td><p>a dataframe (prepared via the 'make' scripts)</p></td>
+      <th>...</th>
+      <td><p>dataframes (one for each survey part, in order)</p></td>
     </tr>
     <tr>
-      <th>component</th>
-      <td><p>a string (which IPEDS survey)</p></td>
+      <th>survey</th>
+      <td><p>a string (which [IPEDS] survey)</p></td>
     </tr>
     <tr>
       <th>part</th>
       <td><p>a string (which upload part of the survey)</p></td>
     </tr>
     <tr>
-      <th>output</th>
-      <td><p>a string (wanting to write just this part, the entire report, or both)</p></td>
-    </tr>
-    <tr>
-      <th>append</th>
-      <td><p>a logical (if the txt file should append this part (T) or overwrite the entire file(F))</p></td>
-    </tr>
-    <tr>
-      <th>format</th>
-      <td><p>A string (<code>"uploadable"</code>, <code>"readable"</code>, or <code>"both"</code>)</p></td>
+      <th>output_path</th>
+      <td><p>a file path (where the file should be saved)</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>a txt file (at the path location)</p>
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p>All arguments for this function are required and must be named.
+  Dataframes must have the key as the column name (with appropriate
+  capitalization) and the value in the cells</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

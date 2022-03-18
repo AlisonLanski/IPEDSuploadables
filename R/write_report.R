@@ -1,85 +1,39 @@
-#' Write the prepared data to a txt file in IPEDS format
+#' Write the prepared data to a txt file in key-value format
 #'
-#' @param df a dataframe (prepared via the 'make' scripts)
-#' @param component a string (which IPEDS survey)
+#' @note All arguments for this function are required and must be named.
+#'   Dataframes must have the key as the column name (with appropriate
+#'   capitalization) and the value in the cells
+#'
+#' @param ... dataframes (one for each survey part, in order)
+#' @param survey a string (which [IPEDS] survey)
 #' @param part a string (which upload part of the survey)
-#' @param output a string (wanting to write just this part, the entire report, or both)
-#' @param append a logical (if the txt file should append this part (T) or overwrite the entire file(F))
-#' @param format A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})
+#' @param output_path a file path (where the file should be saved)
 #'
 #' @importFrom utils write.table
-#' @importFrom purrr map_df
+#' @importFrom purrr compact map_df
 #' @importFrom stringr str_remove_all
 #'
 #' @return a txt file (at the path location)
 #' @export
 #'
 
-write_report <- function(df, component, part, output, append = FALSE, format = "uploadable") {
+write_report <- function(..., survey, part, output_path) {
 
-  while (!exists(x = "output_path", envir = globalenv())) {
-    set_report_path()
-  }
+  fullpath <- paste0(output_path, survey, "_", part, "_", Sys.Date(), ".txt")
 
-  if (toupper(output) == "PART" | toupper(output) == "BOTH") {
-    if (toupper(format) == "UPLOADABLE") {
-      write.table(x = df, sep = ",",
-                  file = paste0(output_path, component, "_", part, "_", Sys.Date(), ".txt"),
-                  quote = FALSE, row.names = FALSE, col.names = FALSE)
-    } else if (toupper(format) == "READABLE") {
-      df %>%
-        purrr::map_df(~stringr::str_remove_all(., "^.+=")) %>%
-        write.table(sep = ",",
-                    file = paste0(output_path, "Readable_", component, "_", part, "_", Sys.Date(), ".csv"),
-                    quote = FALSE, row.names = FALSE, col.names = TRUE)
-    } else if (toupper(format) == "BOTH") {
-      write.table(x = df, sep = ",",
-                  file = paste0(output_path, component, "_", part, "_", Sys.Date(), ".txt"),
-                  quote = FALSE, row.names = FALSE, col.names = FALSE)
+  dfs <- list(...)
 
-      df %>%
-        purrr::map_df(~stringr::str_remove_all(., "^.+=")) %>%
-        write.table(sep = ",",
-                    file = paste0(output_path, "Readable_", component, "_", part, "_", Sys.Date(), ".csv"),
-                    quote = FALSE, row.names = FALSE, col.names = TRUE)
-    }
-  }
+  #remove any empty dfs (can happen from fall enrollment, maybe others)
+  purrr::compact(dfs) %>%
 
-  if (toupper(output) == "FULL" | toupper(output) == "BOTH") {
-    if (toupper(format) == "UPLOADABLE") {
-      if (grepl(part, pattern = ("A$|A1")) | (component == "GradRates" & part == "PartB")) {
-        append <- FALSE
-      } else {
-        append <- TRUE
-      }
-      write.table(x = df, sep = ",",
-                  file = paste0(output_path, component, "_AllParts_", Sys.Date(), ".txt"),
-                  quote = FALSE, row.names = FALSE, col.names = FALSE, append = append)
-    } else if (toupper(format) == "READABLE") {
-      df %>%
-        purrr::map_df(~stringr::str_remove_all(., "^.+=")) %>%
-        write.table(sep = ",",
-                    file = paste0(output_path, "Readable_", component, "_AllParts_", Sys.Date(), ".csv"),
-                    quote = FALSE, row.names = FALSE, col.names = TRUE, append = append)
-    } else if (toupper(format) == "BOTH") {
-      if (grepl(part, pattern = ("A$|A1"))) {
-        append <- FALSE
-      } else {
-        append <- TRUE
-      }
-      write.table(x = df, sep = ",",
-                  file = paste0(output_path, component, "_AllParts_", Sys.Date(), ".txt"),
-                  quote = FALSE, row.names = FALSE, col.names = FALSE, append = append)
+    purrr::map_df(apply_upload_format) %>%
 
-      df %>%
-        purrr::map_df(~stringr::str_remove_all(., "^.+=")) %>%
-        write.table(sep = ",",
-                    file = paste0(output_path, "Readable_", component, "_AllParts_", Sys.Date(), ".csv"),
-                    quote = FALSE, row.names = FALSE, col.names = TRUE, append = append)
-    }
-  }
+    write.table(sep = ",",
+                file = fullpath,
+                quote = FALSE, row.names = FALSE, col.names = FALSE)
 
-  print(paste0("Results available at ", output_path, component, ". To change the path, please run set_report_path()'"))
+  cat("Uploadable results available at", fullpath)
+
 }
 
 

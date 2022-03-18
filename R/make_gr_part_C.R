@@ -1,8 +1,6 @@
 #' Make Graduation Rates Part C
 #'
 #' @param df A dataframe of student/degree information
-#' @param output A string (\code{"part"}, \code{"full"}, or \code{"both"})
-#' @param format A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})
 #'
 #' @importFrom rlang .data
 #' @importFrom dplyr select group_by summarize ungroup arrange transmute n
@@ -13,7 +11,7 @@
 #' @export
 #'
 
-make_gr_part_C <- function(df, output = "part", format = "both") {
+make_gr_part_C <- function(df) {
 
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
@@ -79,18 +77,13 @@ make_gr_part_C <- function(df, output = "part", format = "both") {
                             TOTALLOAN = sum(.data$DIRECTLOANONLY, na.rm = TRUE)) %>%
            dplyr::ungroup() %>%
            #format for upload
-           dplyr::transmute(UNITID = paste0("UNITID=", .data$UNITID),
-                            SURVSECT = "SURVSECT=GR1",
-                            PART = "PART=C",
-                            SECTION = paste0("SECTION=", .data$SECTION),
-                            LINE = paste0("LINE=", .data$LINE),
-                            PELLGRANT_RCPT = paste0("PELLGRANT_RCPT=", .data$TOTALPELL),
-                            DIRECTLOAN_RCPT = paste0("DIRECTLOAN_RCPT=", .data$TOTALLOAN)
+           dplyr::transmute(UNITID = .data$UNITID,
+                            SURVSECT = "GR1",
+                            PART = "C",
+                            SECTION = .data$SECTION,
+                            LINE = .data$LINE,
+                            PELLGRANT_RCPT = .data$TOTALPELL,
+                            DIRECTLOAN_RCPT = .data$TOTALLOAN
            )
 
-  write_report(df = partC,
-               component = "GradRates",
-               part = "PartC",
-               output = output,
-               format = format)
 }

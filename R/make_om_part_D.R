@@ -3,8 +3,6 @@
 #' @description Award Status and ENROLLment at Eight Years after Entry
 #'
 #' @param df A dataframe of student statuses
-#' @param output A string (\code{"part"}, \code{"full"}, or \code{"both"})
-#' @param format A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})
 #'
 #' @importFrom dplyr filter mutate select group_by summarize full_join ungroup across everything
 #' @importFrom tidyr pivot_wider replace_na
@@ -14,7 +12,7 @@
 #' @export
 #'
 
-make_om_part_D <- function(df, output = "part", format = "both") {
+make_om_part_D <- function(df) {
 
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
@@ -75,22 +73,15 @@ make_om_part_D <- function(df, output = "part", format = "both") {
     dplyr::mutate(dplyr::across(dplyr::everything(),
                                 ~tidyr::replace_na(.x, 0))) %>%
     #format for upload
-    dplyr::transmute(UNITID = paste0("UNITID=", .data$UNITID),
-                     SURVSECT = "SURVSECT=OM1",
-                     PART = "PART=D",
-                     LINE = paste0("LINE=", .data$COHORTTYPE),
-                     RECIPIENT_TYPE = paste0("RECIPIENT_TYPE=", .data$RECIPIENT),
-                     AWARD_CERTIFICATES = paste0("AWARD_CERTIFICATES=", .data$`1`),
-                     AWARD_ASSOCIATES = paste0("AWARD_ASSOCIATES=", .data$`2`),
-                     AWARD_BACHELORS = paste0("AWARD_BACHELORS=", .data$`3`),
-                     STILL_ENROLLED = paste0("STILL_ENROLLED=", .data$ENROLLED),
-                     ENROLLED_ANOTHER = paste0("ENROLLED_ANOTHER=", .data$ELSEWHERE)
-    )
+    dplyr::transmute(UNITID = .data$UNITID,
+                     SURVSECT = "OM1",
+                     PART = "D",
+                     LINE = .data$COHORTTYPE,
+                     RECIPIENT_TYPE = .data$RECIPIENT,
+                     AWARD_CERTIFICATES = .data$`1`,
+                     AWARD_ASSOCIATES = .data$`2`,
+                     AWARD_BACHELORS = .data$`3`,
+                     STILL_ENROLLED = .data$ENROLLED,
+                     ENROLLED_ANOTHER = .data$ELSEWHERE)
 
-  #create the txt file
-  write_report(df = partD,
-               component = "OutcomeMeasures",
-               part = "PartD",
-               output = output,
-               format = format)
 }

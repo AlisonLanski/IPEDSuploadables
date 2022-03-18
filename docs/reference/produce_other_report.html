@@ -43,9 +43,10 @@
 <meta property="og:description" content="Use this function to create a key-value pair uploadable file
   from your own prepared dataframes, instead of using a different (provided)
   produce function. Your dataframes must be prepped to match final
-  submission requirements as laid out by IPEDS. Use this function for one survey at a time,
-  and add a separate dataframe for each part to the ... argument. See
-  vignette for more details." />
+  submission requirements as laid out by IPEDS (or whatever survey you will
+  use this for. Use this function for one survey at a time, and add a
+  separate dataframe for each part to the ... argument. See vignette
+  for more details." />
 
 
 
@@ -77,7 +78,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">IPEDSuploadables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.2.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.3.5</span>
       </span>
     </div>
 
@@ -153,12 +154,13 @@
     <p>Use this function to create a key-value pair uploadable file
   from your own prepared dataframes, instead of using a different (provided)
   <code>produce</code> function. Your dataframes must be prepped to match final
-  submission requirements as laid out by IPEDS. Use this function for one survey at a time,
-  and add a separate dataframe for each part to the <code>...</code> argument. See
-  vignette for more details.</p>
+  submission requirements as laid out by IPEDS (or whatever survey you will
+  use this for. Use this function for one survey at a time, and add a
+  separate dataframe for each part to the <code>...</code> argument. See vignette
+  for more details.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>produce_other_report</span>(<span class='kw'>...</span>, <span class='kw'>survey</span>, part = <span class='st'>"AllParts"</span>)</pre>
+    <pre class="usage"><span class='fu'>produce_other_report</span>(<span class='kw'>...</span>, survey = <span class='st'>"MySurvey"</span>, part = <span class='st'>"AllParts"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -173,24 +175,22 @@
     </tr>
     <tr>
       <th>part</th>
-      <td><p>string with the parts included by your dataframe</p></td>
+      <td><p>string with the part name (subname) you'd like your file name</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>txt file on your computer with the title <em>[survey]_[part]_[today's date].txt</em></p>
+    <p>txt file on your computer with the title
+  <em>[survey]_[part]_[today's date].txt</em></p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>This function can be used to produce any key-value pair txt file for
-  upload (IPEDS or non-IPEDS) as long as the initial dataframes are correctly
-  formatted.</p>
+    <p>You must name the arguments for <code>survey</code> and <code>part</code> if using
+  non-default value. If the arguments are unnamed, the function will assume
+  their values are additional dataframes.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='co'>#With built-in R data</span>
-<span class='fu'>produce_other_report</span>(<span class='kw'>mtcars</span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>,], <span class='kw'>iris</span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>,], <span class='kw'>ToothGrowth</span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>,], survey = <span class='st'>'FakeSurvey'</span>)}
-</div></pre>
+    <pre class="examples"></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

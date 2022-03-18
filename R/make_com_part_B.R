@@ -2,8 +2,6 @@
 #'
 #' @param df A dataframe of student/degree information
 #' @param extracips A dataframe of cips offered by the institution but not in \code{'df'}
-#' @param output A string (\code{"part"}, \code{"full"}, or \code{"both"})
-#' @param format A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})
 #'
 #' @importFrom rlang .data
 #' @importFrom dplyr select bind_rows arrange transmute distinct
@@ -14,7 +12,7 @@
 #' @export
 #'
 
-make_com_part_B <- function(df, extracips = NULL, output = "part", format = "both") {
+make_com_part_B <- function(df, extracips = NULL) {
 
   #prep extra cip codes
   if (!is.null(extracips)) {
@@ -61,23 +59,18 @@ make_com_part_B <- function(df, extracips = NULL, output = "part", format = "bot
                           .data$DISTANCEED31,
                           .data$DISTANCEED32) %>%
            #format for upload
-           dplyr::transmute(UNITID = paste0("UNITID=", .data$UNITID),
-                            SURVSECT = "SURVSECT=COM",
-                            PART = "PART=B",
-                            MAJORNUM = paste0("MAJORNUM=", .data$MAJORNUMBER),
-                            CIPCODE = paste0("CIPCODE=", .data$MAJORCIP),
-                            AWLEVEL = paste0("AWLEVEL=", .data$DEGREELEVEL),
+           dplyr::transmute(UNITID = .data$UNITID,
+                            SURVSECT = "COM",
+                            PART = "B",
+                            MAJORNUM = .data$MAJORNUMBER,
+                            CIPCODE = .data$MAJORCIP,
+                            AWLEVEL = .data$DEGREELEVEL,
                             #2020 is non-rectangular: this was the best solution I could think of
                             DistanceED = ifelse(.data$DISTANCEED != 3,
-                                            paste0("DistanceED=", .data$DISTANCEED),
-                                            paste0("DistanceED=", .data$DISTANCEED,
+                                            .data$DISTANCEED,
+                                            paste0(.data$DISTANCEED,
                                                    ",DistanceED31=", .data$DISTANCEED31,
                                                    ",DistanceED32=", .data$DISTANCEED32))
                             )
 
-  write_report(df = partB,
-               component = "Completions",
-               part = "PartB",
-               output = output,
-               format = format)
 }

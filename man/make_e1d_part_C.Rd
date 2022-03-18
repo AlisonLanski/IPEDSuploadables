@@ -4,14 +4,10 @@
 \alias{make_e1d_part_C}
 \title{Make 12 Month Enrollment Part C}
 \usage{
-make_e1d_part_C(df, output = "part", format = "both")
+make_e1d_part_C(df)
 }
 \arguments{
 \item{df}{A dataframe of student/degree information}
-
-\item{output}{A string (\code{"part"}, \code{"full"}, or \code{"both"})}
-
-\item{format}{A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})}
 }
 \value{
 A text file

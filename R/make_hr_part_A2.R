@@ -3,8 +3,6 @@
 #' @description  Part A2 --- COUNT of FT instructional staff by tenure status, medical school, and function
 #'
 #' @param df a dataframe
-#' @param output a string (\code{"part"}, \code{"full"}, or \code{"both"})
-#' @param format A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})
 #'
 #' @importFrom dplyr bind_rows filter select bind_rows group_by summarize ungroup arrange transmute
 #' @importFrom rlang .data
@@ -14,7 +12,7 @@
 #' @export
 #'
 
-make_hr_part_A2 <- function(df, output = "part", format = "both") {
+make_hr_part_A2 <- function(df) {
 
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
@@ -49,17 +47,13 @@ make_hr_part_A2 <- function(df, output = "part", format = "both") {
                            .data$ISMEDICAL,
                            .data$INSTFUNCTION) %>%
             #format for upload
-            dplyr::transmute(UNITID = paste0("UNITID=", .data$UNITID),
-                             SURVSECT = "SURVSECT=HR1",
-                             PART = "PART=A2",
-                             TENURE = paste0("TENURE=", .data$TENURE),
-                             ISMEDICAL = paste0("ISMEDICAL=", .data$ISMEDICAL),
-                             INSTFUNCTION = paste0("INSTFUNCTION=", .data$INSTFUNCTION),
-                             COUNT = paste0("COUNT=", .data$COUNT))
+            dplyr::transmute(UNITID = .data$UNITID,
+                             SURVSECT = "HR1",
+                             PART = "A2",
+                             TENURE = .data$TENURE,
+                             ISMEDICAL = .data$ISMEDICAL,
+                             INSTFUNCTION = .data$INSTFUNCTION,
+                             COUNT = .data$COUNT
+                             )
 
-  write_report(df = partA2,
-               component = "HumanResources",
-               part = "PartA2",
-               output = output,
-               format = format)
 }

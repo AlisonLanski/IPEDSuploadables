@@ -3,8 +3,6 @@
 #' @description Establishing the Outcome Measures cohorts
 #'
 #' @param df A dataframe of student statuses
-#' @param output A string (\code{"part"}, \code{"full"}, or \code{"both"})
-#' @param format A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})
 #'
 #' @importFrom dplyr group_by summarize ungroup arrange transmute n
 #' @importFrom stringr str_to_upper
@@ -13,7 +11,7 @@
 #' @export
 #'
 
-make_om_part_A <- function(df, output = "part", format = "both") {
+make_om_part_A <- function(df) {
 
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
@@ -22,7 +20,8 @@ make_om_part_A <- function(df, output = "part", format = "both") {
                         COHORTTYPE = c(1, 2, 3, 4),
                         RECIPIENT = c(1, 2),
                         COUNTED = 0,
-                        EXCLUSION = FALSE)
+                        EXCLUSION = FALSE,
+                        stringsAsFactors = FALSE)
 
   partA <- df %>%
           #add extra rows
@@ -40,20 +39,14 @@ make_om_part_A <- function(df, output = "part", format = "both") {
           #sort for easy viewing
           dplyr::arrange(.data$COHORTTYPE,
                          .data$RECIPIENT) %>%
-          #format for upload
-          dplyr::transmute(UNITID = paste0("UNITID=", .data$UNITID),
-                           SURVSECT = "SURVSECT=OM1",
-                           PART = "PART=A",
-                           LINE = paste0("LINE=", .data$COHORTTYPE),
-                           RECIPIENT_TYPE = paste0("RECIPIENT_TYPE=", .data$RECIPIENT),
-                           COHORT = paste0("COHORT=", .data$COHORTCOUNT),
-                           EXCLUSION = paste0("EXCLUSION=", .data$EXCLUSIONCOUNT)
-          )
 
-  #create the txt file
-  write_report(df = partA,
-               component = "OutcomeMeasures",
-               part = "PartA",
-               output = output,
-               format = format)
+          #format for upload
+          dplyr::transmute(UNITID = .data$UNITID,
+                           SURVSECT = 'OM1',
+                           PART = 'A',
+                           LINE = .data$COHORTTYPE,
+                           RECIPIENT_TYPE = .data$RECIPIENT,
+                           COHORT = .data$COHORTCOUNT,
+                           EXCLUSION = .data$EXCLUSIONCOUNT)
+
 }

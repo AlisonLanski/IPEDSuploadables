@@ -18,17 +18,19 @@ knitr::opts_chunk$set(
 
 A few things to note:
 
+* To ensure you have the most current version of this package, we suggest you check for an updated version and reinstall (as needed) during each collection window.
 * To use this package, you'll need to prepare your data as indicated in vignettes. The vignettes can all be viewed through the [package website](https://alisonlanski.github.io/IPEDSuploadables/).  
 * IPEDS upload files must be 100% of the requested information for a particular report. In other words, if a report has parts A, B, and C, you must upload all parts in a single file or the upload will fail.  
 * To create an upload-ready file based on your own data preparation, see [How to produce other key-value uploads](howto_use_autoformat.html)
 
 ## Step 0: Install/Load the package
+
 ```{r setup, eval=FALSE}
 #install option 1
-devtools::install_github("AlisonLanski/IPEDSuploadables")
+remotes::install_github("AlisonLanski/IPEDSuploadables")
 
-#install option 2
-githubinstall::githubinstall("IPEDSuploadables")
+#install option 2 (relies on the remotes package)
+devtools::install_github("AlisonLanski/IPEDSuploadables")
 ```
 
 ```{r load, eval = TRUE}
@@ -65,8 +67,8 @@ head(e1d_student)
 Each IPEDS report has a single function which will produce all required sub-parts in a single file for upload.  
 
 * Some reports require 2 dataframes  
-* The first time you produce a report through the package, you'll be be asked where it should save.  This can be changed.  
-* The upload file will be saved as a txt file to a location of your choice and will be date-stamped.
+* Use the popup box to choose the folder where the report should be saved.  
+* The upload file will be saved as a txt file with a date-stamp.  Rerunning the script on the same day to the same location will overwrite your original file.
 
 Example:
 ```{r produce_report, eval=FALSE}
@@ -75,7 +77,7 @@ produce_e1d_report(df = e1d_student, hrs = e1d_instr, part = "ALL")
 ```
 
 
-A status message will be displayed as each subpart processes, even though there is only a single output file. This is a known bug that doesn't affect functionality.
+A message will be display the location of your file when it has been processed.
 
 ### Notes for specific reports
 
@@ -95,10 +97,14 @@ Human Resources
 * The script requires one dataframe with all current employees and new hires. If someone is counted in both sections of the report, include them only once in your institutional data with the appropriate flags.
 
 ## Step 3: Upload your IPEDS report
+  
+1. Navigate to the IPEDS submission portal and log in.  
 
-A. Navigate to the IPEDS submission portal and log in.  
-B. Select the appropriate report (for example: "12 Month Enrollment"), select "key-value pair", then browse to your .txt file and upload.  
-C. After your file uploads, continue your standard process to check edits, enter metadata, review results, lock, and submit the survey.
+2. Select the appropriate report (for example: "12 Month Enrollment"), select "key-value pair", then browse to your .txt file and upload.  
+
+3. Click through the survey screens to review results and verify submission accuracy
+
+4. Continue your standard process to check edits, enter metadata, lock, and submit the survey.
 
 
 ## Troubleshooting
@@ -107,6 +113,8 @@ C. After your file uploads, continue your standard process to check edits, enter
 Update your base data, rerun the package function, and re-upload to IPEDS.  You can upload as many times as you want to any particular survey.  
 Your keyholder may be able to edit directly in the website, but this method is not recommended since it is not reproducible.
 
+If you verify that your data and dataframe(s) are correct, but IPEDS still shows incorrect aggregation, please contact the package authors by adding a GitHub issue or by emailing. We can provide the quickest help if you share an example with sample data, expected output, and actual output.
+
 #### IPEDS rejects your upload file or accepts the file but provides an error message
 Common issues include:
 
@@ -114,15 +122,7 @@ Common issues include:
 * Your upload is missing a sub-part of the report
 * IPEDS is expecting particular information based on previous years of reporting which is inconsistent or missing
 
-*For example, IPEDS wants all previous CIP/Award Level combinations reported on the current upload file. If you have no students in those categories, add any flagged CIP/Award combinations to your extra_cips dataframe,rerun, and reupload to remove this error message*
-
-#### You want to change the local save location for your upload file
-
-Reset your report path
-
-```{r reset_path, eval = FALSE}
-set_report_path()
-```
+*For example, IPEDS wants all previous CIP/Award Level combinations reported on the current upload file. If you have no students in those categories, add any flagged CIP/Award combinations to your extra_cips dataframe, rerun, and reupload to remove this error message*
 
 #### How the package can help you troubleshoot
 
@@ -144,3 +144,12 @@ Example:
 produce_e1d_report(hrs = e1d_instr, part = "B", format = "readable")
 ```
 
+#### IPEDS has changed a survey's requirements, but you need to rerun an old report
+At the end of every IPEDS collection cycle, that year's package code will be saved into a branch on GitHub.  To use an old version, install the package from the branch.
+
+```{r branch, eval=FALSE}
+#install, picking an acceptable year range
+remotes::install_github(repo = "AlisonLanski/IPEDSuploadables", ref = "reporting_year_2020-2021")
+```
+
+When you have finished running your code, reinstall the current version of the package by removing the "ref" argument.

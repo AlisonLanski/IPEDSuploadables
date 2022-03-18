@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 library(IPEDSuploadables)
 ```
 
-## To use the `make_e1d` functions, you must provide two (2) dataframes: one with student enrollment data and one with instructional activity data.
+## To use the `produce_e1d_report` function, you must provide two (2) dataframes: one with student enrollment data and one with instructional activity data.
 
 ### The student enrollment data must be in the format described below
 

@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">IPEDSuploadables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.2.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.3.5</span>
       </span>
     </div>
 
@@ -148,7 +148,7 @@
     <p>Shortcut function to do all steps to produce a report</p>
     </div>
 
-    <pre class="usage"><span class='fu'>produce_hr_report</span>(<span class='kw'>df</span>, part = <span class='st'>"all"</span>, output = <span class='st'>"full"</span>, format = <span class='st'>"uploadable"</span>)</pre>
+    <pre class="usage"><span class='fu'>produce_hr_report</span>(<span class='kw'>df</span>, part = <span class='st'>"all"</span>, format = <span class='st'>"uploadable"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -162,18 +162,17 @@
       <td><p>a string with what part of the report you want to produce "all", "A1", etc.</p></td>
     </tr>
     <tr>
-      <th>output</th>
-      <td><p>A string (<code>"part"</code>, <code>"full"</code>, or <code>"both"</code>)</p></td>
-    </tr>
-    <tr>
       <th>format</th>
-      <td><p>A string (<code>"uploadable"</code>, <code>"readable"</code>, or <code>"both"</code>)</p></td>
+      <td><p>A string (<code>"uploadable"</code> will produce a properly formatted
+upload file. <code>"readable"</code> will produce a csv of the upload file (only
+works for one part at a time). <code>"both"</code> will provide both options, but
+only works with one part at a time.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a txt file at the path of your choice</p>
+    <p>A txt or csv file at the path of your choice</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

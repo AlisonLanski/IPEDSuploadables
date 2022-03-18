@@ -4,14 +4,10 @@
 \alias{make_ef1_part_F}
 \title{Make Fall Enrollment Part F}
 \usage{
-make_ef1_part_F(df, output = "part", format = "both")
+make_ef1_part_F(df)
 }
 \arguments{
 \item{df}{A dataframe (either "students" or "retention") as a unitid source}
-
-\item{output}{A string (\code{"part"}, \code{"full"}, or \code{"both"})}
-
-\item{format}{A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})}
 }
 \value{
 A text file

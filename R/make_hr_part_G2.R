@@ -3,8 +3,6 @@
 #' @description  Part G2 --- Salaries of non-instructional staff
 #'
 #' @param df a dataframe
-#' @param output a string (\code{"part"}, \code{"full"}, or \code{"both"})
-#' @param format A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})
 #'
 #' @importFrom dplyr bind_rows filter select bind_rows group_by summarize ungroup arrange transmute
 #' @importFrom tidyr pivot_wider
@@ -15,7 +13,7 @@
 #' @export
 #'
 
-make_hr_part_G2 <- function(df, output = "part", format = "both") {
+make_hr_part_G2 <- function(df) {
 
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
@@ -47,16 +45,10 @@ make_hr_part_G2 <- function(df, output = "part", format = "both") {
             #sort for easy viewing
             dplyr::arrange(.data$OCCCATEGORY2) %>%
             #format for upload
-            dplyr::transmute(UNITID = paste0("UNITID=", .data$UNITID),
-                             SURVSECT = "SURVSECT=HR1",
-                             PART = "PART=G2",
-                             OCCCATEGORY2 = paste0("OCCCATEGORY2=", .data$OCCCATEGORY2),
-                             SOUTLAYS = paste0("SOUTLAYS=", .data$SALARY))
-
-  #create the txt file
-  write_report(df = partG2,
-               component = "HumanResources",
-               part = "PartG2",
-               output = output,
-               format = format)
+            dplyr::transmute(UNITID = .data$UNITID,
+                             SURVSECT = "HR1",
+                             PART = "G2",
+                             OCCCATEGORY2 = .data$OCCCATEGORY2,
+                             SOUTLAYS = .data$SALARY
+                             )
 }

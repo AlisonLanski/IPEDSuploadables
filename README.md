@@ -49,18 +49,18 @@ You can install the development version from
 [GitHub](https://github.com/AlisonLanski/IPEDSuploadables) with:
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("AlisonLanski/IPEDSuploadables")
+# install.packages("remotes")
+remotes::install_github("AlisonLanski/IPEDSuploadables")
 
 #or use
 
-# install.packages("githubinstall")
-githubinstall::install_github("AlisonLanski/IPEDSuploadables")
+# install.packages("devtools")
+devtools::install_github("AlisonLanski/IPEDSuploadables")
 ```
 
 To access vignettes locally (instead of through the website) add an
 argument:
 
 ``` r
-devtools::install_github("AlisonLanski/IPEDSuploadables", build_vignettes = TRUE)
+remotes::install_github("AlisonLanski/IPEDSuploadables", build_vignettes = TRUE)
 ```

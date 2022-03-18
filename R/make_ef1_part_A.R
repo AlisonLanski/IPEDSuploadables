@@ -4,8 +4,6 @@
 #'
 #' @param df A dataframe of student information
 #' @param cips A logical indicating if part A  needs to provide breakdowns by particular CIPs
-#' @param output A string (\code{"part"}, \code{"full"}, or \code{"both"})
-#' @param format A string (\code{"uploadable"}, \code{"readable"}, or \code{"both"})
 #'
 #' @importFrom rlang .data
 #'
@@ -17,7 +15,7 @@
 #' @export
 #'
 
-make_ef1_part_A <- function(df, cips = TRUE, output = "part", format = "both") {
+make_ef1_part_A <- function(df, cips = TRUE) {
 
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
@@ -60,7 +58,7 @@ make_ef1_part_A <- function(df, cips = TRUE, output = "part", format = "both") {
                                .data$LINE,
                                .data$RACEETHNICITY,
                                .data$SEX) %>%
-               dplyr::summarise(COUNT = n()) %>%
+               dplyr::summarize(COUNT = n()) %>%
                #sort for easy viewing
                dplyr::arrange(.data$LINE,
                               .data$RACEETHNICITY,
@@ -78,7 +76,7 @@ make_ef1_part_A <- function(df, cips = TRUE, output = "part", format = "both") {
                       .data$LINE,
                       .data$RACEETHNICITY,
                       .data$SEX) %>%
-      dplyr::summarise(COUNT = n()) %>%
+      dplyr::summarize(COUNT = n()) %>%
       #sort for easy viewing
       dplyr::arrange(.data$MAJORCIP,
                      .data$LINE,
@@ -93,20 +91,14 @@ make_ef1_part_A <- function(df, cips = TRUE, output = "part", format = "both") {
 
   partA <- partA_ready %>%
       #format for upload
-      dplyr::transmute(UNITID = paste0("UNITID=", .data$UNITID),
-                       SURVSECT = "SURVSECT=EF1",
-                       PART = "PART=A",
-                       CIPCODE = paste0("CIPCODE=", .data$MAJORCIP),
-                       LINE = paste0("LINE=", .data$LINE),
-                       RACE = paste0("RACE=", .data$RACEETHNICITY),
-                       SEX = paste0("SEX=", .data$SEX),
-                       COUNT = paste0("COUNT=", .data$COUNT)
+      dplyr::transmute(UNITID = .data$UNITID,
+                       SURVSECT = "EF1",
+                       PART = "A",
+                       CIPCODE = .data$MAJORCIP,
+                       LINE = .data$LINE,
+                       RACE = .data$RACEETHNICITY,
+                       SEX = .data$SEX,
+                       COUNT = .data$COUNT
                       )
 
-  #create the txt file
-  write_report(df = partA,
-               component = "FallEnrollment",
-               part = "PartA",
-               output = output,
-               format = format)
 }

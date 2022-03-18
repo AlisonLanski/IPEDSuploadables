@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Table of data requirements for Grad Rates 200 starting dataframe — specs_GR200 • IPEDSuploadables</title>
+<title>Write the prepared data to a csv file — write_report_csv • IPEDSuploadables</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Table of data requirements for Grad Rates 200 starting dataframe — specs_GR200" />
-<meta property="og:description" content="Table of data requirements for Grad Rates 200 starting dataframe" />
+<meta property="og:title" content="Write the prepared data to a csv file — write_report_csv" />
+<meta property="og:description" content="Write the prepared data to a csv file" />
 
 
 
@@ -139,21 +139,46 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Table of data requirements for Grad Rates 200 starting dataframe</h1>
+    <h1>Write the prepared data to a csv file</h1>
     
-    <div class="hidden name"><code>specs_GR200.Rd</code></div>
+    <div class="hidden name"><code>write_report_csv.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Table of data requirements for Grad Rates 200 starting dataframe</p>
+    <p>Write the prepared data to a csv file</p>
     </div>
 
-    <pre class="usage"><span class='kw'>specs_GR200</span></pre>
+    <pre class="usage"><span class='fu'>write_report_csv</span>(<span class='kw'>df</span>, <span class='kw'>survey</span>, <span class='kw'>part</span>, <span class='kw'>output_path</span>)</pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>df</th>
+      <td><p>a dataframe (prepared via the 'make' scripts)</p></td>
+    </tr>
+    <tr>
+      <th>survey</th>
+      <td><p>a string (which IPEDS survey)</p></td>
+    </tr>
+    <tr>
+      <th>part</th>
+      <td><p>a string (which upload part of the survey)</p></td>
+    </tr>
+    <tr>
+      <th>output_path</th>
+      <td><p>a path (which folder the report should go in)</p></td>
+    </tr>
+    </table>
 
-    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A data frame with 5 rows and 3 columns</p>
+    <p>a csv file (at the path location)</p>
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p>All arguments for this function are required.
+  The dataframe must have the key as the column name (with appropriate
+  capitalization) and the value in the cells</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
