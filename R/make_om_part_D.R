@@ -70,7 +70,13 @@ make_om_part_D <- function(df) {
 
   partD <- dplyr::full_join(partD_1, partD_2,
                             by = c("UNITID", "COHORTTYPE", "RECIPIENT")) %>%
-    dplyr::mutate(dplyr::across(dplyr::everything(),
+    #verify column order to prep for across
+    dplyr::select(.data$UNITID,
+                  .data$COHORTTYPE,
+                  .data$RECIPIENT,
+                  dplyr::everything()) %>%
+    #fix any NAs from the join -- pick only the numerics we're checking
+    dplyr::mutate(dplyr::across(c(4:8),
                                 ~tidyr::replace_na(.x, 0))) %>%
     #format for upload
     dplyr::transmute(UNITID = .data$UNITID,
