@@ -14,6 +14,40 @@ prep_hr_data_frame <- function(df) {
 
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
+  ## Warnings for data checks -----
+
+  #Gender
+  if(min(df$GENDER) < 1 | max(df$GENDER) > 2) {
+    warning(paste0("Check Gender: invalid values found for EmpId: ",
+                   toString(df$EMPID[!df$GENDER %in% c(1:2)])))
+  }
+
+  #RaceEthnicity
+  if(min(df$RACEETHNICITY) < 1 | max(df$RACEETHNICITY) > 9){
+    warning(paste0("Check RaceEthnicity: invalid values found for EmpId: ",
+                   toString(df$EMPID[!df$RACEETHNICITY %in% c(1:9)])))
+  }
+
+  #OccCat
+  if(min(df$OCCCATEGORY3) < 1 | max(df$OCCCATEGORY3) > 24 | 21 %in% df$OCCCATEGORY3){
+    warning(paste0("Check OccCategory3: invalid values found for EmpId: ",
+                   toString(df$EMPID[!df$OCCCATEGORY3 %in% c(1:20, 22:24)])))
+  }
+
+
+  #MonthsWorked
+  #MONTHS (for Salary-spread); only matters for current, instructional, ft employees
+  if(sum(!(df$MONTHS[df$CURRENTEMPLOYEE == 1 &
+                      df$FTPT == 'F' &
+                      df$OCCCATEGORY3 %in% c(1:4)] %in%
+            c(8, 9, 10, 11, 12))) != 0) {
+    warning(paste0("Check Months: invalid values found for EmpId: ",
+                   toString(df$EMPID[df$CURRENTEMPLOYEE == 1 &
+                                     df$FTPT == 'F' &
+                                     df$OCCCATEGORY3 %in% c(1:4) &
+                                     !df$MONTHS %in% c(8:12)])))
+  }
+
   df <- df %>%
         #add a combined REG column
         dplyr::mutate(REG = ifelse(.data$GENDER == 1,
@@ -182,25 +216,6 @@ prep_hr_data_frame <- function(df) {
                       #specify UNITID as character to avoid type problems
                       UNITID = as.character(.data$UNITID))
 
-  ## Warnings from recoding failures  -----
-
-  #RACEETHNICITYGENDER
-  if (99 %in% df$REG) {
-    print("Warning! Some RACEETHNICITYGENDER combinations have failed.
-                         Please check your GENDER and RACEETHNICITY values, then rerun from the top.")
-  }
-
-  #OccCats
-  if (99 %in% c(df$OCCCATEGORY1, df$OCCCATEGORY2, df$OCCCATEGORY4, df$OCCCATEGORY5)) {
-    print("Warning!  Some Occupational Category recoding has failed.
-                         Please check your OCCCATEGORY3 values, then rerun from the top.")
-  }
-
-  #MONTHS (for Salary-spread); only matters for current employees
-  if (sum(!(df$MONTHS[df$CURRENTEMPLOYEE == 1] %in% c(8, 9, 10, 11, 12, 99))) != 0) {
-    print("Warning!  Some MONTHS values are not allowed and will break the Salary calculation in G1.
-                         Please check your data to ensure use of 8, 9, 10, 11, 12, and 99 only, then rerun from the top.")
-  }
 
   return(df)
 }

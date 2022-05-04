@@ -43,6 +43,8 @@ library(IPEDSuploadables)
 The package requires specific column names and values to work correctly. 
 Each IPEDS report has a vignette that spells out requirements and also has sample data you can examine.
 
+**To create files for non-supported reports, see [How to produce other key-value uploads](howto_use_autoformat.html)**
+
 | IPEDS Report | Required Dataframes | Sample Data |
 |:--------|:--------|:---------|
 | 12 Month Enrollment  | [students & instructional activity](setup_for_12monthenrollment.html)  |  e1d_student, e1d_instr  |
@@ -51,10 +53,9 @@ Each IPEDS report has a vignette that spells out requirements and also has sampl
 | Graduation Rates  | [students](setup_for_gr.html)  |  gr_students  |
 | Graduation Rates 200   | [students](setup_for_gr200.html)  |  gr200_students  |
 | Human Resources  | [staff](setup_for_hr.html) | hr_staff  |
-| Outcome Measures  |  [students & instructional activity](setup_for_om.html)  |  om_student  |
+| Outcome Measures  |  [students](setup_for_om.html)  |  om_students  |
 
-To create files for non-supported reports, see [How to produce other key-value uploads](howto_use_autoformat.html)
-
+  
 You can call the sample data as desired to explore it
 ```{r dummy_data, eval = TRUE}
 #dataframe of student information for 12 month enrollment
@@ -136,7 +137,7 @@ Example:
 produce_e1d_report(e1d_instr, part = "B")
 ```
 
-You can also produce a csv version of the part's text file, for more readable output (still using IPEDS upload-required column names)  
+You can also produce a csv version of the part's text file, for more readable output (still using IPEDS upload-required column names and values)  
   
 Example:
 ```{r produce_prettyfile, eval = FALSE}

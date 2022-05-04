@@ -10,4 +10,5 @@
 ^Meta$
 ^vignettes\.csv$
 ^ISSUE_TEMPLATE.md$
+^cran-comments.md$
 
