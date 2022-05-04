@@ -2,7 +2,7 @@
 % Please edit documentation in R/prep_om_data_frame.R
 \name{prep_om_data_frame}
 \alias{prep_om_data_frame}
-\title{Some initial recodes for OutcomeMeasures}
+\title{Some initial recoding for OutcomeMeasures}
 \usage{
 prep_om_data_frame(df)
 }
@@ -13,5 +13,5 @@ prep_om_data_frame(df)
 df ready for om report scripts
 }
 \description{
-Some initial recodes for OutcomeMeasures
+Some initial recoding for OutcomeMeasures
 }

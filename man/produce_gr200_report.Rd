@@ -2,7 +2,7 @@
 % Please edit documentation in R/produce_gr200_report.R
 \name{produce_gr200_report}
 \alias{produce_gr200_report}
-\title{Grad Rates 200 wrapper function to produce report}
+\title{Shortcut function with all steps to provide a Grad Rates 200 report}
 \usage{
 produce_gr200_report(df, format = "uploadable")
 }
@@ -18,5 +18,5 @@ only works with one part at a time.}
 A txt or csv file at the path of your choice
 }
 \description{
-Grad Rates 200 wrapper function to produce report
+Shortcut function with all steps to provide a Grad Rates 200 report
 }

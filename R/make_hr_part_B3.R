@@ -1,4 +1,4 @@
-#' Produce IPEDS HR Part B3
+#' Make Human Resources Part B3
 #'
 #' @description  Part B3 --- Full-time non-instructional staff by medical school, and occupational category
 #'

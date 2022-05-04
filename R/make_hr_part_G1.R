@@ -1,4 +1,4 @@
-#' Produce IPEDS HR Part G1
+#' Make Human Resources Part G1
 #'
 #' @description  Part G1 --- Salaries of INSTRUCTIONAL staff
 #'

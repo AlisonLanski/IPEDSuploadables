@@ -1,8 +1,8 @@
-#' Shortcut function to do all steps to produce a report
+#' Shortcut function with all steps to provide a Completions report
 #'
 #' @param df A dataframe set up according to the readme
 #' @param extracips A dataframe set up according to the readme (optional)
-#' @param part A string with what part of the reprt you want to produce: 'all', 'A', etc.
+#' @param part A string with what part of the report you want to produce: 'all', 'A', etc.
 #' @param format A string (\code{"uploadable"} will produce a properly formatted
 #'   upload file. \code{"readable"} will produce a csv of the upload file (only
 #'   works for one part at a time). \code{"both"} will provide both options, but

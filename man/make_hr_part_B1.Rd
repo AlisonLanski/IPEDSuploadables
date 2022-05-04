@@ -2,7 +2,7 @@
 % Please edit documentation in R/make_hr_part_B1.R
 \name{make_hr_part_B1}
 \alias{make_hr_part_B1}
-\title{Produce IPEDS HR Part B1}
+\title{Make Human Resources Part B1}
 \usage{
 make_hr_part_B1(df)
 }

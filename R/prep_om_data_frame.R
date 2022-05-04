@@ -1,4 +1,4 @@
-#' Some initial recodes for OutcomeMeasures
+#' Some initial recoding for OutcomeMeasures
 #'
 #' @param df a dataframe of student level data
 #'

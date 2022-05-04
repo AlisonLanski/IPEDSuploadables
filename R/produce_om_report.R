@@ -1,4 +1,4 @@
-#' Shortcut function to produce a report for Outcome Measures
+#' Shortcut function with all steps to provide an Outcome Measures report
 #'
 #' @param df A dataframe set up according to the readme
 #' @param part A string with what part of the report you want to produce: 'all',

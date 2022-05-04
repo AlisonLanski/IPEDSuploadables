@@ -2,7 +2,7 @@
 % Please edit documentation in R/prep_ef1_data_frame.R
 \name{prep_ef1_data_frame}
 \alias{prep_ef1_data_frame}
-\title{Some initial recodes for Fall Enrollment}
+\title{Some initial recoding for Fall Enrollment}
 \usage{
 prep_ef1_data_frame(df)
 }
@@ -13,5 +13,5 @@ prep_ef1_data_frame(df)
 df
 }
 \description{
-Some initial recodes for Fall Enrollment
+Some initial recoding for Fall Enrollment
 }

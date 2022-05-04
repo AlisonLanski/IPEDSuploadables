@@ -1,4 +1,4 @@
-#' Produce IPEDS HR Part D1
+#' Make Human Resources Part D1
 #'
 #' @description  Part D1 --- Part-time staff by occupational category
 #'

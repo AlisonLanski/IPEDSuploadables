@@ -2,7 +2,7 @@
 % Please edit documentation in R/produce_gr_report.R
 \name{produce_gr_report}
 \alias{produce_gr_report}
-\title{Shortcut function to do all steps to produce a report}
+\title{Shortcut function with all steps to provide a Graduation Rates report}
 \usage{
 produce_gr_report(df, part = "ALL", format = "uploadable")
 }
@@ -20,5 +20,5 @@ only works with one part at a time.}
 A txt or csv file at the path of your choice
 }
 \description{
-Shortcut function to do all steps to produce a report
+Shortcut function with all steps to provide a Graduation Rates report
 }

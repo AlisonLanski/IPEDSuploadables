@@ -2,7 +2,7 @@
 % Please edit documentation in R/prep_hr_data_frame.R
 \name{prep_hr_data_frame}
 \alias{prep_hr_data_frame}
-\title{Prepare dataframe for IPEDS HR script}
+\title{Some initial recoding for Human Resources}
 \usage{
 prep_hr_data_frame(df)
 }
@@ -13,5 +13,5 @@ prep_hr_data_frame(df)
 a dataframe
 }
 \description{
-Prepare dataframe for IPEDS HR script
+Some initial recoding for Human Resources
 }

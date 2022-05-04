@@ -3,7 +3,7 @@
 \docType{data}
 \name{gr_students}
 \alias{gr_students}
-\title{Table of dummy student data for the Graduation Rates starting dataframe}
+\title{Dummy student data for the Graduation Rates scripts}
 \format{
 A data frame with 101 rows and 13 columns
 }
@@ -11,7 +11,7 @@ A data frame with 101 rows and 13 columns
 gr_students
 }
 \description{
-Table of dummy student data for the Graduation Rates starting dataframe
+Dummy student data for the Graduation Rates scripts
 }
 \details{
 Includes only 3 Race/Ethnicity categories [6, 7, 8] for simpler

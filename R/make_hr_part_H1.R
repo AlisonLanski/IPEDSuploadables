@@ -1,4 +1,4 @@
-#' Produce IPEDS HR Part H1
+#' Make Human Resources Part H1
 #'
 #' @description  Part H1 --- Full-time new hire instructional staff by tenure status and race/ethnicity/gender
 #'

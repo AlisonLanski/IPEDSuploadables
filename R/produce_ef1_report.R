@@ -1,4 +1,4 @@
-#' Shortcut function to do all steps to produce a report for Fall Enrollment
+#' Shortcut function with all steps to provide a Fall Enrollment report
 #'
 #' @param students A dataframe set up according to the readme with student data
 #' @param retention A dataframe set up according to the readme with retention data

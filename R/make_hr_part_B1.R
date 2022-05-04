@@ -1,4 +1,4 @@
-#' Produce IPEDS HR Part B1
+#' Make Human Resources Part B1
 #'
 #' @description  HR Part B1 --- COUNT of FT Non-instructional staff by occupational category
 #'

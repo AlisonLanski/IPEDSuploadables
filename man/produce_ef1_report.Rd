@@ -2,7 +2,7 @@
 % Please edit documentation in R/produce_ef1_report.R
 \name{produce_ef1_report}
 \alias{produce_ef1_report}
-\title{Shortcut function to do all steps to produce a report for Fall Enrollment}
+\title{Shortcut function with all steps to provide a Fall Enrollment report}
 \usage{
 produce_ef1_report(
   students,
@@ -30,5 +30,5 @@ only works with one part at a time.}
 A txt or csv file at the path of your choice
 }
 \description{
-Shortcut function to do all steps to produce a report for Fall Enrollment
+Shortcut function with all steps to provide a Fall Enrollment report
 }

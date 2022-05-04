@@ -1,4 +1,4 @@
-#' Produce IPEDS HR Part H2
+#' Make Human Resources Part H2
 #'
 #' @description  Part H2 --- New hires by occupational category, Race/Ethnicity/Gender
 #'

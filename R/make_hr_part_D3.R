@@ -1,4 +1,4 @@
-#' Produce IPEDS HR Part D3
+#' Make Human Resources Part D3
 #'
 #' @description  Part D3 --- Part-time staff by tenure, medical school, and occupational category
 #'

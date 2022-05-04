@@ -2,7 +2,7 @@
 % Please edit documentation in R/produce_hr_report.R
 \name{produce_hr_report}
 \alias{produce_hr_report}
-\title{Shortcut function to do all steps to produce a report}
+\title{Shortcut function with all steps to provide a Human Resources report}
 \usage{
 produce_hr_report(df, part = "all", format = "uploadable")
 }
@@ -20,5 +20,5 @@ only works with one part at a time.}
 A txt or csv file at the path of your choice
 }
 \description{
-Shortcut function to do all steps to produce a report
+Shortcut function with all steps to provide a Human Resources report
 }

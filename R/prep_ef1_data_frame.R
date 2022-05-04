@@ -1,4 +1,4 @@
-#' Some initial recodes for Fall Enrollment
+#' Some initial recoding for Fall Enrollment
 #'
 #' @param df a dataframe of student level data
 #'

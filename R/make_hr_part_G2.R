@@ -1,4 +1,4 @@
-#' Produce IPEDS HR Part G2
+#' Make Human Resources Part G2
 #'
 #' @description  Part G2 --- Salaries of non-instructional staff
 #'

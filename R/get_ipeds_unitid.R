@@ -1,10 +1,10 @@
-#' Grab institution's UNITID for the IPEDS script
+#' Grab institution's UNITID from supplied data to populate missing-data rows
 #'
 #' @param df a dataframe with ipeds data and one unitid
 #'
 #' @importFrom stringr str_to_upper
 #'
-#' @return a numeric unitid
+#' @return a character unitid
 #' @export
 #'
 

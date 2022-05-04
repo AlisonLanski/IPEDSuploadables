@@ -1,4 +1,4 @@
-#' Produce IPEDS HR Part A2
+#' Make Human Resources Part A2
 #'
 #' @description  Part A2 --- COUNT of FT instructional staff by tenure status, medical school, and function
 #'

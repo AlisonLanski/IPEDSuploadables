@@ -1,4 +1,4 @@
-#' Produce IPEDS HR Part D4
+#' Make Human Resources Part D4
 #'
 #' @description  Part D4 --- Part-time Non-instructional staff by medical school, and occupational category
 #'

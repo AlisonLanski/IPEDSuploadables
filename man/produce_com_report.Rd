@@ -2,7 +2,7 @@
 % Please edit documentation in R/produce_com_report.R
 \name{produce_com_report}
 \alias{produce_com_report}
-\title{Shortcut function to do all steps to produce a report}
+\title{Shortcut function with all steps to provide a Completions report}
 \usage{
 produce_com_report(df, extracips = NULL, part = "ALL", format = "uploadable")
 }
@@ -11,7 +11,7 @@ produce_com_report(df, extracips = NULL, part = "ALL", format = "uploadable")
 
 \item{extracips}{A dataframe set up according to the readme (optional)}
 
-\item{part}{A string with what part of the reprt you want to produce: 'all', 'A', etc.}
+\item{part}{A string with what part of the report you want to produce: 'all', 'A', etc.}
 
 \item{format}{A string (\code{"uploadable"} will produce a properly formatted
 upload file. \code{"readable"} will produce a csv of the upload file (only
@@ -22,5 +22,5 @@ only works with one part at a time.}
 A txt or csv file at the path of your choice
 }
 \description{
-Shortcut function to do all steps to produce a report
+Shortcut function with all steps to provide a Completions report
 }

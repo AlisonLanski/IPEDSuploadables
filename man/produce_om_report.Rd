@@ -2,7 +2,7 @@
 % Please edit documentation in R/produce_om_report.R
 \name{produce_om_report}
 \alias{produce_om_report}
-\title{Shortcut function to produce a report for Outcome Measures}
+\title{Shortcut function with all steps to provide an Outcome Measures report}
 \usage{
 produce_om_report(df, part = "ALL", format = "uploadable")
 }
@@ -21,5 +21,5 @@ only works with one part at a time.}
 A txt or csv file at the path of your choice
 }
 \description{
-Shortcut function to produce a report for Outcome Measures
+Shortcut function with all steps to provide an Outcome Measures report
 }

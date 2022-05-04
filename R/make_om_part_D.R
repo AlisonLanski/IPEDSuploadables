@@ -1,6 +1,6 @@
 #' Make Outcome Measures Part D
 #'
-#' @description Award Status and ENROLLment at Eight Years after Entry
+#' @description Award Status and Enrollment at Eight Years after Entry
 #'
 #' @param df A dataframe of student statuses
 #'

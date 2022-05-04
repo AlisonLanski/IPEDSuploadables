@@ -2,7 +2,7 @@
 % Please edit documentation in R/prep_com_data_frame.R
 \name{prep_com_data_frame}
 \alias{prep_com_data_frame}
-\title{Some initial recodes for Completions}
+\title{Some initial recoding for Completions}
 \usage{
 prep_com_data_frame(df)
 }
@@ -13,5 +13,5 @@ prep_com_data_frame(df)
 df
 }
 \description{
-Some initial recodes for Completions
+Some initial recoding for Completions
 }

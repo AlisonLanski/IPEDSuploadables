@@ -19,4 +19,4 @@ General list-creation code is commented out in the test-part-outputs.R script; u
 \examples{
 \dontrun{part_outputs$com_partD}
 }
-\keyword{datasets}
+\keyword{internal}

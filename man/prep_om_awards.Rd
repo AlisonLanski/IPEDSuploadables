@@ -2,7 +2,7 @@
 % Please edit documentation in R/prep_om_awards.R
 \name{prep_om_awards}
 \alias{prep_om_awards}
-\title{Prep extra_awards df for Outcome Measures part B, C, D}
+\title{Set up extra_awards df for Outcome Measures part B, C, D}
 \usage{
 prep_om_awards(df, award)
 }

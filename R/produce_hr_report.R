@@ -1,4 +1,4 @@
-#' Shortcut function to do all steps to produce a report
+#' Shortcut function with all steps to provide a Human Resources report
 #'
 #' @param df a dataframe set up according to the readme
 #' @param part a string with what part of the report you want to produce "all", "A1", etc.

@@ -1,4 +1,4 @@
-#' Produce IPEDS HR Part A1
+#' Make Human Resources Part A1
 #'
 #' @description  Part A1 --- COUNT of FT INSTRUCTIONAL staff by tenure status, academic rank, and race/ethnicity/gender
 #'

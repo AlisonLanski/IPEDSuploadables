@@ -3,7 +3,7 @@
 \docType{data}
 \name{ef1_students}
 \alias{ef1_students}
-\title{Dataframe of dummy student data  Fall Enrollment scripts}
+\title{Dummy student data for Fall Enrollment scripts}
 \format{
 A data frame with 100 rows and 16 columns
 }

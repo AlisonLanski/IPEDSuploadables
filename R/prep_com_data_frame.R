@@ -1,4 +1,4 @@
-#' Some initial recodes for Completions
+#' Some initial recoding for Completions
 #'
 #' @param df a dataframe of student level data or cip information
 #'

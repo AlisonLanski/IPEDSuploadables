@@ -2,7 +2,7 @@
 % Please edit documentation in R/produce_e1d_report.R
 \name{produce_e1d_report}
 \alias{produce_e1d_report}
-\title{Shortcut function to do all steps to produce a 12 month Enrollment report}
+\title{Shortcut function with all steps to provide a 12 Month Enrollment report}
 \usage{
 produce_e1d_report(df, hrs, part = "ALL", format = "uploadable")
 }
@@ -11,7 +11,7 @@ produce_e1d_report(df, hrs, part = "ALL", format = "uploadable")
 
 \item{hrs}{A dataframe set up according to the readme for instructional activity}
 
-\item{part}{A string with what part of the reprt you want to produce: 'all', 'A', etc.}
+\item{part}{A string with what part of the report you want to produce: 'all', 'A', etc.}
 
 \item{format}{A string (\code{"uploadable"} will produce a properly formatted
 upload file. \code{"readable"} will produce a csv of the upload file (only
@@ -22,5 +22,5 @@ only works with one part at a time.}
 A txt or csv file at the path of your choice
 }
 \description{
-Shortcut function to do all steps to produce a 12 month Enrollment report
+Shortcut function with all steps to provide a 12 Month Enrollment report
 }

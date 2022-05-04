@@ -1,4 +1,4 @@
-#' Produce IPEDS HR Part D2
+#' Make Human Resources Part D2
 #'
 #' @description  Part D2 --- Graduate assistants by occupational category and race/ethnicity/gender
 #'

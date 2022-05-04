@@ -1,4 +1,4 @@
-#' Prep extra_awards df for Outcome Measures part B, C, D
+#' Set up extra_awards df for Outcome Measures part B, C, D
 #'
 #' @description Select correct year, ensure all award levels end up with a column
 #'
@@ -10,7 +10,6 @@
 #' @importFrom stringr str_to_upper
 #'
 #' @return A df ready for use in the make_om_part functions B-D
-#' @export
 #'
 
 prep_om_awards <- function(df, award) {

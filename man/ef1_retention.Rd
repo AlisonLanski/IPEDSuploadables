@@ -3,7 +3,7 @@
 \docType{data}
 \name{ef1_retention}
 \alias{ef1_retention}
-\title{Dataframe of dummy retention data for Fall Enrollment scripts}
+\title{Dummy student retention data for Fall Enrollment scripts part E}
 \format{
 A data frame with 2 rows and 6 columns
 }

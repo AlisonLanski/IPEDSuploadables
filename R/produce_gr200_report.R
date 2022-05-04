@@ -1,4 +1,4 @@
-#' Grad Rates 200 wrapper function to produce report
+#' Shortcut function with all steps to provide a Grad Rates 200 report
 #'
 #' @param df a dataframe set up according to the readme
 #' @param format A string (\code{"uploadable"} will produce a properly formatted

@@ -1,4 +1,4 @@
-#' Prepare dataframe for IPEDS HR script
+#' Some initial recoding for Human Resources
 #'
 #' @param df a dataframe
 #'

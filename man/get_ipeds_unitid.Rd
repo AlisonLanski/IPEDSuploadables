@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_ipeds_unitid.R
 \name{get_ipeds_unitid}
 \alias{get_ipeds_unitid}
-\title{Grab institution's UNITID for the IPEDS script}
+\title{Grab institution's UNITID from supplied data to populate missing-data rows}
 \usage{
 get_ipeds_unitid(df)
 }
@@ -10,8 +10,8 @@ get_ipeds_unitid(df)
 \item{df}{a dataframe with ipeds data and one unitid}
 }
 \value{
-a numeric unitid
+a character unitid
 }
 \description{
-Grab institution's UNITID for the IPEDS script
+Grab institution's UNITID from supplied data to populate missing-data rows
 }
