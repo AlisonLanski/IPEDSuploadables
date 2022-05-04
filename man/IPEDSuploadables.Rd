@@ -7,3 +7,7 @@
 \description{
 Tools to assist uploading survey data to IPEDS
 }
+\details{
+See the README on
+\href{https://github.com/AlisonLanski/IPEDSuploadables#readme}{GitHub}
+}

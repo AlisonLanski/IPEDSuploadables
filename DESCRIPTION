@@ -1,5 +1,5 @@
 Package: IPEDSuploadables
-Title: Transforms institutional data into approved IPEDS uploadable text files and supporting documents
+Title: Transforms institutional data into approved IPEDS uploadable text files
 Version: 2.3.5
 Authors@R: c(
             person(given = "Alison", family = "Lanski", 
@@ -8,7 +8,18 @@ Authors@R: c(
             person("Shiloh", "Fling", 
             role = c("aut"),
             email = "shilohfling@gmail.com"))
-Description: Starting from user-supplied institutional data, this package transforms, aggregates, and reshapes the information to produce key-value pair data files that are able to be uploaded to IPEDS through their submission portal. Starting data specifications can be found in the vignettes.  Final files are saved locally to a location of the user's choice. User-friendly readable files can also be produced for purposes of data review and validation. Because IPEDS changes requirements from year to year, the branch name shows which submission year the scripts are valid for. This version only supports Completions and Human Resources.
+Description: Starting from user-supplied institutional data, this package 
+    transforms, aggregates, and reshapes the information to produce 
+    key-value pair data files that are able to be uploaded to IPEDS (Integrated Postsecondary Education Data System) 
+    through their submission portal. Starting data specifications can be found in the vignettes.  
+    Final files are saved locally to a location of the user's choice. 
+    User-friendly readable files can also be produced for purposes of data review and validation. 
+Note: Because IPEDS changes requirements from year to year, the github branch name shows which 
+    submission year the scripts are valid for. 
+    The package can also be used to convert any correctly-prepared data into a key-value pair format
+    for any survey (IPEDS or non-IPEDS).
+URL: https://github.com/AlisonLanski/IPEDSuploadables, https://alisonlanski.github.io/IPEDSuploadables/
+BugReports: https://github.com/AlisonLanski/IPEDSuploadables/issues
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -26,7 +37,9 @@ Imports:
 Suggests: 
     knitr,
     rmarkdown,
-    kableExtra
+    kableExtra,
+    testthat (>= 3.0.0)
 VignetteBuilder: knitr
 Depends: 
     R (>= 2.10)
+Config/testthat/edition: 2

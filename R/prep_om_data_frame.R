@@ -23,7 +23,7 @@ prep_om_data_frame <- function(df) {
                       )
 
   if (sum(is.na(df$EXCLUSION)) > 0) {
-    print("Some COHORTSTATUS recoding has failed. Please recheck that all rows only have allowed values")
+    warning(paste0("Check CohortStatus: invalid values found for StudentId: ", toString(df$STUDENTID[is.na(df$EXCLUSION)])))
   }
 
   return(df)

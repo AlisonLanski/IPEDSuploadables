@@ -30,7 +30,8 @@ Note: Column names can use any capitalization method you like
 ```{r create_data_file_in_package, eval=FALSE, echo=FALSE}
 #export spreadsheet with specs from google drive
 #read in with readr
-#then run: use_data(specs_COM, specs_COM, overwrite = TRUE) to save as .rda and replace the old file
+specs_COM <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/132EKp46TpEHPlVrG9FZxINxmVVz8UO0Ov989sP4lNaM/edit", sheet = 1)
+usethis::use_data(specs_COM, overwrite = TRUE)
 ```
 
 ```{r specstable_df, echo=FALSE, warning=FALSE, message=FALSE}
