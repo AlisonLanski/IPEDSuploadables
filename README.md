@@ -5,6 +5,8 @@
 
 <!-- badges: start -->
 
+[![Codecov test
+coverage](https://codecov.io/gh/AlisonLanski/IPEDSuploadables/branch/master/graph/badge.svg)](https://app.codecov.io/gh/AlisonLanski/IPEDSuploadables?branch=master)
 <!-- badges: end -->
 
 IPEDSuploadables produces text files in key-value format which meet the

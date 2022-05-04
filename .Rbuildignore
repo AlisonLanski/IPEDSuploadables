@@ -12,3 +12,4 @@
 ^ISSUE_TEMPLATE.md$
 ^cran-comments.md$
 
+^codecov\.yml$
