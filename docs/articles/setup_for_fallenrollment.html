@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,23 +33,17 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">IPEDSuploadables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.3.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.4.5</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -83,7 +79,14 @@
   </ul>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right"></ul>
+<ul class="nav navbar-nav navbar-right">
+<li>
+  <a href="https://github.com/AlisonLanski/IPEDSuploadables/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
 <!--/.nav-collapse -->
   </div>
@@ -93,30 +96,31 @@
 
       
 
-      </header><script src="setup_for_fallenrollment_files/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="setup_for_fallenrollment_files/kePrint-0.0.1/kePrint.js"></script><div class="row">
+      </header><script src="setup_for_fallenrollment_files/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="setup_for_fallenrollment_files/kePrint-0.0.1/kePrint.js"></script><link href="setup_for_fallenrollment_files/lightable-0.0.1/lightable.css" rel="stylesheet">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Set up your data for IPEDS Fall Enrollment processing</h1>
             
       
-      
+      <small class="dont-index">Source: <a href="https://github.com/AlisonLanski/IPEDSuploadables/blob/HEAD/vignettes/setup_for_fallenrollment.Rmd" class="external-link"><code>vignettes/setup_for_fallenrollment.Rmd</code></a></small>
       <div class="hidden name"><code>setup_for_fallenrollment.Rmd</code></div>
 
     </div>
 
     
     
-<div id="the-produce_ef1_report-function-requires-2-separate-dataframes-one-with-row-level-students-and-one-with-pre-aggregated-retention-counts-" class="section level2">
-<h2 class="hasAnchor">
-<a href="#the-produce_ef1_report-function-requires-2-separate-dataframes-one-with-row-level-students-and-one-with-pre-aggregated-retention-counts-" class="anchor"></a>The <code>produce_ef1_report</code> function requires 2 separate dataframes, one with row-level students and one with pre-aggregated retention counts.</h2>
-</div>
-<div id="the-dataframes-must-follow-the-format-described-below" class="section level2">
-<h2 class="hasAnchor">
-<a href="#the-dataframes-must-follow-the-format-described-below" class="anchor"></a><em>The dataframes must follow the format described below</em>
+<div class="section level2">
+<h2 id="the-produce_ef1_report-function-requires-2-separate-dataframes-one-with-row-level-students-and-one-with-pre-aggregated-retention-counts-">The <code>produce_ef1_report</code> function requires 2 separate dataframes, one with row-level students and one with pre-aggregated retention counts.<a class="anchor" aria-label="anchor" href="#the-produce_ef1_report-function-requires-2-separate-dataframes-one-with-row-level-students-and-one-with-pre-aggregated-retention-counts-"></a>
 </h2>
-<div id="student-data-requirements" class="section level3">
-<h3 class="hasAnchor">
-<a href="#student-data-requirements" class="anchor"></a>Student data requirements</h3>
+</div>
+<div class="section level2">
+<h2 id="the-dataframes-must-follow-the-format-described-below">
+<em>The dataframes must follow the format described below</em><a class="anchor" aria-label="anchor" href="#the-dataframes-must-follow-the-format-described-below"></a>
+</h2>
+<div class="section level3">
+<h3 id="student-data-requirements">Student data requirements<a class="anchor" aria-label="anchor" href="#student-data-requirements"></a>
+</h3>
 <blockquote>
 <ul>
 <li>One row per person</li>
@@ -126,7 +130,7 @@
 </ul>
 </blockquote>
 <p>Column names can use any capitalization method you like. Do <strong>NOT</strong> include (**) in the column names.</p>
-<table class="table table table-striped">
+<table class="table table table-striped" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
 Column Name
@@ -406,9 +410,9 @@ Numeric
 </tbody>
 </table>
 </div>
-<div id="retention-data-requirements" class="section level3">
-<h3 class="hasAnchor">
-<a href="#retention-data-requirements" class="anchor"></a>Retention data requirements</h3>
+<div class="section level3">
+<h3 id="retention-data-requirements">Retention data requirements<a class="anchor" aria-label="anchor" href="#retention-data-requirements"></a>
+</h3>
 <blockquote>
 <ul>
 <li>One row for full-time counts, one row for part-time counts</li>
@@ -416,8 +420,10 @@ Numeric
 <li>Columns with values and types as described below in any order (additional columns are allowed)</li>
 </ul>
 </blockquote>
-<table class="table table table-striped">
+<table class="table table table-striped" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
+<th style="text-align:left;">
+</th>
 <th style="text-align:left;">
 Column Name
 </th>
@@ -431,9 +437,12 @@ Acceptable Value - Definition
 <tbody>
 <tr>
 <td style="text-align:left;">
-Unitid
+25
 </td>
 <td style="text-align:left;width: 8em; font-style: italic;">
+Unitid
+</td>
+<td style="text-align:left;">
 Numeric
 </td>
 <td style="text-align:left;">
@@ -442,9 +451,12 @@ Numeric
 </tr>
 <tr>
 <td style="text-align:left;">
-IsFullTime
+26
 </td>
 <td style="text-align:left;width: 8em; font-style: italic;">
+IsFullTime
+</td>
+<td style="text-align:left;">
 Numeric
 </td>
 <td style="text-align:left;">
@@ -453,9 +465,12 @@ Numeric
 </tr>
 <tr>
 <td style="text-align:left;">
-OrigCohort
+27
 </td>
 <td style="text-align:left;width: 8em; font-style: italic;">
+OrigCohort
+</td>
+<td style="text-align:left;">
 Numeric
 </td>
 <td style="text-align:left;">
@@ -464,9 +479,12 @@ Number of first-time students in the prior-year cohort
 </tr>
 <tr>
 <td style="text-align:left;">
-Exclusions
+28
 </td>
 <td style="text-align:left;width: 8em; font-style: italic;">
+Exclusions
+</td>
+<td style="text-align:left;">
 Numeric
 </td>
 <td style="text-align:left;">
@@ -475,9 +493,12 @@ Number of first-time students to be excluded (removed) from the prior-year cohor
 </tr>
 <tr>
 <td style="text-align:left;">
-Inclusions
+29
 </td>
 <td style="text-align:left;width: 8em; font-style: italic;">
+Inclusions
+</td>
+<td style="text-align:left;">
 Numeric
 </td>
 <td style="text-align:left;">
@@ -486,9 +507,12 @@ Number of first-time students to be included (added) to the prior-year cohort
 </tr>
 <tr>
 <td style="text-align:left;">
-StillEnrolled
+30
 </td>
 <td style="text-align:left;width: 8em; font-style: italic;">
+StillEnrolled
+</td>
+<td style="text-align:left;">
 Numeric
 </td>
 <td style="text-align:left;">
@@ -498,9 +522,9 @@ Number of prior-year first-time students who are still enrolled in the current y
 </tbody>
 </table>
 </div>
-<div id="student-faculty-ratio" class="section level3">
-<h3 class="hasAnchor">
-<a href="#student-faculty-ratio" class="anchor"></a>Student-faculty ratio</h3>
+<div class="section level3">
+<h3 id="student-faculty-ratio">Student-faculty ratio<a class="anchor" aria-label="anchor" href="#student-faculty-ratio"></a>
+</h3>
 <p>This information will be collected via pop-up box. Type the correct number for your institution’s ratio when prompted.</p>
 </div>
 </div>
@@ -517,11 +541,13 @@ Number of prior-year first-time students who are still enrolled in the current y
 
 
       <footer><div class="copyright">
-  <p>Developed by Alison Lanski, Shiloh Fling.</p>
+  <p></p>
+<p>Developed by Alison Lanski, Shiloh Fling.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
       </footer>
@@ -529,6 +555,8 @@ Number of prior-year first-time students who are still enrolled in the current y
 
   
 
+
+  
 
   </body>
 </html>

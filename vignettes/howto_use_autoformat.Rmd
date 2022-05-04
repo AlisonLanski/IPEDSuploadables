@@ -39,7 +39,7 @@ If you want the package to help you with aggregation and (some) recoding, look a
 
 ## Data prep example: Admissions
 
-This provides a start-to-finish example of preparing an admissions submission based on sample data. Always check your results after you upload your txt file to the IPEDS submission portal,
+This provides a start-to-finish example of preparing an admissions submission based on sample data. Always check your results after you upload your txt file to the IPEDS submission portal.
 
 ### Start with institutional data for applicants 
 ```{r setup, message=FALSE}

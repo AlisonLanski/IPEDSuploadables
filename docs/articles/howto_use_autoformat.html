@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,23 +33,17 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">IPEDSuploadables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.3.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.4.5</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -83,7 +79,14 @@
   </ul>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right"></ul>
+<ul class="nav navbar-nav navbar-right">
+<li>
+  <a href="https://github.com/AlisonLanski/IPEDSuploadables/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
 <!--/.nav-collapse -->
   </div>
@@ -99,16 +102,16 @@
       <h1 data-toc-skip>How to produce other key-value uploads</h1>
             
       
-      
+      <small class="dont-index">Source: <a href="https://github.com/AlisonLanski/IPEDSuploadables/blob/HEAD/vignettes/howto_use_autoformat.Rmd" class="external-link"><code>vignettes/howto_use_autoformat.Rmd</code></a></small>
       <div class="hidden name"><code>howto_use_autoformat.Rmd</code></div>
 
     </div>
 
     
     
-<div id="when-to-use-this-how-to" class="section level2">
-<h2 class="hasAnchor">
-<a href="#when-to-use-this-how-to" class="anchor"></a>When to use this How-To</h2>
+<div class="section level2">
+<h2 id="when-to-use-this-how-to">When to use this How-To<a class="anchor" aria-label="anchor" href="#when-to-use-this-how-to"></a>
+</h2>
 <p>Follow the instructions if you want to …</p>
 <ul>
 <li>Do your own data recoding and aggregation for IPEDS submission</li>
@@ -118,12 +121,12 @@
 <p>If you want the package to help you with aggregation and (some) recoding, look at the “setup” vignettes for supported uploads</p>
 <p><em>Note: the <code>produce_other_report</code> function can be used to prepare any key-value pair file for an automated submission process (IPEDS or non-IPEDS)</em></p>
 </div>
-<div id="general-process" class="section level2">
-<h2 class="hasAnchor">
-<a href="#general-process" class="anchor"></a>General Process</h2>
+<div class="section level2">
+<h2 id="general-process">General Process<a class="anchor" aria-label="anchor" href="#general-process"></a>
+</h2>
 <ul>
 <li>
-<strong>Download/Open the IPEDS Import Spec</strong> for a particular survey and institution-type on the <a href="https://surveys.nces.ed.gov/ipeds/public/survey-materials/results">IPEDS Survey Materials instructions page</a>.</li>
+<strong>Download/Open the IPEDS Import Spec</strong> for a particular survey and institution-type on the <a href="https://surveys.nces.ed.gov/ipeds/public/survey-materials/results" class="external-link">IPEDS Survey Materials instructions page</a>.</li>
 <li>
 <strong>Use the “Key Value Pair File” instructions</strong> to prep your data. This will be the second part of the document; the first part is for fixed-width files.</li>
 <li>
@@ -133,33 +136,31 @@
 </ul>
 <p><em>If you need assistance understanding what goes into the upload file, contact IPEDS for advice.</em></p>
 </div>
-<div id="data-prep-example-admissions" class="section level2">
-<h2 class="hasAnchor">
-<a href="#data-prep-example-admissions" class="anchor"></a>Data prep example: Admissions</h2>
-<p>This provides a start-to-finish example of preparing an admissions submission based on sample data. Always check your results after you upload your txt file to the IPEDS submission portal,</p>
-<div id="start-with-institutional-data-for-applicants" class="section level3">
-<h3 class="hasAnchor">
-<a href="#start-with-institutional-data-for-applicants" class="anchor"></a>Start with institutional data for applicants</h3>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="co">#load packages</span>
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://dplyr.tidyverse.org">dplyr</a></span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw">magrittr</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw">IPEDSuploadables</span>)
-</pre></div>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="co">#create data</span>
-<span class="kw">adm_dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(StudentId = <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="fl">1</span><span class="op">:</span><span class="fl">24</span>),
-                      FtPt = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="st">'FT'</span>, <span class="fl">23</span>), <span class="st">'PT'</span>),
-                      Sex = <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"M"</span>, <span class="st">"F"</span>), <span class="fl">12</span>),
-                      Admit = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">1</span>, <span class="fl">16</span>), <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">0</span>, <span class="fl">8</span>)),
-                      Enroll = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">1</span>, <span class="fl">12</span>), <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">0</span>, <span class="fl">12</span>)),
-                      SAT = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">1</span>, <span class="fl">8</span>), <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">0</span>, <span class="fl">16</span>)),
-                      SAT_V = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">500</span>, <span class="fl">560</span>, <span class="fl">600</span>, <span class="fl">660</span>, <span class="fl">700</span>, <span class="fl">760</span>, <span class="fl">800</span>, <span class="fl">800</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">NA</span>, <span class="fl">16</span>)),
-                      SAT_M = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">400</span>, <span class="fl">460</span>, <span class="fl">500</span>, <span class="fl">560</span>, <span class="fl">600</span>, <span class="fl">660</span>, <span class="fl">700</span>, <span class="fl">700</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">NA</span>, <span class="fl">16</span>)),
-                      ACT = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">0</span>, <span class="fl">8</span>), <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">1</span>, <span class="fl">16</span>)),
-                      ACT_CMP = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">NA</span>, <span class="fl">8</span>), <span class="fl">32</span>, <span class="fl">32</span>, <span class="fl">31</span>, <span class="fl">31</span>, <span class="fl">30</span>, <span class="fl">30</span>, <span class="fl">29</span>, <span class="fl">29</span>, <span class="fl">28</span>, <span class="fl">28</span>, <span class="fl">27</span>, <span class="fl">27</span>, <span class="fl">26</span>, <span class="fl">26</span>, <span class="fl">25</span>, <span class="fl">25</span>)
-                      )
-</pre></div>
+<div class="section level2">
+<h2 id="data-prep-example-admissions">Data prep example: Admissions<a class="anchor" aria-label="anchor" href="#data-prep-example-admissions"></a>
+</h2>
+<p>This provides a start-to-finish example of preparing an admissions submission based on sample data. Always check your results after you upload your txt file to the IPEDS submission portal.</p>
+<div class="section level3">
+<h3 id="start-with-institutional-data-for-applicants">Start with institutional data for applicants<a class="anchor" aria-label="anchor" href="#start-with-institutional-data-for-applicants"></a>
+</h3>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#load packages</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org" class="external-link">magrittr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">IPEDSuploadables</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#create data</span>
+<span class="va">adm_dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>StudentId <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">24</span><span class="op">)</span>,
+                      FtPt <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">'FT'</span>, <span class="fl">23</span><span class="op">)</span>, <span class="st">'PT'</span><span class="op">)</span>,
+                      Sex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"M"</span>, <span class="st">"F"</span><span class="op">)</span>, <span class="fl">12</span><span class="op">)</span>,
+                      Admit <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">16</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">8</span><span class="op">)</span><span class="op">)</span>,
+                      Enroll <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">12</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">12</span><span class="op">)</span><span class="op">)</span>,
+                      SAT <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">8</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">16</span><span class="op">)</span><span class="op">)</span>,
+                      SAT_V <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">500</span>, <span class="fl">560</span>, <span class="fl">600</span>, <span class="fl">660</span>, <span class="fl">700</span>, <span class="fl">760</span>, <span class="fl">800</span>, <span class="fl">800</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fl">16</span><span class="op">)</span><span class="op">)</span>,
+                      SAT_M <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">400</span>, <span class="fl">460</span>, <span class="fl">500</span>, <span class="fl">560</span>, <span class="fl">600</span>, <span class="fl">660</span>, <span class="fl">700</span>, <span class="fl">700</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fl">16</span><span class="op">)</span><span class="op">)</span>,
+                      ACT <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">8</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">16</span><span class="op">)</span><span class="op">)</span>,
+                      ACT_CMP <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fl">8</span><span class="op">)</span>, <span class="fl">32</span>, <span class="fl">32</span>, <span class="fl">31</span>, <span class="fl">31</span>, <span class="fl">30</span>, <span class="fl">30</span>, <span class="fl">29</span>, <span class="fl">29</span>, <span class="fl">28</span>, <span class="fl">28</span>, <span class="fl">27</span>, <span class="fl">27</span>, <span class="fl">26</span>, <span class="fl">26</span>, <span class="fl">25</span>, <span class="fl">25</span><span class="op">)</span>
+                      <span class="op">)</span></code></pre></div>
 <table class="table">
 <thead><tr>
 <th style="text-align:right;">
@@ -965,24 +966,23 @@ NA
 </tbody>
 </table>
 </div>
-<div id="prepare-part-a---general-questions-not-from-sample-data" class="section level3">
-<h3 class="hasAnchor">
-<a href="#prepare-part-a---general-questions-not-from-sample-data" class="anchor"></a>Prepare Part A - General Questions (not from sample data)</h3>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="co">#### PART A: General Admissions Criteria</span>
-<span class="kw">partA</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(UNITID = <span class="fl">999999</span>,
-                    SURVSECT = <span class="st">'ADM'</span>,
-                    PART = <span class="st">'A'</span>,
-                    ADMCON1 = <span class="fl">2</span>, <span class="co">#GPA</span>
-                    ADMCON2 = <span class="fl">1</span>, <span class="co">#Rank</span>
-                    ADMCON3 = <span class="fl">1</span>, <span class="co">#Record</span>
-                    ADMCON4 = <span class="fl">2</span>, <span class="co">#HS grad</span>
-                    ADMCON5 = <span class="fl">1</span>, <span class="co">#Recs</span>
-                    ADMCON6 = <span class="fl">3</span>, <span class="co">#Portfolio</span>
-                    ADMCON7 = <span class="fl">5</span>, <span class="co">#SAT/ACT  #1 or 5 = have to do part C</span>
-                    ADMCON8 = <span class="fl">2</span>, <span class="co">#TOEFL</span>
-                    ADMCON9 = <span class="fl">3</span>) <span class="co">#other test</span>
-</pre></div>
+<div class="section level3">
+<h3 id="prepare-part-a---general-questions-not-from-sample-data">Prepare Part A - General Questions (not from sample data)<a class="anchor" aria-label="anchor" href="#prepare-part-a---general-questions-not-from-sample-data"></a>
+</h3>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#### PART A: General Admissions Criteria</span>
+<span class="va">partA</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>UNITID <span class="op">=</span> <span class="fl">999999</span>,
+                    SURVSECT <span class="op">=</span> <span class="st">'ADM'</span>,
+                    PART <span class="op">=</span> <span class="st">'A'</span>,
+                    ADMCON1 <span class="op">=</span> <span class="fl">2</span>, <span class="co">#GPA</span>
+                    ADMCON2 <span class="op">=</span> <span class="fl">1</span>, <span class="co">#Rank</span>
+                    ADMCON3 <span class="op">=</span> <span class="fl">1</span>, <span class="co">#Record</span>
+                    ADMCON4 <span class="op">=</span> <span class="fl">2</span>, <span class="co">#HS grad</span>
+                    ADMCON5 <span class="op">=</span> <span class="fl">1</span>, <span class="co">#Recs</span>
+                    ADMCON6 <span class="op">=</span> <span class="fl">3</span>, <span class="co">#Portfolio</span>
+                    ADMCON7 <span class="op">=</span> <span class="fl">5</span>, <span class="co">#SAT/ACT  #1 or 5 = have to do part C</span>
+                    ADMCON8 <span class="op">=</span> <span class="fl">2</span>, <span class="co">#TOEFL</span>
+                    ADMCON9 <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="co">#other test</span></code></pre></div>
 <table class="table">
 <thead><tr>
 <th style="text-align:right;">
@@ -1062,28 +1062,27 @@ A
 </tr></tbody>
 </table>
 </div>
-<div id="prepare-part-b---student-counts-from-sample-data" class="section level3">
-<h3 class="hasAnchor">
-<a href="#prepare-part-b---student-counts-from-sample-data" class="anchor"></a>Prepare Part B - Student Counts (from sample data)</h3>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="co">##### PART B: Admission Counts; FirstTime UG only</span>
-<span class="kw">partB</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(UNITID = <span class="fl">999999</span>,
-                    SURVSECT = <span class="st">'ADM'</span>,
-                    PART = <span class="st">'B'</span>,
-                    APPLCNM = <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(<span class="kw">adm_dat</span>[<span class="kw">adm_dat</span><span class="op">$</span><span class="kw">Sex</span> <span class="op">==</span> <span class="st">'M'</span>, ]),
-                    APPLCNW = <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(<span class="kw">adm_dat</span>[<span class="kw">adm_dat</span><span class="op">$</span><span class="kw">Sex</span> <span class="op">==</span> <span class="st">'F'</span>, ]),
-                    APPLCNT = <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(<span class="kw">adm_dat</span>),
-                    ADMSSNM = <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(<span class="kw">adm_dat</span>[<span class="kw">adm_dat</span><span class="op">$</span><span class="kw">Sex</span> <span class="op">==</span> <span class="st">'M'</span> <span class="op">&amp;</span> <span class="kw">adm_dat</span><span class="op">$</span><span class="kw">Admit</span> <span class="op">==</span> <span class="fl">1</span>,]),
-                    ADMSSNW = <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(<span class="kw">adm_dat</span>[<span class="kw">adm_dat</span><span class="op">$</span><span class="kw">Sex</span> <span class="op">==</span> <span class="st">'F'</span> <span class="op">&amp;</span> <span class="kw">adm_dat</span><span class="op">$</span><span class="kw">Admit</span> <span class="op">==</span> <span class="fl">1</span>,]),
-                    ADMSSNT = <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(<span class="kw">adm_dat</span>[<span class="kw">adm_dat</span><span class="op">$</span><span class="kw">Admit</span> <span class="op">==</span> <span class="fl">1</span>,]),
-                    ENRLFTM = <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(<span class="kw">adm_dat</span>[<span class="kw">adm_dat</span><span class="op">$</span><span class="kw">Sex</span> <span class="op">==</span> <span class="st">'M'</span> <span class="op">&amp;</span> <span class="kw">adm_dat</span><span class="op">$</span><span class="kw">Enroll</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">&amp;</span> <span class="kw">adm_dat</span><span class="op">$</span><span class="kw">FtPt</span> <span class="op">==</span> <span class="st">'FT'</span>, ]),
-                    ENRLFTW = <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(<span class="kw">adm_dat</span>[<span class="kw">adm_dat</span><span class="op">$</span><span class="kw">Sex</span> <span class="op">==</span> <span class="st">'F'</span> <span class="op">&amp;</span> <span class="kw">adm_dat</span><span class="op">$</span><span class="kw">Enroll</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">&amp;</span> <span class="kw">adm_dat</span><span class="op">$</span><span class="kw">FtPt</span> <span class="op">==</span> <span class="st">'FT'</span>, ]),
-                    ENRLFTT = <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(<span class="kw">adm_dat</span>[<span class="kw">adm_dat</span><span class="op">$</span><span class="kw">Enroll</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">&amp;</span> <span class="kw">adm_dat</span><span class="op">$</span><span class="kw">FtPt</span> <span class="op">==</span> <span class="st">'FT'</span>, ]),
-                    ENRLPTM = <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(<span class="kw">adm_dat</span>[<span class="kw">adm_dat</span><span class="op">$</span><span class="kw">Sex</span> <span class="op">==</span> <span class="st">'M'</span> <span class="op">&amp;</span> <span class="kw">adm_dat</span><span class="op">$</span><span class="kw">Enroll</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">&amp;</span> <span class="kw">adm_dat</span><span class="op">$</span><span class="kw">FtPt</span> <span class="op">==</span> <span class="st">'PT'</span>, ]),
-                    ENRLPTW = <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(<span class="kw">adm_dat</span>[<span class="kw">adm_dat</span><span class="op">$</span><span class="kw">Sex</span> <span class="op">==</span> <span class="st">'F'</span> <span class="op">&amp;</span> <span class="kw">adm_dat</span><span class="op">$</span><span class="kw">Enroll</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">&amp;</span> <span class="kw">adm_dat</span><span class="op">$</span><span class="kw">FtPt</span> <span class="op">==</span> <span class="st">'PT'</span>, ]),
-                    ENRLPTT = <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(<span class="kw">adm_dat</span>[<span class="kw">adm_dat</span><span class="op">$</span><span class="kw">Enroll</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">&amp;</span> <span class="kw">adm_dat</span><span class="op">$</span><span class="kw">FtPt</span> <span class="op">==</span> <span class="st">'PT'</span>, ])
-                    )
-</pre></div>
+<div class="section level3">
+<h3 id="prepare-part-b---student-counts-from-sample-data">Prepare Part B - Student Counts (from sample data)<a class="anchor" aria-label="anchor" href="#prepare-part-b---student-counts-from-sample-data"></a>
+</h3>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">##### PART B: Admission Counts; FirstTime UG only</span>
+<span class="va">partB</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>UNITID <span class="op">=</span> <span class="fl">999999</span>,
+                    SURVSECT <span class="op">=</span> <span class="st">'ADM'</span>,
+                    PART <span class="op">=</span> <span class="st">'B'</span>,
+                    APPLCNM <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">adm_dat</span><span class="op">[</span><span class="va">adm_dat</span><span class="op">$</span><span class="va">Sex</span> <span class="op">==</span> <span class="st">'M'</span>, <span class="op">]</span><span class="op">)</span>,
+                    APPLCNW <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">adm_dat</span><span class="op">[</span><span class="va">adm_dat</span><span class="op">$</span><span class="va">Sex</span> <span class="op">==</span> <span class="st">'F'</span>, <span class="op">]</span><span class="op">)</span>,
+                    APPLCNT <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">adm_dat</span><span class="op">)</span>,
+                    ADMSSNM <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">adm_dat</span><span class="op">[</span><span class="va">adm_dat</span><span class="op">$</span><span class="va">Sex</span> <span class="op">==</span> <span class="st">'M'</span> <span class="op">&amp;</span> <span class="va">adm_dat</span><span class="op">$</span><span class="va">Admit</span> <span class="op">==</span> <span class="fl">1</span>,<span class="op">]</span><span class="op">)</span>,
+                    ADMSSNW <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">adm_dat</span><span class="op">[</span><span class="va">adm_dat</span><span class="op">$</span><span class="va">Sex</span> <span class="op">==</span> <span class="st">'F'</span> <span class="op">&amp;</span> <span class="va">adm_dat</span><span class="op">$</span><span class="va">Admit</span> <span class="op">==</span> <span class="fl">1</span>,<span class="op">]</span><span class="op">)</span>,
+                    ADMSSNT <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">adm_dat</span><span class="op">[</span><span class="va">adm_dat</span><span class="op">$</span><span class="va">Admit</span> <span class="op">==</span> <span class="fl">1</span>,<span class="op">]</span><span class="op">)</span>,
+                    ENRLFTM <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">adm_dat</span><span class="op">[</span><span class="va">adm_dat</span><span class="op">$</span><span class="va">Sex</span> <span class="op">==</span> <span class="st">'M'</span> <span class="op">&amp;</span> <span class="va">adm_dat</span><span class="op">$</span><span class="va">Enroll</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">&amp;</span> <span class="va">adm_dat</span><span class="op">$</span><span class="va">FtPt</span> <span class="op">==</span> <span class="st">'FT'</span>, <span class="op">]</span><span class="op">)</span>,
+                    ENRLFTW <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">adm_dat</span><span class="op">[</span><span class="va">adm_dat</span><span class="op">$</span><span class="va">Sex</span> <span class="op">==</span> <span class="st">'F'</span> <span class="op">&amp;</span> <span class="va">adm_dat</span><span class="op">$</span><span class="va">Enroll</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">&amp;</span> <span class="va">adm_dat</span><span class="op">$</span><span class="va">FtPt</span> <span class="op">==</span> <span class="st">'FT'</span>, <span class="op">]</span><span class="op">)</span>,
+                    ENRLFTT <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">adm_dat</span><span class="op">[</span><span class="va">adm_dat</span><span class="op">$</span><span class="va">Enroll</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">&amp;</span> <span class="va">adm_dat</span><span class="op">$</span><span class="va">FtPt</span> <span class="op">==</span> <span class="st">'FT'</span>, <span class="op">]</span><span class="op">)</span>,
+                    ENRLPTM <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">adm_dat</span><span class="op">[</span><span class="va">adm_dat</span><span class="op">$</span><span class="va">Sex</span> <span class="op">==</span> <span class="st">'M'</span> <span class="op">&amp;</span> <span class="va">adm_dat</span><span class="op">$</span><span class="va">Enroll</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">&amp;</span> <span class="va">adm_dat</span><span class="op">$</span><span class="va">FtPt</span> <span class="op">==</span> <span class="st">'PT'</span>, <span class="op">]</span><span class="op">)</span>,
+                    ENRLPTW <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">adm_dat</span><span class="op">[</span><span class="va">adm_dat</span><span class="op">$</span><span class="va">Sex</span> <span class="op">==</span> <span class="st">'F'</span> <span class="op">&amp;</span> <span class="va">adm_dat</span><span class="op">$</span><span class="va">Enroll</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">&amp;</span> <span class="va">adm_dat</span><span class="op">$</span><span class="va">FtPt</span> <span class="op">==</span> <span class="st">'PT'</span>, <span class="op">]</span><span class="op">)</span>,
+                    ENRLPTT <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">adm_dat</span><span class="op">[</span><span class="va">adm_dat</span><span class="op">$</span><span class="va">Enroll</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">&amp;</span> <span class="va">adm_dat</span><span class="op">$</span><span class="va">FtPt</span> <span class="op">==</span> <span class="st">'PT'</span>, <span class="op">]</span><span class="op">)</span>
+                    <span class="op">)</span></code></pre></div>
 <table class="table">
 <thead><tr>
 <th style="text-align:right;">
@@ -1181,34 +1180,33 @@ B
 </tr></tbody>
 </table>
 </div>
-<div id="part-c-test-scores-from-sample-data" class="section level3">
-<h3 class="hasAnchor">
-<a href="#part-c-test-scores-from-sample-data" class="anchor"></a>Part C: Test Scores (from sample data)</h3>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="co">#### PART C: Test Scores</span>
+<div class="section level3">
+<h3 id="part-c-test-scores-from-sample-data">Part C: Test Scores (from sample data)<a class="anchor" aria-label="anchor" href="#part-c-test-scores-from-sample-data"></a>
+</h3>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#### PART C: Test Scores</span>
 
-<span class="kw">adm_enr</span> <span class="op">&lt;-</span> <span class="kw">adm_dat</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(<span class="kw">Enroll</span> <span class="op">==</span> <span class="fl">1</span>)
+<span class="va">adm_enr</span> <span class="op">&lt;-</span> <span class="va">adm_dat</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">Enroll</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span>
 
 <span class="co">#in this example we are not supplying ACT test percentiles by subject</span>
-<span class="kw">partC</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(UNITID = <span class="fl">999999</span>,
-                    SURVSECT = <span class="st">'ADM'</span>,
-                    PART = <span class="st">'C'</span>,
-                    SATINUM = <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(<span class="kw">adm_enr</span>[<span class="kw">adm_enr</span><span class="op">$</span><span class="kw">SAT</span> <span class="op">==</span> <span class="fl">1</span>, ]),
-                    SATIPCT = <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(<span class="kw">adm_enr</span>[<span class="kw">adm_enr</span><span class="op">$</span><span class="kw">SAT</span> <span class="op">==</span> <span class="fl">1</span>, ])<span class="op">*</span><span class="fl">100</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(<span class="kw">adm_enr</span>), <span class="fl">0</span>),
-                    ACTNUM = <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(<span class="kw">adm_enr</span>[<span class="kw">adm_enr</span><span class="op">$</span><span class="kw">ACT</span> <span class="op">==</span> <span class="fl">1</span>,]),
-                    ACTPCT = <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(<span class="kw">adm_enr</span>[<span class="kw">adm_enr</span><span class="op">$</span><span class="kw">ACT</span> <span class="op">==</span> <span class="fl">1</span>,])<span class="op">*</span><span class="fl">100</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(<span class="kw">adm_enr</span>), <span class="fl">0</span>),
-                    SATVR25 = <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span>(<span class="kw">adm_enr</span><span class="op">$</span><span class="kw">SAT_V</span>[<span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(<span class="kw">adm_enr</span><span class="op">$</span><span class="kw">SAT_V</span>)], <span class="fl">.25</span>),
-                    SATVR75 = <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span>(<span class="kw">adm_enr</span><span class="op">$</span><span class="kw">SAT_V</span>[<span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(<span class="kw">adm_enr</span><span class="op">$</span><span class="kw">SAT_V</span>)], <span class="fl">.75</span>),
-                    SATMT25 = <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span>(<span class="kw">adm_enr</span><span class="op">$</span><span class="kw">SAT_M</span>[<span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(<span class="kw">adm_enr</span><span class="op">$</span><span class="kw">SAT_M</span>)], <span class="fl">.25</span>),
-                    SATMT75 = <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span>(<span class="kw">adm_enr</span><span class="op">$</span><span class="kw">SAT_M</span>[<span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(<span class="kw">adm_enr</span><span class="op">$</span><span class="kw">SAT_M</span>)], <span class="fl">.75</span>),
-                    ACTCM25 = <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span>(<span class="kw">adm_enr</span><span class="op">$</span><span class="kw">ACT_CMP</span>[<span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(<span class="kw">adm_enr</span><span class="op">$</span><span class="kw">ACT_CMP</span>)], <span class="fl">.25</span>),
-                    ACTCM75 = <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span>(<span class="kw">adm_enr</span><span class="op">$</span><span class="kw">ACT_CMP</span>[<span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(<span class="kw">adm_enr</span><span class="op">$</span><span class="kw">ACT_CMP</span>)], <span class="fl">.75</span>),
-                    ACTEN25 = <span class="op">-</span><span class="fl">2</span>,
-                    ACTEN75 = <span class="op">-</span><span class="fl">2</span>,
-                    ACTMT25 = <span class="op">-</span><span class="fl">2</span>,
-                    ACTMT75 = <span class="op">-</span><span class="fl">2</span>)
-</pre></div>
+<span class="va">partC</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>UNITID <span class="op">=</span> <span class="fl">999999</span>,
+                    SURVSECT <span class="op">=</span> <span class="st">'ADM'</span>,
+                    PART <span class="op">=</span> <span class="st">'C'</span>,
+                    SATINUM <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">adm_enr</span><span class="op">[</span><span class="va">adm_enr</span><span class="op">$</span><span class="va">SAT</span> <span class="op">==</span> <span class="fl">1</span>, <span class="op">]</span><span class="op">)</span>,
+                    SATIPCT <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">adm_enr</span><span class="op">[</span><span class="va">adm_enr</span><span class="op">$</span><span class="va">SAT</span> <span class="op">==</span> <span class="fl">1</span>, <span class="op">]</span><span class="op">)</span><span class="op">*</span><span class="fl">100</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">adm_enr</span><span class="op">)</span>, <span class="fl">0</span><span class="op">)</span>,
+                    ACTNUM <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">adm_enr</span><span class="op">[</span><span class="va">adm_enr</span><span class="op">$</span><span class="va">ACT</span> <span class="op">==</span> <span class="fl">1</span>,<span class="op">]</span><span class="op">)</span>,
+                    ACTPCT <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">adm_enr</span><span class="op">[</span><span class="va">adm_enr</span><span class="op">$</span><span class="va">ACT</span> <span class="op">==</span> <span class="fl">1</span>,<span class="op">]</span><span class="op">)</span><span class="op">*</span><span class="fl">100</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">adm_enr</span><span class="op">)</span>, <span class="fl">0</span><span class="op">)</span>,
+                    SATVR25 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">adm_enr</span><span class="op">$</span><span class="va">SAT_V</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">adm_enr</span><span class="op">$</span><span class="va">SAT_V</span><span class="op">)</span><span class="op">]</span>, <span class="fl">.25</span><span class="op">)</span>,
+                    SATVR75 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">adm_enr</span><span class="op">$</span><span class="va">SAT_V</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">adm_enr</span><span class="op">$</span><span class="va">SAT_V</span><span class="op">)</span><span class="op">]</span>, <span class="fl">.75</span><span class="op">)</span>,
+                    SATMT25 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">adm_enr</span><span class="op">$</span><span class="va">SAT_M</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">adm_enr</span><span class="op">$</span><span class="va">SAT_M</span><span class="op">)</span><span class="op">]</span>, <span class="fl">.25</span><span class="op">)</span>,
+                    SATMT75 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">adm_enr</span><span class="op">$</span><span class="va">SAT_M</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">adm_enr</span><span class="op">$</span><span class="va">SAT_M</span><span class="op">)</span><span class="op">]</span>, <span class="fl">.75</span><span class="op">)</span>,
+                    ACTCM25 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">adm_enr</span><span class="op">$</span><span class="va">ACT_CMP</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">adm_enr</span><span class="op">$</span><span class="va">ACT_CMP</span><span class="op">)</span><span class="op">]</span>, <span class="fl">.25</span><span class="op">)</span>,
+                    ACTCM75 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">adm_enr</span><span class="op">$</span><span class="va">ACT_CMP</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">adm_enr</span><span class="op">$</span><span class="va">ACT_CMP</span><span class="op">)</span><span class="op">]</span>, <span class="fl">.75</span><span class="op">)</span>,
+                    ACTEN25 <span class="op">=</span> <span class="op">-</span><span class="fl">2</span>,
+                    ACTEN75 <span class="op">=</span> <span class="op">-</span><span class="fl">2</span>,
+                    ACTMT25 <span class="op">=</span> <span class="op">-</span><span class="fl">2</span>,
+                    ACTMT75 <span class="op">=</span> <span class="op">-</span><span class="fl">2</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <thead><tr>
 <th style="text-align:right;">
@@ -1318,13 +1316,12 @@ C
 </tr></tbody>
 </table>
 </div>
-<div id="use-this-package-to-convert-those-dataframes-into-a-single-uploadable-txt-file" class="section level3">
-<h3 class="hasAnchor">
-<a href="#use-this-package-to-convert-those-dataframes-into-a-single-uploadable-txt-file" class="anchor"></a>Use this package to convert those dataframes into a single uploadable txt file</h3>
+<div class="section level3">
+<h3 id="use-this-package-to-convert-those-dataframes-into-a-single-uploadable-txt-file">Use this package to convert those dataframes into a single uploadable txt file<a class="anchor" aria-label="anchor" href="#use-this-package-to-convert-those-dataframes-into-a-single-uploadable-txt-file"></a>
+</h3>
 <p><em>The file format is shown below, but the package will actually save this as a txt file at the location of your choice.</em></p>
-<div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="fu"><a href="../reference/produce_other_report.html">produce_other_report</a></span>(<span class="kw">partA</span>, <span class="kw">partB</span>, <span class="kw">partC</span>, survey = <span class="st">"Admissions"</span>)
-</pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/produce_other_report.html">produce_other_report</a></span><span class="op">(</span><span class="va">partA</span>, <span class="va">partB</span>, <span class="va">partC</span>, survey <span class="op">=</span> <span class="st">"Admissions"</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <thead><tr>
 <th style="text-align:left;">
@@ -1349,9 +1346,9 @@ UNITID=999999,SURVSECT=ADM,PART=C,SATINUM=8,SATIPCT=67,ACTNUM=4,ACTPCT=33,SATVR2
 </tbody>
 </table>
 </div>
-<div id="upload-your-final-txt-file-to-the-ipeds-website" class="section level3">
-<h3 class="hasAnchor">
-<a href="#upload-your-final-txt-file-to-the-ipeds-website" class="anchor"></a>Upload your final txt file to the IPEDS website</h3>
+<div class="section level3">
+<h3 id="upload-your-final-txt-file-to-the-ipeds-website">Upload your final txt file to the IPEDS website<a class="anchor" aria-label="anchor" href="#upload-your-final-txt-file-to-the-ipeds-website"></a>
+</h3>
 <p>This step is no different than any other upload.</p>
 </div>
 </div>
@@ -1368,11 +1365,13 @@ UNITID=999999,SURVSECT=ADM,PART=C,SATINUM=8,SATIPCT=67,ACTNUM=4,ACTPCT=33,SATVR2
 
 
       <footer><div class="copyright">
-  <p>Developed by Alison Lanski, Shiloh Fling.</p>
+  <p></p>
+<p>Developed by Alison Lanski, Shiloh Fling.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
       </footer>
@@ -1380,6 +1379,8 @@ UNITID=999999,SURVSECT=ADM,PART=C,SATINUM=8,SATIPCT=67,ACTNUM=4,ACTPCT=33,SATVR2
 
   
 
+
+  
 
   </body>
 </html>

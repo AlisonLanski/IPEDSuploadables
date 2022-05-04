@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,23 +33,17 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">IPEDSuploadables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.3.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.4.5</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -83,7 +79,14 @@
   </ul>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right"></ul>
+<ul class="nav navbar-nav navbar-right">
+<li>
+  <a href="https://github.com/AlisonLanski/IPEDSuploadables/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
 <!--/.nav-collapse -->
   </div>
@@ -93,25 +96,26 @@
 
       
 
-      </header><script src="setup_for_12monthenrollment_files/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="setup_for_12monthenrollment_files/kePrint-0.0.1/kePrint.js"></script><div class="row">
+      </header><script src="setup_for_12monthenrollment_files/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="setup_for_12monthenrollment_files/kePrint-0.0.1/kePrint.js"></script><link href="setup_for_12monthenrollment_files/lightable-0.0.1/lightable.css" rel="stylesheet">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Set up your data for IPEDS 12 Month Enrollment processing</h1>
             
       
-      
+      <small class="dont-index">Source: <a href="https://github.com/AlisonLanski/IPEDSuploadables/blob/HEAD/vignettes/setup_for_12monthenrollment.Rmd" class="external-link"><code>vignettes/setup_for_12monthenrollment.Rmd</code></a></small>
       <div class="hidden name"><code>setup_for_12monthenrollment.Rmd</code></div>
 
     </div>
 
     
     
-<div id="to-use-the-produce_e1d_report-function-you-must-provide-two-2-dataframes-one-with-student-enrollment-data-and-one-with-instructional-activity-data-" class="section level2">
-<h2 class="hasAnchor">
-<a href="#to-use-the-produce_e1d_report-function-you-must-provide-two-2-dataframes-one-with-student-enrollment-data-and-one-with-instructional-activity-data-" class="anchor"></a>To use the <code>produce_e1d_report</code> function, you must provide two (2) dataframes: one with student enrollment data and one with instructional activity data.</h2>
-<div id="the-student-enrollment-data-must-be-in-the-format-described-below" class="section level3">
-<h3 class="hasAnchor">
-<a href="#the-student-enrollment-data-must-be-in-the-format-described-below" class="anchor"></a>The student enrollment data must be in the format described below</h3>
+<div class="section level2">
+<h2 id="to-use-the-produce_e1d_report-function-you-must-provide-two-2-dataframes-one-with-student-enrollment-data-and-one-with-instructional-activity-data-">To use the <code>produce_e1d_report</code> function, you must provide two (2) dataframes: one with student enrollment data and one with instructional activity data.<a class="anchor" aria-label="anchor" href="#to-use-the-produce_e1d_report-function-you-must-provide-two-2-dataframes-one-with-student-enrollment-data-and-one-with-instructional-activity-data-"></a>
+</h2>
+<div class="section level3">
+<h3 id="the-student-enrollment-data-must-be-in-the-format-described-below">The student enrollment data must be in the format described below<a class="anchor" aria-label="anchor" href="#the-student-enrollment-data-must-be-in-the-format-described-below"></a>
+</h3>
 <blockquote>
 <ul>
 <li>One row per person</li>
@@ -120,7 +124,7 @@
 </ul>
 </blockquote>
 <p>Note: Column names can use any capitalization method you like</p>
-<table class="table table table-striped">
+<table class="table table table-striped" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
 Column Name
@@ -257,9 +261,9 @@ Numeric
 </tbody>
 </table>
 </div>
-<div id="the-instructional-activity-data-must-be-in-the-format-described-below" class="section level3">
-<h3 class="hasAnchor">
-<a href="#the-instructional-activity-data-must-be-in-the-format-described-below" class="anchor"></a>The instructional activity data must be in the format described below</h3>
+<div class="section level3">
+<h3 id="the-instructional-activity-data-must-be-in-the-format-described-below">The instructional activity data must be in the format described below<a class="anchor" aria-label="anchor" href="#the-instructional-activity-data-must-be-in-the-format-described-below"></a>
+</h3>
 <blockquote>
 <ul>
 <li>One row total, with a column for each reportable fact</li>
@@ -267,8 +271,10 @@ Numeric
 <li>Columns with values and types as described below (additional columns are allowed)</li>
 </ul>
 </blockquote>
-<table class="table table table-striped">
+<table class="table table table-striped" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
+<th style="text-align:left;">
+</th>
 <th style="text-align:left;">
 Column Name
 </th>
@@ -282,9 +288,12 @@ Acceptable Value - Definition
 <tbody>
 <tr>
 <td style="text-align:left;">
-Unitid
+12
 </td>
 <td style="text-align:left;width: 8em; font-style: italic;">
+Unitid
+</td>
+<td style="text-align:left;">
 Numeric
 </td>
 <td style="text-align:left;">
@@ -293,9 +302,12 @@ Numeric
 </tr>
 <tr>
 <td style="text-align:left;">
-CreditHoursUG
+13
 </td>
 <td style="text-align:left;width: 8em; font-style: italic;">
+CreditHoursUG
+</td>
+<td style="text-align:left;">
 Numeric
 </td>
 <td style="text-align:left;">
@@ -304,9 +316,12 @@ Number representing total UG credit hours (see IPEDS instructions for details). 
 </tr>
 <tr>
 <td style="text-align:left;">
-ClockHoursUG
+14
 </td>
 <td style="text-align:left;width: 8em; font-style: italic;">
+ClockHoursUG
+</td>
+<td style="text-align:left;">
 Numeric
 </td>
 <td style="text-align:left;">
@@ -315,9 +330,12 @@ Number representing total UG clock hours (see IPEDS instructions for details). U
 </tr>
 <tr>
 <td style="text-align:left;">
-CreditHoursGR
+15
 </td>
 <td style="text-align:left;width: 8em; font-style: italic;">
+CreditHoursGR
+</td>
+<td style="text-align:left;">
 Numeric
 </td>
 <td style="text-align:left;">
@@ -326,9 +344,12 @@ Whole number representing total Graduate Student credit hours, omitting doctoral
 </tr>
 <tr>
 <td style="text-align:left;">
-DocFTE
+16
 </td>
 <td style="text-align:left;width: 8em; font-style: italic;">
+DocFTE
+</td>
+<td style="text-align:left;">
 Numeric
 </td>
 <td style="text-align:left;">
@@ -352,11 +373,13 @@ Total FTE of doctoral/professional students (see IPEDS instructos for details. U
 
 
       <footer><div class="copyright">
-  <p>Developed by Alison Lanski, Shiloh Fling.</p>
+  <p></p>
+<p>Developed by Alison Lanski, Shiloh Fling.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
       </footer>
@@ -364,6 +387,8 @@ Total FTE of doctoral/professional students (see IPEDS instructos for details. U
 
   
 
+
+  
 
   </body>
 </html>
