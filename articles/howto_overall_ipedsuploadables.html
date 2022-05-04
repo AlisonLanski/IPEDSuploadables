@@ -79,7 +79,14 @@
   </ul>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right"></ul>
+<ul class="nav navbar-nav navbar-right">
+<li>
+  <a href="https://github.com/AlisonLanski/IPEDSuploadables/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
 <!--/.nav-collapse -->
   </div>
@@ -95,7 +102,7 @@
       <h1 data-toc-skip>How to use this package to support your IPEDS reporting</h1>
             
       
-      
+      <small class="dont-index">Source: <a href="https://github.com/AlisonLanski/IPEDSuploadables/blob/HEAD/vignettes/howto_overall_ipedsuploadables.Rmd" class="external-link"><code>vignettes/howto_overall_ipedsuploadables.Rmd</code></a></small>
       <div class="hidden name"><code>howto_overall_ipedsuploadables.Rmd</code></div>
 
     </div>
@@ -123,12 +130,16 @@
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"AlisonLanski/IPEDSuploadables"</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#load the packages</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">IPEDSuploadables</span><span class="op">)</span></code></pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/AlisonLanski/IPEDSuploadables" class="external-link">IPEDSuploadables</a></span><span class="op">)</span>
+<span class="co">#&gt; This version of IPEDSuploadables is for the 2021-2022 reporting cycle.</span>
+<span class="co">#&gt; If you are in a later cycle or want to capture any bug fixes,</span>
+<span class="co">#&gt; please update the package.</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="step-1-prep-your-institutional-data">Step 1: Prep your institutional data<a class="anchor" aria-label="anchor" href="#step-1-prep-your-institutional-data"></a>
 </h2>
 <p>The package requires specific column names and values to work correctly. Each IPEDS report has a vignette that spells out requirements and also has sample data you can examine.</p>
+<p><strong>To create files for non-supported reports, see <a href="howto_use_autoformat.html">How to produce other key-value uploads</a></strong></p>
 <table class="table">
 <colgroup>
 <col width="32%">
@@ -173,12 +184,11 @@
 </tr>
 <tr class="odd">
 <td align="left">Outcome Measures</td>
-<td align="left"><a href="setup_for_om.html">students &amp; instructional activity</a></td>
-<td align="left">om_student</td>
+<td align="left"><a href="setup_for_om.html">students</a></td>
+<td align="left">om_students</td>
 </tr>
 </tbody>
 </table>
-<p>To create files for non-supported reports, see <a href="howto_use_autoformat.html">How to produce other key-value uploads</a></p>
 <p>You can call the sample data as desired to explore it</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#dataframe of student information for 12 month enrollment</span>
@@ -272,7 +282,7 @@ Your keyholder may be able to edit directly in the website, but this method is n
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#if you only want to look at 12 month enrollment part B</span>
 <span class="fu"><a href="../reference/produce_e1d_report.html">produce_e1d_report</a></span><span class="op">(</span><span class="va">e1d_instr</span>, part <span class="op">=</span> <span class="st">"B"</span><span class="op">)</span></code></pre></div>
-<p>You can also produce a csv version of the part’s text file, for more readable output (still using IPEDS upload-required column names)</p>
+<p>You can also produce a csv version of the part’s text file, for more readable output (still using IPEDS upload-required column names and values)</p>
 <p>Example:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#text files make my eyes bleed! let's use a csv</span>
@@ -307,7 +317,7 @@ Your keyholder may be able to edit directly in the website, but this method is n
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
       </footer>
