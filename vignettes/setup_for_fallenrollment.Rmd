@@ -39,7 +39,6 @@ Column names can use any capitalization method you like. Do **NOT** include (**)
 #read in with readr
 specs_EF1 <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1XVcGKtrAwsgKRYvqrbzO13-w8_u3IB2oYft-F5Psxx4/edit", sheet = 1)
 usethis::use_data(specs_EF1, overwrite = TRUE)
-#then run: use_data(specs_COM, specs_COM, overwrite = TRUE) to save as .rda and replace the old file
 ```
 
 ```{r specstable_df, echo=FALSE, warning=FALSE, message=FALSE}
