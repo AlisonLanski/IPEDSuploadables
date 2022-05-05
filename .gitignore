@@ -9,6 +9,7 @@ Completions/Completions_PartA.txt
 Completions/Completions_PartsAll.txt
 *.xlsx
 *.txt
+!UpdateChecklist.txt
 .DS_Store
 HumanResources/Thumbs.db
 .Rproj.user

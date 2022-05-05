@@ -1,0 +1,26 @@
+Package update checklist
+
+1) Make updates in a branch
+2) Pull request to dev
+3) Pull request to master
+
+In master:
+4) Run devtools::check and pkgdown::build_site
+5) Increment version, update NEWS.md, and rerun check/build_site
+6) Push commits 
+
+If just doing a github release
+7) Add a tag and release notes, wait for github sites to update
+
+If doing a CRAN update (after updates, run normal things like document/check/pkgdown)
+8) Run devtools::spell_check()
+9) Run devtools::check_rhub()
+10) Run devtools::check_win_devel()
+11) Update cran-comments.md
+12) Push any final commits and add a tag (for a github release)
+13) Run devtools::release()
+
+List based on:
+https://www.r-bloggers.com/2020/07/how-to-write-your-own-r-package-and-publish-it-on-cran/
+
+Also see the rpkgs book online.
