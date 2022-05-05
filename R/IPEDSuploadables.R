@@ -1,6 +1,6 @@
 #' \code{IPEDSuploadables} package
 #'
-#' Tools to assist uploading survey data to IPEDS
+#' Tools to assist data formatting for upload to IPEDS surveys
 #'
 #' @details See the README on
 #' \href{https://github.com/AlisonLanski/IPEDSuploadables#readme}{GitHub}

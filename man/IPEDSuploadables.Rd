@@ -5,7 +5,7 @@
 \alias{IPEDSuploadables}
 \title{\code{IPEDSuploadables} package}
 \description{
-Tools to assist uploading survey data to IPEDS
+Tools to assist data formatting for upload to IPEDS surveys
 }
 \details{
 See the README on

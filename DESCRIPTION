@@ -1,5 +1,5 @@
 Package: IPEDSuploadables
-Title: Transforms institutional data into approved IPEDS uploadable text files
+Title: Transforms Institutional Data into Text Files for IPEDS Automated Import/Upload
 Version: 2.4.5
 Authors@R: c(
             person(given = "Alison", family = "Lanski", 
@@ -8,14 +8,14 @@ Authors@R: c(
             person("Shiloh", "Fling", 
             role = c("aut"),
             email = "shilohfling@gmail.com"))
-Description: Starting from user-supplied institutional data, this package 
-    transforms, aggregates, and reshapes the information to produce 
+Description: Starting from user-supplied institutional data, these scripts 
+    transform, aggregate, and reshape the information to produce 
     key-value pair data files that are able to be uploaded to IPEDS (Integrated Postsecondary Education Data System) 
     through their submission portal. Starting data specifications can be found in the vignettes.  
     Final files are saved locally to a location of the user's choice. 
     User-friendly readable files can also be produced for purposes of data review and validation. 
-Note: Because IPEDS changes requirements from year to year, the github branch name shows which 
-    submission year the scripts are valid for. 
+Note: Because IPEDS requirements may change from year to year, having the most recent version of this package is highly recommended. 
+    Old versions can be found as GitHub branches. 
     The package can also be used to convert any correctly-prepared data into a key-value pair format
     for any survey (IPEDS or non-IPEDS).
 URL: https://github.com/AlisonLanski/IPEDSuploadables, https://alisonlanski.github.io/IPEDSuploadables/

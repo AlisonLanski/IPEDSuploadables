@@ -7,4 +7,4 @@
 
 # IPEDSuploadables 2.3.5
 
-* See github pull requests/releases for details of previous updates
+* See GitHub pull requests/releases for details of previous updates
