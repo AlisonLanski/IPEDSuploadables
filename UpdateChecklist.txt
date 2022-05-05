@@ -9,16 +9,18 @@ In master:
 5) Increment version, update NEWS.md, and rerun check/build_site
 6) Push commits
 
+If doing a CRAN update (after updates, run normal things like document/check/pkgdown)
+7) Run devtools::spell_check()
+8) Run devtools::check_rhub() [takes about 45 minutes, see email or search for NOTE, WARNING, ERROR]
+9) Run devtools::check_win_devel() [takes about 30 minutes, see email]
+10) Update cran-comments.md
+11) Push any final commits
+12) Run devtools::release()
+13) Repeat as needed....
+14) After CRAN approval, add a tag to GitHub and release notes, wait for site to update
+
 If just doing a github release
 7) Add a tag and release notes, wait for github sites to update
-
-If doing a CRAN update (after updates, run normal things like document/check/pkgdown)
-8) Run devtools::spell_check()
-9) Run devtools::check_rhub() [takes about 45 minutes, see email or search for NOTE, WARNING, ERROR]
-10) Run devtools::check_win_devel() [takes about 30 minutes, see email]
-11) Update cran-comments.md
-12) Push any final commits and add a tag (for a github release)
-13) Run devtools::release()
 
 List based on:
 https://www.r-bloggers.com/2020/07/how-to-write-your-own-r-package-and-publish-it-on-cran/
