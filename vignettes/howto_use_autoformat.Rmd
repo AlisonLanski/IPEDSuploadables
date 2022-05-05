@@ -30,7 +30,7 @@ If you want the package to help you with aggregation and (some) recoding, look a
 
 ## General Process
 
-* **Download/Open the IPEDS Import Spec** for a particular survey and institution-type on the [IPEDS Survey Materials instructions page](https://surveys.nces.ed.gov/ipeds/public/survey-materials/results).
+* **Download/Open the IPEDS Import Spec** for a particular survey and institution-type on the [IPEDS Survey Materials instructions page](https://surveys.nces.ed.gov/ipeds/public/survey-materials/results). *Between reporting cycles, this page may be down: consult [the archive](https://nces.ed.gov/ipeds/use-the-data/annual-survey-forms-packages-archived) to see previous specs.*
 * **Use the "Key Value Pair File" instructions** to prep your data. This will be the second part of the document; the first part is for fixed-width files.
 * **Create one dataframe for each survey part** using the exact IPEDS FieldIDs as column names and using only the values described in the table of specs and the additional information in the file's appendix (scroll down).  Follow the same order of columns and parts.
 * **Use the package function `produce_other_report`** with your files.

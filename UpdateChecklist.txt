@@ -7,15 +7,15 @@ Package update checklist
 In master:
 4) Run devtools::check and pkgdown::build_site
 5) Increment version, update NEWS.md, and rerun check/build_site
-6) Push commits 
+6) Push commits
 
 If just doing a github release
 7) Add a tag and release notes, wait for github sites to update
 
 If doing a CRAN update (after updates, run normal things like document/check/pkgdown)
 8) Run devtools::spell_check()
-9) Run devtools::check_rhub()
-10) Run devtools::check_win_devel()
+9) Run devtools::check_rhub() [takes about 45 minutes, see email or search for NOTE, WARNING, ERROR]
+10) Run devtools::check_win_devel() [takes about 30 minutes, see email]
 11) Update cran-comments.md
 12) Push any final commits and add a tag (for a github release)
 13) Run devtools::release()
