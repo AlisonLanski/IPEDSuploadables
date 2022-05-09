@@ -22,28 +22,31 @@
 #' and a CIP code in an award level that is possible but has no completers
 #' This is the second piece of dummy df produced
 #'
-#' @param df_type a string: 'student' to get the main df needed, 'cip' to get extracips
-#' @return a dataframe ready for the rest of the comp scripts
-#' @export
+#' @param df_type a string: "student" to get the main df needed, "cip" to get extracips
+#'
 #' @importFrom dplyr mutate select filter anti_join n
-#' 
 #' @importFrom lubridate ymd dyears
 #'
+#' @return a dataframe ready for the rest of the comp scripts
+#'
+#' @export
+#'
+#'
 
-create_dummy_data_com <- function(df_type = 'student'){
-  set.seed(1892)
+create_dummy_data_com <- function(df_type = "student") {
+
   firstmajors <- data.frame(Unitid = 999999,
                             StudentId = c(100:199),
-                            RaceEthnicity = sample(x=c(1:9),
+                            RaceEthnicity = sample(x = c(1:9),
                                                    size = 100,
-                                                   replace = T),
-                            Sex = sample(x = c(1,2),
+                                                   replace = TRUE),
+                            Sex = sample(x = c(1, 2),
                                          size = 100,
-                                         replace = T,
+                                         replace = TRUE,
                                          prob = c(.47, .53)),
                             DegreeLevel = as.character(sample(x = c(2:8, 17:19),
                                                  size = 100,
-                                                 replace = T,
+                                                 replace = TRUE,
                                                  prob = c(rep(x = .01, 3), .5, .01, .23, .01, .1, .1, .02))),
                             MajorNumber = 1,
                             MajorCip = sample(x = c(09.0100, #journalism
@@ -54,20 +57,20 @@ create_dummy_data_com <- function(df_type = 'student'){
                                                     09.1001,
                                                     09.9999),
                                               size = 100,
-                                              replace = T),
+                                              replace = TRUE),
                             DistanceEd = 2,
                             DistanceEd31 = NA,
                             DistanceEd32 = NA,
                             BirthYear = sample(x = c(1977, 1988, 1999, 2002),
                                                size = 100,
-                                               replace = T,
+                                               replace = TRUE,
                                                prob = c(.05, .1, .80, .05)),
                             BirthMonth = sample(x = c(1:12),
                                                 size = 100,
-                                                replace = T),
+                                                replace = TRUE),
                             BirthDay = sample(x = c(1:31),
                                               size = 100,
-                                              replace = T),
+                                              replace = TRUE),
                             stringsAsFactors = FALSE) %>%
     dplyr::mutate(Birthdate = lubridate::ymd(paste0(.data$BirthYear, "-",
                                                     .data$BirthMonth, "-",
@@ -84,11 +87,10 @@ create_dummy_data_com <- function(df_type = 'student'){
 
   ### then for a random subset,
   ### give them a second major in Parks + Rec (same degree level)
-  set.seed(1892)
   secondmajors <- firstmajors %>%
     dplyr::filter(.data$StudentId %in% sample(x = .data$StudentId,
                                               size = 50,
-                                              replace = T),
+                                              replace = TRUE),
                   .data$DegreeLevel %in% c(3, 5, 7, 17, 18, 19)) %>%
     dplyr::mutate(MajorNumber = 2,
                   MajorCip = sample(x = c(31.0101, #parks and rec
@@ -96,17 +98,16 @@ create_dummy_data_com <- function(df_type = 'student'){
                                           31.0399,
                                           31.0504),
                                     size = dplyr::n(),
-                                    replace = T))
+                                    replace = TRUE))
 
 
   ### then for a random subset,
   ### give them an MBA (degree level 7: regardless of the other degree levels they have)
   ### make it distance ed (some programs at level and cip, not all)
-  set.seed(1892)
   mba <- firstmajors %>%
     filter(.data$StudentId %in% sample(x = .data$StudentId,
                                        size = 10,
-                                       replace = T)) %>%
+                                       replace = TRUE)) %>%
     mutate(DegreeLevel = "7",
            MajorCip = 52.0201, #general business admin
            DistanceEd = 3,
@@ -116,11 +117,10 @@ create_dummy_data_com <- function(df_type = 'student'){
 
   ### then for a random subset,
   ### give them another first major in Engineering (these are dual-degree students)
-  set.seed(1892)
   dualfirstdegree <- firstmajors %>%
     dplyr::filter(.data$StudentId %in% sample(x = .data$StudentId,
                                               size = 30,
-                                              replace = T)) %>%
+                                              replace = TRUE)) %>%
     dplyr::mutate(MajorCip = sample(x = c(14.0101, #engineering
                                           14.0702,
                                           14.0799,
@@ -131,17 +131,16 @@ create_dummy_data_com <- function(df_type = 'student'){
 
   ### then for a random subset,
   ### give them another second major in Linguistics (same degree level)
-  set.seed(1892)
   anothersecondmajor <- secondmajors %>%
     dplyr::filter(.data$StudentId %in% sample(x = .data$StudentId,
                                               size = 20,
-                                              replace = T)) %>%
+                                              replace = TRUE)) %>%
     dplyr::mutate(MajorCip = sample(x = c(16.0102, #linguistics
                                           16.0104,
                                           16.0105,
                                           16.0199),
                                     size = dplyr::n(),
-                                    replace = T),
+                                    replace = TRUE),
                   DistanceEd = ifelse(.data$DegreeLevel == 5 & .data$MajorCip == 16.0102,
                                       1,
                                       .data$DistanceEd),
@@ -157,7 +156,7 @@ create_dummy_data_com <- function(df_type = 'student'){
                       anothersecondmajor,
                       mba)
 
-  if(tolower(df_type) == 'student'){
+  if(tolower(df_type) == "student") {
     return(startingdf)
   } else {
     allcips <- startingdf %>%
@@ -174,15 +173,15 @@ create_dummy_data_com <- function(df_type = 'student'){
                        DistanceEd31 = NA,
                        DistanceEd32 = NA)) %>%
     #add one more with a new cip/level combination that is partial distance ed
-        rbind(data.frame(MajorCip=22.0206,
-                       DegreeLevel = "1a",
-                       DistanceEd = 3,
-                       DistanceEd31 = 0,
-                       DistanceEd32 = 1))
+        rbind(data.frame(MajorCip = 22.0206,
+                         DegreeLevel = "1a",
+                         DistanceEd = 3,
+                         DistanceEd31 = 0,
+                         DistanceEd32 = 1))
 
 
 
-    extracips <-  allcips %>%
+    extracips <- allcips %>%
       dplyr::anti_join(startingdf) %>%
       dplyr::mutate(Unitid = 999999,
              RaceEthnicity = 1,

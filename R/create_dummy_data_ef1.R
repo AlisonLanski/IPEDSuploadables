@@ -4,12 +4,11 @@
 #' Student-faculty ratio (part G) will ask for a number when the function is run and does not need to exist here.
 #' To create both dataframes, run the function twice with different arguments, and save results into separate objects.
 #'
-#' @param df_type A string with the dummy data requested ('students' for parts A-D & G or 'retention' for part E)
+#' @param df_type A string with the dummy data requested ("students" for parts A-D & G or "retention" for part E)
 #' @param n A number
 #' @param seed A number
 #'
 #' @importFrom rlang .data
-#'
 #' @importFrom dplyr select group_by summarize ungroup bind_rows arrange transmute n
 #' @importFrom utils write.table
 #'
@@ -17,14 +16,13 @@
 #' @export
 #'
 
-create_dummy_data_ef1 <- function(df_type = 'students', n = 100, seed = 1234) {
+create_dummy_data_ef1 <- function(df_type = "students", n = 100) {
 
-  if(df_type == 'students') {
-    set.seed(seed)
+  if(df_type == "students") {
 
     df <- data.frame(
       Unitid = 999999,
-      StudentId = c(1001:(1000+n)),
+      StudentId = c(1001:(1000 + n)),
       IsFullTime = sample(0:1, size = n, replace = TRUE),
       StudentLevel = sample(c("Undergraduate", "Graduate"), size = n, replace = TRUE),
       IsDegreeCertSeeking = sample(0:1, size = n, replace = TRUE),
@@ -46,7 +44,7 @@ create_dummy_data_ef1 <- function(df_type = 'students', n = 100, seed = 1234) {
                     IsTransfer = dplyr::case_when(StudentLevel == "Undergraduate" & IsFirstTime == 0 ~
                                              sample(0:1,
                                                     size = n,
-                                                    replace = T)),
+                                                    replace = TRUE)),
                     OnlineState = case_when(AdmitState == 66 ~ 6,
                                             TRUE ~ AdmitState)
                     ) %>%
@@ -64,8 +62,7 @@ create_dummy_data_ef1 <- function(df_type = 'students', n = 100, seed = 1234) {
 
 
 
-    if(df_type == 'retention') {
-    set.seed(seed)
+    if(df_type == "retention") {
 
     df <- data.frame(
       Unitid = 999999,
