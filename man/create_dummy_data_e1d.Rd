@@ -7,7 +7,7 @@
 create_dummy_data_e1d(df_type = "student")
 }
 \arguments{
-\item{df_type}{a string: 'student' to get the main df needed, 'instr' to get instructionalactivity}
+\item{df_type}{a string: "student" to get the main df needed, "instr" to get instructionalactivity}
 }
 \value{
 a dataframe ready for the rest of the e1d scripts

@@ -6,7 +6,6 @@
 #'
 #' @param df_type A string with the dummy data requested ("students" for parts A-D & G or "retention" for part E)
 #' @param n A number
-#' @param seed A number
 #'
 #' @importFrom rlang .data
 #' @importFrom dplyr select group_by summarize ungroup bind_rows arrange transmute n

@@ -4,14 +4,12 @@
 \alias{create_dummy_data_ef1}
 \title{Create dummy data for testing the fall enrollment functions}
 \usage{
-create_dummy_data_ef1(df_type = "students", n = 100, seed = 1234)
+create_dummy_data_ef1(df_type = "students", n = 100)
 }
 \arguments{
-\item{df_type}{A string with the dummy data requested ('students' for parts A-D & G or 'retention' for part E)}
+\item{df_type}{A string with the dummy data requested ("students" for parts A-D & G or "retention" for part E)}
 
 \item{n}{A number}
-
-\item{seed}{A number}
 }
 \value{
 A text file

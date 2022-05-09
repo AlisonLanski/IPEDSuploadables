@@ -7,7 +7,7 @@
 create_dummy_data_com(df_type = "student")
 }
 \arguments{
-\item{df_type}{a string: 'student' to get the main df needed, 'cip' to get extracips}
+\item{df_type}{a string: "student" to get the main df needed, "cip" to get extracips}
 }
 \value{
 a dataframe ready for the rest of the comp scripts
