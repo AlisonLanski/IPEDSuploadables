@@ -14,13 +14,16 @@
 #'
 #' @param df_type a string: "student" to get the main df needed, "instr" to get instructionalactivity
 #'
-#' @importFrom dplyr mutate select filter
-#'
 #' @return a dataframe ready for the rest of the e1d scripts
+#'
+#' @importFrom dplyr mutate select filter
 #'
 #' @export
 #'
-#'
+#' @examples
+#' set.seed(1892)
+#' student_df <- create_dummy_data_e1d()
+#' instr_df <- create_dummy_data_e1d(df_type = "instr")
 
 create_dummy_data_e1d <- function(df_type = "student") {
 

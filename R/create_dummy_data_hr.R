@@ -8,7 +8,9 @@
 #'
 #' @export
 #'
-#'
+#' @examples
+#' set.seed(4567)
+#' hr_pop <- create_dummy_data_hr()
 
 create_dummy_data_hr <- function() {
   n = 1000

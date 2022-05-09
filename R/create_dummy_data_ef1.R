@@ -7,12 +7,22 @@
 #' @param df_type A string with the dummy data requested ("students" for parts A-D & G or "retention" for part E)
 #' @param n A number
 #'
+#' @return A text file
+#'
 #' @importFrom rlang .data
 #' @importFrom dplyr select group_by summarize ungroup bind_rows arrange transmute n
 #' @importFrom utils write.table
 #'
-#' @return A text file
 #' @export
+#'
+#' @examples
+#' set.seed(1234)
+#' #default creates 100 students
+#' create_dummy_data_ef1()
+#' #change the dataframe
+#' create_dummy_data_ef1(df_type = "retention")
+#' #change the population size
+#' create_dummy_data_ef1(df_type = "students", n = 250)
 #'
 
 create_dummy_data_ef1 <- function(df_type = "students", n = 100) {

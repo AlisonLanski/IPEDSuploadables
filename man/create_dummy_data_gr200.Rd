@@ -15,3 +15,10 @@ a dataframe ready for the rest of the Grad Rates 200 functions
 \description{
 Dummy data for Grad Rates 200 testing
 }
+\examples{
+set.seed(4567)
+#default creates 1000 students
+create_dummy_data_gr200()
+create_dummy_data_gr200(n = 100)
+
+}

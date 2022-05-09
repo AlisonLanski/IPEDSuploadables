@@ -24,14 +24,17 @@
 #'
 #' @param df_type a string: "student" to get the main df needed, "cip" to get extracips
 #'
+#' @return a dataframe ready for the rest of the comp scripts
+
 #' @importFrom dplyr mutate select filter anti_join n
 #' @importFrom lubridate ymd dyears
 #'
-#' @return a dataframe ready for the rest of the comp scripts
-#'
 #' @export
 #'
-#'
+#' @examples
+#' set.seed(1892)
+#' create_dummy_data_com()
+#' create_dummy_data_com(df_type = "cip")
 
 create_dummy_data_com <- function(df_type = "student") {
 
@@ -202,21 +205,3 @@ create_dummy_data_com <- function(df_type = "student") {
     return(extracips)
   }
 }
-
-
-#startingdf %>% group_by(StudentId) %>% mutate(Counts = n()) %>% arrange(Counts, StudentId) %>% View()
-
-#startingdf %>% count(StudentId) %>% count(n)
-
-
-
-##################################################################################
-#############################
-##############################
-##########  SCRIPT FOR CIPS
-
-
-#start with all CIPs that made it into our final file;
-
-
-

@@ -37,3 +37,8 @@ of a CIP code that is a possible major but has no completers
 and a CIP code in an award level that is possible but has no completers
 This is the second piece of dummy df produced
 }
+\examples{
+set.seed(1892)
+create_dummy_data_com()
+create_dummy_data_com(df_type = "cip")
+}

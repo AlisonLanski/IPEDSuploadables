@@ -19,3 +19,13 @@ Creates students and retention dataframes for use in parts A, B, C, D, E, and G.
 Student-faculty ratio (part G) will ask for a number when the function is run and does not need to exist here.
 To create both dataframes, run the function twice with different arguments, and save results into separate objects.
 }
+\examples{
+set.seed(1234)
+#default creates 100 students
+create_dummy_data_ef1()
+#change the dataframe
+create_dummy_data_ef1(df_type = "retention")
+#change the population size
+create_dummy_data_ef1(df_type = "students", n = 250)
+
+}
