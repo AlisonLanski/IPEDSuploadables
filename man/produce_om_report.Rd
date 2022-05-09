@@ -23,3 +23,15 @@ A txt or csv file at the path of your choice
 \description{
 Shortcut function with all steps to provide an Outcome Measures report
 }
+\examples{
+\dontshow{
+.old_wd <- setwd(tempdir())
+}
+#entire report
+produce_om_report(om_students)
+#one part with csv output instead of key-value
+produce_om_report(om_students, part = 'A', format = 'readable')
+\dontshow{
+setwd(.old_wd)
+}
+}

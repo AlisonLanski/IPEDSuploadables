@@ -16,7 +16,4 @@ Contains sample values for students
 \details{
 See complete information by running \code{?create_dummy_data_gr200.R}
 }
-\examples{
-\dontrun{produce_gr200_report(gr200_students)}
-}
 \keyword{datasets}

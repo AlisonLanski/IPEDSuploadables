@@ -9,7 +9,17 @@
 #'
 #' @return A txt or csv file at the path of your choice
 #' @export
-#'
+#' @examples
+#' \dontshow{
+#' .old_wd <- setwd(tempdir())
+#' }
+#' #entire report
+#' produce_hr_report(hr_staff)
+#' #subsection with csv output instead of key-value txt
+#' produce_hr_report(hr_staff, part = "A1", format = "readable")
+#' \dontshow{
+#' setwd(.old_wd)
+#' }
 
 produce_hr_report <- function(df, part = "all", format = "uploadable") {
 

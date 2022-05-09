@@ -24,3 +24,15 @@ A txt or csv file at the path of your choice
 \description{
 Shortcut function with all steps to provide a 12 Month Enrollment report
 }
+\examples{
+\dontshow{
+.old_wd <- setwd(tempdir())
+}
+#entire report
+produce_e1d_report(e1d_student, e1d_instr)
+#one part, as csv
+produce_e1d_report(e1d_student, part = "A", format = "readable")
+\dontshow{
+setwd(.old_wd)
+}
+}

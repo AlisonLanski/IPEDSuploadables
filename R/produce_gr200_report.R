@@ -9,6 +9,16 @@
 #' @return A txt or csv file at the path of your choice
 #' @export
 #'
+#' @examples
+#' \dontshow{
+#' .old_wd <- setwd(tempdir())
+#' }
+#' #entire report
+#' produce_gr200_report(gr200_students)
+#'
+#' \dontshow{
+#' setwd(.old_wd)
+#' }
 
 produce_gr200_report <- function(df, format = "uploadable") {
 

@@ -16,7 +16,4 @@ Contains sample values for credit hours generated and doctors-professional FTE
 \details{
 See complete information by running \code{?create_dummy_data_e1d.R}
 }
-\examples{
-\dontrun{produce_e1d_report(e1d_student, e1d_instr)}
-}
 \keyword{datasets}

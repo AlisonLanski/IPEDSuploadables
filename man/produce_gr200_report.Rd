@@ -20,3 +20,14 @@ A txt or csv file at the path of your choice
 \description{
 Shortcut function with all steps to provide a Grad Rates 200 report
 }
+\examples{
+\dontshow{
+.old_wd <- setwd(tempdir())
+}
+#entire report
+produce_gr200_report(gr200_students)
+
+\dontshow{
+setwd(.old_wd)
+}
+}

@@ -10,7 +10,17 @@
 #'
 #' @return A txt or csv file at the path of your choice
 #' @export
-#'
+#' @examples
+#' \dontshow{
+#' .old_wd <- setwd(tempdir())
+#' }
+#' #entire report
+#' produce_om_report(om_students)
+#' #one part with csv output instead of key-value
+#' produce_om_report(om_students, part = 'A', format = 'readable')
+#' \dontshow{
+#' setwd(.old_wd)
+#' }
 
 produce_om_report <- function(df, part = "ALL", format = "uploadable") {
 

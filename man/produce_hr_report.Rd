@@ -22,3 +22,15 @@ A txt or csv file at the path of your choice
 \description{
 Shortcut function with all steps to provide a Human Resources report
 }
+\examples{
+\dontshow{
+.old_wd <- setwd(tempdir())
+}
+#entire report
+produce_hr_report(hr_staff)
+#subsection with csv output instead of key-value txt
+produce_hr_report(hr_staff, part = "A1", format = "readable")
+\dontshow{
+setwd(.old_wd)
+}
+}

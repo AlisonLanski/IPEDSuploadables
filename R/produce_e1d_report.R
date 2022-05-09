@@ -11,6 +11,17 @@
 #' @return A txt or csv file at the path of your choice
 #' @export
 #'
+#'@examples
+#'\dontshow{
+#'.old_wd <- setwd(tempdir())
+#'}
+#'#entire report
+#'produce_e1d_report(e1d_student, e1d_instr)
+#'#one part, as csv
+#'produce_e1d_report(e1d_student, part = "A", format = "readable")
+#'\dontshow{
+#'setwd(.old_wd)
+#'}
 
 produce_e1d_report <- function(df, hrs, part = "ALL", format = "uploadable") {
 
