@@ -4,16 +4,21 @@
 \alias{create_dummy_data_gr200}
 \title{Create dummy data for testing the Grad Rates 200 function}
 \usage{
-create_dummy_data_gr200(n = 1000, seed = 4567)
+create_dummy_data_gr200(n = 1000)
 }
 \arguments{
 \item{n}{A number that will be used as the length of the data frame}
-
-\item{seed}{A number to be used in \code{"set.seed()"} for reproducibility}
 }
 \value{
 a dataframe ready for the rest of the Grad Rates 200 functions
 }
 \description{
 Dummy data for Grad Rates 200 testing
+}
+\examples{
+set.seed(4567)
+#default creates 1000 students
+create_dummy_data_gr200()
+create_dummy_data_gr200(n = 100)
+
 }

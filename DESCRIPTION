@@ -11,7 +11,7 @@ Authors@R: c(
 Description: Starting from user-supplied institutional data, these scripts 
     transform, aggregate, and reshape the information to produce 
     key-value pair data files that are able to be uploaded to IPEDS (Integrated Postsecondary Education Data System) 
-    through their submission portal. Starting data specifications can be found in the vignettes.  
+    through their submission portal <https://surveys.nces.ed.gov/ipeds/>. Starting data specifications can be found in the vignettes.  
     Final files are saved locally to a location of the user's choice. 
     User-friendly readable files can also be produced for purposes of data review and validation. 
 Note: Because IPEDS requirements may change from year to year, having the most recent version of this package is highly recommended. 

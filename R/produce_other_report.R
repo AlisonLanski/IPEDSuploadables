@@ -21,10 +21,16 @@
 #'
 #' @export
 #'
-#' @examples \dontrun{
+#' @examples
+#' \dontshow{
+#' .old_wd <- setwd(tempdir())
+#' }
 #' #With built-in R data
 #' produce_other_report(mtcars[1:5,], iris[1:5,], ToothGrowth[1:5,], survey = 'FakeSurvey')
-#'
+#' \dontshow{
+#' setwd(.old_wd)
+#' }
+#' \donttest{
 #' #Will not execute properly (argument unnamed)
 #' #produce_other_report(mtcars[1:5,], iris[1:5,], ToothGrowth[1:5,], 'FakeSurvey')
 #' }

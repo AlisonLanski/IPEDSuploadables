@@ -16,7 +16,4 @@ Contains sample values for students
 \details{
 See complete information by running \code{?create_dummy_data_om.R}
 }
-\examples{
-\dontrun{produce_om_report(om_student)}
-}
 \keyword{datasets}

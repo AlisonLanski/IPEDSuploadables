@@ -7,7 +7,7 @@
 create_dummy_data_e1d(df_type = "student")
 }
 \arguments{
-\item{df_type}{a string: 'student' to get the main df needed, 'instr' to get instructionalactivity}
+\item{df_type}{a string: "student" to get the main df needed, "instr" to get instructionalactivity}
 }
 \value{
 a dataframe ready for the rest of the e1d scripts
@@ -24,4 +24,9 @@ UG include: 20 first time, 20 transfer, 20 continuing/returning;
 For simplicity, only 1 race-ethnicity category is used
 5 UG and 5 Grad are set to be fully distance ed
 10 UG are set to be partially distance ed
+}
+\examples{
+set.seed(1892)
+student_df <- create_dummy_data_e1d()
+instr_df <- create_dummy_data_e1d(df_type = "instr")
 }

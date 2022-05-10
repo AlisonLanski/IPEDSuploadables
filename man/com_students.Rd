@@ -16,7 +16,4 @@ Contains sample values for students
 \details{
 See complete information by running \code{?create_dummy_data_com.R}
 }
-\examples{
-\dontrun{produce_com_report(com_student, com_cips)}
-}
 \keyword{datasets}

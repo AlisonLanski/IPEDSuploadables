@@ -16,7 +16,4 @@ Contains sample values for staff
 \details{
 See complete information by running \code{?create_dummy_data_hr.R}
 }
-\examples{
-\dontrun{produce_hr_report(hr_staff)}
-}
 \keyword{datasets}

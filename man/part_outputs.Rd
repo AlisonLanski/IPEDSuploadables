@@ -17,6 +17,6 @@ Contains a list of output files from each "make" script which can be called by t
 General list-creation code is commented out in the test-part-outputs.R script; uncomment and run/add as needed if a df needs a legitimate update (e.g. IPEDS rules change, dummy data includes new use case)
 }
 \examples{
-\dontrun{part_outputs$com_partD}
+part_outputs$com_partD
 }
 \keyword{internal}

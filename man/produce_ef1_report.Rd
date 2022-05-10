@@ -32,3 +32,17 @@ A txt or csv file at the path of your choice
 \description{
 Shortcut function with all steps to provide a Fall Enrollment report
 }
+\examples{
+\dontshow{
+.old_wd <- setwd(tempdir())
+}
+#entire report
+produce_ef1_report(ef1_students, ef1_retention)
+#entire report with optional sections
+produce_ef1_report(ef1_students, ef1_retention, include_optional = TRUE)
+#one part as csv instead of key-value
+produce_ef1_report(ef1_students, part = 'D', format = 'readable')
+\dontshow{
+setwd(.old_wd)
+}
+}

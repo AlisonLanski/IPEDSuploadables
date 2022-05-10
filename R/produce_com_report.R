@@ -11,6 +11,16 @@
 #' @return A txt or csv file at the path of your choice
 #' @export
 #'
+#'@examples
+#'\dontshow{
+#'.old_wd <- setwd(tempdir())
+#'}
+#'#entire report
+#'produce_com_report(com_students, com_cips)
+#'#one part as csv instead of key-value
+#'produce_com_report(com_students, com_cips, part = "A", format = "readable")
+#'\dontshow{
+#'setwd(.old_wd)}
 
 produce_com_report <- function(df, extracips = NULL, part = "ALL", format = "uploadable") {
 

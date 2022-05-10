@@ -1,14 +1,21 @@
 #' Create dummy data for testing the Grad Rates functions
+#'
 #' @description Creates dummy data for testing the Grad Rates functions
+#'
 #' @param n Number of rows of data to synthesize
-#' @param seed Seed number to supply to \code{"set.seed()"} to replicate of results
+#'
 #' @return a dataframe ready for the rest of the Grad Rates functions
+#'
 #' @export
 #'
-#'
-#'
-create_dummy_data_gr <- function(n = 100, seed = 4567) {
-  set.seed(seed)
+#' @examples
+#' set.seed(4567)
+#' #default makes 100 students
+#' create_dummy_data_gr()
+#' create_dummy_data_gr(n = 500)
+
+create_dummy_data_gr <- function(n = 100) {
+
   df <- data.frame(Unitid = 111111,
                    RaceEthnicity = sample(6:8,
                                           size = n,
@@ -113,5 +120,5 @@ create_dummy_data_gr <- function(n = 100, seed = 4567) {
     select(-.data$IsComp)
 
 
-return(df)
+  return(df)
 }

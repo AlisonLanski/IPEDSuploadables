@@ -12,3 +12,7 @@ a dataframe ready for the rest of the hr scripts
 \description{
 to do: save this out into the package and make it accessible as package data
 }
+\examples{
+set.seed(4567)
+hr_pop <- create_dummy_data_hr()
+}

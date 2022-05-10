@@ -9,7 +9,17 @@
 #'
 #' @return A txt or csv file at the path of your choice
 #' @export
-#'
+#' @examples
+#' \dontshow{
+#' .old_wd <- setwd(tempdir())
+#' }
+#' #entire report
+#' produce_gr_report(gr_students)
+#' #one part in csv format instead of key-value
+#' produce_gr_report(gr_students, part = "B", format = "readable")
+#' \dontshow{
+#' setwd(.old_wd)
+#' }
 
 produce_gr_report <- function(df, part = "ALL", format = "uploadable") {
 

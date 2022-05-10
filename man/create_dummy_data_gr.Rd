@@ -4,16 +4,20 @@
 \alias{create_dummy_data_gr}
 \title{Create dummy data for testing the Grad Rates functions}
 \usage{
-create_dummy_data_gr(n = 100, seed = 4567)
+create_dummy_data_gr(n = 100)
 }
 \arguments{
 \item{n}{Number of rows of data to synthesize}
-
-\item{seed}{Seed number to supply to \code{"set.seed()"} to replicate of results}
 }
 \value{
 a dataframe ready for the rest of the Grad Rates functions
 }
 \description{
 Creates dummy data for testing the Grad Rates functions
+}
+\examples{
+set.seed(4567)
+#default makes 100 students
+create_dummy_data_gr()
+create_dummy_data_gr(n = 500)
 }

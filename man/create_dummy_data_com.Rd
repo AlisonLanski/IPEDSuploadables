@@ -7,7 +7,7 @@
 create_dummy_data_com(df_type = "student")
 }
 \arguments{
-\item{df_type}{a string: 'student' to get the main df needed, 'cip' to get extracips}
+\item{df_type}{a string: "student" to get the main df needed, "cip" to get extracips}
 }
 \value{
 a dataframe ready for the rest of the comp scripts
@@ -36,4 +36,9 @@ To fully process completions, we will need to include an example
 of a CIP code that is a possible major but has no completers
 and a CIP code in an award level that is possible but has no completers
 This is the second piece of dummy df produced
+}
+\examples{
+set.seed(1892)
+create_dummy_data_com()
+create_dummy_data_com(df_type = "cip")
 }

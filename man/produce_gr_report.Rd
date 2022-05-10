@@ -22,3 +22,15 @@ A txt or csv file at the path of your choice
 \description{
 Shortcut function with all steps to provide a Graduation Rates report
 }
+\examples{
+\dontshow{
+.old_wd <- setwd(tempdir())
+}
+#entire report
+produce_gr_report(gr_students)
+#one part in csv format instead of key-value
+produce_gr_report(gr_students, part = "B", format = "readable")
+\dontshow{
+setwd(.old_wd)
+}
+}

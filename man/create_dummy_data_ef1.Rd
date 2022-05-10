@@ -4,14 +4,12 @@
 \alias{create_dummy_data_ef1}
 \title{Create dummy data for testing the fall enrollment functions}
 \usage{
-create_dummy_data_ef1(df_type = "students", n = 100, seed = 1234)
+create_dummy_data_ef1(df_type = "students", n = 100)
 }
 \arguments{
-\item{df_type}{A string with the dummy data requested ('students' for parts A-D & G or 'retention' for part E)}
+\item{df_type}{A string with the dummy data requested ("students" for parts A-D & G or "retention" for part E)}
 
 \item{n}{A number}
-
-\item{seed}{A number}
 }
 \value{
 A text file
@@ -20,4 +18,14 @@ A text file
 Creates students and retention dataframes for use in parts A, B, C, D, E, and G.
 Student-faculty ratio (part G) will ask for a number when the function is run and does not need to exist here.
 To create both dataframes, run the function twice with different arguments, and save results into separate objects.
+}
+\examples{
+set.seed(1234)
+#default creates 100 students
+create_dummy_data_ef1()
+#change the dataframe
+create_dummy_data_ef1(df_type = "retention")
+#change the population size
+create_dummy_data_ef1(df_type = "students", n = 250)
+
 }

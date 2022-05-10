@@ -11,6 +11,7 @@ A data frame with 2 rows and 6 columns
 ef1_retention
 }
 \description{
-This data provides aggregated counts in a dataframe suitable for use in the retention component of the Fall Enrollment survey.
+This data provides aggregated counts in a dataframe suitable for
+  use in the retention component of the Fall Enrollment survey.
 }
 \keyword{datasets}

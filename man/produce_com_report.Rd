@@ -24,3 +24,14 @@ A txt or csv file at the path of your choice
 \description{
 Shortcut function with all steps to provide a Completions report
 }
+\examples{
+\dontshow{
+.old_wd <- setwd(tempdir())
+}
+#entire report
+produce_com_report(com_students, com_cips)
+#one part as csv instead of key-value
+produce_com_report(com_students, com_cips, part = "A", format = "readable")
+\dontshow{
+setwd(.old_wd)}
+}

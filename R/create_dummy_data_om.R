@@ -1,15 +1,20 @@
 #' Create dummy data for testing the outcome measures functions
 #'
-#' @description Creates a prepared dataframe to test scripts related to IPEDS Outcome Measures reporting.
-#' Produces either a student/status dataframe
+#' @description Creates a prepared dataframe to test scripts related to IPEDS
+#'   Outcome Measures reporting. Produces either a student/status dataframe
 #'
-#' @details remember: want to save this data out into the package so it's available
+#' @details remember: want to save this data out into the package so it's
+#'   available
 #'
 #' @note The final dataset has 20 students covering most statuses
 #'
 #' @return a dataframe ready for the rest of the om scripts
 #' @export
 #'
+#' @examples
+#' #creates a very specific population
+#' #function does not allow for anything to be updated at time of run
+#' dat <- create_dummy_data_om()
 
 create_dummy_data_om <- function() {
 
