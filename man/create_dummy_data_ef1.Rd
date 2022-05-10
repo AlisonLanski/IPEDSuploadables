@@ -21,11 +21,14 @@ To create both dataframes, run the function twice with different arguments, and 
 }
 \examples{
 set.seed(1234)
+
 #default creates 100 students
-create_dummy_data_ef1()
+students <- create_dummy_data_ef1()
+
 #change the dataframe
-create_dummy_data_ef1(df_type = "retention")
+retention <- create_dummy_data_ef1(df_type = "retention")
+
 #change the population size
-create_dummy_data_ef1(df_type = "students", n = 250)
+more_students <- create_dummy_data_ef1(df_type = "students", n = 250)
 
 }

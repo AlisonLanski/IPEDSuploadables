@@ -23,5 +23,6 @@ The final dataset has 20 students covering most statuses
 \examples{
 #creates a very specific population
 #function does not allow for anything to be updated at time of run
+#in other words: will always create a fixed-value dataframe
 dat <- create_dummy_data_om()
 }

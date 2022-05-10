@@ -87,21 +87,29 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">create_dummy_data_gr200</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">1000</span>, seed <span class="op">=</span> <span class="fl">4567</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">create_dummy_data_gr200</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>n</dt>
 <dd><p>A number that will be used as the length of the data frame</p></dd>
-<dt>seed</dt>
-<dd><p>A number to be used in <code>"set.seed()"</code> for reproducibility</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
     <p>a dataframe ready for the rest of the Grad Rates 200 functions</p>
     </div>
 
+    <div id="ref-examples">
+    <h2>Examples</h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">4567</span><span class="op">)</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co">#default creates 1000 students</span></span>
+<span class="r-in"><span class="va">graduates</span> <span class="op">&lt;-</span> <span class="fu">create_dummy_data_gr200</span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">more_graduates</span> <span class="op">&lt;-</span> <span class="fu">create_dummy_data_gr200</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
+<span class="r-in"></span>
+</code></pre></div>
+    </div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top"><h2 data-toc-skip>Contents</h2>

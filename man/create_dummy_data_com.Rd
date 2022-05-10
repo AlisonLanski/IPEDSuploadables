@@ -17,9 +17,6 @@ Creates a prepared dataframe to test scripts related to IPEDS Completions report
 Produces either a student/degree dataframe or a dataframe of cips previously reported but not in the current student data,
 depending on the argument you select
 }
-\details{
-remember: want to save this data out into the package so it's available
-}
 \note{
 The final dataset has 100 students with 190 majors.
 60 students have 1 major for 1 degree
@@ -30,8 +27,10 @@ The final dataset has 100 students with 190 majors.
 Note: 1 student has a faulty birthdate; this will show the warning "1 failed to parse"
 I use the same seed for each grouping,
 to ensure that the same students keep getting more things added
+
 One program/level combination is flagged as distance education
 With the seed and probs, no associates degrees end up in the data (don't worry!)
+
 To fully process completions, we will need to include an example
 of a CIP code that is a possible major but has no completers
 and a CIP code in an award level that is possible but has no completers
@@ -39,6 +38,11 @@ This is the second piece of dummy df produced
 }
 \examples{
 set.seed(1892)
-create_dummy_data_com()
-create_dummy_data_com(df_type = "cip")
+
+# one date fails to parse:
+# this is to provide an example of missing
+# data which is acceptable to IPEDS
+students <- create_dummy_data_com()
+
+additional_cips <- create_dummy_data_com(df_type = "cip")
 }

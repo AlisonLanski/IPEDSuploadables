@@ -21,12 +21,15 @@ The final dataset has 100 students
 60 UG students (40 FT, 20 PT; 26 seeking degrees, 34 not)
 UG include: 20 first time, 20 transfer, 20 continuing/returning;
 40 Grad Students (10 FT, 30 PT; 24 seeking degrees, 16 not)
+
 For simplicity, only 1 race-ethnicity category is used
 5 UG and 5 Grad are set to be fully distance ed
 10 UG are set to be partially distance ed
 }
 \examples{
 set.seed(1892)
+
 student_df <- create_dummy_data_e1d()
+
 instr_df <- create_dummy_data_e1d(df_type = "instr")
 }

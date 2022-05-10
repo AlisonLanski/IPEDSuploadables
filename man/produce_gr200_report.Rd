@@ -22,12 +22,15 @@ Shortcut function with all steps to provide a Grad Rates 200 report
 }
 \examples{
 \dontshow{
+#set temp directory for this example (not necessary for users)
 .old_wd <- setwd(tempdir())
 }
+
 #entire report
 produce_gr200_report(gr200_students)
 
 \dontshow{
+#reset directory for this example (not necessary for users)
 setwd(.old_wd)
 }
 }

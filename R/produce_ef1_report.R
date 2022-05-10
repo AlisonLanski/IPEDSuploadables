@@ -13,15 +13,21 @@
 #' @export
 #' @examples
 #' \dontshow{
+#' #set temp directory for this example (not necessary for users)
 #' .old_wd <- setwd(tempdir())
 #' }
+#'
 #' #entire report
 #' produce_ef1_report(ef1_students, ef1_retention)
+#'
 #' #entire report with optional sections
 #' produce_ef1_report(ef1_students, ef1_retention, include_optional = TRUE)
+#'
 #' #one part as csv instead of key-value
 #' produce_ef1_report(ef1_students, part = 'D', format = 'readable')
+#'
 #' \dontshow{
+#' #reset directory for this example (not necessary for users)
 #' setwd(.old_wd)
 #' }
 

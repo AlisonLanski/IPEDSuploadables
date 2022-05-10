@@ -10,9 +10,10 @@
 #'
 #' @examples
 #' set.seed(4567)
+#'
 #' #default creates 1000 students
-#' create_dummy_data_gr200()
-#' create_dummy_data_gr200(n = 100)
+#' graduates <- create_dummy_data_gr200()
+#' more_graduates <- create_dummy_data_gr200(n = 100)
 #'
 
 create_dummy_data_gr200 <- function(n = 1000) {

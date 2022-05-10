@@ -26,12 +26,18 @@ Shortcut function with all steps to provide a Completions report
 }
 \examples{
 \dontshow{
+#set temp directory for this example (not necessary for users)
 .old_wd <- setwd(tempdir())
 }
+
 #entire report
 produce_com_report(com_students, com_cips)
+
 #one part as csv instead of key-value
 produce_com_report(com_students, com_cips, part = "A", format = "readable")
+
 \dontshow{
-setwd(.old_wd)}
+#reset directory for this example (not necessary for users)
+setwd(.old_wd)
+}
 }
