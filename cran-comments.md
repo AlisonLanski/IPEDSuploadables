@@ -1,8 +1,21 @@
+## Resubmission
+
+This is a resubmission. In this version I have
+
+* Added the IPEDS submission URL to the description field of the DESCRIPTION file.  
+
+* Uncommented all code in produce_other_report examples and added a \donttest wrapper to one piece instead.  
+
+* Unwrapped all other \dontrun wrappers in the examples so they will execute. (They run quickly). 
+
+* Removed set.seed() from functions.  
+  
+
 ## R CMD check results
 
 There were no ERRORs or WARNINGs. 
 
-There were several NOTEs from rhub testing:
+There were two NOTEs from rhub testing:
 
 * New submission
 
@@ -14,15 +27,6 @@ There were several NOTEs from rhub testing:
     
   These are common vocabulary words for the package audience and are adopted from language on the Department of Education website
 
-* Found the following (possibly) invalid URLs:  
-    URL: https://surveys.nces.ed.gov/ipeds/public/survey-materials/results  
-    From: inst/doc/howto_use_autoformat.html  
-    Status: Error  
-    Message: libcurl error code 56:  
-      OpenSSL SSL_read: Connection reset by peer, errno 104
-
-  This website becomes unavailable when IPEDS is doing their yearly documentation update between reporting cycles. 
-      It is the correct URL during the reporting season, when this package would be used.
   
 ## Downstream dependencies
 There are currently no downstream dependencies for this package
