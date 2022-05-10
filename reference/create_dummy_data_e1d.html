@@ -95,7 +95,7 @@ Produces either a student dataframe or a dataframe of instructional activity, de
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>df_type</dt>
-<dd><p>a string: 'student' to get the main df needed, 'instr' to get instructionalactivity</p></dd>
+<dd><p>a string: "student" to get the main df needed, "instr" to get instructionalactivity</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
@@ -112,6 +112,13 @@ For simplicity, only 1 race-ethnicity category is used
 10 UG are set to be partially distance ed</p>
     </div>
 
+    <div id="ref-examples">
+    <h2>Examples</h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1892</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">student_df</span> <span class="op">&lt;-</span> <span class="fu">create_dummy_data_e1d</span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">instr_df</span> <span class="op">&lt;-</span> <span class="fu">create_dummy_data_e1d</span><span class="op">(</span>df_type <span class="op">=</span> <span class="st">"instr"</span><span class="op">)</span></span>
+</code></pre></div>
+    </div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top"><h2 data-toc-skip>Contents</h2>
