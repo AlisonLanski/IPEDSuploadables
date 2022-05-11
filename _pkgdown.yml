@@ -1,2 +1,14 @@
 url: https://alisonlanski.github.io/IPEDSuploadables/
 
+template:
+  includes:
+    in_header:
+      <!-- Global site tag (gtag.js) - Google Analytics -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-NSXZV7NDWP"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-NSXZV7NDWP');
+      </script>
