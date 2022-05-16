@@ -2,7 +2,7 @@
 name: Upload File Bug Report
 about: Do we need to fix our pivoting or calculations?
 title: ''
-labels: ''
+labels: 'bug'
 assignees: ''
 
 ---
