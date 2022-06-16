@@ -127,10 +127,16 @@ gtag('config', 'G-NSXZV7NDWP'); </script>
 <h2 id="step-0-installload-the-package">Step 0: Install/Load the package<a class="anchor" aria-label="anchor" href="#step-0-installload-the-package"></a>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#install option 1</span>
+<code class="sourceCode R"><span class="co">#official install from CRAN</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"IPEDSuploadables"</span><span class="op">)</span>
+
+<span class="co">#development install from the github repo</span>
+<span class="co">#use this if you want to pull in changes before they reach cran or need to use other code branches</span>
+
+<span class="co">#development install option 1</span>
 <span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"AlisonLanski/IPEDSuploadables"</span><span class="op">)</span>
 
-<span class="co">#install option 2 (relies on the remotes package)</span>
+<span class="co">#development install option 2</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"AlisonLanski/IPEDSuploadables"</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#load the packages</span>
@@ -321,7 +327,7 @@ Your keyholder may be able to edit directly in the website, but this method is n
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer>
