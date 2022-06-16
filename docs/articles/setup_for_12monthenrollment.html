@@ -100,11 +100,12 @@ gtag('config', 'G-NSXZV7NDWP'); </script>
 
       
 
-      </header><script src="setup_for_12monthenrollment_files/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="setup_for_12monthenrollment_files/kePrint-0.0.1/kePrint.js"></script><link href="setup_for_12monthenrollment_files/lightable-0.0.1/lightable.css" rel="stylesheet">
+      </header><script src="setup_for_12monthenrollment_files/kePrint-0.0.1/kePrint.js"></script><link href="setup_for_12monthenrollment_files/lightable-0.0.1/lightable.css" rel="stylesheet">
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Set up your data for IPEDS 12 Month Enrollment processing</h1>
+      <h1 data-toc-skip>Set up your data for IPEDS 12 Month Enrollment
+processing</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/AlisonLanski/IPEDSuploadables/blob/HEAD/vignettes/setup_for_12monthenrollment.Rmd" class="external-link"><code>vignettes/setup_for_12monthenrollment.Rmd</code></a></small>
@@ -115,16 +116,20 @@ gtag('config', 'G-NSXZV7NDWP'); </script>
     
     
 <div class="section level2">
-<h2 id="to-use-the-produce_e1d_report-function-you-must-provide-two-2-dataframes-one-with-student-enrollment-data-and-one-with-instructional-activity-data-">To use the <code>produce_e1d_report</code> function, you must provide two (2) dataframes: one with student enrollment data and one with instructional activity data.<a class="anchor" aria-label="anchor" href="#to-use-the-produce_e1d_report-function-you-must-provide-two-2-dataframes-one-with-student-enrollment-data-and-one-with-instructional-activity-data-"></a>
+<h2 id="to-use-the-produce_e1d_report-function-you-must-provide-two-2-dataframes-one-with-student-enrollment-data-and-one-with-instructional-activity-data-">To use the <code>produce_e1d_report</code> function, you must
+provide two (2) dataframes: one with student enrollment data and one
+with instructional activity data.<a class="anchor" aria-label="anchor" href="#to-use-the-produce_e1d_report-function-you-must-provide-two-2-dataframes-one-with-student-enrollment-data-and-one-with-instructional-activity-data-"></a>
 </h2>
 <div class="section level3">
-<h3 id="the-student-enrollment-data-must-be-in-the-format-described-below">The student enrollment data must be in the format described below<a class="anchor" aria-label="anchor" href="#the-student-enrollment-data-must-be-in-the-format-described-below"></a>
+<h3 id="the-student-enrollment-data-must-be-in-the-format-described-below">The student enrollment data must be in the format described
+below<a class="anchor" aria-label="anchor" href="#the-student-enrollment-data-must-be-in-the-format-described-below"></a>
 </h3>
 <blockquote>
 <ul>
 <li>One row per person</li>
 <li>One IPEDS Unitid per file</li>
-<li>Columns with values and types as described below (additional columns are allowed)</li>
+<li>Columns with values and types as described below (additional columns
+are allowed)</li>
 </ul>
 </blockquote>
 <p>Note: Column names can use any capitalization method you like</p>
@@ -171,7 +176,10 @@ RaceEthnicity
 Numeric
 </td>
 <td style="text-align:left;">
-1 - Nonresident alien<br>2 - Hispanic/Latino<br>3 - American Indian or Alaska Native<br>4 - Asian<br>5 - Black or African American<br>6 - Native Hawaiian or Other Pacific Islander<br>7 - White<br>8 - Two or more races<br>9 - Race and ethnicity unknown
+1 - Nonresident alien<br>2 - Hispanic/Latino<br>3 - American Indian or
+Alaska Native<br>4 - Asian<br>5 - Black or African American<br>6 -
+Native Hawaiian or Other Pacific Islander<br>7 - White<br>8 - Two or
+more races<br>9 - Race and ethnicity unknown
 </td>
 </tr>
 <tr>
@@ -248,7 +256,8 @@ DistanceEdAll
 Numeric
 </td>
 <td style="text-align:left;">
-0 - Student is NOT enrolled exclusively in distance ed classes<br>1 - Student is enrolled exclusively in distance ed classes
+0 - Student is NOT enrolled exclusively in distance ed classes<br>1 -
+Student is enrolled exclusively in distance ed classes
 </td>
 </tr>
 <tr>
@@ -259,20 +268,23 @@ DistanceEdSome
 Numeric
 </td>
 <td style="text-align:left;">
-0 - Student is enrolled in 100% or 0% distance ed classes<br>1 - Student is enrolled in some but not all distance ed classes
+0 - Student is enrolled in 100% or 0% distance ed classes<br>1 - Student
+is enrolled in some but not all distance ed classes
 </td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="section level3">
-<h3 id="the-instructional-activity-data-must-be-in-the-format-described-below">The instructional activity data must be in the format described below<a class="anchor" aria-label="anchor" href="#the-instructional-activity-data-must-be-in-the-format-described-below"></a>
+<h3 id="the-instructional-activity-data-must-be-in-the-format-described-below">The instructional activity data must be in the format described
+below<a class="anchor" aria-label="anchor" href="#the-instructional-activity-data-must-be-in-the-format-described-below"></a>
 </h3>
 <blockquote>
 <ul>
 <li>One row total, with a column for each reportable fact</li>
 <li>One IPEDS Unitid per file</li>
-<li>Columns with values and types as described below (additional columns are allowed)</li>
+<li>Columns with values and types as described below (additional columns
+are allowed)</li>
 </ul>
 </blockquote>
 <table class="table table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -315,7 +327,8 @@ CreditHoursUG
 Numeric
 </td>
 <td style="text-align:left;">
-Number representing total UG credit hours (see IPEDS instructions for details). Use 0 if your school does not use the Credit-hours method
+Number representing total UG credit hours (see IPEDS instructions for
+details). Use 0 if your school does not use the Credit-hours method
 </td>
 </tr>
 <tr>
@@ -329,7 +342,8 @@ ClockHoursUG
 Numeric
 </td>
 <td style="text-align:left;">
-Number representing total UG clock hours (see IPEDS instructions for details). Use 0 if your school does not use the clock-hours method
+Number representing total UG clock hours (see IPEDS instructions for
+details). Use 0 if your school does not use the clock-hours method
 </td>
 </tr>
 <tr>
@@ -343,7 +357,9 @@ CreditHoursGR
 Numeric
 </td>
 <td style="text-align:left;">
-Whole number representing total Graduate Student credit hours, omitting doctoral/professional hours (see IPEDS instructions for details). Use 0 if your school does not have graduate student credit hours.
+Whole number representing total Graduate Student credit hours, omitting
+doctoral/professional hours (see IPEDS instructions for details). Use 0
+if your school does not have graduate student credit hours.
 </td>
 </tr>
 <tr>
@@ -357,7 +373,8 @@ DocFTE
 Numeric
 </td>
 <td style="text-align:left;">
-Total FTE of doctoral/professional students (see IPEDS instructos for details. Use 0 if you do not have any.
+Total FTE of doctoral/professional students (see IPEDS instructos for
+details. Use 0 if you do not have any.
 </td>
 </tr>
 </tbody>

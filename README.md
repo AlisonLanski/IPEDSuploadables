@@ -57,8 +57,12 @@ View the codebase and submit issues for this package at
 
 ## Installation
 
-You can install the development version from
-[GitHub](https://github.com/AlisonLanski/IPEDSuploadables) with:
+You can install the package in the standard way from CRAN
+```
+install.packages("IPEDSuploadables")
+```
+
+To get newer releases or bug fixes before they are posted to the CRAN version, you can install the development version from [GitHub](https://github.com/AlisonLanski/IPEDSuploadables) with:
 
 ``` r
 # install.packages("remotes")
@@ -68,11 +72,9 @@ remotes::install_github("AlisonLanski/IPEDSuploadables")
 
 # install.packages("devtools")
 devtools::install_github("AlisonLanski/IPEDSuploadables")
+
 ```
-
-To access vignettes locally (instead of through the website) add an
-argument:
-
-``` r
+To access vignettes locally (instead of through the website) add an argument:
+```r
 remotes::install_github("AlisonLanski/IPEDSuploadables", build_vignettes = TRUE)
 ```

@@ -26,10 +26,16 @@ A few things to note:
 ## Step 0: Install/Load the package
 
 ```{r setup, eval=FALSE}
-#install option 1
+#official install from CRAN
+install.packages("IPEDSuploadables")
+
+#development install from the github repo
+#use this if you want to pull in changes before they reach cran or need to use other code branches
+
+#development install option 1
 remotes::install_github("AlisonLanski/IPEDSuploadables")
 
-#install option 2 (relies on the remotes package)
+#development install option 2
 devtools::install_github("AlisonLanski/IPEDSuploadables")
 ```
 

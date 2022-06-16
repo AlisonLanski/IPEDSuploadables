@@ -100,7 +100,7 @@ gtag('config', 'G-NSXZV7NDWP'); </script>
 
       
 
-      </header><script src="howto_use_autoformat_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>How to produce other key-value uploads</h1>
@@ -122,29 +122,45 @@ gtag('config', 'G-NSXZV7NDWP'); </script>
 <li>Get help converting your data into a key-value pair format</li>
 <li>Get help combining parts with different numbers of columns</li>
 </ul>
-<p>If you want the package to help you with aggregation and (some) recoding, look at the “setup” vignettes for supported uploads</p>
-<p><em>Note: the <code>produce_other_report</code> function can be used to prepare any key-value pair file for an automated submission process (IPEDS or non-IPEDS)</em></p>
+<p>If you want the package to help you with aggregation and (some)
+recoding, look at the “setup” vignettes for supported uploads</p>
+<p><em>Note: the <code>produce_other_report</code> function can be used
+to prepare any key-value pair file for an automated submission process
+(IPEDS or non-IPEDS)</em></p>
 </div>
 <div class="section level2">
 <h2 id="general-process">General Process<a class="anchor" aria-label="anchor" href="#general-process"></a>
 </h2>
 <ul>
 <li>
-<strong>Download/Open the IPEDS Import Spec</strong> for a particular survey and institution-type on the <a href="https://surveys.nces.ed.gov/ipeds/public/survey-materials/results" class="external-link">IPEDS Survey Materials instructions page</a>. <em>Between reporting cycles, this page may be down: consult <a href="https://nces.ed.gov/ipeds/use-the-data/annual-survey-forms-packages-archived" class="external-link">the archive</a> to see previous specs.</em>
+<strong>Download/Open the IPEDS Import Spec</strong> for a
+particular survey and institution-type on the <a href="https://surveys.nces.ed.gov/ipeds/public/survey-materials/results" class="external-link">IPEDS
+Survey Materials instructions page</a>. <em>Between reporting cycles,
+this page may be down: consult <a href="https://nces.ed.gov/ipeds/use-the-data/annual-survey-forms-packages-archived" class="external-link">the
+archive</a> to see previous specs.</em>
 </li>
 <li>
-<strong>Use the “Key Value Pair File” instructions</strong> to prep your data. This will be the second part of the document; the first part is for fixed-width files.</li>
+<strong>Use the “Key Value Pair File” instructions</strong> to prep
+your data. This will be the second part of the document; the first part
+is for fixed-width files.</li>
 <li>
-<strong>Create one dataframe for each survey part</strong> using the exact IPEDS FieldIDs as column names and using only the values described in the table of specs and the additional information in the file’s appendix (scroll down). Follow the same order of columns and parts.</li>
+<strong>Create one dataframe for each survey part</strong> using the
+exact IPEDS FieldIDs as column names and using only the values described
+in the table of specs and the additional information in the file’s
+appendix (scroll down). Follow the same order of columns and parts.</li>
 <li>
-<strong>Use the package function <code>produce_other_report</code></strong> with your files.</li>
+<strong>Use the package function
+<code>produce_other_report</code></strong> with your files.</li>
 </ul>
-<p><em>If you need assistance understanding what goes into the upload file, contact IPEDS for advice.</em></p>
+<p><em>If you need assistance understanding what goes into the upload
+file, contact IPEDS for advice.</em></p>
 </div>
 <div class="section level2">
 <h2 id="data-prep-example-admissions">Data prep example: Admissions<a class="anchor" aria-label="anchor" href="#data-prep-example-admissions"></a>
 </h2>
-<p>This provides a start-to-finish example of preparing an admissions submission based on sample data. Always check your results after you upload your txt file to the IPEDS submission portal.</p>
+<p>This provides a start-to-finish example of preparing an admissions
+submission based on sample data. Always check your results after you
+upload your txt file to the IPEDS submission portal.</p>
 <div class="section level3">
 <h3 id="start-with-institutional-data-for-applicants">Start with institutional data for applicants<a class="anchor" aria-label="anchor" href="#start-with-institutional-data-for-applicants"></a>
 </h3>
@@ -1322,9 +1338,11 @@ C
 </table>
 </div>
 <div class="section level3">
-<h3 id="use-this-package-to-convert-those-dataframes-into-a-single-uploadable-txt-file">Use this package to convert those dataframes into a single uploadable txt file<a class="anchor" aria-label="anchor" href="#use-this-package-to-convert-those-dataframes-into-a-single-uploadable-txt-file"></a>
+<h3 id="use-this-package-to-convert-those-dataframes-into-a-single-uploadable-txt-file">Use this package to convert those dataframes into a single
+uploadable txt file<a class="anchor" aria-label="anchor" href="#use-this-package-to-convert-those-dataframes-into-a-single-uploadable-txt-file"></a>
 </h3>
-<p><em>The file format is shown below, but the package will actually save this as a txt file at the location of your choice.</em></p>
+<p><em>The file format is shown below, but the package will actually
+save this as a txt file at the location of your choice.</em></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/produce_other_report.html">produce_other_report</a></span><span class="op">(</span><span class="va">partA</span>, <span class="va">partB</span>, <span class="va">partC</span>, survey <span class="op">=</span> <span class="st">"Admissions"</span><span class="op">)</span></code></pre></div>
 <table class="table">
