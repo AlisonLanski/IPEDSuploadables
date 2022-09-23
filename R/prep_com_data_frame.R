@@ -24,6 +24,10 @@ prep_com_data_frame <- function(df) {
                                     x = .data$MAJORCIP))
   }
 
+  #if cips end in .0000, the file read-in may lose the decimal and period
+  #need to add it back before we can proceed
+  df$MAJORCIP <- gsub(pattern = "(^[0-9]{1,2}$)", replacement = "\\1\\.0000", x = df$MAJORCIP)
+
   #now check that all cips have a period... if not, throw a warning
   if(sum(!grepl(df$MAJORCIP, pattern = "\\.")) > 0){
     stop("Cip Codes are not in an accepted format. Review setup requirements for Completions")
