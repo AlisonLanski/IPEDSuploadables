@@ -86,6 +86,24 @@ produce_e1d_report(df = e1d_student, hrs = e1d_instr, part = "ALL")
 
 A message will be display the location of your file when it has been processed.
 
+### Note about new gender collection for 2022-2023 reporting cycle
+  
+Scripts are set to assume that you ARE able to report on "another gender" in this reporting cycle.
+This applies to Completions and 12 Month Enrollment.
+  
+If you are **NOT** able to collect/report on students of "another gender" this cycle
+
+* Set ugender = FALSE (for undergraduates) in the produce function
+* Set ggender = FALSE (for graduates) in the produce function
+
+Example:
+```{r gender_example, eval = FALSE}
+#able to report undergraduate "another gender" but NOT able to report graduate "another gender"
+produce_com_report(df = com_students, extracips = com_cips, ggender = FALSE)
+```
+
+
+
 ### Notes for specific reports
 
 Completions

@@ -5,7 +5,7 @@
 \alias{specs_COM}
 \title{Table of data requirements for Completions starting dataframe}
 \format{
-A data frame with 19 rows and 4 columns
+A data frame with 20 rows and 4 columns
 }
 \usage{
 specs_COM

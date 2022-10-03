@@ -11,6 +11,7 @@ test_that("COM parts produce expected dfs", {
   expect_equal(make_com_part_B(datcom, datcip), part_outputs$com_partB)
   expect_equal(make_com_part_C(datcom), part_outputs$com_partC)
   expect_equal(make_com_part_D(datcom, datcip), part_outputs$com_partD)
+  expect_equal(make_com_part_E(datcom, ugender = TRUE, ggender = TRUE), part_outputs$com_partE)
 })
 
 
@@ -24,6 +25,7 @@ test_that("E1D parts produce expected dfs", {
   expect_equal(make_e1d_part_A(e1d_student), part_outputs$e1d_partA)
   expect_equal(make_e1d_part_B(e1d_instr), part_outputs$e1d_partB)
   expect_equal(make_e1d_part_C(e1d_student), part_outputs$e1d_partC)
+  expect_equal(make_e1d_part_D(e1d_student, ugender = TRUE, ggender = TRUE), part_outputs$e1d_partD)
 })
 
 ########
@@ -104,14 +106,20 @@ test_that("OM parts produce expected dfs", {
 # ##Note that you will need to run prep scripts before the make functions for COM, HR, EF1 and OM
 # ## something like hr_partA1 = make_hr_part_A1(prep_hr_data_frame(hr_staff))
 # ## not adding all of that now because I'm lazy :}
+#
 # part_outputs <- list(
-#   com_partA = com_partA,
-#   com_partB = com_partB,
-#   com_partC = com_partC,
-#   com_partD = com_partD,
+#   com_partA = make_com_part_A(prep_com_data_frame(com_students),
+#                               prep_com_data_frame(com_cips)),
+#   com_partB = make_com_part_B(prep_com_data_frame(com_students),
+#                               prep_com_data_frame(com_cips)),
+#   com_partC = make_com_part_C(prep_com_data_frame(com_students)),
+#   com_partD = make_com_part_D(prep_com_data_frame(com_students),
+#                               prep_com_data_frame(com_cips)),
+#   com_partE = make_com_part_E(prep_com_data_frame(com_students)),
 #   e1d_partA = e1d_partA,
 #   e1d_partB = e1d_partB,
 #   e1d_partC = e1d_partC,
+#   e1d_partD = make_e1d_part_D(e1d_student, TRUE, TRUE),
 #   ef1_partA_FALSE = `ef1_partA-FALSE`,
 #   ef1_partA_TRUE = `ef1_partA-TRUE`,
 #   ef1_partB = ef1_partB,

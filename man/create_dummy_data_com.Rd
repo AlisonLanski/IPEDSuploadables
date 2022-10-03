@@ -18,18 +18,14 @@ Produces either a student/degree dataframe or a dataframe of cips previously rep
 depending on the argument you select
 }
 \note{
-The final dataset has 100 students with 190 majors.
-60 students have 1 major for 1 degree
-8 students have 2 majors for 1 degree
-17 students have 3 majors (on one degree or as dual-degree)
-12 students have 4 majors (as dual-degrees; some have one as an MBA)
-3 students have 5 majors (dual-degree and 4 majors and an MBA)
+The final dataset has 60 students with 105 majors.
+Students 100-130, 140, 150 have 1 major for 1 degree (journalism)
+Students 131-139 have 2 majors for 1 degree (journalism + parks)
+Students 141-149 have 3 majors for 1 degree (journalism, parks, linguistics)
+Students 151-159 have 3 majors for 2 degrees (1 degree with journalism/parks, 1 MBA degree)
 Note: 1 student has a faulty birthdate; this will show the warning "1 failed to parse"
-I use the same seed for each grouping,
-to ensure that the same students keep getting more things added
 
-One program/level combination is flagged as distance education
-With the seed and probs, no associates degrees end up in the data (don't worry!)
+Two rows (level 18 linguistics) are flagged as distance education
 
 To fully process completions, we will need to include an example
 of a CIP code that is a possible major but has no completers

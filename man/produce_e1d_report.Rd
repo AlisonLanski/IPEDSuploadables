@@ -4,7 +4,14 @@
 \alias{produce_e1d_report}
 \title{Shortcut function with all steps to provide a 12 Month Enrollment report}
 \usage{
-produce_e1d_report(df, hrs, part = "ALL", format = "uploadable")
+produce_e1d_report(
+  df,
+  hrs,
+  part = "ALL",
+  format = "uploadable",
+  ugender = TRUE,
+  ggender = TRUE
+)
 }
 \arguments{
 \item{df}{A dataframe set up according to the readme for students}
@@ -17,6 +24,12 @@ produce_e1d_report(df, hrs, part = "ALL", format = "uploadable")
 upload file. \code{"readable"} will produce a csv of the upload file (only
 works for one part at a time). \code{"both"} will provide both options, but
 only works with one part at a time.}
+
+\item{ugender}{A boolean: TRUE means you are collecting and able to report
+"another gender" for undergraduate students Set as FALSE if necessary}
+
+\item{ggender}{A boolean: TRUE means you are collecting and able to report
+"another gender" for graduate students. Set as FALSE if necessary}
 }
 \value{
 A txt or csv file at the path of your choice
