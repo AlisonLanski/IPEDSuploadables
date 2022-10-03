@@ -1,32 +1,24 @@
-## Resubmission
-
-This is a resubmission. In this version I have
-
-* Added the IPEDS submission URL to the description field of the DESCRIPTION file.  
-
-* Uncommented all code in produce_other_report examples and added a \donttest wrapper to one piece instead.  
-
-* Unwrapped all other \dontrun wrappers in the examples so they will execute. (They run quickly). 
-
-* Removed set.seed() from functions.  
+## Update notes
+This version of the package contains bug fixes and maintenance updates
   
-
+  
 ## R CMD check results
 
 There were no ERRORs or WARNINGs. 
 
 There were two NOTEs from rhub testing:
-
-* New submission
-
-  This is a first submission
   
-* Possibly misspelled words in DESCRIPTION:  
-    IPEDS (2:58, 14:63)  
-    Postsecondary (14:81)  
+* checking for detritus in the temp directory ... NOTE
+Found the following files/directories:
+  'lastMiKTeXException'
     
-  These are common vocabulary words for the package audience and are adopted from language on the Department of Education website
+Note on lastMiKTeXException is an rhub issue: r-hub/rhub#503
 
+* checking HTML version of manual ... NOTE
+Skipping checking HTML validation: no command 'tidy' found
   
+This note is only generated on Fedora Linux (R-hub): I cannot change that Tidy is not on the path, or update Tidy on the external Fedora Linux server.
+  
+    
 ## Downstream dependencies
 There are currently no downstream dependencies for this package
