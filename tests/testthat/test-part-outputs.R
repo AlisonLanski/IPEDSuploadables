@@ -25,6 +25,7 @@ test_that("E1D parts produce expected dfs", {
   expect_equal(make_e1d_part_A(e1d_student), part_outputs$e1d_partA)
   expect_equal(make_e1d_part_B(e1d_instr), part_outputs$e1d_partB)
   expect_equal(make_e1d_part_C(e1d_student), part_outputs$e1d_partC)
+  expect_equal(make_e1d_part_D(e1d_student, ugender = TRUE, ggender = TRUE), part_outputs$e1d_partD)
 })
 
 ########
@@ -118,6 +119,7 @@ test_that("OM parts produce expected dfs", {
 #   e1d_partA = e1d_partA,
 #   e1d_partB = e1d_partB,
 #   e1d_partC = e1d_partC,
+#   e1d_partD = make_e1d_part_D(e1d_student, TRUE, TRUE),
 #   ef1_partA_FALSE = `ef1_partA-FALSE`,
 #   ef1_partA_TRUE = `ef1_partA-TRUE`,
 #   ef1_partB = ef1_partB,
