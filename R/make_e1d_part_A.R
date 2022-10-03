@@ -46,6 +46,9 @@ make_e1d_part_A <- function(df) {
                                     .data$ISDEGREECERTSEEKING == 0 &
                                     .data$STUDENTLEVEL == "Undergraduate" ~ 7,
 
+                                  .data$ISFULLTIME == 1 &
+                                    .data$STUDENTLEVEL == "Graduate" ~ 11,
+
                                   .data$ISFULLTIME == 0 &
                                     .data$ISFIRSTTIME == 1 &
                                     .data$ISDEGREECERTSEEKING == 1 &
@@ -66,7 +69,8 @@ make_e1d_part_A <- function(df) {
                                     .data$ISDEGREECERTSEEKING == 0 &
                                     .data$STUDENTLEVEL == "Undergraduate" ~ 21,
 
-                                  .data$STUDENTLEVEL == "Graduate" ~ 99
+                                  .data$ISFULLTIME == 0 &
+                                    .data$STUDENTLEVEL == 'Graduate' ~ 25
                                 )
                   ) %>%
     dplyr::group_by(.data$UNITID,
