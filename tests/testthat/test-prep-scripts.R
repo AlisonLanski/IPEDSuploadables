@@ -3,7 +3,7 @@
 #data is correctly set up (no errors)
 
 com_df <- data.frame(unitid = 123456,
-                     majorcip = c(2.34, 12.34, 2.3400),
+                     majorcip = c(2.34, 12.34, 2.3400, 2, 12),
                      degreelevel = 17,
                      studentid = 900)
 
@@ -62,11 +62,12 @@ test_that("prep script type conversions are applied", {
 
 test_that("Funky data used for recoding will throw error messages", {
   #COM cips
-  #not 6digits, no period
+
+ #not 1/2/6digits, no period
   expect_error(prep_com_data_frame(data.frame(unitid = 123456,
                                               degreelevel = 5,
                                               student_id = 100,
-                                              majorcip = 34)))
+                                              majorcip = 345)))
 
     #mixing types
     expect_error(prep_com_data_frame(data.frame(unitid = 123456,
@@ -114,7 +115,7 @@ test_that("Funky data used for recoding will throw warning messages", {
 })
 
 
-# #saved file doesn't exist because I dont' want to make a new list/data object
+# #saved file doesn't exist because I don't want to make a new list/data object
 # #also, this prep test can be ultimately tested by looking at the final output (at this point)
 # #can add specific tests for rows/columns if we need to update something down the line
 # test_that("HR prep calculations come out as expected", {
@@ -127,7 +128,7 @@ test_that("OM prep recoding comes out as expected", {
 
 
 test_that("prep for COM handles CIPs appropriately", {
-  expect_equal(toString(prep_com_data_frame(com_df)$MAJORCIP), "02.3400, 12.3400, 02.3400")
+  expect_equal(toString(prep_com_data_frame(com_df)$MAJORCIP), "02.3400, 12.3400, 02.3400, 02.0000, 12.0000")
   expect_equal(toString(prep_com_data_frame(com_df2)$MAJORCIP), "00.0000, 11.1111, 04.0000")
 })
 

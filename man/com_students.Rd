@@ -5,7 +5,7 @@
 \alias{com_students}
 \title{Dummy student data for Completions functions}
 \format{
-A data frame with 190 rows and 12 columns
+A data frame with 105 rows and 13 columns
 }
 \usage{
 com_students

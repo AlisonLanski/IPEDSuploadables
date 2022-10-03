@@ -12,5 +12,6 @@
 ^ISSUE_TEMPLATE.md$
 ^cran-comments.md$
 ^UpdateChecklist.txt$
+^DataUpdateCode.R$
 
 ^CRAN-SUBMISSION$
