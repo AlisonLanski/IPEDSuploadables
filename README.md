@@ -4,7 +4,6 @@
 # IPEDSuploadables
 
 <!-- badges: start -->
-
 <!-- badges: end -->
 
 IPEDSuploadables produces text files in key-value format which meet the
@@ -23,28 +22,29 @@ institution-types for existing reports*
 
 ### Supported surveys that work for all institutions:
 
-  - Completions
-  - Outcome Measures
+-   Completions *Updated for current cycle*
+-   Outcome Measures
 
 ### Supported surveys that only work for some institutions:
 
-  - Graduation Rates: 4-year institutions
-  - 200% Graduation Rates: 4-year institutions
-  - 12-month Enrollment: 4-year degree granting institutions
-  - Fall Enrollment: 4-year degree granting institutions
-  - Human Resources: degree granting institutions with more than 15 FTE
+-   Graduation Rates: 4-year institutions
+-   200% Graduation Rates: 4-year institutions
+-   12-month Enrollment: 4-year degree granting institutions *Updated
+    for current cycle*
+-   Fall Enrollment: 4-year degree granting institutions
+-   Human Resources: degree granting institutions with more than 15 FTE
 
 ### Unsupported surveys with options
 
-  - Academic Libraries: If you complete the ACRL survey, you can
+-   Academic Libraries: If you complete the ACRL survey, you can
     download an IPEDS-compatible file from the ACRL site.
-  - Admissions: Visit [How to produce other key-value
+-   Admissions: Visit [How to produce other key-value
     uploads](https://alisonlanski.github.io/IPEDSuploadables/articles/howto_use_autoformat.html)
-  - Finance: Visit [How to produce other key-value
+-   Finance: Visit [How to produce other key-value
     uploads](https://alisonlanski.github.io/IPEDSuploadables/articles/howto_use_autoformat.html)
-  - Institutional Characteristics: Visit [How to produce other key-value
+-   Institutional Characteristics: Visit [How to produce other key-value
     uploads](https://alisonlanski.github.io/IPEDSuploadables/articles/howto_use_autoformat.html)
-  - Student Financial Aid: Visit [How to produce other key-value
+-   Student Financial Aid: Visit [How to produce other key-value
     uploads](https://alisonlanski.github.io/IPEDSuploadables/articles/howto_use_autoformat.html)
 
 ## Website
@@ -58,23 +58,26 @@ View the codebase and submit issues for this package at
 ## Installation
 
 You can install the package in the standard way from CRAN
-```
-install.packages("IPEDSuploadables")
-```
 
-To get newer releases or bug fixes before they are posted to the CRAN version, you can install the development version from [GitHub](https://github.com/AlisonLanski/IPEDSuploadables) with:
+    install.packages("IPEDSuploadables")
+
+To get newer releases or bug fixes before they are posted to the CRAN
+version, you can install the development version from
+[GitHub](https://github.com/AlisonLanski/IPEDSuploadables) with:
 
 ``` r
-# install.packages("remotes")
-remotes::install_github("AlisonLanski/IPEDSuploadables")
-
-#or use
-
 # install.packages("devtools")
 devtools::install_github("AlisonLanski/IPEDSuploadables")
 
+#or use
+
+# install.packages("remotes")
+remotes::install_github("AlisonLanski/IPEDSuploadables")
 ```
-To access vignettes locally (instead of through the website) add an argument:
-```r
-remotes::install_github("AlisonLanski/IPEDSuploadables", build_vignettes = TRUE)
+
+To access vignettes locally (instead of through the website) add an
+argument:
+
+``` r
+devtools::install_github("AlisonLanski/IPEDSuploadables", build_vignettes = TRUE)
 ```

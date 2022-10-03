@@ -1,3 +1,11 @@
+# IPEDSuploadables 2.5.5
+
+* Fixed Completions bug for cip codes in XX.0000 format
+* Addressed Fall Collection updates from IPEDS (see items below)
+* Completions data now requires a GenderDetail column for this year's reporting
+* 12 month enrollment now requires a GenderDetail column for this year's reporting
+* 12 month enrollment now provides full/part time breakouts for Graduate students
+
 # IPEDSuploadables 2.4.5
 
 * Added a `NEWS.md` file to track changes to the package.
