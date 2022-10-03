@@ -30,7 +30,7 @@
 
 produce_com_report <- function(df, extracips = NULL, part = "ALL", format = "uploadable") {
 
-  stopifnot(toupper(part) %in% c("A", "B", "C", "D", "ALL"),
+  stopifnot(toupper(part) %in% c("A", "B", "C", "D", "E", "ALL"),
             toupper(format) %in% c("UPLOADABLE", "READABLE", "BOTH"))
 
   #setup
@@ -52,6 +52,7 @@ produce_com_report <- function(df, extracips = NULL, part = "ALL", format = "upl
       make_com_part_B(df = students, extracips = extracips),
       make_com_part_C(df = students),
       make_com_part_D(df = students, extracips = extracips),
+      make_com_part_E(df = students),
       survey = survey,
       part = 'AllParts',
       output_path = output_path
@@ -59,13 +60,13 @@ produce_com_report <- function(df, extracips = NULL, part = "ALL", format = "upl
 
   }
 
-  if(toupper(part) %in% c("A", "B", "C", "D")) {
+  if(toupper(part) %in% c("A", "B", "C", "D", "E")) {
 
     if(toupper(format) %in% c("UPLOADABLE", "BOTH")){
 
-      if(toupper(part) == 'C'){
+      if(toupper(part) %in% c('C', 'E')){
         write_report(
-          make_com_part_C(students),
+          do.call(paste0("make_com_part_", toupper(part)), list(students)),
           survey = survey,
           part = paste0("Part", toupper(part)),
           output_path = output_path
@@ -82,9 +83,9 @@ produce_com_report <- function(df, extracips = NULL, part = "ALL", format = "upl
     }
 
     if(toupper(format) %in% c("BOTH", "READABLE")){
-      if(toupper(part) == 'C'){
+      if(toupper(part) %in% c('C', 'E')){
         write_report_csv(
-          make_com_part_C(students),
+          do.call(paste0("make_com_part_", toupper(part)), list(students)),
           survey = survey,
           part = paste0("Part", toupper(part)),
           output_path = output_path
