@@ -18,7 +18,7 @@ gtag('config', 'G-NSXZV7NDWP'); </script></head><body data-spy="scroll" data-tar
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">IPEDSuploadables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.4.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.5.5</span>
       </span>
     </div>
 
@@ -88,7 +88,14 @@ gtag('config', 'G-NSXZV7NDWP'); </script></head><body data-spy="scroll" data-tar
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">produce_e1d_report</span><span class="op">(</span><span class="va">df</span>, <span class="va">hrs</span>, part <span class="op">=</span> <span class="st">"ALL"</span>, format <span class="op">=</span> <span class="st">"uploadable"</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">produce_e1d_report</span><span class="op">(</span>
+  <span class="va">df</span>,
+  <span class="va">hrs</span>,
+  part <span class="op">=</span> <span class="st">"ALL"</span>,
+  format <span class="op">=</span> <span class="st">"uploadable"</span>,
+  ugender <span class="op">=</span> <span class="cn">TRUE</span>,
+  ggender <span class="op">=</span> <span class="cn">TRUE</span>
+<span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -104,6 +111,12 @@ gtag('config', 'G-NSXZV7NDWP'); </script></head><body data-spy="scroll" data-tar
 upload file. <code>"readable"</code> will produce a csv of the upload file (only
 works for one part at a time). <code>"both"</code> will provide both options, but
 only works with one part at a time.</p></dd>
+<dt>ugender</dt>
+<dd><p>A boolean: TRUE means you are collecting and able to report
+"another gender" for undergraduate students Set as FALSE if necessary</p></dd>
+<dt>ggender</dt>
+<dd><p>A boolean: TRUE means you are collecting and able to report
+"another gender" for graduate students. Set as FALSE if necessary</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
@@ -119,11 +132,11 @@ only works with one part at a time.</p></dd>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">#entire report</span></span>
 <span class="r-in"><span class="fu">produce_e1d_report</span><span class="op">(</span><span class="va">e1d_student</span>, <span class="va">e1d_instr</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Uploadable results available at C:/Users/alanski/AppData/Local/Temp/RtmpIFuNFy/12MonthEnrollment_AllParts_2022-06-16.txt</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Uploadable results available at C:/Users/alanski/AppData/Local/Temp/RtmpwhLejp/12MonthEnrollment_AllParts_2022-10-03.txt</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">#one part, as csv instead of key-value file</span></span>
 <span class="r-in"><span class="fu">produce_e1d_report</span><span class="op">(</span><span class="va">e1d_student</span>, part <span class="op">=</span> <span class="st">"A"</span>, format <span class="op">=</span> <span class="st">"readable"</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Readable results available at  C:/Users/alanski/AppData/Local/Temp/RtmpIFuNFy/12MonthEnrollment_PartA_Readable_2022-06-16.csv</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Readable results available at  C:/Users/alanski/AppData/Local/Temp/RtmpwhLejp/12MonthEnrollment_PartA_Readable_2022-10-03.csv</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># \dontshow{</span></span>
 <span class="r-in"><span class="co">#reset directory for this example (not necessary for users)</span></span>

@@ -34,7 +34,7 @@ gtag('config', 'G-NSXZV7NDWP'); </script>
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">IPEDSuploadables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.4.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.5.5</span>
       </span>
     </div>
 
@@ -253,6 +253,24 @@ your original file.</li>
 <p>A message will be display the location of your file when it has been
 processed.</p>
 <div class="section level3">
+<h3 id="note-about-new-gender-collection-for-2022-2023-reporting-cycle">Note about new gender collection for 2022-2023 reporting cycle<a class="anchor" aria-label="anchor" href="#note-about-new-gender-collection-for-2022-2023-reporting-cycle"></a>
+</h3>
+<p>Scripts are set to assume that you ARE able to report on “another
+gender” in this reporting cycle. This applies to Completions and 12
+Month Enrollment.</p>
+<p>If you are <strong>NOT</strong> able to collect/report on students of
+“another gender” this cycle</p>
+<ul>
+<li>Set ugender = FALSE (for undergraduates) in the produce
+function</li>
+<li>Set ggender = FALSE (for graduates) in the produce function</li>
+</ul>
+<p>Example:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#able to report undergraduate "another gender" but NOT able to report graduate "another gender"</span>
+<span class="fu"><a href="../reference/produce_com_report.html">produce_com_report</a></span><span class="op">(</span>df <span class="op">=</span> <span class="va">com_students</span>, extracips <span class="op">=</span> <span class="va">com_cips</span>, ggender <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+</div>
+<div class="section level3">
 <h3 id="notes-for-specific-reports">Notes for specific reports<a class="anchor" aria-label="anchor" href="#notes-for-specific-reports"></a>
 </h3>
 <p>Completions</p>
@@ -337,14 +355,14 @@ checks.</p>
 <p>If you want to examine a single report sub-part in depth, you can
 create a separate text file with only those values.</p>
 <p>Example:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#if you only want to look at 12 month enrollment part B</span>
 <span class="fu"><a href="../reference/produce_e1d_report.html">produce_e1d_report</a></span><span class="op">(</span><span class="va">e1d_instr</span>, part <span class="op">=</span> <span class="st">"B"</span><span class="op">)</span></code></pre></div>
 <p>You can also produce a csv version of the part’s text file, for more
 readable output (still using IPEDS upload-required column names and
 values)</p>
 <p>Example:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#text files make my eyes bleed! let's use a csv</span>
 <span class="fu"><a href="../reference/produce_e1d_report.html">produce_e1d_report</a></span><span class="op">(</span>hrs <span class="op">=</span> <span class="va">e1d_instr</span>, part <span class="op">=</span> <span class="st">"B"</span>, format <span class="op">=</span> <span class="st">"readable"</span><span class="op">)</span></code></pre></div>
 </div>
@@ -355,7 +373,7 @@ old report<a class="anchor" aria-label="anchor" href="#ipeds-has-changed-a-surve
 <p>At the end of every IPEDS collection cycle, that year’s package code
 will be saved into a branch on GitHub. To use an old version, install
 the package from the branch.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#install, picking an acceptable year range</span>
 <span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span>repo <span class="op">=</span> <span class="st">"AlisonLanski/IPEDSuploadables"</span>, ref <span class="op">=</span> <span class="st">"reporting_year_2020-2021"</span><span class="op">)</span></code></pre></div>
 <p>When you have finished running your code, reinstall the current
