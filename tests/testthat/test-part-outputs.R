@@ -11,7 +11,7 @@ test_that("COM parts produce expected dfs", {
   expect_equal(make_com_part_B(datcom, datcip), part_outputs$com_partB)
   expect_equal(make_com_part_C(datcom), part_outputs$com_partC)
   expect_equal(make_com_part_D(datcom, datcip), part_outputs$com_partD)
-  expect_equal(make_com_part_E(datcom), part_outputs$com_partE)
+  expect_equal(make_com_part_E(datcom, ugender = TRUE, ggender = TRUE), part_outputs$com_partE)
 })
 
 

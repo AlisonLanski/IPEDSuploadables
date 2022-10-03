@@ -4,10 +4,16 @@
 \alias{make_com_part_E}
 \title{Make Completions Part E (gender details)}
 \usage{
-make_com_part_E(df)
+make_com_part_E(df, ugender, ggender)
 }
 \arguments{
 \item{df}{A dataframe of student/degree information}
+
+\item{ugender}{A boolean: TRUE means you are collecting and able to report
+"another gender" for undergraduate completers. Set as FALSE if necessary}
+
+\item{ggender}{A boolean: TRUE means you are collecting and able to report
+"another gender" for graduate completers. Set as FALSE if necessary}
 }
 \value{
 A text file
