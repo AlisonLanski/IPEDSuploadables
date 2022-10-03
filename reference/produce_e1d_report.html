@@ -88,7 +88,14 @@ gtag('config', 'G-NSXZV7NDWP'); </script></head><body data-spy="scroll" data-tar
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">produce_e1d_report</span><span class="op">(</span><span class="va">df</span>, <span class="va">hrs</span>, part <span class="op">=</span> <span class="st">"ALL"</span>, format <span class="op">=</span> <span class="st">"uploadable"</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">produce_e1d_report</span><span class="op">(</span></span>
+<span>  <span class="va">df</span>,</span>
+<span>  <span class="va">hrs</span>,</span>
+<span>  part <span class="op">=</span> <span class="st">"ALL"</span>,</span>
+<span>  format <span class="op">=</span> <span class="st">"uploadable"</span>,</span>
+<span>  ugender <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  ggender <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -111,6 +118,16 @@ upload file. <code>"readable"</code> will produce a csv of the upload file (only
 works for one part at a time). <code>"both"</code> will provide both options, but
 only works with one part at a time.</p></dd>
 
+
+<dt>ugender</dt>
+<dd><p>A boolean: TRUE means you are collecting and able to report
+"another gender" for undergraduate students Set as FALSE if necessary</p></dd>
+
+
+<dt>ggender</dt>
+<dd><p>A boolean: TRUE means you are collecting and able to report
+"another gender" for graduate students. Set as FALSE if necessary</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
@@ -121,23 +138,23 @@ only works with one part at a time.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># \dontshow{</span></span>
-<span class="r-in"><span class="co">#set temp directory for this example (not necessary for users)</span></span>
-<span class="r-in"><span class="va">.old_wd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># }</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#entire report</span></span>
-<span class="r-in"><span class="fu">produce_e1d_report</span><span class="op">(</span><span class="va">e1d_student</span>, <span class="va">e1d_instr</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Uploadable results available at /private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/Rtmp7WdBRd/12MonthEnrollment_AllParts_2022-06-16.txt</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#one part, as csv instead of key-value file</span></span>
-<span class="r-in"><span class="fu">produce_e1d_report</span><span class="op">(</span><span class="va">e1d_student</span>, part <span class="op">=</span> <span class="st">"A"</span>, format <span class="op">=</span> <span class="st">"readable"</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Readable results available at  /private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/Rtmp7WdBRd/12MonthEnrollment_PartA_Readable_2022-06-16.csv</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># \dontshow{</span></span>
-<span class="r-in"><span class="co">#reset directory for this example (not necessary for users)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="va">.old_wd</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># }</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \dontshow{</span></span></span>
+<span class="r-in"><span><span class="co">#set temp directory for this example (not necessary for users)</span></span></span>
+<span class="r-in"><span><span class="va">.old_wd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#entire report</span></span></span>
+<span class="r-in"><span><span class="fu">produce_e1d_report</span><span class="op">(</span><span class="va">e1d_student</span>, <span class="va">e1d_instr</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Uploadable results available at /private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/Rtmp34nOQi/12MonthEnrollment_AllParts_2022-10-03.txt</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#one part, as csv instead of key-value file</span></span></span>
+<span class="r-in"><span><span class="fu">produce_e1d_report</span><span class="op">(</span><span class="va">e1d_student</span>, part <span class="op">=</span> <span class="st">"A"</span>, format <span class="op">=</span> <span class="st">"readable"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Readable results available at  /private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/Rtmp34nOQi/12MonthEnrollment_PartA_Readable_2022-10-03.csv</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># \dontshow{</span></span></span>
+<span class="r-in"><span><span class="co">#reset directory for this example (not necessary for users)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="va">.old_wd</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -152,7 +169,7 @@ only works with one part at a time.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

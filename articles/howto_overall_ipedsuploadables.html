@@ -127,23 +127,25 @@ gtag('config', 'G-NSXZV7NDWP'); </script>
 <h2 id="step-0-installload-the-package">Step 0: Install/Load the package<a class="anchor" aria-label="anchor" href="#step-0-installload-the-package"></a>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#official install from CRAN</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"IPEDSuploadables"</span><span class="op">)</span>
-
-<span class="co">#development install from the github repo</span>
-<span class="co">#use this if you want to pull in changes before they reach cran or need to use other code branches</span>
-
-<span class="co">#development install option 1</span>
-<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"AlisonLanski/IPEDSuploadables"</span><span class="op">)</span>
-
-<span class="co">#development install option 2</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"AlisonLanski/IPEDSuploadables"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">#official install from CRAN</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"IPEDSuploadables"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#development install from the github repo</span></span>
+<span><span class="co">#use this if you want to pull in changes before they reach cran or need to use other code branches</span></span>
+<span></span>
+<span><span class="co">#development install option 1</span></span>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"AlisonLanski/IPEDSuploadables"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#development install option 2</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"AlisonLanski/IPEDSuploadables"</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#load the packages</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/AlisonLanski/IPEDSuploadables" class="external-link">IPEDSuploadables</a></span><span class="op">)</span>
-<span class="co">#&gt; This version of IPEDSuploadables is for the 2021-2022 reporting cycle.</span>
-<span class="co">#&gt; If you are in a later cycle or want to capture any bug fixes,</span>
-<span class="co">#&gt; please update the package.</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">#load the packages</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/AlisonLanski/IPEDSuploadables" class="external-link">IPEDSuploadables</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; This version of IPEDSuploadables has been updated for </span></span>
+<span><span class="co">#&gt; FALL collection of the 2022-2023 reporting cycle.</span></span>
+<span><span class="co">#&gt; Winter and Spring updates coming soon.</span></span>
+<span><span class="co">#&gt; If you are in a later cycle or want to capture any bug fixes,</span></span>
+<span><span class="co">#&gt; please update the package.</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="step-1-prep-your-institutional-data">Step 1: Prep your institutional data<a class="anchor" aria-label="anchor" href="#step-1-prep-your-institutional-data"></a>
@@ -201,22 +203,22 @@ gtag('config', 'G-NSXZV7NDWP'); </script>
 </table>
 <p>You can call the sample data as desired to explore it</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#dataframe of student information for 12 month enrollment</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">e1d_student</span><span class="op">)</span>
-<span class="co">#&gt;   Unitid StudentId IsFullTime IsFirstTime IsTransfer IsDegreeCertSeeking</span>
-<span class="co">#&gt; 1 999999       100          1           1          0                   1</span>
-<span class="co">#&gt; 2 999999       101          1           1          0                   0</span>
-<span class="co">#&gt; 3 999999       102          1           1          0                   1</span>
-<span class="co">#&gt; 4 999999       103          1           1          0                   0</span>
-<span class="co">#&gt; 5 999999       104          1           1          0                   1</span>
-<span class="co">#&gt; 6 999999       105          1           1          0                   0</span>
-<span class="co">#&gt;    StudentLevel RaceEthnicity Sex DistanceEdAll DistanceEdSome</span>
-<span class="co">#&gt; 1 Undergraduate             1   1             0              1</span>
-<span class="co">#&gt; 2 Undergraduate             1   2             0              1</span>
-<span class="co">#&gt; 3 Undergraduate             1   2             0              1</span>
-<span class="co">#&gt; 4 Undergraduate             1   1             0              1</span>
-<span class="co">#&gt; 5 Undergraduate             1   1             0              1</span>
-<span class="co">#&gt; 6 Undergraduate             1   2             0              0</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">#dataframe of student information for 12 month enrollment</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">e1d_student</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   Unitid StudentId IsFullTime IsFirstTime IsTransfer IsDegreeCertSeeking</span></span>
+<span><span class="co">#&gt; 1 999999       100          1           1          0                   1</span></span>
+<span><span class="co">#&gt; 2 999999       101          1           1          0                   0</span></span>
+<span><span class="co">#&gt; 3 999999       102          1           1          0                   1</span></span>
+<span><span class="co">#&gt; 4 999999       103          1           1          0                   0</span></span>
+<span><span class="co">#&gt; 5 999999       104          1           1          0                   1</span></span>
+<span><span class="co">#&gt; 6 999999       105          1           1          0                   0</span></span>
+<span><span class="co">#&gt;    StudentLevel RaceEthnicity Sex DistanceEdAll DistanceEdSome GenderDetail</span></span>
+<span><span class="co">#&gt; 1 Undergraduate             1   1             0              1            1</span></span>
+<span><span class="co">#&gt; 2 Undergraduate             1   2             0              1            2</span></span>
+<span><span class="co">#&gt; 3 Undergraduate             1   2             0              1            2</span></span>
+<span><span class="co">#&gt; 4 Undergraduate             1   1             0              1            1</span></span>
+<span><span class="co">#&gt; 5 Undergraduate             1   1             0              1            1</span></span>
+<span><span class="co">#&gt; 6 Undergraduate             1   2             0              0            2</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="step-2-read-in-your-data-and-produce-your-ipeds-report">Step 2: Read in your data and produce your IPEDS report<a class="anchor" aria-label="anchor" href="#step-2-read-in-your-data-and-produce-your-ipeds-report"></a>
@@ -231,9 +233,23 @@ gtag('config', 'G-NSXZV7NDWP'); </script>
 </ul>
 <p>Example:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#full export using sample data</span>
-<span class="fu"><a href="../reference/produce_e1d_report.html">produce_e1d_report</a></span><span class="op">(</span>df <span class="op">=</span> <span class="va">e1d_student</span>, hrs <span class="op">=</span> <span class="va">e1d_instr</span>, part <span class="op">=</span> <span class="st">"ALL"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">#full export using sample data</span></span>
+<span><span class="fu"><a href="../reference/produce_e1d_report.html">produce_e1d_report</a></span><span class="op">(</span>df <span class="op">=</span> <span class="va">e1d_student</span>, hrs <span class="op">=</span> <span class="va">e1d_instr</span>, part <span class="op">=</span> <span class="st">"ALL"</span><span class="op">)</span></span></code></pre></div>
 <p>A message will be display the location of your file when it has been processed.</p>
+<div class="section level3">
+<h3 id="note-about-new-gender-collection-for-2022-2023-reporting-cycle">Note about new gender collection for 2022-2023 reporting cycle<a class="anchor" aria-label="anchor" href="#note-about-new-gender-collection-for-2022-2023-reporting-cycle"></a>
+</h3>
+<p>Scripts are set to assume that you ARE able to report on “another gender” in this reporting cycle. This applies to Completions and 12 Month Enrollment.</p>
+<p>If you are <strong>NOT</strong> able to collect/report on students of “another gender” this cycle</p>
+<ul>
+<li>Set ugender = FALSE (for undergraduates) in the produce function</li>
+<li>Set ggender = FALSE (for graduates) in the produce function</li>
+</ul>
+<p>Example:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#able to report undergraduate "another gender" but NOT able to report graduate "another gender"</span></span>
+<span><span class="fu"><a href="../reference/produce_com_report.html">produce_com_report</a></span><span class="op">(</span>df <span class="op">=</span> <span class="va">com_students</span>, extracips <span class="op">=</span> <span class="va">com_cips</span>, ggender <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+</div>
 <div class="section level3">
 <h3 id="notes-for-specific-reports">Notes for specific reports<a class="anchor" aria-label="anchor" href="#notes-for-specific-reports"></a>
 </h3>
@@ -289,22 +305,22 @@ Your keyholder may be able to edit directly in the website, but this method is n
 <p>A few functions have built-in data quality checks which will alert you of disallowed values. We are working to add more automated checks.</p>
 <p>If you want to examine a single report sub-part in depth, you can create a separate text file with only those values.</p>
 <p>Example:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#if you only want to look at 12 month enrollment part B</span>
-<span class="fu"><a href="../reference/produce_e1d_report.html">produce_e1d_report</a></span><span class="op">(</span><span class="va">e1d_instr</span>, part <span class="op">=</span> <span class="st">"B"</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#if you only want to look at 12 month enrollment part B</span></span>
+<span><span class="fu"><a href="../reference/produce_e1d_report.html">produce_e1d_report</a></span><span class="op">(</span><span class="va">e1d_instr</span>, part <span class="op">=</span> <span class="st">"B"</span><span class="op">)</span></span></code></pre></div>
 <p>You can also produce a csv version of the part’s text file, for more readable output (still using IPEDS upload-required column names and values)</p>
 <p>Example:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#text files make my eyes bleed! let's use a csv</span>
-<span class="fu"><a href="../reference/produce_e1d_report.html">produce_e1d_report</a></span><span class="op">(</span>hrs <span class="op">=</span> <span class="va">e1d_instr</span>, part <span class="op">=</span> <span class="st">"B"</span>, format <span class="op">=</span> <span class="st">"readable"</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#text files make my eyes bleed! let's use a csv</span></span>
+<span><span class="fu"><a href="../reference/produce_e1d_report.html">produce_e1d_report</a></span><span class="op">(</span>hrs <span class="op">=</span> <span class="va">e1d_instr</span>, part <span class="op">=</span> <span class="st">"B"</span>, format <span class="op">=</span> <span class="st">"readable"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="ipeds-has-changed-a-surveys-requirements-but-you-need-to-rerun-an-old-report">IPEDS has changed a survey’s requirements, but you need to rerun an old report<a class="anchor" aria-label="anchor" href="#ipeds-has-changed-a-surveys-requirements-but-you-need-to-rerun-an-old-report"></a>
 </h4>
 <p>At the end of every IPEDS collection cycle, that year’s package code will be saved into a branch on GitHub. To use an old version, install the package from the branch.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#install, picking an acceptable year range</span>
-<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span>repo <span class="op">=</span> <span class="st">"AlisonLanski/IPEDSuploadables"</span>, ref <span class="op">=</span> <span class="st">"reporting_year_2020-2021"</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#install, picking an acceptable year range</span></span>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span>repo <span class="op">=</span> <span class="st">"AlisonLanski/IPEDSuploadables"</span>, ref <span class="op">=</span> <span class="st">"reporting_year_2020-2021"</span><span class="op">)</span></span></code></pre></div>
 <p>When you have finished running your code, reinstall the current version of the package by removing the “ref” argument.</p>
 </div>
 </div>
@@ -327,7 +343,7 @@ Your keyholder may be able to edit directly in the website, but this method is n
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>
