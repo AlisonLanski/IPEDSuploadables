@@ -5,7 +5,7 @@
 \alias{e1d_student}
 \title{Dummy student-level data for 12 Month Enrollment parts A and C}
 \format{
-A data frame with 100 rows (students) and 11 columns
+A data frame with 100 rows (students) and 12 columns
 }
 \usage{
 e1d_student
