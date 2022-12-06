@@ -64,6 +64,7 @@ test_that("GR parts produce expected dfs", {
   #tests
   expect_equal(make_gr_part_B(gr_students), part_outputs$gr_partB)
   expect_equal(make_gr_part_C(gr_students), part_outputs$gr_partC)
+  expect_equal(make_gr_part_E(gr_students,TRUE), part_outputs$gr_partE)
 })
 
 ########
@@ -130,6 +131,7 @@ test_that("OM parts produce expected dfs", {
 #   ef1_partG = ef1_partG,
 #   gr_partB = gr_partB,
 #   gr_partC = gr_partC,
+#   gr_partE = make_gr_part_E(gr_students, TRUE),
 #   gr200 = gr200,
 #   hr_partA1 = hr_partA1,
 #   hr_partA2 = hr_partA2,

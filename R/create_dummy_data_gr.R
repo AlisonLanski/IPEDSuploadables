@@ -9,6 +9,7 @@
 #' @export
 #'
 #' @examples
+#' #use this seed to reproduce the dummy data saved to the package
 #' set.seed(4567)
 #'
 #' #default makes 100 students
@@ -119,7 +120,9 @@ create_dummy_data_gr <- function(n = 100) {
           CompletedFiveYears = 0,
           Completed150 = 1
           )) %>%
-    select(-.data$IsComp)
+    select(-.data$IsComp) %>%
+    #we need some folks with unknown or another gender
+    mutate(GenderDetail = c(utils::head(.data$Sex,-6), 3, 3, 3, 3, 4, 4), .after = .data$Sex)
 
 
   return(df)
