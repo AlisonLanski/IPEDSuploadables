@@ -1,3 +1,9 @@
+# IPEDSuploadables 2.6.5
+
+* Addressed Winter Collection updates from IPEDS (see items below)
+* Graduation Rates data now requires a GenderDetail column for this year's reporting
+* Admissions example in the How-To vignette includes columns for new application-related questions and new another-gender counts
+
 # IPEDSuploadables 2.5.5
 
 * Fixed Completions bug for cip codes in XX.0000 format

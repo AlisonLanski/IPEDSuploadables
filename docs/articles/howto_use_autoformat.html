@@ -34,7 +34,7 @@ gtag('config', 'G-NSXZV7NDWP'); </script>
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">IPEDSuploadables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.5.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.6.5</span>
       </span>
     </div>
 
@@ -158,6 +158,8 @@ file, contact IPEDS for advice.</em></p>
 <div class="section level2">
 <h2 id="data-prep-example-admissions">Data prep example: Admissions<a class="anchor" aria-label="anchor" href="#data-prep-example-admissions"></a>
 </h2>
+<p><em>For a school without the ability to report “Another Gender” in
+the 2022-2023 reporting cycle</em></p>
 <p>This provides a start-to-finish example of preparing an admissions
 submission based on sample data. Always check your results after you
 upload your txt file to the IPEDS submission portal.</p>
@@ -1003,7 +1005,11 @@ NA
                     ADMCON6 <span class="op">=</span> <span class="fl">3</span>, <span class="co">#Portfolio</span>
                     ADMCON7 <span class="op">=</span> <span class="fl">5</span>, <span class="co">#SAT/ACT  #1 or 5 = have to do part C</span>
                     ADMCON8 <span class="op">=</span> <span class="fl">2</span>, <span class="co">#TOEFL</span>
-                    ADMCON9 <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="co">#other test</span></code></pre></div>
+                    ADMCON9 <span class="op">=</span> <span class="fl">3</span>, <span class="co">#other test</span>
+                    ADMCON10 <span class="op">=</span> <span class="fl">2</span>, <span class="co">#work exp</span>
+                    ADMCON11 <span class="op">=</span> <span class="fl">1</span>, <span class="co">#personal statement</span>
+                    ADMCON12 <span class="op">=</span> <span class="fl">3</span> <span class="co">#legacy</span>
+                    <span class="op">)</span></code></pre></div>
 <table class="table">
 <thead><tr>
 <th style="text-align:right;">
@@ -1041,6 +1047,15 @@ ADMCON8
 </th>
 <th style="text-align:right;">
 ADMCON9
+</th>
+<th style="text-align:right;">
+ADMCON10
+</th>
+<th style="text-align:right;">
+ADMCON11
+</th>
+<th style="text-align:right;">
+ADMCON12
 </th>
 </tr></thead>
 <tbody><tr>
@@ -1080,6 +1095,15 @@ A
 <td style="text-align:right;">
 3
 </td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+3
+</td>
 </tr></tbody>
 </table>
 </div>
@@ -1102,7 +1126,12 @@ A
                     ENRLFTT <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">adm_dat</span><span class="op">[</span><span class="va">adm_dat</span><span class="op">$</span><span class="va">Enroll</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">&amp;</span> <span class="va">adm_dat</span><span class="op">$</span><span class="va">FtPt</span> <span class="op">==</span> <span class="st">'FT'</span>, <span class="op">]</span><span class="op">)</span>,
                     ENRLPTM <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">adm_dat</span><span class="op">[</span><span class="va">adm_dat</span><span class="op">$</span><span class="va">Sex</span> <span class="op">==</span> <span class="st">'M'</span> <span class="op">&amp;</span> <span class="va">adm_dat</span><span class="op">$</span><span class="va">Enroll</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">&amp;</span> <span class="va">adm_dat</span><span class="op">$</span><span class="va">FtPt</span> <span class="op">==</span> <span class="st">'PT'</span>, <span class="op">]</span><span class="op">)</span>,
                     ENRLPTW <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">adm_dat</span><span class="op">[</span><span class="va">adm_dat</span><span class="op">$</span><span class="va">Sex</span> <span class="op">==</span> <span class="st">'F'</span> <span class="op">&amp;</span> <span class="va">adm_dat</span><span class="op">$</span><span class="va">Enroll</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">&amp;</span> <span class="va">adm_dat</span><span class="op">$</span><span class="va">FtPt</span> <span class="op">==</span> <span class="st">'PT'</span>, <span class="op">]</span><span class="op">)</span>,
-                    ENRLPTT <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">adm_dat</span><span class="op">[</span><span class="va">adm_dat</span><span class="op">$</span><span class="va">Enroll</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">&amp;</span> <span class="va">adm_dat</span><span class="op">$</span><span class="va">FtPt</span> <span class="op">==</span> <span class="st">'PT'</span>, <span class="op">]</span><span class="op">)</span>
+                    ENRLPTT <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">adm_dat</span><span class="op">[</span><span class="va">adm_dat</span><span class="op">$</span><span class="va">Enroll</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">&amp;</span> <span class="va">adm_dat</span><span class="op">$</span><span class="va">FtPt</span> <span class="op">==</span> <span class="st">'PT'</span>, <span class="op">]</span><span class="op">)</span>,
+                    ADMGU01 <span class="op">=</span> <span class="fl">2</span>, <span class="co">#can you report "another gender"?</span>
+                    APPLCNAG <span class="op">=</span> <span class="op">-</span><span class="fl">2</span>,
+                    ADMSSNAG <span class="op">=</span> <span class="op">-</span><span class="fl">2</span>,
+                    ENRLFTAG <span class="op">=</span> <span class="op">-</span><span class="fl">2</span>,
+                    ENRLPTAG <span class="op">=</span> <span class="op">-</span><span class="fl">2</span>
                     <span class="op">)</span></code></pre></div>
 <table class="table">
 <thead><tr>
@@ -1151,6 +1180,21 @@ ENRLPTW
 <th style="text-align:right;">
 ENRLPTT
 </th>
+<th style="text-align:right;">
+ADMGU01
+</th>
+<th style="text-align:right;">
+APPLCNAG
+</th>
+<th style="text-align:right;">
+ADMSSNAG
+</th>
+<th style="text-align:right;">
+ENRLFTAG
+</th>
+<th style="text-align:right;">
+ENRLPTAG
+</th>
 </tr></thead>
 <tbody><tr>
 <td style="text-align:right;">
@@ -1197,6 +1241,21 @@ B
 </td>
 <td style="text-align:right;">
 0
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+-2
+</td>
+<td style="text-align:right;">
+-2
+</td>
+<td style="text-align:right;">
+-2
+</td>
+<td style="text-align:right;">
+-2
 </td>
 </tr></tbody>
 </table>
@@ -1353,12 +1412,12 @@ save this as a txt file at the location of your choice.</em></p>
 <tbody>
 <tr>
 <td style="text-align:left;">
-UNITID=999999,SURVSECT=ADM,PART=A,ADMCON1=2,ADMCON2=1,ADMCON3=1,ADMCON4=2,ADMCON5=1,ADMCON6=3,ADMCON7=5,ADMCON8=2,ADMCON9=3
+UNITID=999999,SURVSECT=ADM,PART=A,ADMCON1=2,ADMCON2=1,ADMCON3=1,ADMCON4=2,ADMCON5=1,ADMCON6=3,ADMCON7=5,ADMCON8=2,ADMCON9=3,ADMCON10=2,ADMCON11=1,ADMCON12=3
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-UNITID=999999,SURVSECT=ADM,PART=B,APPLCNM=12,APPLCNW=12,APPLCNT=24,ADMSSNM=8,ADMSSNW=8,ADMSSNT=16,ENRLFTM=6,ENRLFTW=6,ENRLFTT=12,ENRLPTM=0,ENRLPTW=0,ENRLPTT=0
+UNITID=999999,SURVSECT=ADM,PART=B,APPLCNM=12,APPLCNW=12,APPLCNT=24,ADMSSNM=8,ADMSSNW=8,ADMSSNT=16,ENRLFTM=6,ENRLFTW=6,ENRLFTT=12,ENRLPTM=0,ENRLPTW=0,ENRLPTT=0,ADMGU01=2,APPLCNAG=-2,ADMSSNAG=-2,ENRLFTAG=-2,ENRLPTAG=-2
 </td>
 </tr>
 <tr>

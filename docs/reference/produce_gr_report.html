@@ -18,7 +18,7 @@ gtag('config', 'G-NSXZV7NDWP'); </script></head><body data-spy="scroll" data-tar
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">IPEDSuploadables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.5.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.6.5</span>
       </span>
     </div>
 
@@ -88,7 +88,7 @@ gtag('config', 'G-NSXZV7NDWP'); </script></head><body data-spy="scroll" data-tar
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">produce_gr_report</span><span class="op">(</span><span class="va">df</span>, part <span class="op">=</span> <span class="st">"ALL"</span>, format <span class="op">=</span> <span class="st">"uploadable"</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">produce_gr_report</span><span class="op">(</span><span class="va">df</span>, part <span class="op">=</span> <span class="st">"ALL"</span>, format <span class="op">=</span> <span class="st">"uploadable"</span>, ugender <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -102,6 +102,9 @@ gtag('config', 'G-NSXZV7NDWP'); </script></head><body data-spy="scroll" data-tar
 upload file. <code>"readable"</code> will produce a csv of the upload file (only
 works for one part at a time). <code>"both"</code> will provide both options, but
 only works with one part at a time.</p></dd>
+<dt>ugender</dt>
+<dd><p>A boolean: TRUE means you are collecting and able to report
+"another gender" for undergraduate students. Set as FALSE if necessary</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
@@ -117,11 +120,11 @@ only works with one part at a time.</p></dd>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">#entire report</span></span>
 <span class="r-in"><span class="fu">produce_gr_report</span><span class="op">(</span><span class="va">gr_students</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Uploadable results available at C:/Users/alanski/AppData/Local/Temp/Rtmp6HooWg/GradRates_AllParts_2022-10-03.txt</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Uploadable results available at C:/Users/alanski/AppData/Local/Temp/RtmpwdnKkR/GradRates_AllParts_2022-12-07.txt</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">#one part in csv format instead of key-value</span></span>
 <span class="r-in"><span class="fu">produce_gr_report</span><span class="op">(</span><span class="va">gr_students</span>, part <span class="op">=</span> <span class="st">"B"</span>, format <span class="op">=</span> <span class="st">"readable"</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Readable results available at  C:/Users/alanski/AppData/Local/Temp/Rtmp6HooWg/GradRates_PartB_Readable_2022-10-03.csv</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Readable results available at  C:/Users/alanski/AppData/Local/Temp/RtmpwdnKkR/GradRates_PartB_Readable_2022-12-07.csv</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># \dontshow{</span></span>
 <span class="r-in"><span class="co">#reset directory for this example (not necessary for users)</span></span>
