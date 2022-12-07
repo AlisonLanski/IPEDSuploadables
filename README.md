@@ -22,16 +22,15 @@ institution-types for existing reports*
 
 ### Supported surveys that work for all institutions:
 
--   Completions *Updated for current cycle*
+-   Completions
 -   Outcome Measures
 
 ### Supported surveys that only work for some institutions:
 
--   Graduation Rates: 4-year institutions
--   200% Graduation Rates: 4-year institutions
--   12-month Enrollment: 4-year degree granting institutions *Updated
-    for current cycle*
--   Fall Enrollment: 4-year degree granting institutions
+-   Graduation Rates: 4-year institutions 
+-   200% Graduation Rates: 4-year institutions 
+-   12-month Enrollment: 4-year degree granting institutions 
+-   Fall Enrollment: 4-year degree granting institutions *2022-2023 cycle updates coming soon*
 -   Human Resources: degree granting institutions with more than 15 FTE
 
 ### Unsupported surveys with options
