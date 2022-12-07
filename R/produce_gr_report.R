@@ -6,7 +6,8 @@
 #'   upload file. \code{"readable"} will produce a csv of the upload file (only
 #'   works for one part at a time). \code{"both"} will provide both options, but
 #'   only works with one part at a time.
-#'
+#' @param ugender A boolean: TRUE means you are collecting and able to report
+#'   "another gender" for undergraduate students. Set as FALSE if necessary
 #' @return A txt or csv file at the path of your choice
 #' @export
 #' @examples
@@ -26,9 +27,9 @@
 #' setwd(.old_wd)
 #' }
 
-produce_gr_report <- function(df, part = "ALL", format = "uploadable") {
+produce_gr_report <- function(df, part = "ALL", format = "uploadable", ugender = TRUE) {
 
-  stopifnot(toupper(part) %in% c("B", "C", "ALL"),
+  stopifnot(toupper(part) %in% c("B", "C", "E", "ALL"),
             toupper(format) %in% c("UPLOADABLE", "READABLE", "BOTH"))
 
   survey <- 'GradRates'
@@ -39,6 +40,7 @@ produce_gr_report <- function(df, part = "ALL", format = "uploadable") {
     write_report(
       make_gr_part_B(df),
       make_gr_part_C(df),
+      make_gr_part_E(df, ugender),
       survey = survey,
       part = 'AllParts',
       output_path = output_path
@@ -64,6 +66,27 @@ produce_gr_report <- function(df, part = "ALL", format = "uploadable") {
       )
     }
 
+  } else if(toupper(part) == "E") {
+
+    if(toupper(format) %in% c("UPLOADABLE", "BOTH")){
+      write_report(
+        do.call(paste0("make_gr_part_", toupper(part)), list(df, ugender)),
+        survey = survey,
+        part = paste0("Part", toupper(part)),
+        output_path = output_path
+      )
+    }
+
+    if(toupper(format) %in% c("BOTH", "READABLE")){
+      write_report_csv(
+        do.call(paste0("make_gr_part_", toupper(part)), list(df, ugender)),
+        survey = survey,
+        part = paste0("Part", toupper(part)),
+        output_path = output_path
+      )
+    }
+
   }
+
 
 }

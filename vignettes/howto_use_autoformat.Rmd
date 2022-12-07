@@ -37,7 +37,9 @@ If you want the package to help you with aggregation and (some) recoding, look a
 
 *If you need assistance understanding what goes into the upload file, contact IPEDS for advice.*
 
-## Data prep example: Admissions
+## Data prep example: Admissions 
+
+*For a school without the ability to report "Another Gender" in the 2022-2023 reporting cycle*  
 
 This provides a start-to-finish example of preparing an admissions submission based on sample data. Always check your results after you upload your txt file to the IPEDS submission portal.
 
@@ -84,7 +86,11 @@ partA <- data.frame(UNITID = 999999,
                     ADMCON6 = 3, #Portfolio
                     ADMCON7 = 5, #SAT/ACT  #1 or 5 = have to do part C
                     ADMCON8 = 2, #TOEFL
-                    ADMCON9 = 3) #other test
+                    ADMCON9 = 3, #other test
+                    ADMCON10 = 2, #work exp
+                    ADMCON11 = 1, #personal statement
+                    ADMCON12 = 3 #legacy
+                    )
 ```
 
 ```{r printA, echo=FALSE}
@@ -108,7 +114,12 @@ partB <- data.frame(UNITID = 999999,
                     ENRLFTT = nrow(adm_dat[adm_dat$Enroll == 1 & adm_dat$FtPt == 'FT', ]),
                     ENRLPTM = nrow(adm_dat[adm_dat$Sex == 'M' & adm_dat$Enroll == 1 & adm_dat$FtPt == 'PT', ]),
                     ENRLPTW = nrow(adm_dat[adm_dat$Sex == 'F' & adm_dat$Enroll == 1 & adm_dat$FtPt == 'PT', ]),
-                    ENRLPTT = nrow(adm_dat[adm_dat$Enroll == 1 & adm_dat$FtPt == 'PT', ])
+                    ENRLPTT = nrow(adm_dat[adm_dat$Enroll == 1 & adm_dat$FtPt == 'PT', ]),
+                    ADMGU01 = 2, #can you report "another gender"?
+                    APPLCNAG = -2,
+                    ADMSSNAG = -2,
+                    ENRLFTAG = -2,
+                    ENRLPTAG = -2
                     )
 ```
 
