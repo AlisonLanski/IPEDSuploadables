@@ -34,7 +34,7 @@ gtag('config', 'G-NSXZV7NDWP'); </script>
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">IPEDSuploadables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.5.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.6.5</span>
       </span>
     </div>
 
@@ -100,11 +100,12 @@ gtag('config', 'G-NSXZV7NDWP'); </script>
 
       
 
-      </header><script src="setup_for_fallenrollment_files/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="setup_for_fallenrollment_files/kePrint-0.0.1/kePrint.js"></script><link href="setup_for_fallenrollment_files/lightable-0.0.1/lightable.css" rel="stylesheet">
+      </header><script src="setup_for_fallenrollment_files/kePrint-0.0.1/kePrint.js"></script><link href="setup_for_fallenrollment_files/lightable-0.0.1/lightable.css" rel="stylesheet">
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Set up your data for IPEDS Fall Enrollment processing</h1>
+      <h1 data-toc-skip>Set up your data for IPEDS Fall Enrollment
+processing</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/AlisonLanski/IPEDSuploadables/blob/HEAD/vignettes/setup_for_fallenrollment.Rmd" class="external-link"><code>vignettes/setup_for_fallenrollment.Rmd</code></a></small>
@@ -115,7 +116,9 @@ gtag('config', 'G-NSXZV7NDWP'); </script>
     
     
 <div class="section level2">
-<h2 id="the-produce_ef1_report-function-requires-2-separate-dataframes-one-with-row-level-students-and-one-with-pre-aggregated-retention-counts-">The <code>produce_ef1_report</code> function requires 2 separate dataframes, one with row-level students and one with pre-aggregated retention counts.<a class="anchor" aria-label="anchor" href="#the-produce_ef1_report-function-requires-2-separate-dataframes-one-with-row-level-students-and-one-with-pre-aggregated-retention-counts-"></a>
+<h2 id="the-produce_ef1_report-function-requires-2-separate-dataframes-one-with-row-level-students-and-one-with-pre-aggregated-retention-counts-">The <code>produce_ef1_report</code> function requires 2 separate
+dataframes, one with row-level students and one with pre-aggregated
+retention counts.<a class="anchor" aria-label="anchor" href="#the-produce_ef1_report-function-requires-2-separate-dataframes-one-with-row-level-students-and-one-with-pre-aggregated-retention-counts-"></a>
 </h2>
 </div>
 <div class="section level2">
@@ -129,11 +132,15 @@ gtag('config', 'G-NSXZV7NDWP'); </script>
 <ul>
 <li>One row per person</li>
 <li>One IPEDS Unitid per file</li>
-<li>Columns with values and types as described below in any order (additional columns are allowed)</li>
-<li>Double-starred column names (**) are only required in years when IPEDS collects that information. In off-years, you can omit the columns or enter any placeholder value.</li>
+<li>Columns with values and types as described below in any order
+(additional columns are allowed)</li>
+<li>Double-starred column names (**) are only required in years when
+IPEDS collects that information. In off-years, you can omit the columns
+or enter any placeholder value.</li>
 </ul>
 </blockquote>
-<p>Column names can use any capitalization method you like. Do <strong>NOT</strong> include (**) in the column names.</p>
+<p>Column names can use any capitalization method you like. Do
+<strong>NOT</strong> include (**) in the column names.</p>
 <table class="table table table-striped" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
@@ -221,7 +228,8 @@ IsRecentGrad**
 Numeric
 </td>
 <td style="text-align:left;">
-0 - Did not graduate from high school in the previous 12 months<br>1 - Graduated from high school in the previous 12 months
+0 - Did not graduate from high school in the previous 12 months<br>1 -
+Graduated from high school in the previous 12 months
 </td>
 </tr>
 <tr>
@@ -243,7 +251,8 @@ DistanceEd
 Numeric
 </td>
 <td style="text-align:left;">
-0 - Enrolled in no distance ed classes<br>1 - Enrolled in some distance ed classes<br>2 - Enrolled entirely in distance ed classes
+0 - Enrolled in no distance ed classes<br>1 - Enrolled in some distance
+ed classes<br>2 - Enrolled entirely in distance ed classes
 </td>
 </tr>
 <tr>
@@ -265,7 +274,10 @@ RaceEthnicity
 Numeric
 </td>
 <td style="text-align:left;">
-1 - Nonresident alien<br>2 - Hispanic/Latino<br>3 - American Indian or Alaska Native<br>4 - Asian<br>5 - Black or African American<br>6 - Native Hawaiian or Other Pacific Islander<br>7 - White<br>8 - Two or more races<br>9 - Race and ethnicity unknown
+1 - Nonresident alien<br>2 - Hispanic/Latino<br>3 - American Indian or
+Alaska Native<br>4 - Asian<br>5 - Black or African American<br>6 -
+Native Hawaiian or Other Pacific Islander<br>7 - White<br>8 - Two or
+more races<br>9 - Race and ethnicity unknown
 </td>
 </tr>
 <tr>
@@ -287,7 +299,9 @@ AdmitState**
 Numeric
 </td>
 <td style="text-align:left;">
-1-98: FIPS code for student state of residence at the time of admission; can see list of options on the IPEDS Fall Enrollment blank submission form. <br>Note: Only required for first-time undergraduates
+1-98: FIPS code for student state of residence at the time of admission;
+can see list of options on the IPEDS Fall Enrollment blank submission
+form. <br>Note: Only required for first-time undergraduates
 </td>
 </tr>
 <tr>
@@ -298,7 +312,9 @@ OnlineState
 Numeric
 </td>
 <td style="text-align:left;">
-1-98: FIPS code for student state of residence when enrolled entirely in online classes; can see list of options on the IPEDS Fall Enrollment blank submission form. <br>Note: Only required for fully-online students
+1-98: FIPS code for student state of residence when enrolled entirely in
+online classes; can see list of options on the IPEDS Fall Enrollment
+blank submission form. <br>Note: Only required for fully-online students
 </td>
 </tr>
 <tr>
@@ -320,7 +336,8 @@ Cip130000**
 Numeric
 </td>
 <td style="text-align:left;">
-0 - Not Applicable<br>1 - Student has declared a major under this 6-digit cip code
+0 - Not Applicable<br>1 - Student has declared a major under this
+6-digit cip code
 </td>
 </tr>
 <tr>
@@ -331,7 +348,8 @@ Cip140000**
 Numeric
 </td>
 <td style="text-align:left;">
-0 - Not Applicable<br>1 - Student has declared a major under this 6-digit cip code
+0 - Not Applicable<br>1 - Student has declared a major under this
+6-digit cip code
 </td>
 </tr>
 <tr>
@@ -342,7 +360,8 @@ Cip260000**
 Numeric
 </td>
 <td style="text-align:left;">
-0 - Not Applicable<br>1 - Student has declared a major under this 6-digit cip code
+0 - Not Applicable<br>1 - Student has declared a major under this
+6-digit cip code
 </td>
 </tr>
 <tr>
@@ -353,7 +372,8 @@ Cip270000**
 Numeric
 </td>
 <td style="text-align:left;">
-0 - Not Applicable<br>1 - Student has declared a major under this 6-digit cip code
+0 - Not Applicable<br>1 - Student has declared a major under this
+6-digit cip code
 </td>
 </tr>
 <tr>
@@ -364,7 +384,8 @@ Cip400000**
 Numeric
 </td>
 <td style="text-align:left;">
-0 - Not Applicable<br>1 - Student has declared a major under this 6-digit cip code
+0 - Not Applicable<br>1 - Student has declared a major under this
+6-digit cip code
 </td>
 </tr>
 <tr>
@@ -375,7 +396,8 @@ Cip520000**
 Numeric
 </td>
 <td style="text-align:left;">
-0 - Not Applicable<br>1 - Student has declared a major under this 6-digit cip code
+0 - Not Applicable<br>1 - Student has declared a major under this
+6-digit cip code
 </td>
 </tr>
 <tr>
@@ -386,7 +408,8 @@ Cip220101**
 Numeric
 </td>
 <td style="text-align:left;">
-0 - Not Applicable<br>1 - Student has declared a major under this 6-digit cip code
+0 - Not Applicable<br>1 - Student has declared a major under this
+6-digit cip code
 </td>
 </tr>
 <tr>
@@ -397,7 +420,8 @@ Cip510401**
 Numeric
 </td>
 <td style="text-align:left;">
-0 - Not Applicable<br>1 - Student has declared a major under this 6-digit cip code
+0 - Not Applicable<br>1 - Student has declared a major under this
+6-digit cip code
 </td>
 </tr>
 <tr>
@@ -408,7 +432,8 @@ Cip511201**
 Numeric
 </td>
 <td style="text-align:left;">
-0 - Not Applicable<br>1 - Student has declared a major under this 6-digit cip code
+0 - Not Applicable<br>1 - Student has declared a major under this
+6-digit cip code
 </td>
 </tr>
 </tbody>
@@ -421,7 +446,8 @@ Numeric
 <ul>
 <li>One row for full-time counts, one row for part-time counts</li>
 <li>One IPEDS Unitid per file</li>
-<li>Columns with values and types as described below in any order (additional columns are allowed)</li>
+<li>Columns with values and types as described below in any order
+(additional columns are allowed)</li>
 </ul>
 </blockquote>
 <table class="table table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -492,7 +518,8 @@ Exclusions
 Numeric
 </td>
 <td style="text-align:left;">
-Number of first-time students to be excluded (removed) from the prior-year cohort
+Number of first-time students to be excluded (removed) from the
+prior-year cohort
 </td>
 </tr>
 <tr>
@@ -506,7 +533,8 @@ Inclusions
 Numeric
 </td>
 <td style="text-align:left;">
-Number of first-time students to be included (added) to the prior-year cohort
+Number of first-time students to be included (added) to the prior-year
+cohort
 </td>
 </tr>
 <tr>
@@ -520,7 +548,8 @@ StillEnrolled
 Numeric
 </td>
 <td style="text-align:left;">
-Number of prior-year first-time students who are still enrolled in the current year (their second year)
+Number of prior-year first-time students who are still enrolled in the
+current year (their second year)
 </td>
 </tr>
 </tbody>
@@ -529,7 +558,8 @@ Number of prior-year first-time students who are still enrolled in the current y
 <div class="section level3">
 <h3 id="student-faculty-ratio">Student-faculty ratio<a class="anchor" aria-label="anchor" href="#student-faculty-ratio"></a>
 </h3>
-<p>This information will be collected via pop-up box. Type the correct number for your institution’s ratio when prompted.</p>
+<p>This information will be collected via pop-up box. Type the correct
+number for your institution’s ratio when prompted.</p>
 </div>
 </div>
   </div>

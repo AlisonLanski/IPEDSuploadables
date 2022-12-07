@@ -34,7 +34,7 @@ gtag('config', 'G-NSXZV7NDWP'); </script>
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">IPEDSuploadables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.5.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.6.5</span>
       </span>
     </div>
 
@@ -100,7 +100,7 @@ gtag('config', 'G-NSXZV7NDWP'); </script>
 
       
 
-      </header><script src="setup_for_hr_files/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="setup_for_hr_files/kePrint-0.0.1/kePrint.js"></script><link href="setup_for_hr_files/lightable-0.0.1/lightable.css" rel="stylesheet">
+      </header><script src="setup_for_hr_files/kePrint-0.0.1/kePrint.js"></script><link href="setup_for_hr_files/lightable-0.0.1/lightable.css" rel="stylesheet">
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
@@ -115,13 +115,15 @@ gtag('config', 'G-NSXZV7NDWP'); </script>
     
     
 <div class="section level2">
-<h2 id="to-use-the-produce_hr_report-function-your-data-must-be-in-the-format-described-below">To use the <code>produce_hr_report</code> function, your data must be in the format described below<a class="anchor" aria-label="anchor" href="#to-use-the-produce_hr_report-function-your-data-must-be-in-the-format-described-below"></a>
+<h2 id="to-use-the-produce_hr_report-function-your-data-must-be-in-the-format-described-below">To use the <code>produce_hr_report</code> function, your data must
+be in the format described below<a class="anchor" aria-label="anchor" href="#to-use-the-produce_hr_report-function-your-data-must-be-in-the-format-described-below"></a>
 </h2>
 <blockquote>
 <ul>
 <li>One row per person</li>
 <li>One IPEDS Unitid per file</li>
-<li>Columns with values and types as described below (additional columns are allowed)</li>
+<li>Columns with values and types as described below (additional columns
+are allowed)</li>
 </ul>
 </blockquote>
 <table class="table table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -167,7 +169,10 @@ RaceEthnicity
 Numeric
 </td>
 <td style="text-align:left;">
-1 - Nonresident alien<br>2 - Hispanic/Latino<br>3 - American Indian or Alaska Native<br>4 - Asian<br>5 - Black or African American<br>6 - Native Hawaiian or Other Pacific Islander<br>7 - White<br>8 - Two or more races<br>9 - Race and ethnicity unknown
+1 - Nonresident alien<br>2 - Hispanic/Latino<br>3 - American Indian or
+Alaska Native<br>4 - Asian<br>5 - Black or African American<br>6 -
+Native Hawaiian or Other Pacific Islander<br>7 - White<br>8 - Two or
+more races<br>9 - Race and ethnicity unknown
 </td>
 </tr>
 <tr>
@@ -189,7 +194,9 @@ Rank
 Numeric
 </td>
 <td style="text-align:left;">
-1 - Professors<br>2 - Associate professors<br>3 - Assistant professors<br>4 - Instructors<br>5 - Lecturers<br>6 - No academic rank (Faculty)<br>7 - Not faculty
+1 - Professors<br>2 - Associate professors<br>3 - Assistant
+professors<br>4 - Instructors<br>5 - Lecturers<br>6 - No academic rank
+(Faculty)<br>7 - Not faculty
 </td>
 </tr>
 <tr>
@@ -200,7 +207,13 @@ Tenure
 Numeric
 </td>
 <td style="text-align:left;">
-1 - Tenured<br>2 - On tenure track<br>3 - Multi-year contract or employment agreement. Not on Tenure Track or no tenure system<br>4 - Annual contract or employment agreement. Not on Tenure Track or no tenure system<br>5 - Less than annual contract or employment agreement. Not on Tenure Track or no tenure system<br>6 - Without faculty status<br>7 - Indefinite duration (continuing or at-will) contract or employment agreement. Not on Tenure Track or no tenure system
+1 - Tenured<br>2 - On tenure track<br>3 - Multi-year contract or
+employment agreement. Not on Tenure Track or no tenure system<br>4 -
+Annual contract or employment agreement. Not on Tenure Track or no
+tenure system<br>5 - Less than annual contract or employment agreement.
+Not on Tenure Track or no tenure system<br>6 - Without faculty
+status<br>7 - Indefinite duration (continuing or at-will) contract or
+employment agreement. Not on Tenure Track or no tenure system
 </td>
 </tr>
 <tr>
@@ -233,7 +246,8 @@ CurrentEmployee
 Numeric
 </td>
 <td style="text-align:left;">
-0 - Not a current employee (e.g. a new hire who is not employed on 11/1 of the reporting year)<br>1 - Current employee
+0 - Not a current employee (e.g. a new hire who is not employed on 11/1
+of the reporting year)<br>1 - Current employee
 </td>
 </tr>
 <tr>
@@ -255,7 +269,8 @@ Salary
 Numeric
 </td>
 <td style="text-align:left;">
-xxxxxxx.xx (or just xxxxx): should be the value corresponding with Months (see below)
+xxxxxxx.xx (or just xxxxx): should be the value corresponding with
+Months (see below)
 </td>
 </tr>
 <tr>
@@ -266,7 +281,11 @@ Months
 Numeric
 </td>
 <td style="text-align:left;">
-8 - Annual salary covers less than 9 months<br>9 - Annual salary covers 9 months<br>10 - Annual salary covers 10 months<br>11 - Annual salary covers 11 months<br>12 - Annual salary covers 12 months<br>99 - Any other situation/employee which will not be reported and is not included above
+8 - Annual salary covers less than 9 months<br>9 - Annual salary covers
+9 months<br>10 - Annual salary covers 10 months<br>11 - Annual salary
+covers 11 months<br>12 - Annual salary covers 12 months<br>99 - Any
+other situation/employee which will not be reported and is not included
+above
 </td>
 </tr>
 <tr>
@@ -277,16 +296,40 @@ OccCategory3
 Numeric
 </td>
 <td style="text-align:left;">
-1 - Primarily Instruction - exclusively credit<br>2 - Primarily Instruction - exclusively not-for-credit<br>3 - Primarily Instruction - Combined credit/not-for-credit<br>4 - Instruction/research/public service<br>5 - Research Staff<br>6 - Public Service Staff<br>7 - Archivists, Curators, and Museum Technicians (25-4010)<br>8 - Librarians and Media Collections Specialists (25-4020)<br>9 - Library Technicians (25-4030)<br>10 - Student and Academic Affairs and Other Education Services Occupations (25-2000 + 25-3000 + 25-9000)<br>11 - Management Occupations (11-0000)<br>12 - Business and Financial Operations Occupations (13-0000)<br>13 - Computer, Engineering, and Science Occupations (15-0000 + 17-0000 + 19-0000)<br>14 - Community, Social Service, Legal, Arts, Design, Entertainment, Sports, and Media Occupations (21-0000 + 23-0000 + 27-0000)<br>15 - Healthcare Practitioners and Technical Occupations (29-0000)<br>16 - Service Occupations (31-0000 + 33-0000 + 35-0000 + 37-0000 + 39-0000)<br>17 - Sales and Related Occupations (41-0000)<br>18 - Office and Administrative Support Occupations (43-0000)<br>19 - Natural Resources, Construction, and Maintenance Occupations (45-0000 + 47-0000 + 49-0000)<br>20 - Production, Transportation, and Material Moving Occupations (51-0000 + 53-0000)<br>22 - Teaching Assistants, Postsecondary (25-9044)<br>23 - Graduate Assistant Research<br>24 - Graduate Assistant Other
+1 - Primarily Instruction - exclusively credit<br>2 - Primarily
+Instruction - exclusively not-for-credit<br>3 - Primarily Instruction -
+Combined credit/not-for-credit<br>4 - Instruction/research/public
+service<br>5 - Research Staff<br>6 - Public Service Staff<br>7 -
+Archivists, Curators, and Museum Technicians (25-4010)<br>8 - Librarians
+and Media Collections Specialists (25-4020)<br>9 - Library Technicians
+(25-4030)<br>10 - Student and Academic Affairs and Other Education
+Services Occupations (25-2000 + 25-3000 + 25-9000)<br>11 - Management
+Occupations (11-0000)<br>12 - Business and Financial Operations
+Occupations (13-0000)<br>13 - Computer, Engineering, and Science
+Occupations (15-0000 + 17-0000 + 19-0000)<br>14 - Community, Social
+Service, Legal, Arts, Design, Entertainment, Sports, and Media
+Occupations (21-0000 + 23-0000 + 27-0000)<br>15 - Healthcare
+Practitioners and Technical Occupations (29-0000)<br>16 - Service
+Occupations (31-0000 + 33-0000 + 35-0000 + 37-0000 + 39-0000)<br>17 -
+Sales and Related Occupations (41-0000)<br>18 - Office and
+Administrative Support Occupations (43-0000)<br>19 - Natural Resources,
+Construction, and Maintenance Occupations (45-0000 + 47-0000 +
+49-0000)<br>20 - Production, Transportation, and Material Moving
+Occupations (51-0000 + 53-0000)<br>22 - Teaching Assistants,
+Postsecondary (25-9044)<br>23 - Graduate Assistant Research<br>24 -
+Graduate Assistant Other
 </td>
 </tr>
 </tbody>
 </table>
 <p>Notes</p>
 <ul>
-<li>In OccCategory3, <code>21</code> is used for an intermediate total and is not a value in the upload file<br>
+<li>In OccCategory3, <code>21</code> is used for an intermediate total
+and is not a value in the upload file<br>
 </li>
-<li>OccCategory3 values will be recoded in <code>prep_hr_data_frame</code> into all necessary rollups, including instructional staff (values 1-4)</li>
+<li>OccCategory3 values will be recoded in
+<code>prep_hr_data_frame</code> into all necessary rollups, including
+instructional staff (values 1-4)</li>
 </ul>
 </div>
   </div>

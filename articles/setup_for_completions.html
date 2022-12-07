@@ -34,7 +34,7 @@ gtag('config', 'G-NSXZV7NDWP'); </script>
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">IPEDSuploadables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.5.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.6.5</span>
       </span>
     </div>
 
@@ -100,11 +100,12 @@ gtag('config', 'G-NSXZV7NDWP'); </script>
 
       
 
-      </header><script src="setup_for_completions_files/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="setup_for_completions_files/kePrint-0.0.1/kePrint.js"></script><link href="setup_for_completions_files/lightable-0.0.1/lightable.css" rel="stylesheet">
+      </header><script src="setup_for_completions_files/kePrint-0.0.1/kePrint.js"></script><link href="setup_for_completions_files/lightable-0.0.1/lightable.css" rel="stylesheet">
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Set up your data for IPEDS Completions processing</h1>
+      <h1 data-toc-skip>Set up your data for IPEDS Completions
+processing</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/AlisonLanski/IPEDSuploadables/blob/HEAD/vignettes/setup_for_completions.Rmd" class="external-link"><code>vignettes/setup_for_completions.Rmd</code></a></small>
@@ -115,13 +116,15 @@ gtag('config', 'G-NSXZV7NDWP'); </script>
     
     
 <div class="section level2">
-<h2 id="to-use-the-produce_com_report-function-your-student-completions-data-must-be-in-the-format-described-below">To use the <code>produce_com_report</code> function, your student completions data must be in the format described below<a class="anchor" aria-label="anchor" href="#to-use-the-produce_com_report-function-your-student-completions-data-must-be-in-the-format-described-below"></a>
+<h2 id="to-use-the-produce_com_report-function-your-student-completions-data-must-be-in-the-format-described-below">To use the <code>produce_com_report</code> function, your student
+completions data must be in the format described below<a class="anchor" aria-label="anchor" href="#to-use-the-produce_com_report-function-your-student-completions-data-must-be-in-the-format-described-below"></a>
 </h2>
 <blockquote>
 <ul>
 <li>One row per person per degree level per cip per major</li>
 <li>One IPEDS Unitid per file</li>
-<li>Columns with values and types as described below (additional columns are allowed)</li>
+<li>Columns with values and types as described below (additional columns
+are allowed)</li>
 </ul>
 </blockquote>
 <p>Note: Column names can use any capitalization method you like</p>
@@ -168,7 +171,10 @@ RaceEthnicity
 Numeric
 </td>
 <td style="text-align:left;">
-1 - Nonresident alien<br>2 - Hispanic/Latino<br>3 - American Indian or Alaska Native<br>4 - Asian<br>5 - Black or African American<br>6 - Native Hawaiian or Other Pacific Islander<br>7 - White<br>8 - Two or more races<br>9 - Race and ethnicity unknown
+1 - Nonresident alien<br>2 - Hispanic/Latino<br>3 - American Indian or
+Alaska Native<br>4 - Asian<br>5 - Black or African American<br>6 -
+Native Hawaiian or Other Pacific Islander<br>7 - White<br>8 - Two or
+more races<br>9 - Race and ethnicity unknown
 </td>
 </tr>
 <tr>
@@ -201,7 +207,22 @@ DegreeLevel
 Character or Numeric
 </td>
 <td style="text-align:left;">
-1a - Postsecondary award, certificate, or diploma of <br>less than 300 clock hours or<br>less than 9 semester or trimester credit hours or<br>less than 13 quarter credit hours<br>1b - Postsecondary award, certificate, or diploma of <br>300-899 clock hours or<br>9-30 semester or trimester credit hours, or<br>13-44 quarter credit hours<br>2 - Postsecondary award, certificate,or diploma of<br>at least 900 but less than 1800 clock hours or<br>at least 30 but less than 60 semester or trimester credit hours or<br>at least 45 but less than 90 quarter credit hours<br>3 - * Associate’s Degree<br>4 - Postsecondary award, certificate,or diploma of <br>1800 or more clock hours or<br>60 or more semester or trimester credit hours or<br>90 or more quarter credit hours<br>5 - * Bachelor’s Degree or equivalent<br>6 - Postbaccalaureate Certificate<br>7 - * Master’s Degree<br>8 - Post-Master’s Certificate<br>17 - * Doctor’s degree - research/scholarship<br>18 - * Doctor’s degree - professional practice<br>19 - * Doctor’s degree - Other<br>* Use only 3, 5, 7, 17, 18 and 19 when reporting second majors.
+1a - Postsecondary award, certificate, or diploma of <br>less than 300
+clock hours or<br>less than 9 semester or trimester credit hours
+or<br>less than 13 quarter credit hours<br>1b - Postsecondary award,
+certificate, or diploma of <br>300-899 clock hours or<br>9-30 semester
+or trimester credit hours, or<br>13-44 quarter credit hours<br>2 -
+Postsecondary award, certificate,or diploma of<br>at least 900 but less
+than 1800 clock hours or<br>at least 30 but less than 60 semester or
+trimester credit hours or<br>at least 45 but less than 90 quarter credit
+hours<br>3 - * Associate’s Degree<br>4 - Postsecondary award,
+certificate,or diploma of <br>1800 or more clock hours or<br>60 or more
+semester or trimester credit hours or<br>90 or more quarter credit
+hours<br>5 - * Bachelor’s Degree or equivalent<br>6 - Postbaccalaureate
+Certificate<br>7 - * Master’s Degree<br>8 - Post-Master’s
+Certificate<br>17 - * Doctor’s degree - research/scholarship<br>18 - *
+Doctor’s degree - professional practice<br>19 - * Doctor’s degree -
+Other<br>* Use only 3, 5, 7, 17, 18 and 19 when reporting second majors.
 </td>
 </tr>
 <tr>
@@ -223,7 +244,8 @@ MajorCip
 Character or Numeric
 </td>
 <td style="text-align:left;">
-xx.yyyy or XXYYYY preferred (do not mix formats!),<br>x.yyy (etc) accepted
+xx.yyyy or XXYYYY preferred (do not mix formats!),<br>x.yyy (etc)
+accepted
 </td>
 </tr>
 <tr>
@@ -234,7 +256,10 @@ DistanceEd
 Numeric
 </td>
 <td style="text-align:left;">
-1 - All programs in this CIP code/award level are distance education<br>2 - None of the programs in this CIP code/award level are distance education<br>3 - Some programs in this CIP code/award level are distance education
+1 - All programs in this CIP code/award level are distance
+education<br>2 - None of the programs in this CIP code/award level are
+distance education<br>3 - Some programs in this CIP code/award level are
+distance education
 </td>
 </tr>
 <tr>
@@ -245,7 +270,10 @@ DistanceEd31
 Numeric
 </td>
 <td style="text-align:left;">
-NULL - if DistanceEd is 1 or 2<br>0 - if DistanceEd is 3 and NO programs in this CIP code/award level have a mandatory onsite component<br>1 - if DistanceEd is 3 and at least one program in the CIP code/award level has a mandatory onsite component
+NULL - if DistanceEd is 1 or 2<br>0 - if DistanceEd is 3 and NO programs
+in this CIP code/award level have a mandatory onsite component<br>1 - if
+DistanceEd is 3 and at least one program in the CIP code/award level has
+a mandatory onsite component
 </td>
 </tr>
 <tr>
@@ -256,7 +284,10 @@ DistanceEd32
 Numeric
 </td>
 <td style="text-align:left;">
-NULL- if DistanceEd is 1 or 2<br>0 - if DistanceEd is 3 and NO programs in this CIP code/award level have a non-mandatory onsite component<br>1 - if DistanceEd is 3 and at least one program in the CIP code/award level has a non-mandatory onsite component
+NULL- if DistanceEd is 1 or 2<br>0 - if DistanceEd is 3 and NO programs
+in this CIP code/award level have a non-mandatory onsite component<br>1
+- if DistanceEd is 3 and at least one program in the CIP code/award
+level has a non-mandatory onsite component
 </td>
 </tr>
 <tr>
@@ -273,13 +304,17 @@ Demical or integer ages
 </tbody>
 </table>
 <div class="section level3">
-<h3 id="if-there-are-any-cip-codedegree-levelmajor-number-combinations-that-are-possible-for-students-to-obtain-but-are-not-represented-in-this-years-student-completions-data-use-the-format-below-to-incorporate-them-into-the-make_com-functions-">If there are any cip code/degree level/major number combinations that are possible for students to obtain but are NOT represented in this year’s student completions data, use the format below to incorporate them into the <code>make_com</code> functions.<a class="anchor" aria-label="anchor" href="#if-there-are-any-cip-codedegree-levelmajor-number-combinations-that-are-possible-for-students-to-obtain-but-are-not-represented-in-this-years-student-completions-data-use-the-format-below-to-incorporate-them-into-the-make_com-functions-"></a>
+<h3 id="if-there-are-any-cip-codedegree-levelmajor-number-combinations-that-are-possible-for-students-to-obtain-but-are-not-represented-in-this-years-student-completions-data-use-the-format-below-to-incorporate-them-into-the-make_com-functions-">If there are any cip code/degree level/major number combinations
+that are possible for students to obtain but are NOT represented in this
+year’s student completions data, use the format below to incorporate
+them into the <code>make_com</code> functions.<a class="anchor" aria-label="anchor" href="#if-there-are-any-cip-codedegree-levelmajor-number-combinations-that-are-possible-for-students-to-obtain-but-are-not-represented-in-this-years-student-completions-data-use-the-format-below-to-incorporate-them-into-the-make_com-functions-"></a>
 </h3>
 <blockquote>
 <ul>
 <li>One row per degree level per cip per major</li>
 <li>One IPEDS Unitid per file</li>
-<li>Columns with values and types as described below (additional columns are allowed)</li>
+<li>Columns with values and types as described below (additional columns
+are allowed)</li>
 </ul>
 </blockquote>
 <table class="table table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -322,7 +357,22 @@ DegreeLevel
 Character or Numeric
 </td>
 <td style="text-align:left;">
-1a - Postsecondary award, certificate, or diploma of <br>less than 300 clock hours or<br>less than 9 semester or trimester credit hours or<br>less than 13 quarter credit hours<br>1b - Postsecondary award, certificate, or diploma of <br>300-899 clock hours or<br>9-30 semester or trimester credit hours, or<br>13-44 quarter credit hours<br>2 - Postsecondary award, certificate,or diploma of<br>at least 900 but less than 1800 clock hours or<br>at least 30 but less than 60 semester or trimester credit hours or<br>at least 45 but less than 90 quarter credit hours<br>3 - * Associate’s Degree<br>4 - Postsecondary award, certificate,or diploma of <br>1800 or more clock hours or<br>60 or more semester or trimester credit hours or<br>90 or more quarter credit hours<br>5 - * Bachelor’s Degree or equivalent<br>6 - Postbaccalaureate Certificate<br>7 - * Master’s Degree<br>8 - Post-Master’s Certificate<br>17 - * Doctor’s degree - research/scholarship<br>18 - * Doctor’s degree - professional practice<br>19 - * Doctor’s degree - Other<br>* Use only 3, 5, 7, 17, 18 and 19 when reporting second majors.
+1a - Postsecondary award, certificate, or diploma of <br>less than 300
+clock hours or<br>less than 9 semester or trimester credit hours
+or<br>less than 13 quarter credit hours<br>1b - Postsecondary award,
+certificate, or diploma of <br>300-899 clock hours or<br>9-30 semester
+or trimester credit hours, or<br>13-44 quarter credit hours<br>2 -
+Postsecondary award, certificate,or diploma of<br>at least 900 but less
+than 1800 clock hours or<br>at least 30 but less than 60 semester or
+trimester credit hours or<br>at least 45 but less than 90 quarter credit
+hours<br>3 - * Associate’s Degree<br>4 - Postsecondary award,
+certificate,or diploma of <br>1800 or more clock hours or<br>60 or more
+semester or trimester credit hours or<br>90 or more quarter credit
+hours<br>5 - * Bachelor’s Degree or equivalent<br>6 - Postbaccalaureate
+Certificate<br>7 - * Master’s Degree<br>8 - Post-Master’s
+Certificate<br>17 - * Doctor’s degree - research/scholarship<br>18 - *
+Doctor’s degree - professional practice<br>19 - * Doctor’s degree -
+Other<br>* Use only 3, 5, 7, 17, 18 and 19 when reporting second majors.
 </td>
 </tr>
 <tr>
@@ -336,7 +386,10 @@ DistanceEd31
 Numeric
 </td>
 <td style="text-align:left;">
-NULL - if DistanceEd is 1 or 2<br>0 - if DistanceEd is 3 and NO programs in this CIP code/award level have a mandatory onsite component<br>1 - if DistanceEd is 3 and at least one program in the CIP code/award level has a mandatory onsite component
+NULL - if DistanceEd is 1 or 2<br>0 - if DistanceEd is 3 and NO programs
+in this CIP code/award level have a mandatory onsite component<br>1 - if
+DistanceEd is 3 and at least one program in the CIP code/award level has
+a mandatory onsite component
 </td>
 </tr>
 <tr>
@@ -350,7 +403,10 @@ DistanceEd32
 Numeric
 </td>
 <td style="text-align:left;">
-NULL- if DistanceEd is 1 or 2<br>0 - if DistanceEd is 3 and NO programs in this CIP code/award level have a non-mandatory onsite component<br>1 - if DistanceEd is 3 and at least one program in the CIP code/award level has a non-mandatory onsite component
+NULL- if DistanceEd is 1 or 2<br>0 - if DistanceEd is 3 and NO programs
+in this CIP code/award level have a non-mandatory onsite component<br>1
+- if DistanceEd is 3 and at least one program in the CIP code/award
+level has a non-mandatory onsite component
 </td>
 </tr>
 <tr>

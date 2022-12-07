@@ -34,7 +34,7 @@ gtag('config', 'G-NSXZV7NDWP'); </script>
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">IPEDSuploadables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.5.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.6.5</span>
       </span>
     </div>
 
@@ -100,10 +100,11 @@ gtag('config', 'G-NSXZV7NDWP'); </script>
 
       
 
-      </header><script src="howto_overall_ipedsuploadables_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>How to use this package to support your IPEDS reporting</h1>
+      <h1 data-toc-skip>How to use this package to support your IPEDS
+reporting</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/AlisonLanski/IPEDSuploadables/blob/HEAD/vignettes/howto_overall_ipedsuploadables.Rmd" class="external-link"><code>vignettes/howto_overall_ipedsuploadables.Rmd</code></a></small>
@@ -115,12 +116,21 @@ gtag('config', 'G-NSXZV7NDWP'); </script>
     
 <p>A few things to note:</p>
 <ul>
-<li>To ensure you have the most current version of this package, we suggest you check for an updated version and reinstall (as needed) during each collection window.</li>
-<li>To use this package, you’ll need to prepare your data as indicated in vignettes. The vignettes can all be viewed through the <a href="https://alisonlanski.github.io/IPEDSuploadables/">package website</a>.<br>
+<li>To ensure you have the most current version of this package, we
+suggest you check for an updated version and reinstall (as needed)
+during each collection window.</li>
+<li>To use this package, you’ll need to prepare your data as indicated
+in vignettes. The vignettes can all be viewed through the <a href="https://alisonlanski.github.io/IPEDSuploadables/">package
+website</a>.<br>
 </li>
-<li>IPEDS upload files must be 100% of the requested information for a particular report. In other words, if a report has parts A, B, and C, you must upload all parts in a single file or the upload will fail.<br>
+<li>IPEDS upload files must be 100% of the requested information for a
+particular report. In other words, if a report has parts A, B, and C,
+you must upload all parts in a single file or the upload will
+fail.<br>
 </li>
-<li>To create an upload-ready file based on your own data preparation, see <a href="howto_use_autoformat.html">How to produce other key-value uploads</a>
+<li>To create an upload-ready file based on your own data preparation,
+see <a href="howto_use_autoformat.html">How to produce other key-value
+uploads</a>
 </li>
 </ul>
 <div class="section level2">
@@ -142,16 +152,19 @@ gtag('config', 'G-NSXZV7NDWP'); </script>
 <code class="sourceCode R"><span><span class="co">#load the packages</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/AlisonLanski/IPEDSuploadables" class="external-link">IPEDSuploadables</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; This version of IPEDSuploadables has been updated for </span></span>
-<span><span class="co">#&gt; FALL collection of the 2022-2023 reporting cycle.</span></span>
-<span><span class="co">#&gt; Winter and Spring updates coming soon.</span></span>
+<span><span class="co">#&gt; FALL &amp; WINTER collection of the 2022-2023 reporting cycle.</span></span>
+<span><span class="co">#&gt; Spring updates coming soon.</span></span>
 <span><span class="co">#&gt; If you are in a later cycle or want to capture any bug fixes,</span></span>
 <span><span class="co">#&gt; please update the package.</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="step-1-prep-your-institutional-data">Step 1: Prep your institutional data<a class="anchor" aria-label="anchor" href="#step-1-prep-your-institutional-data"></a>
 </h2>
-<p>The package requires specific column names and values to work correctly. Each IPEDS report has a vignette that spells out requirements and also has sample data you can examine.</p>
-<p><strong>To create files for non-supported reports, see <a href="howto_use_autoformat.html">How to produce other key-value uploads</a></strong></p>
+<p>The package requires specific column names and values to work
+correctly. Each IPEDS report has a vignette that spells out requirements
+and also has sample data you can examine.</p>
+<p><strong>To create files for non-supported reports, see <a href="howto_use_autoformat.html">How to produce other key-value
+uploads</a></strong></p>
 <table class="table">
 <colgroup>
 <col width="32%">
@@ -166,17 +179,20 @@ gtag('config', 'G-NSXZV7NDWP'); </script>
 <tbody>
 <tr class="odd">
 <td align="left">12 Month Enrollment</td>
-<td align="left"><a href="setup_for_12monthenrollment.html">students &amp; instructional activity</a></td>
+<td align="left"><a href="setup_for_12monthenrollment.html">students
+&amp; instructional activity</a></td>
 <td align="left">e1d_student, e1d_instr</td>
 </tr>
 <tr class="even">
 <td align="left">Completions</td>
-<td align="left"><a href="setup_for_completions.html">students &amp; extra cips</a></td>
+<td align="left"><a href="setup_for_completions.html">students &amp;
+extra cips</a></td>
 <td align="left">com_students, com_cips</td>
 </tr>
 <tr class="odd">
 <td align="left">Fall Enrollment</td>
-<td align="left"><a href="setup_for_fallenrollment.html">students &amp; retention aggregate</a></td>
+<td align="left"><a href="setup_for_fallenrollment.html">students &amp;
+retention aggregate</a></td>
 <td align="left">ef1_students, ef1_retention</td>
 </tr>
 <tr class="even">
@@ -223,26 +239,35 @@ gtag('config', 'G-NSXZV7NDWP'); </script>
 <div class="section level2">
 <h2 id="step-2-read-in-your-data-and-produce-your-ipeds-report">Step 2: Read in your data and produce your IPEDS report<a class="anchor" aria-label="anchor" href="#step-2-read-in-your-data-and-produce-your-ipeds-report"></a>
 </h2>
-<p>Each IPEDS report has a single function which will produce all required sub-parts in a single file for upload.</p>
+<p>Each IPEDS report has a single function which will produce all
+required sub-parts in a single file for upload.</p>
 <ul>
 <li>Some reports require 2 dataframes<br>
 </li>
-<li>Use the popup box to choose the folder where the report should be saved.<br>
+<li>Use the popup box to choose the folder where the report should be
+saved.<br>
 </li>
-<li>The upload file will be saved as a txt file with a date-stamp. Rerunning the script on the same day to the same location will overwrite your original file.</li>
+<li>The upload file will be saved as a txt file with a date-stamp.
+Rerunning the script on the same day to the same location will overwrite
+your original file.</li>
 </ul>
 <p>Example:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#full export using sample data</span></span>
 <span><span class="fu"><a href="../reference/produce_e1d_report.html">produce_e1d_report</a></span><span class="op">(</span>df <span class="op">=</span> <span class="va">e1d_student</span>, hrs <span class="op">=</span> <span class="va">e1d_instr</span>, part <span class="op">=</span> <span class="st">"ALL"</span><span class="op">)</span></span></code></pre></div>
-<p>A message will be display the location of your file when it has been processed.</p>
+<p>A message will be display the location of your file when it has been
+processed.</p>
 <div class="section level3">
 <h3 id="note-about-new-gender-collection-for-2022-2023-reporting-cycle">Note about new gender collection for 2022-2023 reporting cycle<a class="anchor" aria-label="anchor" href="#note-about-new-gender-collection-for-2022-2023-reporting-cycle"></a>
 </h3>
-<p>Scripts are set to assume that you ARE able to report on “another gender” in this reporting cycle. This applies to Completions and 12 Month Enrollment.</p>
-<p>If you are <strong>NOT</strong> able to collect/report on students of “another gender” this cycle</p>
+<p>Scripts are set to assume that you ARE able to report on “another
+gender” in this reporting cycle. This applies to Completions, 12 Month
+Enrollment, and Graduation Rates.</p>
+<p>If you are <strong>NOT</strong> able to collect/report on students of
+“another gender” this cycle</p>
 <ul>
-<li>Set ugender = FALSE (for undergraduates) in the produce function</li>
+<li>Set ugender = FALSE (for undergraduates) in the produce
+function</li>
 <li>Set ggender = FALSE (for graduates) in the produce function</li>
 </ul>
 <p>Example:</p>
@@ -255,16 +280,26 @@ gtag('config', 'G-NSXZV7NDWP'); </script>
 </h3>
 <p>Completions</p>
 <ul>
-<li>The extra cips dataframe is optional and can be left empty if your school has student completions in all cip/award level combinations previously reported</li>
+<li>The extra cips dataframe is optional and can be left empty if your
+school has student completions in all cip/award level combinations
+previously reported</li>
 </ul>
 <p>Fall Enrollment</p>
 <ul>
-<li><p>Your student-faculty ratio number is collected via pop-up box. Type a whole number when prompted.</p></li>
-<li><p>The main function auto-detects the IPEDS submission year and adjusts the sections of cip-based enrollment, student age, and student residence state appropriately to be in or out of your report. If you would like to report data in optional years, change the include_optional flag to TRUE.</p></li>
+<li><p>Your student-faculty ratio number is collected via pop-up box.
+Type a whole number when prompted.</p></li>
+<li><p>The main function auto-detects the IPEDS submission year and
+adjusts the sections of cip-based enrollment, student age, and student
+residence state appropriately to be in or out of your report. If you
+would like to report data in optional years, change the include_optional
+flag to TRUE.</p></li>
 </ul>
 <p>Human Resources</p>
 <ul>
-<li>The script requires one dataframe with all current employees and new hires. If someone is counted in both sections of the report, include them only once in your institutional data with the appropriate flags.</li>
+<li>The script requires one dataframe with all current employees and new
+hires. If someone is counted in both sections of the report, include
+them only once in your institutional data with the appropriate
+flags.</li>
 </ul>
 </div>
 </div>
@@ -273,9 +308,13 @@ gtag('config', 'G-NSXZV7NDWP'); </script>
 </h2>
 <ol style="list-style-type: decimal">
 <li><p>Navigate to the IPEDS submission portal and log in.</p></li>
-<li><p>Select the appropriate report (for example: “12 Month Enrollment”), select “key-value pair”, then browse to your .txt file and upload.</p></li>
-<li><p>Click through the survey screens to review results and verify submission accuracy</p></li>
-<li><p>Continue your standard process to check edits, enter metadata, lock, and submit the survey.</p></li>
+<li><p>Select the appropriate report (for example: “12 Month
+Enrollment”), select “key-value pair”, then browse to your .txt file and
+upload.</p></li>
+<li><p>Click through the survey screens to review results and verify
+submission accuracy</p></li>
+<li><p>Continue your standard process to check edits, enter metadata,
+lock, and submit the survey.</p></li>
 </ol>
 </div>
 <div class="section level2">
@@ -284,44 +323,66 @@ gtag('config', 'G-NSXZV7NDWP'); </script>
 <div class="section level4">
 <h4 id="you-need-to-make-a-data-correction-after-uploading">You need to make a data correction after uploading<a class="anchor" aria-label="anchor" href="#you-need-to-make-a-data-correction-after-uploading"></a>
 </h4>
-<p>Update your base data, rerun the package function, and re-upload to IPEDS. You can upload as many times as you want to any particular survey.<br>
-Your keyholder may be able to edit directly in the website, but this method is not recommended since it is not reproducible.</p>
-<p>If you verify that your data and dataframe(s) are correct, but IPEDS still shows incorrect aggregation, please contact the package authors by adding a GitHub issue or by emailing. We can provide the quickest help if you share an example with sample data, expected output, and actual output.</p>
+<p>Update your base data, rerun the package function, and re-upload to
+IPEDS. You can upload as many times as you want to any particular
+survey.<br>
+Your keyholder may be able to edit directly in the website, but this
+method is not recommended since it is not reproducible.</p>
+<p>If you verify that your data and dataframe(s) are correct, but IPEDS
+still shows incorrect aggregation, please contact the package authors by
+adding a GitHub issue or by emailing. We can provide the quickest help
+if you share an example with sample data, expected output, and actual
+output.</p>
 </div>
 <div class="section level4">
-<h4 id="ipeds-rejects-your-upload-file-or-accepts-the-file-but-provides-an-error-message">IPEDS rejects your upload file or accepts the file but provides an error message<a class="anchor" aria-label="anchor" href="#ipeds-rejects-your-upload-file-or-accepts-the-file-but-provides-an-error-message"></a>
+<h4 id="ipeds-rejects-your-upload-file-or-accepts-the-file-but-provides-an-error-message">IPEDS rejects your upload file or accepts the file but provides an
+error message<a class="anchor" aria-label="anchor" href="#ipeds-rejects-your-upload-file-or-accepts-the-file-but-provides-an-error-message"></a>
 </h4>
 <p>Common issues include:</p>
 <ul>
 <li>Your data has disallowed values</li>
 <li>Your upload is missing a sub-part of the report</li>
-<li>IPEDS is expecting particular information based on previous years of reporting which is inconsistent or missing</li>
+<li>IPEDS is expecting particular information based on previous years of
+reporting which is inconsistent or missing</li>
 </ul>
-<p><em>For example, IPEDS wants all previous CIP/Award Level combinations reported on the current upload file. If you have no students in those categories, add any flagged CIP/Award combinations to your extra_cips dataframe, rerun, and reupload to remove this error message</em></p>
+<p><em>For example, IPEDS wants all previous CIP/Award Level
+combinations reported on the current upload file. If you have no
+students in those categories, add any flagged CIP/Award combinations to
+your extra_cips dataframe, rerun, and reupload to remove this error
+message</em></p>
 </div>
 <div class="section level4">
 <h4 id="how-the-package-can-help-you-troubleshoot">How the package can help you troubleshoot<a class="anchor" aria-label="anchor" href="#how-the-package-can-help-you-troubleshoot"></a>
 </h4>
-<p>A few functions have built-in data quality checks which will alert you of disallowed values. We are working to add more automated checks.</p>
-<p>If you want to examine a single report sub-part in depth, you can create a separate text file with only those values.</p>
+<p>A few functions have built-in data quality checks which will alert
+you of disallowed values. We are working to add more automated
+checks.</p>
+<p>If you want to examine a single report sub-part in depth, you can
+create a separate text file with only those values.</p>
 <p>Example:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#if you only want to look at 12 month enrollment part B</span></span>
 <span><span class="fu"><a href="../reference/produce_e1d_report.html">produce_e1d_report</a></span><span class="op">(</span><span class="va">e1d_instr</span>, part <span class="op">=</span> <span class="st">"B"</span><span class="op">)</span></span></code></pre></div>
-<p>You can also produce a csv version of the part’s text file, for more readable output (still using IPEDS upload-required column names and values)</p>
+<p>You can also produce a csv version of the part’s text file, for more
+readable output (still using IPEDS upload-required column names and
+values)</p>
 <p>Example:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#text files make my eyes bleed! let's use a csv</span></span>
 <span><span class="fu"><a href="../reference/produce_e1d_report.html">produce_e1d_report</a></span><span class="op">(</span>hrs <span class="op">=</span> <span class="va">e1d_instr</span>, part <span class="op">=</span> <span class="st">"B"</span>, format <span class="op">=</span> <span class="st">"readable"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level4">
-<h4 id="ipeds-has-changed-a-surveys-requirements-but-you-need-to-rerun-an-old-report">IPEDS has changed a survey’s requirements, but you need to rerun an old report<a class="anchor" aria-label="anchor" href="#ipeds-has-changed-a-surveys-requirements-but-you-need-to-rerun-an-old-report"></a>
+<h4 id="ipeds-has-changed-a-surveys-requirements-but-you-need-to-rerun-an-old-report">IPEDS has changed a survey’s requirements, but you need to rerun an
+old report<a class="anchor" aria-label="anchor" href="#ipeds-has-changed-a-surveys-requirements-but-you-need-to-rerun-an-old-report"></a>
 </h4>
-<p>At the end of every IPEDS collection cycle, that year’s package code will be saved into a branch on GitHub. To use an old version, install the package from the branch.</p>
+<p>At the end of every IPEDS collection cycle, that year’s package code
+will be saved into a branch on GitHub. To use an old version, install
+the package from the branch.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#install, picking an acceptable year range</span></span>
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span>repo <span class="op">=</span> <span class="st">"AlisonLanski/IPEDSuploadables"</span>, ref <span class="op">=</span> <span class="st">"reporting_year_2020-2021"</span><span class="op">)</span></span></code></pre></div>
-<p>When you have finished running your code, reinstall the current version of the package by removing the “ref” argument.</p>
+<p>When you have finished running your code, reinstall the current
+version of the package by removing the “ref” argument.</p>
 </div>
 </div>
   </div>
