@@ -1,18 +1,12 @@
 ## Update notes
-This version of the package contains bug fixes and maintenance updates
+This version of the package contains maintenance updates
   
   
 ## R CMD check results
 
 There were no ERRORs or WARNINGs. 
 
-There were two NOTEs from rhub testing:
-  
-* checking for detritus in the temp directory ... NOTE
-Found the following files/directories:
-  'lastMiKTeXException'
-    
-Note on lastMiKTeXException is an rhub issue: r-hub/rhub#503
+There were one NOTE from rhub testing:
 
 * checking HTML version of manual ... NOTE
 Skipping checking HTML validation: no command 'tidy' found
