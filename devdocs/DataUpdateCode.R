@@ -9,7 +9,7 @@
 # Rerun test scripts and/or add additional test scripts
 # Test additional data configurations for any control flow/filtering etc
 # Final package check
-# Final documentation updates
+# Final documentation updates including zzz.R file
 # After merge, make CRAN submission/change log updates; update pkgdown etc (see other txt file)
 
 
