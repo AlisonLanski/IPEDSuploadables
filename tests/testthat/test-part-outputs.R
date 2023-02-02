@@ -46,6 +46,7 @@ test_that("EF1 parts produce expected dfs", {
   #can't run F -- s/f ratio collected via popup
   #expect_equal(make_ef1_part_F(datef1), part_outputs$ef1_partF)
   expect_equal(make_ef1_part_G(datef1), part_outputs$ef1_partG)
+  expect_equal(make_ef1_part_H(datef1, ugender = T, ggender = T), part_outputs$ef1_partH)
 })
 
 ########
