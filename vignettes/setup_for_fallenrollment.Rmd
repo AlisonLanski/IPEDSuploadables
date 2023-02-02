@@ -72,9 +72,10 @@ specs_EF1_retention <- specs_EF1[specs_EF1$DATA_FRAME == 'retention', 2:4]
 knitr::kable(specs_EF1_retention,
              format = 'html',
              escape = FALSE,
-             col.names = c('Column Name', 'Column Type', 'Acceptable Value - Definition')) %>%
+             col.names = c('Column Name', 'Column Type', 'Acceptable Value - Definition'),
+             row.names = FALSE) %>%
     kableExtra::kable_styling(bootstrap_options = "striped") %>%
-  kableExtra::column_spec(2, italic = TRUE, width = '8em')
+  kableExtra::column_spec(column = 2, italic = TRUE, width = '8em', )
 
 ```
 
