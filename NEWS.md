@@ -1,3 +1,10 @@
+# IPEDSuploadables 2.7.5
+
+* Addressed Spring Collection updates from IPEDS (see items below)
+* Fall Enrollment data now requires a GenderDetail column in the student data for this year's reporting
+* Human Resources data now excludes New Hires that are not Current Employees from reporting; the functions will now throw a warning for anyone in violation.
+
+
 # IPEDSuploadables 2.6.5
 
 * Addressed Winter Collection updates from IPEDS (see items below)
