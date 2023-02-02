@@ -46,6 +46,14 @@ prep_hr_data_frame <- function(df) {
                                      df$FTPT == 'F' &
                                      df$OCCCATEGORY3 %in% c(1:4) &
                                      !df$MONTHS %in% c(8:12)])))
+
+
+  }
+
+  #Rule change: all new hires must be current employees=
+  if(sum(df$CURRENTEMPLOYEE == 0 & df$NEWHIRE == 1) > 0){
+    warning(paste0("All new hires must also be current employees to be reportable; update current status or remove from data EmpId: ",
+                   toString(df$EMPID[df$CURRENTEMPLOYEE == 0 & df$NEWHIRE == 1])))
   }
 
   df <- df %>%
