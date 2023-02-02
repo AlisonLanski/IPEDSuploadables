@@ -20,7 +20,7 @@ gtag('config', 'G-NSXZV7NDWP'); </script></head><body data-spy="scroll" data-tar
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">IPEDSuploadables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.6.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.7.5</span>
       </span>
     </div>
 
@@ -130,10 +130,16 @@ This is the second piece of dummy df produced</p>
 <span class="r-in"><span><span class="co"># this is to provide an example of missing</span></span></span>
 <span class="r-in"><span><span class="co"># data which is acceptable to IPEDS</span></span></span>
 <span class="r-in"><span><span class="va">students</span> <span class="op">&lt;-</span> <span class="fu">create_dummy_data_com</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span> 1 failed to parse.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>There was 1 warning in `dplyr::mutate()`.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> In argument: `Birthdate = lubridate::ymd(...)`.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> Caused by warning:</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span>  1 failed to parse.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">additional_cips</span> <span class="op">&lt;-</span> <span class="fu">create_dummy_data_com</span><span class="op">(</span>df_type <span class="op">=</span> <span class="st">"cip"</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span> 1 failed to parse.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>There was 1 warning in `dplyr::mutate()`.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> In argument: `Birthdate = lubridate::ymd(...)`.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> Caused by warning:</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span>  1 failed to parse.</span>
 </code></pre></div>
     </div>
   </div>
@@ -148,7 +154,7 @@ This is the second piece of dummy df produced</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>
