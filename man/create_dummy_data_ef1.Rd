@@ -7,7 +7,7 @@
 create_dummy_data_ef1(df_type = "students", n = 100)
 }
 \arguments{
-\item{df_type}{A string with the dummy data requested ("students" for parts A-D & G or "retention" for part E)}
+\item{df_type}{A string with the dummy data requested ("students" for parts A-D & G-H or "retention" for part E)}
 
 \item{n}{A number}
 }
@@ -15,7 +15,7 @@ create_dummy_data_ef1(df_type = "students", n = 100)
 A text file
 }
 \description{
-Creates students and retention dataframes for use in parts A, B, C, D, E, and G.
+Creates students and retention dataframes for use in parts A, B, C, D, E, G, H.
 Student-faculty ratio (part G) will ask for a number when the function is run and does not need to exist here.
 To create both dataframes, run the function twice with different arguments, and save results into separate objects.
 }

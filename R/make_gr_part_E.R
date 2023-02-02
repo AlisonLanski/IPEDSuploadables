@@ -30,10 +30,17 @@ make_gr_part_E <- function(df, ugender) {
                                GENDERDETAIL == 3 ~ "GRGU011",
                                GENDERDETAIL == 4 ~ "GRGU012")) %>%
     select(-.data$GENDERDETAIL) %>%
-    pivot_wider(names_from = .data$GEN_COL, values_from = .data$COUNT) %>%
-    #add missing columns as nulls, if they don't already exist in the data
-    dplyr::union_all(data.frame(GRGU011 = integer(),
-                                GRGU012 = integer())) %>%
+    pivot_wider(names_from = .data$GEN_COL, values_from = .data$COUNT)
+
+  #add missing columns as nulls, if they don't already exist in the data
+  if (!"GRGU011" %in% names(partE)) {
+    partE[["GRGU011"]] <- NA_integer_
+  }
+  if (!"GRGU012" %in% names(partE)) {
+    partE[["GRGU012"]] <- NA_integer_
+  }
+
+  partE <- partE %>%
             #if ugender is true, we can report on another gender
     mutate(GRGU01 = case_when(ugender == TRUE ~ 1,
                               TRUE ~ 2),
