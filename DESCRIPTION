@@ -1,6 +1,6 @@
 Package: IPEDSuploadables
 Title: Transforms Institutional Data into Text Files for IPEDS Automated Import/Upload
-Version: 2.6.5
+Version: 2.7.5
 Authors@R: c(
             person(given = "Alison", family = "Lanski", 
             role = c("aut", "cre"),
@@ -23,7 +23,7 @@ BugReports: https://github.com/AlisonLanski/IPEDSuploadables/issues
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.3
 Imports: 
   dplyr (>= 1.0.0),
   lubridate,

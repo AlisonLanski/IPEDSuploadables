@@ -8,6 +8,11 @@
 #'   upload file. \code{"readable"} will produce a csv of the upload file (only
 #'   works for one part at a time). \code{"both"} will provide both options, but
 #'   only works with one part at a time.
+#' @param ugender A boolean: TRUE means you are collecting and able to report
+#'   "another gender" for undergraduate completers. Set as FALSE if necessary
+#' @param ggender A boolean: TRUE means you are collecting and able to report
+#'   "another gender" for graduate completers. Set as FALSE if necessary
+#'
 #'
 #' @return A txt or csv file at the path of your choice
 #' @export
@@ -31,9 +36,10 @@
 #' setwd(.old_wd)
 #' }
 
-produce_ef1_report <- function(students, retention, part = "ALL", include_optional = FALSE, format = "uploadable") {
+produce_ef1_report <- function(students, retention, part = "ALL", include_optional = FALSE,
+                               format = "uploadable", ugender = TRUE, ggender = TRUE) {
 
-  stopifnot(toupper(part) %in% c("A", "B", "C", "D", "E", "F", "G", "ALL"),
+  stopifnot(toupper(part) %in% c("A", "B", "C", "D", "E", "F", "G", "H", "ALL"),
             toupper(format) %in% c("UPLOADABLE", "READABLE", "BOTH"))
 
   #setup
@@ -64,6 +70,7 @@ produce_ef1_report <- function(students, retention, part = "ALL", include_option
     partD <- make_ef1_part_D(df = students)
     partE <- make_ef1_part_E(df = retention)
     partF <- make_ef1_part_F(df = students)
+    partH <- make_ef1_part_H(df = students, ugender = ugender, ggender = ggender)
 
     if(toupper(format) == 'UPLOADABLE'){
       write_report(
@@ -74,6 +81,7 @@ produce_ef1_report <- function(students, retention, part = "ALL", include_option
         partD,
         partE,
         partF,
+        partH,
         survey = survey,
         part = 'AllParts',
         output_path = output_path)
@@ -82,7 +90,7 @@ produce_ef1_report <- function(students, retention, part = "ALL", include_option
       message("Uploadable is the only supported format type when requesting all parts")
     }
 
-  } else if(toupper(part) %in% c('A','B', 'C', 'D', 'E', 'F', 'G')){
+  } else if(toupper(part) %in% c('A','B', 'C', 'D', 'E', 'F', 'G', 'H')){
 
     if(toupper(part) == "A") {
       partX <- do.call(paste0("make_ef1_part_", toupper(part)), list(students, cip_year))
@@ -92,6 +100,11 @@ produce_ef1_report <- function(students, retention, part = "ALL", include_option
       #don't have to do a special cipyear etc thing, because if they're asking for the part, we'll make it
       partX <- do.call(paste0("make_ef1_part_", toupper(part)), list(students))
     }
+
+    if (toupper(part) == "H") {
+      partX <- do.call(paste0("make_ef1_part_", toupper(part)), list(students, ugender, ggender))
+    }
+
 
     if (toupper(part) == "E") {
       partX <- do.call(paste0("make_ef1_part_", toupper(part)), list(retention))
