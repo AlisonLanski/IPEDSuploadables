@@ -89,7 +89,7 @@ A message will be display the location of your file when it has been processed.
 ### Note about new gender collection for 2022-2023 reporting cycle
   
 Scripts are set to assume that you ARE able to report on "another gender" in this reporting cycle.
-This applies to Completions, 12 Month Enrollment, and Graduation Rates.
+This applies to Completions, 12 Month Enrollment, Graduation Rates, and Fall Enrollment.
   
 If you are **NOT** able to collect/report on students of "another gender" this cycle
 
