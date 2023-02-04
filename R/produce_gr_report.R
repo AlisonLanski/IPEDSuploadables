@@ -15,13 +15,13 @@
 #' #set temp directory for this example (not necessary for users)
 #' .old_wd <- setwd(tempdir())
 #' }
-#'
+#' \donttest{
 #' #entire report
 #' produce_gr_report(gr_students)
 #'
 #' #one part in csv format instead of key-value
 #' produce_gr_report(gr_students, part = "B", format = "readable")
-#'
+#' }
 #' \dontshow{
 #' #reset directory for this example (not necessary for users)
 #' setwd(.old_wd)

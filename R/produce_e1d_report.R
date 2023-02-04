@@ -20,13 +20,13 @@
 #' #set temp directory for this example (not necessary for users)
 #'.old_wd <- setwd(tempdir())
 #'}
-#'
+#'\donttest{
 #'#entire report
 #'produce_e1d_report(e1d_student, e1d_instr)
 #'
 #'#one part, as csv instead of key-value file
 #'produce_e1d_report(e1d_student, part = "A", format = "readable")
-#'
+#'}
 #'\dontshow{
 #' #reset directory for this example (not necessary for users)
 #'setwd(.old_wd)
@@ -41,7 +41,7 @@ produce_e1d_report <- function(df, hrs, part = "ALL", format = "uploadable",
   survey <- "12MonthEnrollment"
   output_path <- set_report_path()
 
-  if (toupper(part) == "ALL" & toupper(format) == 'UPLOADABLE') {
+  if(toupper(part) == "ALL" & toupper(format) == 'UPLOADABLE') {
     # out of order because part A was expanded
     # and the expansion was called "C" in the upload
     write_report(

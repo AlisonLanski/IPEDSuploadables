@@ -46,6 +46,7 @@ Shortcut function with all steps to provide a Fall Enrollment report
 .old_wd <- setwd(tempdir())
 }
 
+\donttest{
 #entire report
 produce_ef1_report(ef1_students, ef1_retention)
 
@@ -54,6 +55,7 @@ produce_ef1_report(ef1_students, ef1_retention, include_optional = TRUE)
 
 #one part as csv instead of key-value
 produce_ef1_report(ef1_students, part = 'D', format = 'readable')
+}
 
 \dontshow{
 #reset directory for this example (not necessary for users)

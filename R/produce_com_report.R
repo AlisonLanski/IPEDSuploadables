@@ -21,12 +21,13 @@
 #' #set temp directory for this example (not necessary for users)
 #'.old_wd <- setwd(tempdir())
 #'}
-#'
+#'\donttest{
 #'#entire report
 #'produce_com_report(com_students, com_cips)
 #'
 #'#one part as csv instead of key-value
 #'produce_com_report(com_students, com_cips, part = "A", format = "readable")
+#'}
 #'
 #'\dontshow{
 #' #reset directory for this example (not necessary for users)
