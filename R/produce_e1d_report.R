@@ -1,16 +1,20 @@
 #' Shortcut function with all steps to provide a 12 Month Enrollment report
 #'
 #' @param df A dataframe set up according to the readme for students
-#' @param hrs A dataframe set up according to the readme for instructional activity
-#' @param part A string with what part of the report you want to produce: 'all', 'A', etc.
+#' @param hrs A dataframe set up according to the readme for instructional
+#'   activity
+#' @param part A string with what part of the report you want to produce: 'all',
+#'   'A', etc.
 #' @param format A string (\code{"uploadable"} will produce a properly formatted
 #'   upload file. \code{"readable"} will produce a csv of the upload file (only
 #'   works for one part at a time). \code{"both"} will provide both options, but
 #'   only works with one part at a time.
 #' @param ugender A boolean: TRUE means you are collecting and able to report
-#'   "another gender" for undergraduate students Set as FALSE if necessary
+#'   "another gender" for undergraduate students, even if you have no (or few)
+#'   such students. Set as FALSE if necessary
 #' @param ggender A boolean: TRUE means you are collecting and able to report
-#'   "another gender" for graduate students. Set as FALSE if necessary
+#'   "another gender" for graduate students, even if you have no (or few) such
+#'   students. Set as FALSE if necessary
 #'
 #' @return A txt or csv file at the path of your choice
 #' @export

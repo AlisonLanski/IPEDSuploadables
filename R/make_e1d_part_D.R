@@ -2,13 +2,16 @@
 #'
 #' @param df A dataframe of student/degree information
 #' @param ugender A boolean: TRUE means you are collecting and able to report
-#'   "another gender" for undergraduate students. Set as FALSE if necessary
+#'   "another gender" for undergraduate students, even if you have no (or few)
+#'   such students. Set as FALSE if necessary
 #' @param ggender A boolean: TRUE means you are collecting and able to report
-#'   "another gender" for graduate students. Set as FALSE if necessary
+#'   "another gender" for graduate students, even if you have no (or few) such
+#'   students. Set as FALSE if necessary
 #'
 #' @importFrom rlang .data
 #'
-#' @importFrom dplyr select group_by summarize ungroup bind_rows arrange transmute n
+#' @importFrom dplyr select group_by summarize ungroup bind_rows arrange
+#'   transmute n
 #' @importFrom utils write.table
 #' @importFrom stringr str_to_upper
 #'
@@ -80,6 +83,11 @@ make_e1d_part_D <- function(df, ugender, ggender) {
              partD_counts$GENDERDETAIL == 4) == 1){
         partD$FYGU012 <- partD_counts$COUNT[partD_counts$STUDENTLEVEL == 'Undergraduate' &
                                              partD_counts$GENDERDETAIL == 4]
+        #BUT -- New in 2023 - mask if < 5 and set initial inquiry as "small N"
+        if(partD$FYGU012 < 5){
+          partD$FYGU012 <- -2
+          partD$FYGU01 <- 3
+        }
       }
     }
 
@@ -111,6 +119,11 @@ make_e1d_part_D <- function(df, ugender, ggender) {
              partD_counts$GENDERDETAIL == 4) == 1){
         partD$FYGU022 <- partD_counts$COUNT[partD_counts$STUDENTLEVEL == 'Graduate' &
                                              partD_counts$GENDERDETAIL == 4]
+        #BUT -- New in 2023 - mask if < 5 and set initial inquiry as "small N"
+        if(partD$FYGU022 < 5){
+          partD$FYGU022 <- -2
+          partD$FYGU02 <- 3
+        }
       }
     }
 
