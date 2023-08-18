@@ -2,9 +2,9 @@
 #'
 #' @param df A dataframe of student/degree information
 #' @param ugender A boolean: TRUE means you are collecting and able to report
-#'   "another gender" for undergraduate completers. Set as FALSE if necessary
+#'   "another gender" for undergraduate completers, even if you have no (or few) such students. Set as FALSE if necessary
 #' @param ggender A boolean: TRUE means you are collecting and able to report
-#'   "another gender" for graduate completers. Set as FALSE if necessary
+#'   "another gender" for graduate completers, even if you have no (or few) such students. Set as FALSE if necessary
 #'
 #' @importFrom rlang .data
 #' @importFrom dplyr select group_by summarize ungroup arrange transmute n distinct
@@ -62,26 +62,35 @@ make_com_part_E <- function(df, ugender, ggender) {
   #  #UG in the data, another not being reported, unknown might exist
   } else if(ugender == FALSE){
     partE$CGU01 <- 2
+      #if UNK exists
     if(sum(partE_counts$UGPB == 'UG' &
            partE_counts$GENDERDETAIL == 3) == 1){
+      #then calculate unknown count
       partE$CGU011 <- partE_counts$COUNT[partE_counts$UGPB == 'UG' &
                                            partE_counts$GENDERDETAIL == 3]
     }
+      #and set the Another Gender to N/A
     partE$CGU012 <- -2
 
   # #UG in the data, another being reported, another/unknown might or might not exist
   } else {
     partE$CGU01 <- 1
-
+      #if UNK exists, calculate it
     if(sum(partE_counts$UGPB == 'UG' &
            partE_counts$GENDERDETAIL == 3) == 1){
       partE$CGU011 <- partE_counts$COUNT[partE_counts$UGPB == 'UG' &
                                            partE_counts$GENDERDETAIL == 3]
     }
+      #if ANO exists, calculate it
     if(sum(partE_counts$UGPB == 'UG' &
            partE_counts$GENDERDETAIL == 4) == 1){
       partE$CGU012 <- partE_counts$COUNT[partE_counts$UGPB == 'UG' &
                                            partE_counts$GENDERDETAIL == 4]
+      #BUT -- New in 2023 - mask if < 5 and set initial inquiry as "small N"
+      if(partE$CGU012 < 5){
+        partE$CGU012 <- -2
+        partE$CGU01 <- 3
+      }
     }
   }
 
@@ -113,6 +122,11 @@ make_com_part_E <- function(df, ugender, ggender) {
              partE_counts$GENDERDETAIL == 4) == 1){
         partE$CGU022 <- partE_counts$COUNT[partE_counts$UGPB == 'GR' &
                                            partE_counts$GENDERDETAIL == 4]
+        #BUT -- New in 2023 - mask if < 5 and set initial inquiry as "small N"
+        if(partE$CGU022 < 5){
+          partE$CGU022 <- -2
+          partE$CGU02 <- 3
+        }
       }
     }
 
