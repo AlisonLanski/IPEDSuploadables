@@ -1,0 +1,18 @@
+For each survey with changes
+--create_dummy_data update
+--save new dummy data to the package
+--update relavant prep scripts
+--update relevant make scripts
+--update relevant produce script
+--run tests (may fail, depending on changes)
+--update test code and/or save new correct test results to list
+--re-run tests
+--update code file documentation
+--update vignette documentation (scripts & general how-to)
+
+Commit one survey at a time. Intermediate commits fine.
+
+Big Picture things to check
+--readme
+--changelog
+--how-to articles
