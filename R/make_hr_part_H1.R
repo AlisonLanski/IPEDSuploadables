@@ -28,10 +28,10 @@ make_hr_part_H1 <- function(df) {
             dplyr::filter(.data$INSTRUCTIONAL == 1,
                           .data$NEWHIRE == 1,
                           .data$FTPT == "F") %>%
-            dplyr::select(.data$UNITID,
-                          .data$TENURE,
-                          .data$REG,
-                          .data$COUNT) %>%
+            dplyr::select("UNITID",
+                          "TENURE",
+                          "REG",
+                          "COUNT") %>%
             #add extra combinations
             dplyr::bind_rows(combos_H1) %>%
             #aggregate the full data

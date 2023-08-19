@@ -16,10 +16,10 @@ make_com_part_C <- function(df) {
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
   partC <- df %>%
-           dplyr::select(.data$UNITID,
-                         .data$STUDENTID,
-                         .data$RACEETHNICITY,
-                         .data$SEX) %>%
+           dplyr::select("UNITID",
+                         "STUDENTID",
+                         "RACEETHNICITY",
+                         "SEX") %>%
            #deduplicate
            dplyr::distinct() %>%
            #aggregate and count

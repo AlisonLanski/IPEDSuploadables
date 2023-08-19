@@ -10,7 +10,7 @@
 #' @return A text file
 #'
 #' @importFrom rlang .data
-#' @importFrom dplyr select group_by summarize ungroup bind_rows arrange transmute n
+#' @importFrom dplyr group_by summarize ungroup bind_rows arrange transmute n
 #' @importFrom utils write.table
 #'
 #' @export

@@ -17,7 +17,7 @@
 #'
 #' @return a dataframe ready for the rest of the e1d scripts
 #'
-#' @importFrom dplyr mutate select filter
+#' @importFrom dplyr mutate filter
 #'
 #' @export
 #'

@@ -23,14 +23,14 @@ make_ef1_part_H <- function(df, ugender, ggender) {
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
   partH_counts <- df %>%
-    dplyr::select(.data$UNITID,
-                  .data$STUDENTID,
-                  .data$STUDENTLEVEL,
-                  .data$GENDERDETAIL  #Binary = 1, 2;  Unknown = 3, Another = 4
+    dplyr::select("UNITID",
+                  "STUDENTID",
+                  "STUDENTLEVEL",
+                  "GENDERDETAIL"  #Binary = 1, 2;  Unknown = 3, Another = 4
     ) %>%
     #break into UG and GR levels
     dplyr::mutate(UGPB = ifelse(.data$STUDENTLEVEL == 'Graduate', 'GR', 'UG')) %>%
-    dplyr::select(-.data$STUDENTLEVEL) %>%
+    dplyr::select(-"STUDENTLEVEL") %>%
     #deduplicate
     dplyr::distinct() %>%
     #aggregate and count

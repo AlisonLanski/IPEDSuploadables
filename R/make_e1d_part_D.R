@@ -24,10 +24,10 @@ make_e1d_part_D <- function(df, ugender, ggender) {
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
   partD_counts <- df %>%
-    dplyr::select(.data$UNITID,
-                  .data$STUDENTID,
-                  .data$STUDENTLEVEL,
-                  .data$GENDERDETAIL) %>%
+    dplyr::select("UNITID",
+                  "STUDENTID",
+                  "STUDENTLEVEL",
+                  "GENDERDETAIL") %>%
     #deduplicate
     dplyr::distinct() %>%
     #aggregate and count

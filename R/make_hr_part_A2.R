@@ -28,11 +28,11 @@ make_hr_part_A2 <- function(df) {
             dplyr::filter(.data$CURRENTEMPLOYEE == 1,
                           .data$INSTRUCTIONAL == 1, #instructional
                           .data$FTPT == "F") %>%
-            dplyr::select(.data$UNITID,
-                          .data$TENURE,
-                          .data$ISMEDICAL,
-                          .data$INSTFUNCTION,
-                          .data$COUNT) %>%
+            dplyr::select("UNITID",
+                          "TENURE",
+                          "ISMEDICAL",
+                          "INSTFUNCTION",
+                          "COUNT") %>%
             #add extra combinations
             dplyr::bind_rows(combos_A2) %>%
             #aggregate the full data

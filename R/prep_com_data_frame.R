@@ -52,7 +52,7 @@ prep_com_data_frame <- function(df) {
     ),
     MAJORCIP = paste0(.data$Two, ".", .data$Four)
     ) %>%
-    dplyr::select(-.data$Two, -.data$Four) %>%
+    dplyr::select(-"Two", -"Four") %>%
     dplyr::mutate(UNITID = as.character(.data$UNITID),
                   DEGREELEVEL = as.character(.data$DEGREELEVEL))
 

@@ -41,24 +41,24 @@ make_om_part_D <- function(df) {
                                          .default = "Extra",
                                          .missing = "Extra"),
                   COUNT = 1) %>%
-    dplyr::select(.data$UNITID,
-                  .data$STUDENTID,
-                  .data$COHORTTYPE,
-                  .data$RECIPIENT,
-                  .data$ENROLL,
-                  .data$COUNT) %>%
-    tidyr::pivot_wider(names_from = .data$ENROLL,
-                       values_from = .data$COUNT,
+    dplyr::select("UNITID",
+                  "STUDENTID",
+                  "COHORTTYPE",
+                  "RECIPIENT",
+                  "ENROLL",
+                  "COUNT") %>%
+    tidyr::pivot_wider(names_from = "ENROLL",
+                       values_from = "COUNT",
                        values_fill = 0) %>%
 
     #add empty rows for completeness
     bind_rows(d2_dummy) %>%
 
-    dplyr::select(.data$UNITID,
-                  .data$COHORTTYPE,
-                  .data$RECIPIENT,
-                  .data$ENROLLED,
-                  .data$ELSEWHERE) %>%
+    dplyr::select("UNITID",
+                  "COHORTTYPE",
+                  "RECIPIENT",
+                  "ENROLLED",
+                  "ELSEWHERE") %>%
 
     #aggregate
     dplyr::group_by(.data$UNITID,
@@ -71,9 +71,9 @@ make_om_part_D <- function(df) {
   partD <- dplyr::full_join(partD_1, partD_2,
                             by = c("UNITID", "COHORTTYPE", "RECIPIENT")) %>%
     #verify column order to prep for across
-    dplyr::select(.data$UNITID,
-                  .data$COHORTTYPE,
-                  .data$RECIPIENT,
+    dplyr::select("UNITID",
+                  "COHORTTYPE",
+                  "RECIPIENT",
                   dplyr::everything()) %>%
     #fix any NAs from the join -- pick only the numerics we're checking
     dplyr::mutate(dplyr::across(c(4:8),

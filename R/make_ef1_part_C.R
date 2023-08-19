@@ -19,11 +19,11 @@ make_ef1_part_C <- function(df) {
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
   partC_all <- df %>%
-               dplyr::select(.data$UNITID,
-                             .data$ISFIRSTTIME,
-                             .data$ISDEGREECERTSEEKING,
-                             .data$STUDENTLEVEL,
-                             .data$ADMITSTATE) %>%
+               dplyr::select("UNITID",
+                             "ISFIRSTTIME",
+                             "ISDEGREECERTSEEKING",
+                             "STUDENTLEVEL",
+                             "ADMITSTATE") %>%
                dplyr::filter(.data$ISFIRSTTIME == 1,
                              .data$ISDEGREECERTSEEKING == 1,
                              .data$STUDENTLEVEL == "Undergraduate") %>%
@@ -38,12 +38,12 @@ make_ef1_part_C <- function(df) {
 
   #have to do this separate because we DO want to double-COUNT the recent grads in both parts
   partC_recent <- df %>%
-                  dplyr::select(.data$UNITID,
-                                .data$ISFIRSTTIME,
-                                .data$ISDEGREECERTSEEKING,
-                                .data$STUDENTLEVEL,
-                                .data$ADMITSTATE,
-                                .data$ISRECENTGRAD) %>%
+                  dplyr::select("UNITID",
+                                "ISFIRSTTIME",
+                                "ISDEGREECERTSEEKING",
+                                "STUDENTLEVEL",
+                                "ADMITSTATE",
+                                "ISRECENTGRAD") %>%
                   dplyr::filter(.data$ISFIRSTTIME == 1,
                                 .data$ISDEGREECERTSEEKING == 1,
                                 .data$STUDENTLEVEL == "Undergraduate",

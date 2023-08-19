@@ -22,11 +22,11 @@ make_gr_part_C <- function(df) {
                                               TRUE ~ 3
                                               ),
                                   LINE = 10) %>%
-                    dplyr::select(.data$UNITID,
-                                  .data$PELLGRANT,
-                                  .data$DIRECTLOAN,
-                                  .data$SECTION,
-                                  .data$LINE)
+                    dplyr::select("UNITID",
+                                  "PELLGRANT",
+                                  "DIRECTLOAN",
+                                  "SECTION",
+                                  "LINE")
 
   #BA/nonBA completers by 150
   partC_toline18 <- df %>%
@@ -37,11 +37,11 @@ make_gr_part_C <- function(df) {
                                               TRUE ~ 3
                                               ),
                                   LINE = 18) %>%
-                    dplyr::select(.data$UNITID,
-                                  .data$PELLGRANT,
-                                  .data$DIRECTLOAN,
-                                  .data$SECTION,
-                                  .data$LINE)
+                    dplyr::select("UNITID",
+                                  "PELLGRANT",
+                                  "DIRECTLOAN",
+                                  "SECTION",
+                                  "LINE")
 
   #everyone by 150 and exclusions
   partC_toline45 <- df %>%
@@ -51,11 +51,11 @@ make_gr_part_C <- function(df) {
                                   LINE = case_when(.data$COMPLETED150 == 1 ~ 29,
                                                    .data$ISEXCLUSION == 1 ~ 45)
                                   ) %>%
-                    dplyr::select(.data$UNITID,
-                                  .data$PELLGRANT,
-                                  .data$DIRECTLOAN,
-                                  .data$SECTION,
-                                  .data$LINE)
+                    dplyr::select("UNITID",
+                                  "PELLGRANT",
+                                  "DIRECTLOAN",
+                                  "SECTION",
+                                  "LINE")
 
   #put it together
   partC <- dplyr::bind_rows(partC_toline10,

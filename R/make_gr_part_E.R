@@ -32,8 +32,8 @@ make_gr_part_E <- function(df, ugender) {
                                GENDERDETAIL == 2 ~ "Female",
                                GENDERDETAIL == 3 ~ "GRGU011",
                                GENDERDETAIL == 4 ~ "GRGU012")) %>%
-    select(-.data$GENDERDETAIL) %>%
-    pivot_wider(names_from = .data$GEN_COL, values_from = .data$COUNT)
+    select(-"GENDERDETAIL") %>%
+    pivot_wider(names_from = "GEN_COL", values_from = "COUNT")
 
   #add missing columns as nulls, if they don't already exist in the data
   if (!"GRGU011" %in% names(partE)) {

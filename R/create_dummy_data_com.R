@@ -67,7 +67,7 @@ create_dummy_data_com <- function(df_type = "student") {
                                                            40,  #set day to 40 (DNE)
                                                            .data$BirthDay)))) %>%
     dplyr::select(-c(.data$BirthYear,.data$BirthMonth,.data$BirthDay)) %>%
-    #NOTE: this is not an exact Age calculuation -- it doesn't handle leap years.
+    #NOTE: this is not an exact Age calculation -- it doesn't handle leap years.
     # I figured this is good enough for testing the Upload logic
     # To compute age including leap years, use logic that looks at year, then month, than day relative
     # to the arbitrary completions date used below.
@@ -125,11 +125,11 @@ create_dummy_data_com <- function(df_type = "student") {
     return(startingdf)
   } else {
     allcips <- startingdf %>%
-      dplyr::select(.data$MajorCip,
-                    .data$DegreeLevel,
-                    .data$DistanceEd,
-                    .data$DistanceEd31,
-                    .data$DistanceEd32) %>%
+      dplyr::select("MajorCip",
+                    "DegreeLevel",
+                    "DistanceEd",
+                    "DistanceEd31",
+                    "DistanceEd32") %>%
       unique() %>%
       #add one more at two levels (one level in use, one not in use)
       rbind(data.frame(MajorCip = 45.1001,
@@ -157,16 +157,16 @@ create_dummy_data_com <- function(df_type = "student") {
              Sex = 1,
              MajorNumber = 1,
              Count = 0) %>%
-      dplyr::select(.data$Unitid,
-             .data$MajorNumber,
-             .data$MajorCip,
-             .data$DegreeLevel,
-             .data$DistanceEd,
-             .data$DistanceEd31,
-             .data$DistanceEd32,
-             .data$RaceEthnicity,
-             .data$Sex,
-             .data$Count)
+      dplyr::select("Unitid",
+             "MajorNumber",
+             "MajorCip",
+             "DegreeLevel",
+             "DistanceEd",
+             "DistanceEd31",
+             "DistanceEd32",
+             "RaceEthnicity",
+             "Sex",
+             "Count")
 
     return(extracips)
   }

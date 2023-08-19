@@ -20,14 +20,14 @@ make_com_part_E <- function(df, ugender, ggender) {
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
   partE_counts <- df %>%
-    dplyr::select(.data$UNITID,
-                  .data$STUDENTID,
-                  .data$DEGREELEVEL,
-                  .data$GENDERDETAIL  #Binary = 1, 2;  Unknown = 3, Another = 4
+    dplyr::select("UNITID",
+                  "STUDENTID",
+                  "DEGREELEVEL",
+                  "GENDERDETAIL"  #Binary = 1, 2;  Unknown = 3, Another = 4
                   ) %>%
     #break into UG and GR levels
     dplyr::mutate(UGPB = ifelse(.data$DEGREELEVEL %in% c(7, 8, 17, 18, 19), 'GR', 'UG')) %>%
-    dplyr::select(-.data$DEGREELEVEL) %>%
+    dplyr::select(-"DEGREELEVEL") %>%
     #deduplicate
     dplyr::distinct() %>%
     #aggregate and count

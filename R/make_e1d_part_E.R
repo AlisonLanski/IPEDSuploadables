@@ -19,11 +19,11 @@ make_e1d_part_E <- function(df) {
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
     partE <- df %>%
-      dplyr::select(.data$UNITID,
-                    .data$STUDENTID,
-                    .data$ISHIGHSCHOOL,
-                    .data$RACEETHNICITY,
-                    .data$SEX) %>%
+      dplyr::select("UNITID",
+                    "STUDENTID",
+                    "ISHIGHSCHOOL",
+                    "RACEETHNICITY",
+                    "SEX") %>%
       dplyr::filter(.data$ISHIGHSCHOOL == 1) %>%
       dplyr::distinct() %>%
       dplyr::group_by(.data$UNITID,
