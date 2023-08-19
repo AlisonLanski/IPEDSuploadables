@@ -14,13 +14,13 @@
 #' #set temp directory for this example (not necessary for users)
 #' .old_wd <- setwd(tempdir())
 #' }
-#'
+#' \donttest{
 #' #entire report
 #' produce_hr_report(hr_staff)
 #'
 #' #subsection with csv output instead of key-value txt
 #' produce_hr_report(hr_staff, part = "A1", format = "readable")
-#'
+#' }
 #' \dontshow{
 #' #reset directory for this example (not necessary for users)
 #' setwd(.old_wd)

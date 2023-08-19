@@ -17,15 +17,15 @@ make_e1d_part_A <- function(df) {
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
   partA <- df %>%
-    dplyr::select(.data$UNITID,
-                  .data$STUDENTID,
-                  .data$ISFULLTIME,
-                  .data$ISFIRSTTIME,
-                  .data$ISTRANSFER,
-                  .data$ISDEGREECERTSEEKING,
-                  .data$STUDENTLEVEL,
-                  .data$RACEETHNICITY,
-                  .data$SEX) %>%
+    dplyr::select("UNITID",
+                  "STUDENTID",
+                  "ISFULLTIME",
+                  "ISFIRSTTIME",
+                  "ISTRANSFER",
+                  "ISDEGREECERTSEEKING",
+                  "STUDENTLEVEL",
+                  "RACEETHNICITY",
+                  "SEX") %>%
     dplyr::mutate(LINE = dplyr::case_when(
                                   .data$ISFULLTIME == 1 & .data$ISFIRSTTIME == 1 &
                                     .data$ISDEGREECERTSEEKING == 1 &

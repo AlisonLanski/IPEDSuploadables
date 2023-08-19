@@ -21,8 +21,8 @@ make_com_part_D <- function(df, extracips = NULL) {
 
     #check extracips list for award levels not included in the startingdf
     extralevel_D <- extracips %>%
-                    dplyr::select(.data$UNITID,
-                                  .data$DEGREELEVEL) %>%
+                    dplyr::select("UNITID",
+                                  "DEGREELEVEL") %>%
                     dplyr::distinct() %>%
                     dplyr::filter(!(.data$DEGREELEVEL %in% df$DEGREELEVEL)) %>%
                     #add dummy data to any award levels found
@@ -35,8 +35,8 @@ make_com_part_D <- function(df, extracips = NULL) {
                                   COUNTAGE = 0
                     ) %>%
                     #reorder for rbind
-                    dplyr::select(.data$UNITID,
-                                  .data$STUDENTID,
+                    dplyr::select("UNITID",
+                                  "STUDENTID",
                                   dplyr::everything())
   } else {
     extralevel_D <- data.frame(UNITID = df$UNITID[1],
@@ -68,12 +68,12 @@ make_com_part_D <- function(df, extracips = NULL) {
                                    stringsAsFactors = FALSE)
 
   partD <- df %>%
-    dplyr::select(.data$UNITID,
-                  .data$STUDENTID,
-                  .data$DEGREELEVEL,
-                  .data$RACEETHNICITY,
-                  .data$SEX,
-                  .data$AGE) %>%
+    dplyr::select("UNITID",
+                  "STUDENTID",
+                  "DEGREELEVEL",
+                  "RACEETHNICITY",
+                  "SEX",
+                  "AGE") %>%
     #add values which will be summed later
     dplyr::mutate(COUNTRE = 1,
                   COUNTSEX = 1,
@@ -99,7 +99,7 @@ make_com_part_D <- function(df, extracips = NULL) {
                                           "19" = 6,
                                           .default = 99)
     ) %>%
-    dplyr::select(-.data$DEGREELEVEL) %>%
+    dplyr::select(-"DEGREELEVEL") %>%
     #one row per student per level per unitid (keep RE/Sex/Birthdate)
     dplyr::distinct() %>%
     #recode and spread RaceEthnicity to get IPEDS columns
@@ -115,14 +115,14 @@ make_com_part_D <- function(df, extracips = NULL) {
                                          `9` = "CRACE23",
                                          .default = "ZRACEETH")
     ) %>%
-    tidyr::pivot_wider(names_from = .data$RACEETHNICITY, values_from = .data$COUNTRE) %>%
+    tidyr::pivot_wider(names_from = "RACEETHNICITY", values_from = "COUNTRE") %>%
     #recode and spread Sex to get IPEDS columns
     dplyr::mutate(SEX = recode(.data$SEX,
                                `1` = "CRACE15",
                                `2` = "CRACE16",
                                .default = "ZRACESEX")
     ) %>%
-    tidyr::pivot_wider(names_from = .data$SEX, values_from = .data$COUNTSEX) %>%
+    tidyr::pivot_wider(names_from = "SEX", values_from = "COUNTSEX") %>%
     #recode and spread Age to get IPEDS columns
     dplyr::mutate(AgeGroup = case_when(
       floor(.data$AGE) < 18 ~ "AGE1",
@@ -133,7 +133,7 @@ make_com_part_D <- function(df, extracips = NULL) {
       TRUE ~ "AGE9"
     )
     ) %>%
-    tidyr::pivot_wider(names_from = .data$AgeGroup, values_from = .data$COUNTAGE) %>%
+    tidyr::pivot_wider(names_from = "AgeGroup", values_from = "COUNTAGE") %>%
     #aggregate and add counts in spread columns;
     #extra award levels and dummy demographics have values of 0
     dplyr::group_by(.data$UNITID, .data$CTLEVEL) %>%

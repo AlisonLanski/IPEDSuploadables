@@ -28,10 +28,10 @@ make_hr_part_B3 <- function(df) {
                           .data$INSTRUCTIONAL == 0,
                           .data$FTPT == "F",
                           .data$OCCCATEGORY1 %in% c(13:17)) %>%
-            dplyr::select(.data$UNITID,
-                          .data$ISMEDICAL,
-                          .data$OCCCATEGORY1,
-                          .data$COUNT) %>%
+            dplyr::select("UNITID",
+                          "ISMEDICAL",
+                          "OCCCATEGORY1",
+                          "COUNT") %>%
             #add extra combinations
             dplyr::bind_rows(combos_B3) %>%
             #aggregate the full data

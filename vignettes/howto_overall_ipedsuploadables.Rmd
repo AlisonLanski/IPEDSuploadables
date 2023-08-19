@@ -53,7 +53,7 @@ Each IPEDS report has a vignette that spells out requirements and also has sampl
 
 | IPEDS Report | Required Dataframes | Sample Data |
 |:--------|:--------|:---------|
-| 12 Month Enrollment  | [students & instructional activity](setup_for_12monthenrollment.html)  |  e1d_student, e1d_instr  |
+| 12 Month Enrollment  | [students & instructional activity](setup_for_12monthenrollment.html)  |  e1d_students, e1d_instr  |
 | Completions  | [students & extra cips](setup_for_completions.html)  | com_students, com_cips  |
 | Fall Enrollment  | [students & retention aggregate](setup_for_fallenrollment.html)  |  ef1_students, ef1_retention  |
 | Graduation Rates  | [students](setup_for_gr.html)  |  gr_students  |
@@ -65,7 +65,7 @@ Each IPEDS report has a vignette that spells out requirements and also has sampl
 You can call the sample data as desired to explore it
 ```{r dummy_data, eval = TRUE}
 #dataframe of student information for 12 month enrollment
-head(e1d_student)
+head(e1d_students)
 ```
 
 
@@ -80,21 +80,25 @@ Each IPEDS report has a single function which will produce all required sub-part
 Example:
 ```{r produce_report, eval=FALSE}
 #full export using sample data
-produce_e1d_report(df = e1d_student, hrs = e1d_instr, part = "ALL")
+produce_e1d_report(df = e1d_students, hrs = e1d_instr, part = "ALL")
 ```
 
 
 A message will be display the location of your file when it has been processed.
 
-### Note about new gender collection for 2022-2023 reporting cycle
+### Note about the gender collection updates for 2023-2024 reporting cycle
+  
+These update affect the scripts for Completions, 12 Month Enrollment, Graduation Rates, and Fall Enrollment.
   
 Scripts are set to assume that you ARE able to report on "another gender" in this reporting cycle.
-This applies to Completions, 12 Month Enrollment, and Graduation Rates.
+They will automatically mask data if you have fewer than 5 students in the "another gender" category.
+Therefore, as long as you have the capacity to report Another Gender, you should keep the default of `TRUE` even if you have no students or very few students in that category.
+
   
 If you are **NOT** able to collect/report on students of "another gender" this cycle
 
-* Set ugender = FALSE (for undergraduates) in the produce function
-* Set ggender = FALSE (for graduates) in the produce function
+* Set `ugender = FALSE` (for undergraduates) in the produce function
+* Set `ggender = FALSE` (for graduates) in the produce function
 
 Example:
 ```{r gender_example, eval = FALSE}
@@ -115,11 +119,16 @@ Fall Enrollment
 
 * Your student-faculty ratio number is collected via pop-up box.  Type a whole number when prompted.
 
-* The main function auto-detects the IPEDS submission year and adjusts the sections of cip-based enrollment, student age, and student residence state appropriately to be in or out of your report.  If you would like to report data in optional years, change the include_optional flag to TRUE. 
+* The main function auto-detects the IPEDS submission year and adjusts the sections of cip-based enrollment, student age, and student residence state appropriately to be in or out of your report.  If you would like to report data in optional years, change the `include_optional` flag to `TRUE`. 
 
 Human Resources
 
-* The script requires one dataframe with all current employees and new hires. If someone is counted in both sections of the report, include them only once in your institutional data with the appropriate flags.
+* The script requires one dataframe with all current employees and new hires. If someone is counted in both sections of the report, include them only once in your institutional data with the appropriate flags.  
+  
+Admissions  
+  
+* A sample university-specific script is shown in the vignette [How to produce other key-value uploads](howto_use_autoformat.html) as an example of the data preparation process. The sample code includes data masking for fewer than five students of Another Gender and for exam percentiles with fewer than five SAT or ACT scores.
+
 
 ## Step 3: Upload your IPEDS report
   
@@ -138,7 +147,7 @@ Human Resources
 Update your base data, rerun the package function, and re-upload to IPEDS.  You can upload as many times as you want to any particular survey.  
 Your keyholder may be able to edit directly in the website, but this method is not recommended since it is not reproducible.
 
-If you verify that your data and dataframe(s) are correct, but IPEDS still shows incorrect aggregation, please contact the package authors by adding a GitHub issue or by emailing. We can provide the quickest help if you share an example with sample data, expected output, and actual output.
+If you verify that your data and dataframe(s) are correct, but IPEDS still shows incorrect aggregation, please contact the package authors by adding a [GitHub issue](https://github.com/AlisonLanski/IPEDSuploadables/issues) or by emailing (if you search online for *Alison Lanski* and *Notre Dame*, you can get to a valid email address). We can provide the quickest help if you share an example with sample data, expected output, and actual output.
 
 #### IPEDS rejects your upload file or accepts the file but provides an error message
 Common issues include:
@@ -147,7 +156,7 @@ Common issues include:
 * Your upload is missing a sub-part of the report
 * IPEDS is expecting particular information based on previous years of reporting which is inconsistent or missing
 
-*For example, IPEDS wants all previous CIP/Award Level combinations reported on the current upload file. If you have no students in those categories, add any flagged CIP/Award combinations to your extra_cips dataframe, rerun, and reupload to remove this error message*
+*For example, IPEDS wants all previous CIP/Award Level combinations reported on the current completions upload file. If you have no students in those categories, add any flagged CIP/Award combinations to your extra_cips dataframe, rerun, and reupload to remove this error message*
 
 #### How the package can help you troubleshoot
 
@@ -174,7 +183,7 @@ At the end of every IPEDS collection cycle, that year's package code will be sav
 
 ```{r branch, eval=FALSE}
 #install, picking an acceptable year range
-remotes::install_github(repo = "AlisonLanski/IPEDSuploadables", ref = "reporting_year_2020-2021")
+devtools::install_github(repo = "AlisonLanski/IPEDSuploadables", ref = "reporting_year_2022-2023")
 ```
 
 When you have finished running your code, reinstall the current version of the package by removing the "ref" argument.

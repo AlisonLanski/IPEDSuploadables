@@ -18,7 +18,7 @@ gtag('config', 'G-NSXZV7NDWP'); </script></head><body data-spy="scroll" data-tar
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">IPEDSuploadables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.6.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.7.5</span>
       </span>
     </div>
 
@@ -88,59 +88,84 @@ gtag('config', 'G-NSXZV7NDWP'); </script></head><body data-spy="scroll" data-tar
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">produce_ef1_report</span><span class="op">(</span>
-  <span class="va">students</span>,
-  <span class="va">retention</span>,
-  part <span class="op">=</span> <span class="st">"ALL"</span>,
-  include_optional <span class="op">=</span> <span class="cn">FALSE</span>,
-  format <span class="op">=</span> <span class="st">"uploadable"</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">produce_ef1_report</span><span class="op">(</span></span>
+<span>  <span class="va">students</span>,</span>
+<span>  <span class="va">retention</span>,</span>
+<span>  part <span class="op">=</span> <span class="st">"ALL"</span>,</span>
+<span>  include_optional <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  format <span class="op">=</span> <span class="st">"uploadable"</span>,</span>
+<span>  ugender <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  ggender <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>students</dt>
 <dd><p>A dataframe set up according to the readme with student data</p></dd>
+
+
 <dt>retention</dt>
 <dd><p>A dataframe set up according to the readme with retention data</p></dd>
+
+
 <dt>part</dt>
 <dd><p>A string with what part of the report you want to produce: 'all', 'A', etc.</p></dd>
+
+
 <dt>include_optional</dt>
 <dd><p>A boolean flag for whether optional parts should be included</p></dd>
+
+
 <dt>format</dt>
 <dd><p>A string (<code>"uploadable"</code> will produce a properly formatted
 upload file. <code>"readable"</code> will produce a csv of the upload file (only
 works for one part at a time). <code>"both"</code> will provide both options, but
 only works with one part at a time.</p></dd>
+
+
+<dt>ugender</dt>
+<dd><p>A boolean: TRUE means you are collecting and able to report
+"another gender" for undergraduate completers. Set as FALSE if necessary</p></dd>
+
+
+<dt>ggender</dt>
+<dd><p>A boolean: TRUE means you are collecting and able to report
+"another gender" for graduate completers. Set as FALSE if necessary</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A txt or csv file at the path of your choice</p>
+    
+
+<p>A txt or csv file at the path of your choice</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># \dontshow{</span></span>
-<span class="r-in"><span class="co">#set temp directory for this example (not necessary for users)</span></span>
-<span class="r-in"><span class="va">.old_wd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># }</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#entire report</span></span>
-<span class="r-in"><span class="fu">produce_ef1_report</span><span class="op">(</span><span class="va">ef1_students</span>, <span class="va">ef1_retention</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Uploadable results available at C:/Users/alanski/AppData/Local/Temp/RtmpwdnKkR/FallEnrollment_AllParts_2022-12-07.txt</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#entire report with optional sections</span></span>
-<span class="r-in"><span class="fu">produce_ef1_report</span><span class="op">(</span><span class="va">ef1_students</span>, <span class="va">ef1_retention</span>, include_optional <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Uploadable results available at C:/Users/alanski/AppData/Local/Temp/RtmpwdnKkR/FallEnrollment_AllParts_2022-12-07.txt</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#one part as csv instead of key-value</span></span>
-<span class="r-in"><span class="fu">produce_ef1_report</span><span class="op">(</span><span class="va">ef1_students</span>, part <span class="op">=</span> <span class="st">'D'</span>, format <span class="op">=</span> <span class="st">'readable'</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Readable results available at  C:/Users/alanski/AppData/Local/Temp/RtmpwdnKkR/FallEnrollment_PartD_Readable_2022-12-07.csv</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># \dontshow{</span></span>
-<span class="r-in"><span class="co">#reset directory for this example (not necessary for users)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="va">.old_wd</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># }</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \dontshow{</span></span></span>
+<span class="r-in"><span><span class="co">#set temp directory for this example (not necessary for users)</span></span></span>
+<span class="r-in"><span><span class="va">.old_wd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+<span class="r-in"><span><span class="co">#entire report</span></span></span>
+<span class="r-in"><span><span class="fu">produce_ef1_report</span><span class="op">(</span><span class="va">ef1_students</span>, <span class="va">ef1_retention</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Uploadable results available at C:/Users/alanski/AppData/Local/Temp/RtmpiCrPPr/FallEnrollment_AllParts_2023-02-04.txt</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#entire report with optional sections</span></span></span>
+<span class="r-in"><span><span class="fu">produce_ef1_report</span><span class="op">(</span><span class="va">ef1_students</span>, <span class="va">ef1_retention</span>, include_optional <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Uploadable results available at C:/Users/alanski/AppData/Local/Temp/RtmpiCrPPr/FallEnrollment_AllParts_2023-02-04.txt</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#one part as csv instead of key-value</span></span></span>
+<span class="r-in"><span><span class="fu">produce_ef1_report</span><span class="op">(</span><span class="va">ef1_students</span>, part <span class="op">=</span> <span class="st">'D'</span>, format <span class="op">=</span> <span class="st">'readable'</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Readable results available at  C:/Users/alanski/AppData/Local/Temp/RtmpiCrPPr/FallEnrollment_PartD_Readable_2023-02-04.csv</span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># \dontshow{</span></span></span>
+<span class="r-in"><span><span class="co">#reset directory for this example (not necessary for users)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="va">.old_wd</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -155,7 +180,7 @@ only works with one part at a time.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

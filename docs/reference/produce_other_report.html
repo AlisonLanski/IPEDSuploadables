@@ -24,7 +24,7 @@ gtag('config', 'G-NSXZV7NDWP'); </script></head><body data-spy="scroll" data-tar
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">IPEDSuploadables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.6.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.7.5</span>
       </span>
     </div>
 
@@ -100,22 +100,32 @@ gtag('config', 'G-NSXZV7NDWP'); </script></head><body data-spy="scroll" data-tar
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">produce_other_report</span><span class="op">(</span><span class="va">...</span>, survey <span class="op">=</span> <span class="st">"MySurvey"</span>, part <span class="op">=</span> <span class="st">"AllParts"</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">produce_other_report</span><span class="op">(</span><span class="va">...</span>, survey <span class="op">=</span> <span class="st">"MySurvey"</span>, part <span class="op">=</span> <span class="st">"AllParts"</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>...</dt>
 <dd><p>dataframes (one for each survey part, in order)</p></dd>
+
+
 <dt>survey</dt>
 <dd><p>string with the survey name you'd like in your filename</p></dd>
+
+
 <dt>part</dt>
 <dd><p>string with the part name (subname) you'd like your file name</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>txt file on your computer with the title
-<em>[survey]_[part]_[today's date].txt</em></p>
+    
+
+<p>txt file on your computer with the title</p>
+<p></p>
+<p><em>[survey]_[part]_[today's date].txt</em></p>
+
+
     </div>
     <div id="note">
     <h2>Note</h2>
@@ -126,19 +136,19 @@ gtag('config', 'G-NSXZV7NDWP'); </script></head><body data-spy="scroll" data-tar
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># \dontshow{</span></span>
-<span class="r-in"><span class="va">.old_wd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># }</span></span>
-<span class="r-in"><span class="co">#With built-in R data</span></span>
-<span class="r-in"><span class="fu">produce_other_report</span><span class="op">(</span><span class="va">mtcars</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,<span class="op">]</span>, <span class="va">iris</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,<span class="op">]</span>, <span class="va">ToothGrowth</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,<span class="op">]</span>, survey <span class="op">=</span> <span class="st">'FakeSurvey'</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Uploadable results available at C:/Users/alanski/AppData/Local/Temp/RtmpwdnKkR/FakeSurvey_AllParts_2022-12-07.txt</span>
-<span class="r-in"><span class="co"># \dontshow{</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="va">.old_wd</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># }</span></span>
-<span class="r-in"><span class="co"># \donttest{</span></span>
-<span class="r-in"><span class="co">#Will not execute properly (argument unnamed)</span></span>
-<span class="r-in"><span class="co">#produce_other_report(mtcars[1:5,], iris[1:5,], ToothGrowth[1:5,], 'FakeSurvey')</span></span>
-<span class="r-in"><span class="co"># }</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \dontshow{</span></span></span>
+<span class="r-in"><span><span class="va">.old_wd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
+<span class="r-in"><span><span class="co">#With built-in R data</span></span></span>
+<span class="r-in"><span><span class="fu">produce_other_report</span><span class="op">(</span><span class="va">mtcars</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,<span class="op">]</span>, <span class="va">iris</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,<span class="op">]</span>, <span class="va">ToothGrowth</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,<span class="op">]</span>, survey <span class="op">=</span> <span class="st">'FakeSurvey'</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Uploadable results available at C:/Users/alanski/AppData/Local/Temp/RtmpiCrPPr/FakeSurvey_AllParts_2023-02-04.txt</span>
+<span class="r-in"><span><span class="co"># \dontshow{</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="va">.old_wd</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
+<span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+<span class="r-in"><span><span class="co">#Will not execute properly (argument unnamed)</span></span></span>
+<span class="r-in"><span><span class="co">#produce_other_report(mtcars[1:5,], iris[1:5,], ToothGrowth[1:5,], 'FakeSurvey')</span></span></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -153,7 +163,7 @@ gtag('config', 'G-NSXZV7NDWP'); </script></head><body data-spy="scroll" data-tar
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

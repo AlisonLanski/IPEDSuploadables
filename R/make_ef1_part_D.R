@@ -19,11 +19,11 @@ make_ef1_part_D <- function(df) {
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
   partD <- df %>%
-           dplyr::select(.data$UNITID,
-                         .data$ISDEGREECERTSEEKING,
-                         .data$STUDENTLEVEL,
-                         .data$ISFIRSTTIME,
-                         .data$ISTRANSFER) %>%
+           dplyr::select("UNITID",
+                         "ISDEGREECERTSEEKING",
+                         "STUDENTLEVEL",
+                         "ISFIRSTTIME",
+                         "ISTRANSFER") %>%
            dplyr::mutate(NEWNONDEGREE = as.numeric(.data$ISDEGREECERTSEEKING == 0 &
                                                   .data$STUDENTLEVEL == "Undergraduate" &
                                                   (.data$ISFIRSTTIME == 1 | .data$ISTRANSFER == 1))) %>%

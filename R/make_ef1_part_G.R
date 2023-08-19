@@ -31,13 +31,13 @@ make_ef1_part_G <- function(df) {
                  dplyr::mutate(STUDENTID = paste0(.data$STUDENTID, 1:dplyr::n()))
 
   partG <- df %>%
-           dplyr::select(.data$UNITID,
-                         .data$UNITIDSTATE,
-                         .data$STUDENTID,
-                         .data$ISDEGREECERTSEEKING,
-                         .data$STUDENTLEVEL,
-                         .data$ONLINESTATE,
-                         .data$DISTANCEED) %>%
+           dplyr::select("UNITID",
+                         "UNITIDSTATE",
+                         "STUDENTID",
+                         "ISDEGREECERTSEEKING",
+                         "STUDENTLEVEL",
+                         "ONLINESTATE",
+                         "DISTANCEED") %>%
             dplyr::mutate(counter = 1,
                           dummyrow = 0) %>%
             dplyr::bind_rows(partG_dummy) %>%
@@ -47,9 +47,9 @@ make_ef1_part_G <- function(df) {
                                          .data$ONLINESTATE <= 78 ~ 'INUS_OUTSTATE',
                                          .data$ONLINESTATE == 90 ~ 'OUTUS',
                                          TRUE ~ 'Nope')) %>%
-            tidyr::pivot_wider(names_from = .data$StateGroup,
-                               values_from = .data$counter, values_fill = 0) %>%
-            dplyr::select(-.data$Nope) %>%
+            tidyr::pivot_wider(names_from = "StateGroup",
+                               values_from = "counter", values_fill = 0) %>%
+            dplyr::select(-"Nope") %>%
            dplyr::mutate(LINE = dplyr::case_when(.data$ISDEGREECERTSEEKING == 1 & .data$STUDENTLEVEL == "Undergraduate" ~ 1,
                                    .data$ISDEGREECERTSEEKING == 0 & .data$STUDENTLEVEL == "Undergraduate" ~ 2,
                                    .data$STUDENTLEVEL == "Graduate" ~ 3

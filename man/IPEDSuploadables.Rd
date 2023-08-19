@@ -3,6 +3,7 @@
 \docType{package}
 \name{IPEDSuploadables}
 \alias{IPEDSuploadables}
+\alias{IPEDSuploadables-package}
 \title{\code{IPEDSuploadables} package}
 \description{
 Tools to assist data formatting for upload to IPEDS surveys

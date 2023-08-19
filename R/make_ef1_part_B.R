@@ -19,11 +19,11 @@ make_ef1_part_B <- function(df) {
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
   partB <- df %>%
-           dplyr::select(.data$UNITID,
-                         .data$ISFULLTIME,
-                         .data$AGE,
-                         .data$STUDENTLEVEL,
-                         .data$SEX) %>%
+           dplyr::select("UNITID",
+                         "ISFULLTIME",
+                         "AGE",
+                         "STUDENTLEVEL",
+                         "SEX") %>%
            dplyr::mutate(LINE = dplyr::case_when(
                                          .data$ISFULLTIME == 1 & .data$AGE <= 17 ~ 1,
                                          .data$ISFULLTIME == 1 & .data$AGE <= 19 ~ 2,

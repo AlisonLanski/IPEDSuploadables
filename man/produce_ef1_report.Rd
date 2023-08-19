@@ -17,11 +17,14 @@ produce_ef1_report(
 \arguments{
 \item{students}{A dataframe set up according to the readme with student data}
 
-\item{retention}{A dataframe set up according to the readme with retention data}
+\item{retention}{A dataframe set up according to the readme with retention
+data}
 
-\item{part}{A string with what part of the report you want to produce: 'all', 'A', etc.}
+\item{part}{A string with what part of the report you want to produce: 'all',
+'A', etc.}
 
-\item{include_optional}{A boolean flag for whether optional parts should be included}
+\item{include_optional}{A boolean flag for whether optional parts should be
+included}
 
 \item{format}{A string (\code{"uploadable"} will produce a properly formatted
 upload file. \code{"readable"} will produce a csv of the upload file (only
@@ -29,10 +32,12 @@ works for one part at a time). \code{"both"} will provide both options, but
 only works with one part at a time.}
 
 \item{ugender}{A boolean: TRUE means you are collecting and able to report
-"another gender" for undergraduate completers. Set as FALSE if necessary}
+"another gender" for undergraduate completers, even if you have no (or few)
+such students. Set as FALSE if necessary}
 
 \item{ggender}{A boolean: TRUE means you are collecting and able to report
-"another gender" for graduate completers. Set as FALSE if necessary}
+"another gender" for graduate completers, even if you have no (or few) such
+students. Set as FALSE if necessary}
 }
 \value{
 A txt or csv file at the path of your choice
@@ -46,6 +51,7 @@ Shortcut function with all steps to provide a Fall Enrollment report
 .old_wd <- setwd(tempdir())
 }
 
+\donttest{
 #entire report
 produce_ef1_report(ef1_students, ef1_retention)
 
@@ -54,6 +60,7 @@ produce_ef1_report(ef1_students, ef1_retention, include_optional = TRUE)
 
 #one part as csv instead of key-value
 produce_ef1_report(ef1_students, part = 'D', format = 'readable')
+}
 
 \dontshow{
 #reset directory for this example (not necessary for users)

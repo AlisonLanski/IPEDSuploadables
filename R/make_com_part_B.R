@@ -19,13 +19,13 @@ make_com_part_B <- function(df, extracips = NULL) {
     colnames(extracips) <- stringr::str_to_upper(colnames(extracips))
 
     extracips_B <- extracips %>%
-                   dplyr::select(.data$UNITID,
-                                 .data$MAJORNUMBER,
-                                 .data$MAJORCIP,
-                                 .data$DEGREELEVEL,
-                                 .data$DISTANCEED,
-                                 .data$DISTANCEED31,
-                                 .data$DISTANCEED32)
+                   dplyr::select("UNITID",
+                                 "MAJORNUMBER",
+                                 "MAJORCIP",
+                                 "DEGREELEVEL",
+                                 "DISTANCEED",
+                                 "DISTANCEED31",
+                                 "DISTANCEED32")
   } else {
     extracips_B <- data.frame("UNITID" = NA,
                               "MAJORNUMBER" = NA,
@@ -40,13 +40,13 @@ make_com_part_B <- function(df, extracips = NULL) {
 
   #prep upload
   partB <- df %>%
-           dplyr::select(.data$UNITID,
-                         .data$MAJORNUMBER,
-                         .data$MAJORCIP,
-                         .data$DEGREELEVEL,
-                         .data$DISTANCEED,
-                         .data$DISTANCEED31,
-                         .data$DISTANCEED32) %>%
+           dplyr::select("UNITID",
+                         "MAJORNUMBER",
+                         "MAJORCIP",
+                         "DEGREELEVEL",
+                         "DISTANCEED",
+                         "DISTANCEED31",
+                         "DISTANCEED32") %>%
            dplyr::distinct() %>%
            #if we need to add the extra cips, do it here
            dplyr::bind_rows(extracips_B) %>%

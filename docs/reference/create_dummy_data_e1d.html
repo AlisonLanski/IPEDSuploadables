@@ -19,7 +19,7 @@ gtag('config', 'G-NSXZV7NDWP'); </script></head><body data-spy="scroll" data-tar
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">IPEDSuploadables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.6.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.7.5</span>
       </span>
     </div>
 
@@ -90,17 +90,20 @@ Produces either a student dataframe or a dataframe of instructional activity, de
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">create_dummy_data_e1d</span><span class="op">(</span>df_type <span class="op">=</span> <span class="st">"student"</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">create_dummy_data_e1d</span><span class="op">(</span>df_type <span class="op">=</span> <span class="st">"student"</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>df_type</dt>
 <dd><p>a string: "student" to get the main df needed, "instr" to get instructionalactivity</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>a dataframe ready for the rest of the e1d scripts</p>
+    
+
+<p>a dataframe ready for the rest of the e1d scripts</p>
     </div>
     <div id="note">
     <h2>Note</h2>
@@ -115,11 +118,11 @@ UG include: 20 first time, 20 transfer, 20 continuing/returning;
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1892</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">student_df</span> <span class="op">&lt;-</span> <span class="fu">create_dummy_data_e1d</span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">instr_df</span> <span class="op">&lt;-</span> <span class="fu">create_dummy_data_e1d</span><span class="op">(</span>df_type <span class="op">=</span> <span class="st">"instr"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1892</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">student_df</span> <span class="op">&lt;-</span> <span class="fu">create_dummy_data_e1d</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">instr_df</span> <span class="op">&lt;-</span> <span class="fu">create_dummy_data_e1d</span><span class="op">(</span>df_type <span class="op">=</span> <span class="st">"instr"</span><span class="op">)</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -134,7 +137,7 @@ UG include: 20 first time, 20 transfer, 20 continuing/returning;
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

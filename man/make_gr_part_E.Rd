@@ -7,10 +7,12 @@
 make_gr_part_E(df, ugender)
 }
 \arguments{
-\item{df}{A dataframe of student/degree information for unduplicated undergraduates}
+\item{df}{A dataframe of student/degree information for unduplicated
+undergraduates}
 
 \item{ugender}{A boolean: TRUE means you are collecting and able to report
-"another gender" for undergraduate students. Set as FALSE if necessary}
+"another gender" for undergraduate students, even if you have no (or few)
+such students. Set as FALSE if necessary}
 }
 \value{
 A df aggregated for the survey part

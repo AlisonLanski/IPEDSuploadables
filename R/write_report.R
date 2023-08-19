@@ -23,8 +23,10 @@ write_report <- function(..., survey, part, output_path) {
 
   dfs <- list(...)
 
-  #remove any empty dfs (can happen from fall enrollment, maybe others)
-  purrr::compact(dfs) %>%
+  #remove any empty dfs (can happen from fall enrollment, 12 month enrollment, maybe others)
+  dfs %>%
+
+    purrr::discard(~ nrow(.x) == 0) %>%
 
     purrr::map_df(apply_upload_format) %>%
 

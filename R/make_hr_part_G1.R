@@ -32,13 +32,13 @@ make_hr_part_G1 <- function(df) {
                           .data$INSTRUCTIONAL == 1, #instructional
                           .data$ISMEDICAL == 0, #non-medical
                           .data$FTPT == "F") %>%
-            dplyr::select(.data$UNITID,
-                          .data$RANK,
-                          .data$GENDER,
-                          .data$MONTHS,
-                          .data$SALARY,
-                          .data$EMPID,
-                          .data$COUNT) %>%
+            dplyr::select("UNITID",
+                          "RANK",
+                          "GENDER",
+                          "MONTHS",
+                          "SALARY",
+                          "EMPID",
+                          "COUNT") %>%
             #add extra combinations
             dplyr::bind_rows(combos_G1) %>%
             #reset rank 7 as rank 6
@@ -57,10 +57,10 @@ make_hr_part_G1 <- function(df) {
                                                      `9` = "9mSoutlays",
                                                      .default = "ZzSoutlays")
             ) %>%
-            tidyr::pivot_wider(names_from = .data$months_count,
-                               values_from = .data$COUNT) %>%
-            tidyr::pivot_wider(names_from = .data$salary_sum,
-                               values_from = .data$SALARY) %>%
+            tidyr::pivot_wider(names_from = "months_count",
+                               values_from = "COUNT") %>%
+            tidyr::pivot_wider(names_from = "salary_sum",
+                               values_from = "SALARY") %>%
             #aggregate the full data
             dplyr::group_by(.data$UNITID, .data$RANK, .data$GENDER) %>%
             dplyr::summarize(`12mCOUNT` = sum(.data$`12mCOUNT`, na.rm = T),

@@ -18,7 +18,7 @@ cranlogs::cran_downloads(
     color = "blue",
     size = 1
   ) +
-  geom_line(color = "black", size = 2) +
+  geom_line(color = "black", linewidth = 1) +
 
   #general visuals
   theme_minimal() +
@@ -51,8 +51,9 @@ cranlogs::cran_downloads(
   to = lubridate::today(),
   packages = c("IPEDSuploadables")
 ) %>%
-  mutate(Month = lubridate::month(date, label = TRUE)) %>%
-  group_by(Month) %>%
+  mutate(Year = lubridate::year(date),
+         Month = lubridate::month(date, label = TRUE)) %>%
+  group_by(Year, Month) %>%
   summarize(Downloads = sum(count)) %>%
+  ungroup() %>%
   mutate(RunningTotal = cumsum(.data$Downloads))
-
