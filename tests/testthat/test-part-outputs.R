@@ -20,12 +20,12 @@ test_that("COM parts produce expected dfs", {
 ### E1D
 
 #adding for new gender testing starting in 2023
-e1d_partE_df <- data.frame(UNITID = 999999,
+e1d_partD_df <- data.frame(UNITID = 999999,
                            STUDENTID = c(1:15),
                            STUDENTLEVEL = c(rep('Undergraduate', 6), rep('Graduate', 9)),
                            GENDERDETAIL = c(rep(4, 10), rep(3, 5)))
 
-e1d_partE_TrueTrue <- data.frame(UNITID = 999999,
+e1d_partD_TrueTrue <- data.frame(UNITID = 999999,
                                  SURVSECT = "E1D",
                                  PART = "D",
                                  FYGU01 = 1,
@@ -38,11 +38,12 @@ e1d_partE_TrueTrue <- data.frame(UNITID = 999999,
 test_that("E1D parts produce expected dfs", {
 
   #tests
-  expect_equal(make_e1d_part_A(e1d_student), part_outputs$e1d_partA)
+  expect_equal(make_e1d_part_A(e1d_students), part_outputs$e1d_partA)
   expect_equal(make_e1d_part_B(e1d_instr), part_outputs$e1d_partB)
-  expect_equal(make_e1d_part_C(e1d_student), part_outputs$e1d_partC)
-  expect_equal(make_e1d_part_D(e1d_student, ugender = TRUE, ggender = TRUE), part_outputs$e1d_partD)
-  expect_equal(make_e1d_part_D(e1d_partE_df, ugender = TRUE, ggender = TRUE), e1d_partE_TrueTrue)
+  expect_equal(make_e1d_part_C(e1d_students), part_outputs$e1d_partC)
+  expect_equal(make_e1d_part_D(e1d_students, ugender = TRUE, ggender = TRUE), part_outputs$e1d_partD)
+  expect_equal(make_e1d_part_D(e1d_partD_df, ugender = TRUE, ggender = TRUE), e1d_partD_TrueTrue)
+  expect_equal(make_e1d_part_E(e1d_students), part_outputs$e1d_partE)
 })
 
 ########
@@ -153,7 +154,7 @@ test_that("OM parts produce expected dfs", {
 #   e1d_partA = e1d_partA,
 #   e1d_partB = e1d_partB,
 #   e1d_partC = e1d_partC,
-#   e1d_partD = make_e1d_part_D(e1d_student, TRUE, TRUE),
+#   e1d_partD = make_e1d_part_D(e1d_students, TRUE, TRUE),
 #   ef1_partA_FALSE = `ef1_partA-FALSE`,
 #   ef1_partA_TRUE = `ef1_partA-TRUE`,
 #   ef1_partB = ef1_partB,

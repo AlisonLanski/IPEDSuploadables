@@ -53,7 +53,7 @@ Each IPEDS report has a vignette that spells out requirements and also has sampl
 
 | IPEDS Report | Required Dataframes | Sample Data |
 |:--------|:--------|:---------|
-| 12 Month Enrollment  | [students & instructional activity](setup_for_12monthenrollment.html)  |  e1d_student, e1d_instr  |
+| 12 Month Enrollment  | [students & instructional activity](setup_for_12monthenrollment.html)  |  e1d_students, e1d_instr  |
 | Completions  | [students & extra cips](setup_for_completions.html)  | com_students, com_cips  |
 | Fall Enrollment  | [students & retention aggregate](setup_for_fallenrollment.html)  |  ef1_students, ef1_retention  |
 | Graduation Rates  | [students](setup_for_gr.html)  |  gr_students  |
@@ -65,7 +65,7 @@ Each IPEDS report has a vignette that spells out requirements and also has sampl
 You can call the sample data as desired to explore it
 ```{r dummy_data, eval = TRUE}
 #dataframe of student information for 12 month enrollment
-head(e1d_student)
+head(e1d_students)
 ```
 
 
@@ -80,7 +80,7 @@ Each IPEDS report has a single function which will produce all required sub-part
 Example:
 ```{r produce_report, eval=FALSE}
 #full export using sample data
-produce_e1d_report(df = e1d_student, hrs = e1d_instr, part = "ALL")
+produce_e1d_report(df = e1d_students, hrs = e1d_instr, part = "ALL")
 ```
 
 

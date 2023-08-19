@@ -48,10 +48,10 @@ Shortcut function with all steps to provide a 12 Month Enrollment report
 }
 \donttest{
 #entire report
-produce_e1d_report(e1d_student, e1d_instr)
+produce_e1d_report(e1d_students, e1d_instr)
 
 #one part, as csv instead of key-value file
-produce_e1d_report(e1d_student, part = "A", format = "readable")
+produce_e1d_report(e1d_students, part = "A", format = "readable")
 }
 \dontshow{
 #reset directory for this example (not necessary for users)

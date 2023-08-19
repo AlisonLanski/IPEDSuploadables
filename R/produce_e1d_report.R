@@ -26,10 +26,10 @@
 #'}
 #'\donttest{
 #'#entire report
-#'produce_e1d_report(e1d_student, e1d_instr)
+#'produce_e1d_report(e1d_students, e1d_instr)
 #'
 #'#one part, as csv instead of key-value file
-#'produce_e1d_report(e1d_student, part = "A", format = "readable")
+#'produce_e1d_report(e1d_students, part = "A", format = "readable")
 #'}
 #'\dontshow{
 #' #reset directory for this example (not necessary for users)
@@ -39,7 +39,7 @@
 produce_e1d_report <- function(df, hrs, part = "ALL", format = "uploadable",
                                ugender = TRUE, ggender = TRUE) {
 
-  stopifnot(toupper(part) %in% c("A", "B", "C", "D", "ALL"),
+  stopifnot(toupper(part) %in% c("A", "B", "C", "D", "E", "ALL"),
             toupper(format) %in% c("UPLOADABLE", "READABLE", "BOTH"))
 
   survey <- "12MonthEnrollment"
@@ -53,11 +53,12 @@ produce_e1d_report <- function(df, hrs, part = "ALL", format = "uploadable",
       make_e1d_part_C(df),
       make_e1d_part_B(hrs),
       make_e1d_part_D(df, ugender, ggender),
+      make_e1d_part_E(df),
       survey = survey,
       part = 'AllParts',
       output_path = output_path
     )
-  } else if(toupper(part) %in% c("A", "B", "C", "D")) {
+  } else if(toupper(part) %in% c("A", "B", "C", "D", "E")) {
 
     if(toupper(format) %in% c("UPLOADABLE", "BOTH")){
 
