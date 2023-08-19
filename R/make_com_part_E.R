@@ -86,11 +86,11 @@ make_com_part_E <- function(df, ugender, ggender) {
            partE_counts$GENDERDETAIL == 4) == 1){
       partE$CGU012 <- partE_counts$COUNT[partE_counts$UGPB == 'UG' &
                                            partE_counts$GENDERDETAIL == 4]
-      #BUT -- New in 2023 - mask if < 5 and set initial inquiry as "small N"
-      if(partE$CGU012 < 5){
-        partE$CGU012 <- -2
-        partE$CGU01 <- 3
-      }
+    }
+    #BUT -- New in 2023 - mask if < 5 and set initial inquiry as "small N"
+    if(partE$CGU012 < 5){
+      partE$CGU012 <- -2
+      partE$CGU01 <- 3
     }
   }
 
@@ -122,11 +122,11 @@ make_com_part_E <- function(df, ugender, ggender) {
              partE_counts$GENDERDETAIL == 4) == 1){
         partE$CGU022 <- partE_counts$COUNT[partE_counts$UGPB == 'GR' &
                                            partE_counts$GENDERDETAIL == 4]
-        #BUT -- New in 2023 - mask if < 5 and set initial inquiry as "small N"
-        if(partE$CGU022 < 5){
-          partE$CGU022 <- -2
-          partE$CGU02 <- 3
-        }
+      }
+      #BUT -- New in 2023 - mask if < 5 and set initial inquiry as "small N"
+      if(partE$CGU022 < 5){
+        partE$CGU022 <- -2
+        partE$CGU02 <- 3
       }
     }
 

@@ -83,11 +83,11 @@ make_e1d_part_D <- function(df, ugender, ggender) {
              partD_counts$GENDERDETAIL == 4) == 1){
         partD$FYGU012 <- partD_counts$COUNT[partD_counts$STUDENTLEVEL == 'Undergraduate' &
                                              partD_counts$GENDERDETAIL == 4]
-        #BUT -- New in 2023 - mask if < 5 and set initial inquiry as "small N"
-        if(partD$FYGU012 < 5){
-          partD$FYGU012 <- -2
-          partD$FYGU01 <- 3
-        }
+      }
+      #BUT -- New in 2023 - mask if < 5 and set initial inquiry as "small N"
+      if(partD$FYGU012 < 5){
+        partD$FYGU012 <- -2
+        partD$FYGU01 <- 3
       }
     }
 
@@ -119,11 +119,11 @@ make_e1d_part_D <- function(df, ugender, ggender) {
              partD_counts$GENDERDETAIL == 4) == 1){
         partD$FYGU022 <- partD_counts$COUNT[partD_counts$STUDENTLEVEL == 'Graduate' &
                                              partD_counts$GENDERDETAIL == 4]
-        #BUT -- New in 2023 - mask if < 5 and set initial inquiry as "small N"
-        if(partD$FYGU022 < 5){
-          partD$FYGU022 <- -2
-          partD$FYGU02 <- 3
-        }
+      }
+      #BUT -- New in 2023 - mask if < 5 and set initial inquiry as "small N"
+      if(partD$FYGU022 < 5){
+        partD$FYGU022 <- -2
+        partD$FYGU02 <- 3
       }
     }
 
