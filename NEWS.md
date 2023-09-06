@@ -1,3 +1,10 @@
+# IPEDSUploadables 2.8.5
+* Addressed 2023-2024 reporting cycle updates from IPEDS (see items below)
+* Gender Detail masking implemented when "Another Gender" has fewer than 5 reportable students
+* 12 Month Enrollment has a new flag and section for Dual Enrollment (High School) students 
+* Related documentation updates
+* Syntax updates for compatibility with new versions of roxygen and tidyselect
+
 # IPEDSuploadables 2.7.5
 
 * Addressed Spring Collection updates from IPEDS (see items below)
