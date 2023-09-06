@@ -34,7 +34,7 @@ gtag('config', 'G-NSXZV7NDWP'); </script>
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">IPEDSuploadables</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.7.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.8.5</span>
       </span>
     </div>
 
@@ -158,8 +158,9 @@ file, contact IPEDS for advice.</em></p>
 <div class="section level2">
 <h2 id="data-prep-example-admissions">Data prep example: Admissions<a class="anchor" aria-label="anchor" href="#data-prep-example-admissions"></a>
 </h2>
-<p><em>For a school without the ability to report “Another Gender” in
-the 2022-2023 reporting cycle</em></p>
+<p>For a school WITH the ability to report “Another Gender” in the
+2023-2024 reporting cycle<br><em>Read code comments in Part B for changes to make if you cannot
+report “Another Gender”</em></p>
 <p>This provides a start-to-finish example of preparing an admissions
 submission based on sample data. Always check your results after you
 upload your txt file to the IPEDS submission portal.</p>
@@ -172,13 +173,13 @@ upload your txt file to the IPEDS submission portal.</p>
 <span><span class="co">#&gt; Warning: package 'dplyr' was built under R version 4.2.2</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org" class="external-link">magrittr</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: package 'magrittr' was built under R version 4.2.2</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/AlisonLanski/IPEDSuploadables" class="external-link">IPEDSuploadables</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: package 'IPEDSuploadables' was built under R version 4.2.2</span></span></code></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/AlisonLanski/IPEDSuploadables" class="external-link">IPEDSuploadables</a></span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#create data</span></span>
 <span><span class="va">adm_dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>StudentId <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">24</span><span class="op">)</span>,</span>
 <span>                      FtPt <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">'FT'</span>, <span class="fl">23</span><span class="op">)</span>, <span class="st">'PT'</span><span class="op">)</span>,</span>
 <span>                      Sex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"M"</span>, <span class="st">"F"</span><span class="op">)</span>, <span class="fl">12</span><span class="op">)</span>,</span>
+<span>                      GenderDetail <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"M"</span>, <span class="st">"F"</span><span class="op">)</span>, <span class="fl">11</span><span class="op">)</span>, <span class="st">"U"</span>, <span class="st">"A"</span><span class="op">)</span>,</span>
 <span>                      Admit <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">16</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">8</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>                      Enroll <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">12</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">12</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>                      SAT <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">8</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">16</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -197,6 +198,9 @@ FtPt
 </th>
 <th style="text-align:left;">
 Sex
+</th>
+<th style="text-align:left;">
+GenderDetail
 </th>
 <th style="text-align:right;">
 Admit
@@ -227,6 +231,9 @@ ACT_CMP
 </td>
 <td style="text-align:left;">
 FT
+</td>
+<td style="text-align:left;">
+M
 </td>
 <td style="text-align:left;">
 M
@@ -263,6 +270,9 @@ FT
 <td style="text-align:left;">
 F
 </td>
+<td style="text-align:left;">
+F
+</td>
 <td style="text-align:right;">
 1
 </td>
@@ -291,6 +301,9 @@ NA
 </td>
 <td style="text-align:left;">
 FT
+</td>
+<td style="text-align:left;">
+M
 </td>
 <td style="text-align:left;">
 M
@@ -327,6 +340,9 @@ FT
 <td style="text-align:left;">
 F
 </td>
+<td style="text-align:left;">
+F
+</td>
 <td style="text-align:right;">
 1
 </td>
@@ -355,6 +371,9 @@ NA
 </td>
 <td style="text-align:left;">
 FT
+</td>
+<td style="text-align:left;">
+M
 </td>
 <td style="text-align:left;">
 M
@@ -391,6 +410,9 @@ FT
 <td style="text-align:left;">
 F
 </td>
+<td style="text-align:left;">
+F
+</td>
 <td style="text-align:right;">
 1
 </td>
@@ -419,6 +441,9 @@ NA
 </td>
 <td style="text-align:left;">
 FT
+</td>
+<td style="text-align:left;">
+M
 </td>
 <td style="text-align:left;">
 M
@@ -455,6 +480,9 @@ FT
 <td style="text-align:left;">
 F
 </td>
+<td style="text-align:left;">
+F
+</td>
 <td style="text-align:right;">
 1
 </td>
@@ -483,6 +511,9 @@ NA
 </td>
 <td style="text-align:left;">
 FT
+</td>
+<td style="text-align:left;">
+M
 </td>
 <td style="text-align:left;">
 M
@@ -519,6 +550,9 @@ FT
 <td style="text-align:left;">
 F
 </td>
+<td style="text-align:left;">
+F
+</td>
 <td style="text-align:right;">
 1
 </td>
@@ -547,6 +581,9 @@ NA
 </td>
 <td style="text-align:left;">
 FT
+</td>
+<td style="text-align:left;">
+M
 </td>
 <td style="text-align:left;">
 M
@@ -583,6 +620,9 @@ FT
 <td style="text-align:left;">
 F
 </td>
+<td style="text-align:left;">
+F
+</td>
 <td style="text-align:right;">
 1
 </td>
@@ -611,6 +651,9 @@ NA
 </td>
 <td style="text-align:left;">
 FT
+</td>
+<td style="text-align:left;">
+M
 </td>
 <td style="text-align:left;">
 M
@@ -647,6 +690,9 @@ FT
 <td style="text-align:left;">
 F
 </td>
+<td style="text-align:left;">
+F
+</td>
 <td style="text-align:right;">
 1
 </td>
@@ -675,6 +721,9 @@ NA
 </td>
 <td style="text-align:left;">
 FT
+</td>
+<td style="text-align:left;">
+M
 </td>
 <td style="text-align:left;">
 M
@@ -711,6 +760,9 @@ FT
 <td style="text-align:left;">
 F
 </td>
+<td style="text-align:left;">
+F
+</td>
 <td style="text-align:right;">
 1
 </td>
@@ -739,6 +791,9 @@ NA
 </td>
 <td style="text-align:left;">
 FT
+</td>
+<td style="text-align:left;">
+M
 </td>
 <td style="text-align:left;">
 M
@@ -775,6 +830,9 @@ FT
 <td style="text-align:left;">
 F
 </td>
+<td style="text-align:left;">
+F
+</td>
 <td style="text-align:right;">
 0
 </td>
@@ -803,6 +861,9 @@ NA
 </td>
 <td style="text-align:left;">
 FT
+</td>
+<td style="text-align:left;">
+M
 </td>
 <td style="text-align:left;">
 M
@@ -839,6 +900,9 @@ FT
 <td style="text-align:left;">
 F
 </td>
+<td style="text-align:left;">
+F
+</td>
 <td style="text-align:right;">
 0
 </td>
@@ -867,6 +931,9 @@ NA
 </td>
 <td style="text-align:left;">
 FT
+</td>
+<td style="text-align:left;">
+M
 </td>
 <td style="text-align:left;">
 M
@@ -903,6 +970,9 @@ FT
 <td style="text-align:left;">
 F
 </td>
+<td style="text-align:left;">
+F
+</td>
 <td style="text-align:right;">
 0
 </td>
@@ -935,6 +1005,9 @@ FT
 <td style="text-align:left;">
 M
 </td>
+<td style="text-align:left;">
+U
+</td>
 <td style="text-align:right;">
 0
 </td>
@@ -966,6 +1039,9 @@ PT
 </td>
 <td style="text-align:left;">
 F
+</td>
+<td style="text-align:left;">
+A
 </td>
 <td style="text-align:right;">
 0
@@ -1118,24 +1194,57 @@ A
 <span><span class="va">partB</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>UNITID <span class="op">=</span> <span class="fl">999999</span>,</span>
 <span>                    SURVSECT <span class="op">=</span> <span class="st">'ADM'</span>,</span>
 <span>                    PART <span class="op">=</span> <span class="st">'B'</span>,</span>
-<span>                    APPLCNM <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">adm_dat</span><span class="op">[</span><span class="va">adm_dat</span><span class="op">$</span><span class="va">Sex</span> <span class="op">==</span> <span class="st">'M'</span>, <span class="op">]</span><span class="op">)</span>,</span>
-<span>                    APPLCNW <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">adm_dat</span><span class="op">[</span><span class="va">adm_dat</span><span class="op">$</span><span class="va">Sex</span> <span class="op">==</span> <span class="st">'F'</span>, <span class="op">]</span><span class="op">)</span>,</span>
+<span>                    APPLCNM <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">adm_dat</span><span class="op">[</span><span class="va">adm_dat</span><span class="op">$</span><span class="va">GenderDetail</span> <span class="op">==</span> <span class="st">'M'</span>, <span class="op">]</span><span class="op">)</span>,</span>
+<span>                    APPLCNW <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">adm_dat</span><span class="op">[</span><span class="va">adm_dat</span><span class="op">$</span><span class="va">GenderDetail</span> <span class="op">==</span> <span class="st">'F'</span>, <span class="op">]</span><span class="op">)</span>,</span>
 <span>                    APPLCNT <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">adm_dat</span><span class="op">)</span>,</span>
-<span>                    ADMSSNM <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">adm_dat</span><span class="op">[</span><span class="va">adm_dat</span><span class="op">$</span><span class="va">Sex</span> <span class="op">==</span> <span class="st">'M'</span> <span class="op">&amp;</span> <span class="va">adm_dat</span><span class="op">$</span><span class="va">Admit</span> <span class="op">==</span> <span class="fl">1</span>,<span class="op">]</span><span class="op">)</span>,</span>
-<span>                    ADMSSNW <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">adm_dat</span><span class="op">[</span><span class="va">adm_dat</span><span class="op">$</span><span class="va">Sex</span> <span class="op">==</span> <span class="st">'F'</span> <span class="op">&amp;</span> <span class="va">adm_dat</span><span class="op">$</span><span class="va">Admit</span> <span class="op">==</span> <span class="fl">1</span>,<span class="op">]</span><span class="op">)</span>,</span>
+<span>                    ADMSSNM <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">adm_dat</span><span class="op">[</span><span class="va">adm_dat</span><span class="op">$</span><span class="va">GenderDetail</span> <span class="op">==</span> <span class="st">'M'</span> <span class="op">&amp;</span> </span>
+<span>                                             <span class="va">adm_dat</span><span class="op">$</span><span class="va">Admit</span> <span class="op">==</span> <span class="fl">1</span>,<span class="op">]</span><span class="op">)</span>,</span>
+<span>                    ADMSSNW <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">adm_dat</span><span class="op">[</span><span class="va">adm_dat</span><span class="op">$</span><span class="va">GenderDetail</span> <span class="op">==</span> <span class="st">'F'</span> <span class="op">&amp;</span> </span>
+<span>                                             <span class="va">adm_dat</span><span class="op">$</span><span class="va">Admit</span> <span class="op">==</span> <span class="fl">1</span>,<span class="op">]</span><span class="op">)</span>,</span>
 <span>                    ADMSSNT <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">adm_dat</span><span class="op">[</span><span class="va">adm_dat</span><span class="op">$</span><span class="va">Admit</span> <span class="op">==</span> <span class="fl">1</span>,<span class="op">]</span><span class="op">)</span>,</span>
-<span>                    ENRLFTM <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">adm_dat</span><span class="op">[</span><span class="va">adm_dat</span><span class="op">$</span><span class="va">Sex</span> <span class="op">==</span> <span class="st">'M'</span> <span class="op">&amp;</span> <span class="va">adm_dat</span><span class="op">$</span><span class="va">Enroll</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">&amp;</span> <span class="va">adm_dat</span><span class="op">$</span><span class="va">FtPt</span> <span class="op">==</span> <span class="st">'FT'</span>, <span class="op">]</span><span class="op">)</span>,</span>
-<span>                    ENRLFTW <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">adm_dat</span><span class="op">[</span><span class="va">adm_dat</span><span class="op">$</span><span class="va">Sex</span> <span class="op">==</span> <span class="st">'F'</span> <span class="op">&amp;</span> <span class="va">adm_dat</span><span class="op">$</span><span class="va">Enroll</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">&amp;</span> <span class="va">adm_dat</span><span class="op">$</span><span class="va">FtPt</span> <span class="op">==</span> <span class="st">'FT'</span>, <span class="op">]</span><span class="op">)</span>,</span>
-<span>                    ENRLFTT <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">adm_dat</span><span class="op">[</span><span class="va">adm_dat</span><span class="op">$</span><span class="va">Enroll</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">&amp;</span> <span class="va">adm_dat</span><span class="op">$</span><span class="va">FtPt</span> <span class="op">==</span> <span class="st">'FT'</span>, <span class="op">]</span><span class="op">)</span>,</span>
-<span>                    ENRLPTM <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">adm_dat</span><span class="op">[</span><span class="va">adm_dat</span><span class="op">$</span><span class="va">Sex</span> <span class="op">==</span> <span class="st">'M'</span> <span class="op">&amp;</span> <span class="va">adm_dat</span><span class="op">$</span><span class="va">Enroll</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">&amp;</span> <span class="va">adm_dat</span><span class="op">$</span><span class="va">FtPt</span> <span class="op">==</span> <span class="st">'PT'</span>, <span class="op">]</span><span class="op">)</span>,</span>
-<span>                    ENRLPTW <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">adm_dat</span><span class="op">[</span><span class="va">adm_dat</span><span class="op">$</span><span class="va">Sex</span> <span class="op">==</span> <span class="st">'F'</span> <span class="op">&amp;</span> <span class="va">adm_dat</span><span class="op">$</span><span class="va">Enroll</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">&amp;</span> <span class="va">adm_dat</span><span class="op">$</span><span class="va">FtPt</span> <span class="op">==</span> <span class="st">'PT'</span>, <span class="op">]</span><span class="op">)</span>,</span>
-<span>                    ENRLPTT <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">adm_dat</span><span class="op">[</span><span class="va">adm_dat</span><span class="op">$</span><span class="va">Enroll</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">&amp;</span> <span class="va">adm_dat</span><span class="op">$</span><span class="va">FtPt</span> <span class="op">==</span> <span class="st">'PT'</span>, <span class="op">]</span><span class="op">)</span>,</span>
-<span>                    ADMGU01 <span class="op">=</span> <span class="fl">2</span>, <span class="co">#can you report "another gender"?</span></span>
-<span>                    APPLCNAG <span class="op">=</span> <span class="op">-</span><span class="fl">2</span>,</span>
-<span>                    ADMSSNAG <span class="op">=</span> <span class="op">-</span><span class="fl">2</span>,</span>
-<span>                    ENRLFTAG <span class="op">=</span> <span class="op">-</span><span class="fl">2</span>,</span>
-<span>                    ENRLPTAG <span class="op">=</span> <span class="op">-</span><span class="fl">2</span></span>
-<span>                    <span class="op">)</span></span></code></pre></div>
+<span>                    ENRLFTM <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">adm_dat</span><span class="op">[</span><span class="va">adm_dat</span><span class="op">$</span><span class="va">GenderDetail</span> <span class="op">==</span> <span class="st">'M'</span> <span class="op">&amp;</span> </span>
+<span>                                             <span class="va">adm_dat</span><span class="op">$</span><span class="va">Enroll</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">&amp;</span> </span>
+<span>                                             <span class="va">adm_dat</span><span class="op">$</span><span class="va">FtPt</span> <span class="op">==</span> <span class="st">'FT'</span>, <span class="op">]</span><span class="op">)</span>,</span>
+<span>                    ENRLFTW <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">adm_dat</span><span class="op">[</span><span class="va">adm_dat</span><span class="op">$</span><span class="va">GenderDetail</span> <span class="op">==</span> <span class="st">'F'</span> <span class="op">&amp;</span> </span>
+<span>                                             <span class="va">adm_dat</span><span class="op">$</span><span class="va">Enroll</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">&amp;</span> </span>
+<span>                                             <span class="va">adm_dat</span><span class="op">$</span><span class="va">FtPt</span> <span class="op">==</span> <span class="st">'FT'</span>, <span class="op">]</span><span class="op">)</span>,</span>
+<span>                    ENRLFTT <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">adm_dat</span><span class="op">[</span><span class="va">adm_dat</span><span class="op">$</span><span class="va">Enroll</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">&amp;</span> </span>
+<span>                                             <span class="va">adm_dat</span><span class="op">$</span><span class="va">FtPt</span> <span class="op">==</span> <span class="st">'FT'</span>, <span class="op">]</span><span class="op">)</span>,</span>
+<span>                    ENRLPTM <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">adm_dat</span><span class="op">[</span><span class="va">adm_dat</span><span class="op">$</span><span class="va">GenderDetail</span> <span class="op">==</span> <span class="st">'M'</span> <span class="op">&amp;</span> </span>
+<span>                                             <span class="va">adm_dat</span><span class="op">$</span><span class="va">Enroll</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">&amp;</span> </span>
+<span>                                             <span class="va">adm_dat</span><span class="op">$</span><span class="va">FtPt</span> <span class="op">==</span> <span class="st">'PT'</span>, <span class="op">]</span><span class="op">)</span>,</span>
+<span>                    ENRLPTW <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">adm_dat</span><span class="op">[</span><span class="va">adm_dat</span><span class="op">$</span><span class="va">GenderDetail</span> <span class="op">==</span> <span class="st">'F'</span> <span class="op">&amp;</span> </span>
+<span>                                             <span class="va">adm_dat</span><span class="op">$</span><span class="va">Enroll</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">&amp;</span> </span>
+<span>                                             <span class="va">adm_dat</span><span class="op">$</span><span class="va">FtPt</span> <span class="op">==</span> <span class="st">'PT'</span>, <span class="op">]</span><span class="op">)</span>,</span>
+<span>                    ENRLPTT <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">adm_dat</span><span class="op">[</span><span class="va">adm_dat</span><span class="op">$</span><span class="va">Enroll</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">&amp;</span> </span>
+<span>                                             <span class="va">adm_dat</span><span class="op">$</span><span class="va">FtPt</span> <span class="op">==</span> <span class="st">'PT'</span>, <span class="op">]</span><span class="op">)</span>,</span>
+<span>                    <span class="co">#can you report another gender? 1 = yes, 2 = no</span></span>
+<span>                    ADMGU01 <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>                    <span class="co">#if you said 1, keep the code below as-is</span></span>
+<span>                    <span class="co">#if you said 2, remove code, and assign -2 to all 4 columns</span></span>
+<span>                    APPLCNAG <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">adm_dat</span><span class="op">[</span><span class="va">adm_dat</span><span class="op">$</span><span class="va">GenderDetail</span> <span class="op">==</span> <span class="st">'A'</span>, <span class="op">]</span><span class="op">)</span>,</span>
+<span>                    ADMSSNAG <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">adm_dat</span><span class="op">[</span><span class="va">adm_dat</span><span class="op">$</span><span class="va">GenderDetail</span> <span class="op">==</span> <span class="st">'A'</span> <span class="op">&amp;</span> </span>
+<span>                                              <span class="va">adm_dat</span><span class="op">$</span><span class="va">Admit</span> <span class="op">==</span> <span class="fl">1</span>, <span class="op">]</span><span class="op">)</span>,</span>
+<span>                    ENRLFTAG <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">adm_dat</span><span class="op">[</span><span class="va">adm_dat</span><span class="op">$</span><span class="va">GenderDetail</span> <span class="op">==</span> <span class="st">'A'</span> <span class="op">&amp;</span> </span>
+<span>                                              <span class="va">adm_dat</span><span class="op">$</span><span class="va">Enroll</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">&amp;</span> </span>
+<span>                                              <span class="va">adm_dat</span><span class="op">$</span><span class="va">FtPt</span> <span class="op">==</span> <span class="st">'FT'</span>, <span class="op">]</span><span class="op">)</span>,</span>
+<span>                    ENRLPTAG <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">adm_dat</span><span class="op">[</span><span class="va">adm_dat</span><span class="op">$</span><span class="va">GenderDetail</span> <span class="op">==</span> <span class="st">'A'</span> <span class="op">&amp;</span> </span>
+<span>                                              <span class="va">adm_dat</span><span class="op">$</span><span class="va">Enroll</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">&amp;</span> </span>
+<span>                                              <span class="va">adm_dat</span><span class="op">$</span><span class="va">FtPt</span> <span class="op">==</span> <span class="st">'PT'</span>, <span class="op">]</span><span class="op">)</span></span>
+<span>                    <span class="op">)</span></span>
+<span></span>
+<span><span class="co">#mask data if you ARE able to report "Another Gender", </span></span>
+<span><span class="co"># but the count is below 5 in any category</span></span>
+<span><span class="co">#if you are NOT able to report "Another Gender", </span></span>
+<span><span class="co"># this code will not change your data, even if you run it</span></span>
+<span><span class="kw">if</span><span class="op">(</span><span class="op">(</span><span class="va">partB</span><span class="op">$</span><span class="va">APPLCNAG</span> <span class="op">&lt;</span> <span class="fl">5</span> <span class="op">|</span> <span class="va">partB</span><span class="op">$</span><span class="va">ADMSSNAG</span> <span class="op">&lt;</span> <span class="fl">5</span> <span class="op">|</span> </span>
+<span>    <span class="va">partB</span><span class="op">$</span><span class="va">ENRLFTAG</span> <span class="op">&lt;</span> <span class="fl">5</span> <span class="op">|</span> <span class="va">partB</span><span class="op">$</span><span class="va">ENRLPTAG</span> <span class="op">&lt;</span> <span class="fl">5</span><span class="op">)</span> <span class="op">&amp;</span> <span class="va">partB</span><span class="op">$</span><span class="va">ADMGU01</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="va">partB</span><span class="op">$</span><span class="va">ADMGU01</span> <span class="op">&lt;-</span> <span class="fl">3</span></span>
+<span>  <span class="va">partB</span><span class="op">$</span><span class="va">APPLCNAG</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">2</span></span>
+<span>  <span class="va">partB</span><span class="op">$</span><span class="va">ADMSSNAG</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">2</span></span>
+<span>  <span class="va">partB</span><span class="op">$</span><span class="va">ENRLFTAG</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">2</span></span>
+<span>  <span class="va">partB</span><span class="op">$</span><span class="va">ENRLPTAG</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">2</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 <table class="table">
 <thead><tr>
 <th style="text-align:right;">
@@ -1210,10 +1319,10 @@ ADM
 B
 </td>
 <td style="text-align:right;">
-12
+11
 </td>
 <td style="text-align:right;">
-12
+11
 </td>
 <td style="text-align:right;">
 24
@@ -1246,7 +1355,7 @@ B
 0
 </td>
 <td style="text-align:right;">
-2
+3
 </td>
 <td style="text-align:right;">
 -2
@@ -1289,7 +1398,27 @@ B
 <span>                    ACTEN25 <span class="op">=</span> <span class="op">-</span><span class="fl">2</span>,</span>
 <span>                    ACTEN75 <span class="op">=</span> <span class="op">-</span><span class="fl">2</span>,</span>
 <span>                    ACTMT25 <span class="op">=</span> <span class="op">-</span><span class="fl">2</span>,</span>
-<span>                    ACTMT75 <span class="op">=</span> <span class="op">-</span><span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<span>                    ACTMT75 <span class="op">=</span> <span class="op">-</span><span class="fl">2</span>,</span>
+<span>                    SATVR50 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">adm_enr</span><span class="op">$</span><span class="va">SAT_V</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">adm_enr</span><span class="op">$</span><span class="va">SAT_V</span><span class="op">)</span><span class="op">]</span>, <span class="fl">.5</span><span class="op">)</span>,</span>
+<span>                    SATMT50 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">adm_enr</span><span class="op">$</span><span class="va">SAT_M</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">adm_enr</span><span class="op">$</span><span class="va">SAT_M</span><span class="op">)</span><span class="op">]</span>, <span class="fl">.5</span><span class="op">)</span>,</span>
+<span>                    ACTCM50 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">adm_enr</span><span class="op">$</span><span class="va">ACT_CMP</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">adm_enr</span><span class="op">$</span><span class="va">ACT_CMP</span><span class="op">)</span><span class="op">]</span>, <span class="fl">.5</span><span class="op">)</span>,</span>
+<span>                    ACTEN50 <span class="op">=</span> <span class="op">-</span><span class="fl">2</span>,</span>
+<span>                    ACTMT50 <span class="op">=</span> <span class="op">-</span><span class="fl">2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#mask data for an exam if you have fewer than 5 students counted for it</span></span>
+<span><span class="kw">if</span><span class="op">(</span><span class="va">partC</span><span class="op">$</span><span class="va">SATINUM</span> <span class="op">&lt;</span> <span class="fl">5</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="va">partC</span> <span class="op">&lt;-</span> <span class="va">partC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"SATVR25"</span>, <span class="st">"SATVR75"</span>, <span class="st">"SATVR50"</span>,</span>
+<span>                    <span class="st">"SATMT25"</span>, <span class="st">"SATMT75"</span>, <span class="st">"SATMT50"</span><span class="op">)</span>, </span>
+<span>                  <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">-</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="kw">if</span><span class="op">(</span><span class="va">partC</span><span class="op">$</span><span class="va">ACTNUM</span> <span class="op">&lt;</span> <span class="fl">5</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="va">partC</span> <span class="op">&lt;-</span> <span class="va">partC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ACTCM25"</span>, <span class="st">"ACTCM75"</span>, <span class="st">"ACTCM50"</span>, </span>
+<span>                    <span class="st">"ACTMT25"</span>, <span class="st">"ACTMT75"</span>, <span class="st">"ACTMT50"</span>, </span>
+<span>                    <span class="st">"ACTEN25"</span>, <span class="st">"ACTEN75"</span>, <span class="st">"ACTEN50"</span><span class="op">)</span>, </span>
+<span>                  <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">-</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 <table class="table">
 <thead><tr>
 <th style="text-align:right;">
@@ -1343,6 +1472,21 @@ ACTMT25
 <th style="text-align:right;">
 ACTMT75
 </th>
+<th style="text-align:right;">
+SATVR50
+</th>
+<th style="text-align:right;">
+SATMT50
+</th>
+<th style="text-align:right;">
+ACTCM50
+</th>
+<th style="text-align:right;">
+ACTEN50
+</th>
+<th style="text-align:right;">
+ACTMT50
+</th>
 </tr></thead>
 <tbody><tr>
 <td style="text-align:right;">
@@ -1379,13 +1523,28 @@ C
 670
 </td>
 <td style="text-align:right;">
-31
-</td>
-<td style="text-align:right;">
-32
+-2
 </td>
 <td style="text-align:right;">
 -2
+</td>
+<td style="text-align:right;">
+-2
+</td>
+<td style="text-align:right;">
+-2
+</td>
+<td style="text-align:right;">
+-2
+</td>
+<td style="text-align:right;">
+-2
+</td>
+<td style="text-align:right;">
+680
+</td>
+<td style="text-align:right;">
+580
 </td>
 <td style="text-align:right;">
 -2
@@ -1420,12 +1579,12 @@ UNITID=999999,SURVSECT=ADM,PART=A,ADMCON1=2,ADMCON2=1,ADMCON3=1,ADMCON4=2,ADMCON
 </tr>
 <tr>
 <td style="text-align:left;">
-UNITID=999999,SURVSECT=ADM,PART=B,APPLCNM=12,APPLCNW=12,APPLCNT=24,ADMSSNM=8,ADMSSNW=8,ADMSSNT=16,ENRLFTM=6,ENRLFTW=6,ENRLFTT=12,ENRLPTM=0,ENRLPTW=0,ENRLPTT=0,ADMGU01=2,APPLCNAG=-2,ADMSSNAG=-2,ENRLFTAG=-2,ENRLPTAG=-2
+UNITID=999999,SURVSECT=ADM,PART=B,APPLCNM=11,APPLCNW=11,APPLCNT=24,ADMSSNM=8,ADMSSNW=8,ADMSSNT=16,ENRLFTM=6,ENRLFTW=6,ENRLFTT=12,ENRLPTM=0,ENRLPTW=0,ENRLPTT=0,ADMGU01=3,APPLCNAG=-2,ADMSSNAG=-2,ENRLFTAG=-2,ENRLPTAG=-2
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-UNITID=999999,SURVSECT=ADM,PART=C,SATINUM=8,SATIPCT=67,ACTNUM=4,ACTPCT=33,SATVR25=590,SATVR75=770,SATMT25=490,SATMT75=670,ACTCM25=31,ACTCM75=32,ACTEN25=-2,ACTEN75=-2,ACTMT25=-2,ACTMT75=-2
+UNITID=999999,SURVSECT=ADM,PART=C,SATINUM=8,SATIPCT=67,ACTNUM=4,ACTPCT=33,SATVR25=590,SATVR75=770,SATMT25=490,SATMT75=670,ACTCM25=-2,ACTCM75=-2,ACTEN25=-2,ACTEN75=-2,ACTMT25=-2,ACTMT75=-2,SATVR50=680,SATMT50=580,ACTCM50=-2,ACTEN50=-2,ACTMT50=-2
 </td>
 </tr>
 </tbody>
