@@ -30,7 +30,7 @@ institution-types for existing reports*
 -   Graduation Rates: 4-year institutions 
 -   200% Graduation Rates: 4-year institutions 
 -   12-month Enrollment: 4-year degree granting institutions 
--   Fall Enrollment: 4-year degree granting institutions *2022-2023 cycle updates coming soon*
+-   Fall Enrollment: 4-year degree granting institutions 
 -   Human Resources: degree granting institutions with more than 15 FTE
 
 ### Unsupported surveys with options
