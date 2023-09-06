@@ -1,12 +1,15 @@
 #' Make Graduation Rates Part E (gender details)
 #'
-#' @param df A dataframe of student/degree information for unduplicated undergraduates
+#' @param df A dataframe of student/degree information for unduplicated
+#'   undergraduates
 #' @param ugender A boolean: TRUE means you are collecting and able to report
-#'   "another gender" for undergraduate students. Set as FALSE if necessary
+#'   "another gender" for undergraduate students, even if you have no (or few)
+#'   such students. Set as FALSE if necessary
 #'
 #' @importFrom rlang .data
 #'
-#' @importFrom dplyr select group_by summarize ungroup bind_rows arrange transmute n
+#' @importFrom dplyr select group_by summarize ungroup bind_rows arrange
+#'   transmute n
 #' @importFrom utils write.table
 #' @importFrom stringr str_to_upper
 #'
@@ -29,8 +32,8 @@ make_gr_part_E <- function(df, ugender) {
                                GENDERDETAIL == 2 ~ "Female",
                                GENDERDETAIL == 3 ~ "GRGU011",
                                GENDERDETAIL == 4 ~ "GRGU012")) %>%
-    select(-.data$GENDERDETAIL) %>%
-    pivot_wider(names_from = .data$GEN_COL, values_from = .data$COUNT)
+    select(-"GENDERDETAIL") %>%
+    pivot_wider(names_from = "GEN_COL", values_from = "COUNT")
 
   #add missing columns as nulls, if they don't already exist in the data
   if (!"GRGU011" %in% names(partE)) {
@@ -53,6 +56,10 @@ make_gr_part_E <- function(df, ugender) {
                                    .data$GRGU012,
                                    -2)
                             )
+           ) %>%
+    #now add 2023+ rules for masking
+    mutate(GRGU012 = ifelse(.data$GRGU012 < 5, -2, .data$GRGU012),
+           GRGU01 = ifelse(.data$GRGU012 < 5 & .data$GRGU01 == 1, 3, .data$GRGU01)
            ) %>%
     #set up final dataframe
     transmute(UNITID = unique(.data$UNITID),

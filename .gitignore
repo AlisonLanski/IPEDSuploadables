@@ -10,6 +10,7 @@ Completions/Completions_PartsAll.txt
 *.xlsx
 *.txt
 !UpdateChecklist.txt
+!CycleAdjustSteps.txt
 .DS_Store
 HumanResources/Thumbs.db
 .Rproj.user

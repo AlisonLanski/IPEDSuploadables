@@ -30,11 +30,11 @@ make_hr_part_G2 <- function(df) {
                           .data$INSTRUCTIONAL == 0, #non-instructional
                           .data$ISMEDICAL == 0, #non-medical
                           .data$FTPT == "F") %>%
-            dplyr::select(.data$UNITID,
-                          .data$OCCCATEGORY2,
-                          .data$SALARY,
-                          .data$EMPID,
-                          .data$COUNT) %>%
+            dplyr::select("UNITID",
+                          "OCCCATEGORY2",
+                          "SALARY",
+                          "EMPID",
+                          "COUNT") %>%
             #add extra combinations
             dplyr::bind_rows(combos_G2) %>%
             #aggregate the full data

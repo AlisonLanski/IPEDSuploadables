@@ -39,14 +39,14 @@ prep_om_awards <- function(df, award) {
               #not needed for this report
               dplyr::filter(.data$AWARD != 4,
                             .data$EXCLUSION == FALSE) %>%
-              dplyr::select(-.data$EXCLUSION) %>%
+              dplyr::select(-"EXCLUSION") %>%
               #add extras
               dplyr::bind_rows(extra_awards) %>%
               #make it wide
-              tidyr::pivot_wider(names_from = .data$AWARD,
-                                 values_from = .data$COUNT,
+              tidyr::pivot_wider(names_from = "AWARD",
+                                 values_from = "COUNT",
                                  values_fill = 0) %>%
-              dplyr::select(-.data$STUDENTID) %>%
+              dplyr::select(-"STUDENTID") %>%
               #aggregate
               dplyr::group_by(.data$UNITID,
                               .data$COHORTTYPE,

@@ -120,9 +120,9 @@ create_dummy_data_gr <- function(n = 100) {
           CompletedFiveYears = 0,
           Completed150 = 1
           )) %>%
-    select(-.data$IsComp) %>%
+    dplyr::select(-"IsComp") %>%
     #we need some folks with unknown or another gender
-    mutate(GenderDetail = c(utils::head(.data$Sex,-6), 3, 3, 3, 3, 4, 4), .after = .data$Sex)
+    dplyr::mutate(GenderDetail = c(utils::head(.data$Sex,-6), 3, 3, 3, 3, 4, 4), .after = .data$Sex)
 
 
   return(df)

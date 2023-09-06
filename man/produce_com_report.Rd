@@ -27,10 +27,10 @@ works for one part at a time). \code{"both"} will provide both options, but
 only works with one part at a time.}
 
 \item{ugender}{A boolean: TRUE means you are collecting and able to report
-"another gender" for undergraduate completers. Set as FALSE if necessary}
+"another gender" for undergraduate completers, even if you have no (or few) such students. Set as FALSE if necessary}
 
 \item{ggender}{A boolean: TRUE means you are collecting and able to report
-"another gender" for graduate completers. Set as FALSE if necessary}
+"another gender" for graduate completers, even if you have no (or few) such students. Set as FALSE if necessary}
 }
 \value{
 A txt or csv file at the path of your choice

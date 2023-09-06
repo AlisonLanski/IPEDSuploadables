@@ -27,10 +27,10 @@ make_hr_part_H2 <- function(df) {
             dplyr::filter(.data$NEWHIRE == 1,
                           .data$FTPT == "F",
                           .data$OCCCATEGORY5 %in% c(2:14)) %>%
-            dplyr::select(.data$UNITID,
-                          .data$OCCCATEGORY5,
-                          .data$REG,
-                          .data$COUNT) %>%
+            dplyr::select("UNITID",
+                          "OCCCATEGORY5",
+                          "REG",
+                          "COUNT") %>%
             #add extra combinations
             dplyr::bind_rows(combos_H2) %>%
             #aggregate the full data

@@ -35,13 +35,13 @@ make_com_part_A <- function(df, extracips = NULL) {
     colnames(extracips) <- stringr::str_to_upper(colnames(extracips))
 
     partA <- extracips %>%
-             dplyr::select(.data$UNITID,
-                           .data$MAJORNUMBER,
-                           .data$MAJORCIP,
-                           .data$DEGREELEVEL,
-                           .data$RACEETHNICITY,
-                           .data$SEX,
-                           .data$COUNT) %>%
+             dplyr::select("UNITID",
+                           "MAJORNUMBER",
+                           "MAJORCIP",
+                           "DEGREELEVEL",
+                           "RACEETHNICITY",
+                           "SEX",
+                           "COUNT") %>%
              dplyr::bind_rows(partA)
   }
 

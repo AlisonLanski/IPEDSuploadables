@@ -2,7 +2,7 @@
 #'
 #' @param df a dataframe of student level data
 #'
-#' @importFrom dplyr case_when mutate select
+#' @importFrom dplyr case_when mutate
 #' @importFrom tidyr separate
 #'
 #' @importFrom rlang .data

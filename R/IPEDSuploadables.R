@@ -7,6 +7,7 @@
 #'
 #' @docType package
 #' @name IPEDSuploadables
+#' @aliases IPEDSuploadables-package
 #' @importFrom magrittr %>%
 #'
 

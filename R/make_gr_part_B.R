@@ -22,22 +22,22 @@ make_gr_part_B <- function(df) {
   partB_section1_line1 <- df %>%
                           dplyr::mutate(SECTION = 1,
                                         LINE = 1) %>%
-                          dplyr::select(.data$UNITID,
-                                        .data$RACEETHNICITY,
-                                        .data$SEX,
-                                        .data$SECTION,
-                                        .data$LINE)
+                          dplyr::select("UNITID",
+                                        "RACEETHNICITY",
+                                        "SEX",
+                                        "SECTION",
+                                        "LINE")
 
   #prep line 2 (only BA-seeking or equiv by RE/SEX)
   partB_section1_line2 <- df %>%
                           dplyr::filter(.data$ENTERINGPROGRAMTYPE == 3) %>%
                           dplyr::mutate(SECTION = 1,
                                         LINE = 2) %>%
-                          dplyr::select(.data$UNITID,
-                                        .data$RACEETHNICITY,
-                                        .data$SEX,
-                                        .data$SECTION,
-                                        .data$LINE)
+                          dplyr::select("UNITID",
+                                        "RACEETHNICITY",
+                                        "SEX",
+                                        "SECTION",
+                                        "LINE")
 
   #####
   #prep section 2
@@ -53,11 +53,11 @@ make_gr_part_B <- function(df) {
                                                         .data$CURRENTPROGRAMTYPE == 3 & .data$COMPLETED150 == 1 ~ 18
                                                       )
                                             ) %>%
-                              dplyr::select(.data$UNITID,
-                                            .data$RACEETHNICITY,
-                                            .data$SEX,
-                                            .data$SECTION,
-                                            .data$LINE)
+                              dplyr::select("UNITID",
+                                            "RACEETHNICITY",
+                                            "SEX",
+                                            "SECTION",
+                                            "LINE")
 
   ###
   #prep section 2 (BA folks)
@@ -81,11 +81,11 @@ make_gr_part_B <- function(df) {
                                                      .data$ISSTILLENROLLED == 1 ~ 51
                                                      )
                              ) %>%
-                             dplyr::select(.data$UNITID,
-                                           .data$RACEETHNICITY,
-                                           .data$SEX,
-                                           .data$SECTION,
-                                           .data$LINE)
+                             dplyr::select("UNITID",
+                                           "RACEETHNICITY",
+                                           "SEX",
+                                           "SECTION",
+                                           "LINE")
 
   ###
   #prep section 3 (non-BA folks)
@@ -99,11 +99,11 @@ make_gr_part_B <- function(df) {
                                              .data$ISSTILLENROLLED == 1 ~ 51
                                            )
                              ) %>%
-                             dplyr::select(.data$UNITID,
-                                           .data$RACEETHNICITY,
-                                           .data$SEX,
-                                           .data$SECTION,
-                                           .data$LINE)
+                             dplyr::select("UNITID",
+                                           "RACEETHNICITY",
+                                           "SEX",
+                                           "SECTION",
+                                           "LINE")
 
 
   #put it all together and count things up

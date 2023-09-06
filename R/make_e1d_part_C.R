@@ -17,20 +17,20 @@ make_e1d_part_C <- function(df) {
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
   partC <- df %>%
-    dplyr::select(.data$UNITID,
-                  .data$STUDENTID,
-                  .data$ISDEGREECERTSEEKING,
-                  .data$STUDENTLEVEL,
-                  .data$DISTANCEEDALL,
-                  .data$DISTANCEEDSOME) %>%
+    dplyr::select("UNITID",
+                  "STUDENTID",
+                  "ISDEGREECERTSEEKING",
+                  "STUDENTLEVEL",
+                  "DISTANCEEDALL",
+                  "DISTANCEEDSOME") %>%
     dplyr::mutate(LINE = case_when(
                                   .data$ISDEGREECERTSEEKING == 1 & .data$STUDENTLEVEL == "Undergraduate" ~ 1,
                                   .data$ISDEGREECERTSEEKING == 0 & .data$STUDENTLEVEL == "Undergraduate" ~ 2,
                                   .data$STUDENTLEVEL == "Graduate" ~ 3
                                 )
                   ) %>%
-    dplyr::select(-c(.data$ISDEGREECERTSEEKING,
-                     .data$STUDENTLEVEL)) %>%
+    dplyr::select(-c("ISDEGREECERTSEEKING",
+                     "STUDENTLEVEL")) %>%
     dplyr::group_by(.data$UNITID,
                     .data$LINE) %>%
     dplyr::summarize(CountDISTANCEEDALL = sum(as.numeric(.data$DISTANCEEDALL)),

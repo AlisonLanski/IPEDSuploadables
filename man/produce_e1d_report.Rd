@@ -16,9 +16,11 @@ produce_e1d_report(
 \arguments{
 \item{df}{A dataframe set up according to the readme for students}
 
-\item{hrs}{A dataframe set up according to the readme for instructional activity}
+\item{hrs}{A dataframe set up according to the readme for instructional
+activity}
 
-\item{part}{A string with what part of the report you want to produce: 'all', 'A', etc.}
+\item{part}{A string with what part of the report you want to produce: 'all',
+'A', etc.}
 
 \item{format}{A string (\code{"uploadable"} will produce a properly formatted
 upload file. \code{"readable"} will produce a csv of the upload file (only
@@ -26,10 +28,12 @@ works for one part at a time). \code{"both"} will provide both options, but
 only works with one part at a time.}
 
 \item{ugender}{A boolean: TRUE means you are collecting and able to report
-"another gender" for undergraduate students Set as FALSE if necessary}
+"another gender" for undergraduate students, even if you have no (or few)
+such students. Set as FALSE if necessary}
 
 \item{ggender}{A boolean: TRUE means you are collecting and able to report
-"another gender" for graduate students. Set as FALSE if necessary}
+"another gender" for graduate students, even if you have no (or few) such
+students. Set as FALSE if necessary}
 }
 \value{
 A txt or csv file at the path of your choice
@@ -44,10 +48,10 @@ Shortcut function with all steps to provide a 12 Month Enrollment report
 }
 \donttest{
 #entire report
-produce_e1d_report(e1d_student, e1d_instr)
+produce_e1d_report(e1d_students, e1d_instr)
 
 #one part, as csv instead of key-value file
-produce_e1d_report(e1d_student, part = "A", format = "readable")
+produce_e1d_report(e1d_students, part = "A", format = "readable")
 }
 \dontshow{
 #reset directory for this example (not necessary for users)

@@ -46,8 +46,8 @@
 
 # #Data
 # set.seed(1892)
-# e1d_student <- create_dummy_data_e1d("student")
-# use_data(e1d_student, overwrite = T)
+# e1d_students <- create_dummy_data_e1d("student")
+# use_data(e1d_students, overwrite = T)
 #
 # set.seed(1892)
 # e1d_instr <- create_dummy_data_e1d("instr")
@@ -56,8 +56,9 @@
 # #Vignettes: see vignette scripts
 #
 # #Output
-# part_outputs$e1d_partA <- make_e1d_part_A(e1d_student)
+# part_outputs$e1d_partA <- make_e1d_part_A(e1d_students)
 # part_outputs$e1d_partB <- make_e1d_part_B(e1d_instr)
-# part_outputs$e1d_partC <- make_e1d_part_C(e1d_student)
-# part_outputs$e1d_partD <- make_e1d_part_D(e1d_student, TRUE, TRUE)
+# part_outputs$e1d_partC <- make_e1d_part_C(e1d_students)
+# part_outputs$e1d_partD <- make_e1d_part_D(e1d_students, TRUE, TRUE)
+# part_outputs$e1d_partE <- make_e1d_part_E(e1d_students)
 # use_data(part_outputs, overwrite = T)

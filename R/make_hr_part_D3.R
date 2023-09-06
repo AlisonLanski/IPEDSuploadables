@@ -28,11 +28,11 @@ make_hr_part_D3 <- function(df) {
             dplyr::filter(.data$CURRENTEMPLOYEE == 1,
                           .data$FTPT == "P",
                           .data$OCCCATEGORY3 %in% c(1:15)) %>%
-            dplyr::select(.data$UNITID,
-                          .data$TENURE,
-                          .data$ISMEDICAL,
-                          .data$OCCCATEGORY3,
-                          .data$COUNT) %>%
+            dplyr::select("UNITID",
+                          "TENURE",
+                          "ISMEDICAL",
+                          "OCCCATEGORY3",
+                          "COUNT") %>%
             #add extra combinations
             dplyr::bind_rows(combos_D3) %>%
             #aggregate the full data

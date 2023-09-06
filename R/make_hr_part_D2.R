@@ -26,10 +26,10 @@ make_hr_part_D2 <- function(df) {
   partD2 <- df %>%
             dplyr::filter(.data$CURRENTEMPLOYEE == 1,
                           .data$OCCCATEGORY4 %in% c(1:3)) %>%
-            dplyr::select(.data$UNITID,
-                          .data$OCCCATEGORY4,
-                          .data$REG,
-                          .data$COUNT) %>%
+            dplyr::select("UNITID",
+                          "OCCCATEGORY4",
+                          "REG",
+                          "COUNT") %>%
             #add extra combinations
             dplyr::bind_rows(combos_D2) %>%
             #aggregate the full data

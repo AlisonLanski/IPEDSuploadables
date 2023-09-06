@@ -2,12 +2,15 @@
 #'
 #' @param df A dataframe of student enrollment information
 #' @param ugender A boolean: TRUE means you are collecting and able to report
-#'   "another gender" for undergraduate completers. Set as FALSE if necessary
+#'   "another gender" for undergraduate completers, even if you have no (or few)
+#'   such students. Set as FALSE if necessary
 #' @param ggender A boolean: TRUE means you are collecting and able to report
-#'   "another gender" for graduate completers. Set as FALSE if necessary
+#'   "another gender" for graduate completers, even if you have no (or few) such
+#'   students. Set as FALSE if necessary
 #'
 #' @importFrom rlang .data
-#' @importFrom dplyr select group_by summarize ungroup arrange transmute n distinct
+#' @importFrom dplyr select group_by summarize ungroup arrange transmute n
+#'   distinct
 #' @importFrom utils write.table
 #' @importFrom stringr str_to_upper
 #'
@@ -20,14 +23,14 @@ make_ef1_part_H <- function(df, ugender, ggender) {
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
   partH_counts <- df %>%
-    dplyr::select(.data$UNITID,
-                  .data$STUDENTID,
-                  .data$STUDENTLEVEL,
-                  .data$GENDERDETAIL  #Binary = 1, 2;  Unknown = 3, Another = 4
+    dplyr::select("UNITID",
+                  "STUDENTID",
+                  "STUDENTLEVEL",
+                  "GENDERDETAIL"  #Binary = 1, 2;  Unknown = 3, Another = 4
     ) %>%
     #break into UG and GR levels
     dplyr::mutate(UGPB = ifelse(.data$STUDENTLEVEL == 'Graduate', 'GR', 'UG')) %>%
-    dplyr::select(-.data$STUDENTLEVEL) %>%
+    dplyr::select(-"STUDENTLEVEL") %>%
     #deduplicate
     dplyr::distinct() %>%
     #aggregate and count
@@ -83,6 +86,11 @@ make_ef1_part_H <- function(df, ugender, ggender) {
       partH$EFGU012 <- partH_counts$COUNT[partH_counts$UGPB == 'UG' &
                                            partH_counts$GENDERDETAIL == 4]
     }
+    #BUT -- New in 2023 - mask if < 5 and set initial inquiry as "small N"
+    if(partH$EFGU012 < 5){
+      partH$EFGU012 <- -2
+      partH$EFGU01 <- 3
+    }
   }
 
   # #No GR in the data
@@ -113,6 +121,11 @@ make_ef1_part_H <- function(df, ugender, ggender) {
            partH_counts$GENDERDETAIL == 4) == 1){
       partH$EFGU022 <- partH_counts$COUNT[partH_counts$UGPB == 'GR' &
                                            partH_counts$GENDERDETAIL == 4]
+    }
+    #BUT -- New in 2023 - mask if < 5 and set initial inquiry as "small N"
+    if(partH$EFGU022 < 5){
+      partH$EFGU022 <- -2
+      partH$EFGU02 <- 3
     }
   }
 

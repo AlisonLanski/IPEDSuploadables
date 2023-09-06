@@ -9,7 +9,8 @@ produce_gr_report(df, part = "ALL", format = "uploadable", ugender = TRUE)
 \arguments{
 \item{df}{a dataframe set up according to the readme}
 
-\item{part}{a string with what part of the report you want to produce "all", "A1", etc.}
+\item{part}{a string with what part of the report you want to produce "all",
+"A1", etc.}
 
 \item{format}{A string (\code{"uploadable"} will produce a properly formatted
 upload file. \code{"readable"} will produce a csv of the upload file (only
@@ -17,7 +18,8 @@ works for one part at a time). \code{"both"} will provide both options, but
 only works with one part at a time.}
 
 \item{ugender}{A boolean: TRUE means you are collecting and able to report
-"another gender" for undergraduate students. Set as FALSE if necessary}
+"another gender" for undergraduate students, even if you have no (or few)
+such students. Set as FALSE if necessary}
 }
 \value{
 A txt or csv file at the path of your choice
