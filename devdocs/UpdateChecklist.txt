@@ -23,7 +23,28 @@ If doing a CRAN update (after updates, run normal things like document/check/pkg
 If just doing a github release
 7) Add a tag and release notes, wait for github sites to update
 
+To add a tag and do a GitHub release
+A) Check existing tags
+   git tag
+B) Add a new tag to the head commit like this:
+   git tag -a 2.8.5 -m "2023-2024 reporting cycle updates v2.8.5"
+   where 2.8.5 is the version and "" is the tag message (in addition to the commit message)
+   To tag a prior commit, just add the commit hash before -m
+C) Check the log or run
+   git show tag (version) to see the tag setup
+D) Push to the server
+   git push origin (version)
+E) Open GitHub, go to releases, find the most recent related release, open it, click to edit, copy text
+F) Create New Release with consistent title; correct tag, pasted and revised text
+G) Preview/Edit until satisfied, then Publish
+H) Can set as "prerelease" before Publish if doing this before it's actually on CRAN.
+I) If H, then come back after it goes to CRAN, edit, and update to be a final release
+J) Email "IPEDSuploadables Email list" 
+
 List based on:
 https://www.r-bloggers.com/2020/07/how-to-write-your-own-r-package-and-publish-it-on-cran/
 
 Also see the rpkgs book online.
+
+For tagging:
+https://git-scm.com/book/en/v2/Git-Basics-Tagging
