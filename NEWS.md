@@ -1,3 +1,7 @@
+# IPEDSUploadables 2.8.6
+* Documenting "Count" as a required column for the Completions extracips dataframe  
+  This is a documentatin update only; no changes were made to functions
+
 # IPEDSUploadables 2.8.5
 * Addressed 2023-2024 reporting cycle updates from IPEDS (see items below)
 * Gender Detail masking implemented when "Another Gender" has fewer than 5 reportable students
