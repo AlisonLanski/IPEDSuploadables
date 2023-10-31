@@ -28,9 +28,12 @@ library(IPEDSuploadables)
 Note: Column names can use any capitalization method you like
 
 ```{r create_data_file_in_package, eval=FALSE, echo=FALSE}
-#export spreadsheet with specs from google drive
-#read in with readr
-specs_COM <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/132EKp46TpEHPlVrG9FZxINxmVVz8UO0Ov989sP4lNaM/edit", sheet = 1)
+#this chunk is only used during interactive session by the package maintainers, if the requirements have been updated
+
+tryCatch(specs_COM <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/132EKp46TpEHPlVrG9FZxINxmVVz8UO0Ov989sP4lNaP/edit", sheet = 1), 
+        error = function(x) message("Google Sheet unavailable"),
+        warning = function(y) message("There was a warning"))
+
 usethis::use_data(specs_COM, overwrite = TRUE)
 ```
 
