@@ -1,6 +1,6 @@
 Package: IPEDSuploadables
 Title: Transforms Institutional Data into Text Files for IPEDS Automated Import/Upload
-Version: 2.8.6
+Version: 2.8.7
 Authors@R: c(
             person(given = "Alison", family = "Lanski", 
             role = c("aut", "cre"),
