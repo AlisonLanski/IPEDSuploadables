@@ -5,7 +5,7 @@
 \alias{specs_GR}
 \title{Table of data requirements for Graduation Rates starting dataframe}
 \format{
-A data frame with 14 rows and 3 columns
+A data frame with 13 rows and 3 columns
 }
 \usage{
 specs_GR

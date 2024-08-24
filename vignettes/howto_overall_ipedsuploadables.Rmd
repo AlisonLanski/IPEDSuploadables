@@ -20,7 +20,7 @@ A few things to note:
 
 * To ensure you have the most current version of this package, we suggest you check for an updated version and reinstall (as needed) during each collection window.
 * To use this package, you'll need to prepare your data as indicated in vignettes. The vignettes can all be viewed through the [package website](https://alisonlanski.github.io/IPEDSuploadables/).  
-* IPEDS upload files must be 100% of the requested information for a particular report. In other words, if a report has parts A, B, and C, you must upload all parts in a single file or the upload will fail.  
+* IPEDS upload files must be 100% of the requested information for a particular report. In other words, if a report has parts A, B, and C, you must upload all parts in a single file or the upload will fail.  **Note: I have heard rumors that you can now successfully upload an incomplete file. I have not confirmed this for myself.**
 * To create an upload-ready file based on your own data preparation, see [How to produce other key-value uploads](howto_use_autoformat.html)
 
 ## Step 0: Install/Load the package
@@ -86,11 +86,11 @@ produce_e1d_report(df = e1d_students, hrs = e1d_instr, part = "ALL")
 
 A message will be display the location of your file when it has been processed.
 
-### Note about the gender collection updates for 2023-2024 reporting cycle
+### Note about the gender collection updates for 2024-2025 reporting cycle
   
-These update affect the scripts for Completions, 12 Month Enrollment, Graduation Rates, and Fall Enrollment.
-  
-Scripts are set to assume that you ARE able to report on "another gender" in this reporting cycle.
+**Graduation Rates no longer has a gender detail requirement (it was removed by IPEDS). Therefore, the starting data requirements, sample data, and scripts have been updated to remove the `ugender` flag and the `GenderDetail` column.**
+
+Completions, 12 Month Enrollment, and Fall Enrollment still DO require reporting on "another gender" and "unknown gender". This means you continue to need `GenderDetail`, `ugender`, and `ggender` information as appropriate for each survey. Scripts are set to assume that you ARE able to report on "another gender" in this reporting cycle.
 They will automatically mask data if you have fewer than 5 students in the "another gender" category.
 Therefore, as long as you have the capacity to report Another Gender, you should keep the default of `TRUE` even if you have no students or very few students in that category.
 
@@ -123,7 +123,7 @@ Fall Enrollment
 
 Human Resources
 
-* The script requires one dataframe with all current employees and new hires. If someone is counted in both sections of the report, include them only once in your institutional data with the appropriate flags.  
+* The script requires one dataframe with all current employees: continuing and new hires. New hires are designed through a flag and should not have a second entry.  
   
 Admissions  
   

@@ -1,7 +1,7 @@
 For each survey with changes
 --create_dummy_data update
 --save new dummy data to the package
---update relavant prep scripts
+--update relevant prep scripts
 --update relevant make scripts
 --update relevant produce script
 --run tests (may fail, depending on changes)
