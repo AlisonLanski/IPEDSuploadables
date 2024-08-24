@@ -79,26 +79,10 @@ test_that("GR200 parts produce expected dfs", {
 ########
 ### GR
 
-#adding for new gender testing starting in 2023
-gr_partE_df <- data.frame(UNITID = 999999,
-                          GENDERDETAIL = c(1, 2, 3, rep(4, 7)))
-
-gr_partE_True <- data.frame(UNITID = 999999,
-                            SURVSECT = "GR1",
-                            PART = "E",
-                            GRGU01 = 1,
-                            GRGU011 = 1,
-                            GRGU012 = 7)
-
-
-
 test_that("GR parts produce expected dfs", {
   #tests
   expect_equal(make_gr_part_B(gr_students), part_outputs$gr_partB)
   expect_equal(make_gr_part_C(gr_students), part_outputs$gr_partC)
-  expect_equal(make_gr_part_E(gr_students,TRUE), part_outputs$gr_partE)
-  #weird -- regular partE comes out as a tibble instead of a DF - convert it
-  expect_equal(data.frame(make_gr_part_E(gr_partE_df,TRUE)), gr_partE_True)
 })
 
 ########
@@ -165,7 +149,6 @@ test_that("OM parts produce expected dfs", {
 #   ef1_partG = ef1_partG,
 #   gr_partB = gr_partB,
 #   gr_partC = gr_partC,
-#   gr_partE = make_gr_part_E(gr_students, TRUE),
 #   gr200 = gr200,
 #   hr_partA1 = hr_partA1,
 #   hr_partA2 = hr_partA2,

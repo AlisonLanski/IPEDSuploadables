@@ -19,3 +19,10 @@ NULL
 
 #' @keywords internal
 "_PACKAGE"
+
+# The following block is used by usethis to automatically manage
+# roxygen namespace tags. Modify with care!
+## usethis namespace: start
+#' @importFrom lifecycle badge is_present deprecate_warn
+## usethis namespace: end
+NULL

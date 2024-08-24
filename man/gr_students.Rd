@@ -5,7 +5,7 @@
 \alias{gr_students}
 \title{Dummy student data for the Graduation Rates scripts}
 \format{
-A data frame with 101 rows and 14 columns
+A data frame with 101 rows and 13 columns
 }
 \usage{
 gr_students

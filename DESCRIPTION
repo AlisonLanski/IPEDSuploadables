@@ -26,6 +26,7 @@ LazyData: true
 RoxygenNote: 7.3.2
 Imports: 
   dplyr (>= 1.0.0),
+  lifecycle,
   lubridate,
   magrittr, 
   purrr,
