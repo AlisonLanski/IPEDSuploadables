@@ -39,7 +39,7 @@
 produce_e1d_report <- function(df, hrs, part = "ALL", format = "uploadable",
                                ugender = TRUE, ggender = TRUE) {
 
-  stopifnot(toupper(part) %in% c("A", "B", "C", "D", "E", "ALL"),
+  stopifnot(toupper(part) %in% c("A", "B", "C", "D", "E", "F", "ALL"),
             toupper(format) %in% c("UPLOADABLE", "READABLE", "BOTH"))
 
   survey <- "12MonthEnrollment"
@@ -54,11 +54,12 @@ produce_e1d_report <- function(df, hrs, part = "ALL", format = "uploadable",
       make_e1d_part_B(hrs),
       make_e1d_part_D(df, ugender, ggender),
       make_e1d_part_E(df),
+      make_e1d_part_F(df),
       survey = survey,
       part = 'AllParts',
       output_path = output_path
     )
-  } else if(toupper(part) %in% c("A", "B", "C", "D", "E")) {
+  } else if(toupper(part) %in% c("A", "B", "C", "D", "E", "F")) {
 
     if(toupper(format) %in% c("UPLOADABLE", "BOTH")){
 

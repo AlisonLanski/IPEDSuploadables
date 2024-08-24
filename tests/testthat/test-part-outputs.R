@@ -35,6 +35,28 @@ e1d_partD_TrueTrue <- data.frame(UNITID = 999999,
                                  FYGU021 = 5,
                                  FYGU022 = -2)
 
+## adding new hs credit testing for 2024-2025
+e1d_df_noHS <- data.frame(UNITID = c("111", "111", "111"),
+                 STUDENTID = c(20, 21, 22),
+                 ISHIGHSCHOOL = c(0, 0, 0),
+                 ISDUAL = c(0, 0, 0))
+
+e1d_partF_noHS <- data.frame(UNITID = "111",
+                             SURVSECT = "E1D",
+                             PART = "F",
+                             ENROLLHS = 2,
+                             ENROLLHS_WITHIN = -2,
+                             ENROLLHS_OUTSIDE = -2)
+
+e1d_df_HSnotDual <- e1d_df_noHS
+e1d_df_HSnotDual[, 3] <- 1
+e1d_partF_HSnotDual <- data.frame(UNITID = "111",
+                             SURVSECT = "E1D",
+                             PART = "F",
+                             ENROLLHS = 1,
+                             ENROLLHS_WITHIN = 2,
+                             ENROLLHS_OUTSIDE = 1)
+
 test_that("E1D parts produce expected dfs", {
 
   #tests
@@ -44,6 +66,9 @@ test_that("E1D parts produce expected dfs", {
   expect_equal(make_e1d_part_D(e1d_students, ugender = TRUE, ggender = TRUE), part_outputs$e1d_partD)
   expect_equal(make_e1d_part_D(e1d_partD_df, ugender = TRUE, ggender = TRUE), e1d_partD_TrueTrue)
   expect_equal(make_e1d_part_E(e1d_students), part_outputs$e1d_partE)
+  expect_equal(make_e1d_part_F(e1d_students), part_outputs$e1d_partF)
+  expect_equal(make_e1d_part_F(e1d_df_noHS), e1d_partF_noHS)
+  expect_equal(make_e1d_part_F(e1d_df_HSnotDual), e1d_partF_HSnotDual)
 })
 
 ########
@@ -139,6 +164,8 @@ test_that("OM parts produce expected dfs", {
 #   e1d_partB = e1d_partB,
 #   e1d_partC = e1d_partC,
 #   e1d_partD = make_e1d_part_D(e1d_students, TRUE, TRUE),
+#   e1d_partE = make_e1d_part_E(e1d_students),
+#   e1d_partF = make_e1d_part_F(e1d_students),
 #   ef1_partA_FALSE = `ef1_partA-FALSE`,
 #   ef1_partA_TRUE = `ef1_partA-TRUE`,
 #   ef1_partB = ef1_partB,
