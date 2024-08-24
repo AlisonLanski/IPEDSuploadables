@@ -1,5 +1,7 @@
 Package update checklist
 
+0) Is this a cycle update? Save off the prior year into a branch!!!!
+
 1) Make updates in a branch
 2) Pull request to dev
 3) Pull request to master
@@ -39,7 +41,7 @@ F) Create New Release with consistent title; correct tag, pasted and revised tex
 G) Preview/Edit until satisfied, then Publish
 H) Can set as "prerelease" before Publish if doing this before it's actually on CRAN.
 I) If H, then come back after it goes to CRAN, edit, and update to be a final release
-J) Email "IPEDSuploadables Email list" 
+J) Email "IPEDSuploadables Email list"
 
 List based on:
 https://www.r-bloggers.com/2020/07/how-to-write-your-own-r-package-and-publish-it-on-cran/

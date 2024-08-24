@@ -20,7 +20,7 @@ A few things to note:
 
 * To ensure you have the most current version of this package, we suggest you check for an updated version and reinstall (as needed) during each collection window.
 * To use this package, you'll need to prepare your data as indicated in vignettes. The vignettes can all be viewed through the [package website](https://alisonlanski.github.io/IPEDSuploadables/).  
-* IPEDS upload files must be 100% of the requested information for a particular report. In other words, if a report has parts A, B, and C, you must upload all parts in a single file or the upload will fail.  
+* IPEDS upload files must be 100% of the requested information for a particular report. In other words, if a report has parts A, B, and C, you must upload all parts in a single file or the upload will fail.  **Note: I have heard rumors that you can now successfully upload an incomplete file. I have not confirmed this for myself.**
 * To create an upload-ready file based on your own data preparation, see [How to produce other key-value uploads](howto_use_autoformat.html)
 
 ## Step 0: Install/Load the package
@@ -123,7 +123,7 @@ Fall Enrollment
 
 Human Resources
 
-* The script requires one dataframe with all current employees and new hires. If someone is counted in both sections of the report, include them only once in your institutional data with the appropriate flags.  
+* The script requires one dataframe with all current employees: continuing and new hires. New hires are designed through a flag and should not have a second entry.  
   
 Admissions  
   
