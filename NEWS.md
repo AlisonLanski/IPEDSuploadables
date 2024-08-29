@@ -1,3 +1,10 @@
+# IPEDSUploadables 2.9.0
+* Addressed 2024-2025 reporting cycle updates from IPEDS (see items below)
+* Graduation rates removed Gender Detail; info longer required in starting data (functions deprecated)
+* 12 month enrollment now collects/reports on what kind of program a high school student is in (dual or other)
+* Internal R updates to handle roxygen & dplyr changes
+* Some documentation cleanup
+
 # IPEDSUploadables 2.8.7
 * Internal updates to address CRAN notes about web data and startup messages  
 
