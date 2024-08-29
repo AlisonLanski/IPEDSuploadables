@@ -5,6 +5,8 @@
 
 <!-- badges: start -->
 
+[![CRAN
+status](https://www.r-pkg.org/badges/version/IPEDSuploadables)](https://CRAN.R-project.org/package=IPEDSuploadables)
 [![R-CMD-check](https://github.com/AlisonLanski/IPEDSuploadables/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/AlisonLanski/IPEDSuploadables/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
 coverage](https://codecov.io/gh/AlisonLanski/IPEDSuploadables/graph/badge.svg)](https://app.codecov.io/gh/AlisonLanski/IPEDSuploadables)
