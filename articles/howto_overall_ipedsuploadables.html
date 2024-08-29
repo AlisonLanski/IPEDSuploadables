@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>How to use this package to support your IPEDS reporting • IPEDSuploadables</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
@@ -20,7 +20,7 @@
 gtag('config', 'G-NSXZV7NDWP'); </script>
 </head>
 <body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -46,7 +46,7 @@ gtag('config', 'G-NSXZV7NDWP'); </script>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
-     
+
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
@@ -87,7 +87,7 @@ gtag('config', 'G-NSXZV7NDWP'); </script>
 <li>
   <a href="https://github.com/AlisonLanski/IPEDSuploadables/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
-     
+
   </a>
 </li>
       </ul>
@@ -98,7 +98,7 @@ gtag('config', 'G-NSXZV7NDWP'); </script>
 </div>
 <!--/.navbar -->
 
-      
+
 
       </header><div class="row">
   <div class="col-md-9 contents">
@@ -107,7 +107,7 @@ gtag('config', 'G-NSXZV7NDWP'); </script>
 reporting</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/AlisonLanski/IPEDSuploadables/blob/HEAD/vignettes/howto_overall_ipedsuploadables.Rmd" class="external-link"><code>vignettes/howto_overall_ipedsuploadables.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/AlisonLanski/IPEDSuploadables/blob/master/vignettes/howto_overall_ipedsuploadables.Rmd" class="external-link"><code>vignettes/howto_overall_ipedsuploadables.Rmd</code></a></small>
       <div class="hidden name"><code>howto_overall_ipedsuploadables.Rmd</code></div>
 
     </div>
@@ -125,8 +125,9 @@ website</a>.<br>
 </li>
 <li>IPEDS upload files must be 100% of the requested information for a
 particular report. In other words, if a report has parts A, B, and C,
-you must upload all parts in a single file or the upload will
-fail.<br>
+you must upload all parts in a single file or the upload will fail.
+<strong>Note: I have heard rumors that you can now successfully upload
+an incomplete file. I have not confirmed this for myself.</strong>
 </li>
 <li>To create an upload-ready file based on your own data preparation,
 see <a href="howto_use_autoformat.html">How to produce other key-value
@@ -152,7 +153,7 @@ uploads</a>
 <code class="sourceCode R"><span><span class="co">#load the packages</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/AlisonLanski/IPEDSuploadables" class="external-link">IPEDSuploadables</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; This version of IPEDSuploadables has been updated for </span></span>
-<span><span class="co">#&gt; the 2023-2024 reporting cycle.</span></span>
+<span><span class="co">#&gt; the 2024-2025 reporting cycle.</span></span>
 <span><span class="co">#&gt; If you are in a later cycle or want to capture any bug fixes,</span></span>
 <span><span class="co">#&gt; please update the package.</span></span></code></pre></div>
 </div>
@@ -227,20 +228,20 @@ retention aggregate</a></td>
 <span><span class="co">#&gt; 4 999999       103          1           1          0                   0</span></span>
 <span><span class="co">#&gt; 5 999999       104          1           1          0                   1</span></span>
 <span><span class="co">#&gt; 6 999999       105          1           1          0                   0</span></span>
-<span><span class="co">#&gt;    StudentLevel IsHighSchool RaceEthnicity Sex DistanceEdAll DistanceEdSome</span></span>
-<span><span class="co">#&gt; 1 Undergraduate            0             1   1             0              1</span></span>
-<span><span class="co">#&gt; 2 Undergraduate            0             1   2             0              1</span></span>
-<span><span class="co">#&gt; 3 Undergraduate            0             1   2             0              1</span></span>
-<span><span class="co">#&gt; 4 Undergraduate            0             1   1             0              1</span></span>
-<span><span class="co">#&gt; 5 Undergraduate            0             1   1             0              1</span></span>
-<span><span class="co">#&gt; 6 Undergraduate            0             1   2             0              0</span></span>
-<span><span class="co">#&gt;   GenderDetail</span></span>
-<span><span class="co">#&gt; 1            1</span></span>
-<span><span class="co">#&gt; 2            2</span></span>
-<span><span class="co">#&gt; 3            2</span></span>
-<span><span class="co">#&gt; 4            1</span></span>
-<span><span class="co">#&gt; 5            1</span></span>
-<span><span class="co">#&gt; 6            2</span></span></code></pre></div>
+<span><span class="co">#&gt;    StudentLevel IsHighSchool IsDual RaceEthnicity Sex DistanceEdAll</span></span>
+<span><span class="co">#&gt; 1 Undergraduate            0      0             1   1             0</span></span>
+<span><span class="co">#&gt; 2 Undergraduate            0      0             1   2             0</span></span>
+<span><span class="co">#&gt; 3 Undergraduate            0      0             1   2             0</span></span>
+<span><span class="co">#&gt; 4 Undergraduate            0      0             1   1             0</span></span>
+<span><span class="co">#&gt; 5 Undergraduate            0      0             1   1             0</span></span>
+<span><span class="co">#&gt; 6 Undergraduate            0      0             1   2             0</span></span>
+<span><span class="co">#&gt;   DistanceEdSome GenderDetail</span></span>
+<span><span class="co">#&gt; 1              1            1</span></span>
+<span><span class="co">#&gt; 2              1            2</span></span>
+<span><span class="co">#&gt; 3              1            2</span></span>
+<span><span class="co">#&gt; 4              1            1</span></span>
+<span><span class="co">#&gt; 5              1            1</span></span>
+<span><span class="co">#&gt; 6              0            2</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="step-2-read-in-your-data-and-produce-your-ipeds-report">Step 2: Read in your data and produce your IPEDS report<a class="anchor" aria-label="anchor" href="#step-2-read-in-your-data-and-produce-your-ipeds-report"></a>
@@ -264,12 +265,19 @@ your original file.</li>
 <p>A message will be display the location of your file when it has been
 processed.</p>
 <div class="section level3">
-<h3 id="note-about-the-gender-collection-updates-for-2023-2024-reporting-cycle">Note about the gender collection updates for 2023-2024 reporting
-cycle<a class="anchor" aria-label="anchor" href="#note-about-the-gender-collection-updates-for-2023-2024-reporting-cycle"></a>
+<h3 id="note-about-the-gender-collection-updates-for-2024-2025-reporting-cycle">Note about the gender collection updates for 2024-2025 reporting
+cycle<a class="anchor" aria-label="anchor" href="#note-about-the-gender-collection-updates-for-2024-2025-reporting-cycle"></a>
 </h3>
-<p>These update affect the scripts for Completions, 12 Month Enrollment,
-Graduation Rates, and Fall Enrollment.</p>
-<p>Scripts are set to assume that you ARE able to report on “another
+<p><strong>Graduation Rates no longer has a gender detail requirement
+(it was removed by IPEDS). Therefore, the starting data requirements,
+sample data, and scripts have been updated to remove the
+<code>ugender</code> flag and the <code>GenderDetail</code>
+column.</strong></p>
+<p>Completions, 12 Month Enrollment, and Fall Enrollment still DO
+require reporting on “another gender” and “unknown gender”. This means
+you continue to need <code>GenderDetail</code>, <code>ugender</code>,
+and <code>ggender</code> information as appropriate for each survey.
+Scripts are set to assume that you ARE able to report on “another
 gender” in this reporting cycle. They will automatically mask data if
 you have fewer than 5 students in the “another gender” category.
 Therefore, as long as you have the capacity to report Another Gender,
@@ -309,10 +317,9 @@ would like to report data in optional years, change the
 </ul>
 <p>Human Resources</p>
 <ul>
-<li>The script requires one dataframe with all current employees and new
-hires. If someone is counted in both sections of the report, include
-them only once in your institutional data with the appropriate
-flags.</li>
+<li>The script requires one dataframe with all current employees:
+continuing and new hires. New hires are designed through a flag and
+should not have a second entry.</li>
 </ul>
 <p>Admissions</p>
 <ul>
@@ -412,9 +419,7 @@ version of the package by removing the “ref” argument.</p>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
-    </nav>
-</div>
+      </div>
 
 </div>
 
@@ -427,16 +432,16 @@ version of the package by removing the “ref” argument.</p>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
 </div>
 
       </footer>
 </div>
 
-  
 
 
-  
+
+
 
   </body>
 </html>
