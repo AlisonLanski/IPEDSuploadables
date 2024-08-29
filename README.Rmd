@@ -17,6 +17,7 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/AlisonLanski/IPEDSuploadables/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/AlisonLanski/IPEDSuploadables/actions/workflows/R-CMD-check.yaml)
+[![Codecov test coverage](https://codecov.io/gh/AlisonLanski/IPEDSuploadables/graph/badge.svg)](https://app.codecov.io/gh/AlisonLanski/IPEDSuploadables)
 <!-- badges: end -->
 
 IPEDSuploadables produces text files in key-value format which meet the IPEDS requirements for upload on their website. By using this package, institutions can avoid the time and risk of manually typing numbers into web forms across multiple screen. Package documentation (see the [website](https://alisonlanski.github.io/IPEDSuploadables/)) describes how an institution's data must be formatted to make use of these scripts. 

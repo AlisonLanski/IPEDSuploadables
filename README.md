@@ -4,6 +4,10 @@
 # IPEDSuploadables
 
 <!-- badges: start -->
+
+[![R-CMD-check](https://github.com/AlisonLanski/IPEDSuploadables/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/AlisonLanski/IPEDSuploadables/actions/workflows/R-CMD-check.yaml)
+[![Codecov test
+coverage](https://codecov.io/gh/AlisonLanski/IPEDSuploadables/graph/badge.svg)](https://app.codecov.io/gh/AlisonLanski/IPEDSuploadables)
 <!-- badges: end -->
 
 IPEDSuploadables produces text files in key-value format which meet the
@@ -22,29 +26,29 @@ institution-types for existing reports*
 
 ### Supported surveys that work for all institutions:
 
--   Completions
--   Outcome Measures
+- Completions
+- Outcome Measures
 
 ### Supported surveys that only work for some institutions:
 
--   Graduation Rates: 4-year institutions 
--   200% Graduation Rates: 4-year institutions 
--   12-month Enrollment: 4-year degree granting institutions 
--   Fall Enrollment: 4-year degree granting institutions 
--   Human Resources: degree granting institutions with more than 15 FTE
+- Graduation Rates: 4-year institutions
+- 200% Graduation Rates: 4-year institutions
+- 12-month Enrollment: 4-year degree granting institutions
+- Fall Enrollment: 4-year degree granting institutions
+- Human Resources: degree granting institutions with more than 15 FTE
 
 ### Unsupported surveys with options
 
--   Academic Libraries: If you complete the ACRL survey, you can
-    download an IPEDS-compatible file from the ACRL site.
--   Admissions: Visit [How to produce other key-value
-    uploads](https://alisonlanski.github.io/IPEDSuploadables/articles/howto_use_autoformat.html)
--   Finance: Visit [How to produce other key-value
-    uploads](https://alisonlanski.github.io/IPEDSuploadables/articles/howto_use_autoformat.html)
--   Institutional Characteristics: Visit [How to produce other key-value
-    uploads](https://alisonlanski.github.io/IPEDSuploadables/articles/howto_use_autoformat.html)
--   Student Financial Aid: Visit [How to produce other key-value
-    uploads](https://alisonlanski.github.io/IPEDSuploadables/articles/howto_use_autoformat.html)
+- Academic Libraries: If you complete the ACRL survey, you can download
+  an IPEDS-compatible file from the ACRL site.
+- Admissions: Visit [How to produce other key-value
+  uploads](https://alisonlanski.github.io/IPEDSuploadables/articles/howto_use_autoformat.html)
+- Finance: Visit [How to produce other key-value
+  uploads](https://alisonlanski.github.io/IPEDSuploadables/articles/howto_use_autoformat.html)
+- Institutional Characteristics: Visit [How to produce other key-value
+  uploads](https://alisonlanski.github.io/IPEDSuploadables/articles/howto_use_autoformat.html)
+- Student Financial Aid: Visit [How to produce other key-value
+  uploads](https://alisonlanski.github.io/IPEDSuploadables/articles/howto_use_autoformat.html)
 
 ## Website
 
