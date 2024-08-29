@@ -64,8 +64,7 @@ make_om_part_D <- function(df) {
     dplyr::group_by(.data$UNITID,
                     .data$COHORTTYPE,
                     .data$RECIPIENT)%>%
-    dplyr::summarize(dplyr::across(dplyr::everything(),
-                                   sum, na.rm = TRUE)) %>%
+    dplyr::summarize(dplyr::across(dplyr::everything(), ~sum(.x, na.rm = TRUE))) %>%
     dplyr::ungroup()
 
   partD <- dplyr::full_join(partD_1, partD_2,

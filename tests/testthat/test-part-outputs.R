@@ -35,6 +35,28 @@ e1d_partD_TrueTrue <- data.frame(UNITID = 999999,
                                  FYGU021 = 5,
                                  FYGU022 = -2)
 
+## adding new hs credit testing for 2024-2025
+e1d_df_noHS <- data.frame(UNITID = c("111", "111", "111"),
+                 STUDENTID = c(20, 21, 22),
+                 ISHIGHSCHOOL = c(0, 0, 0),
+                 ISDUAL = c(0, 0, 0))
+
+e1d_partF_noHS <- data.frame(UNITID = "111",
+                             SURVSECT = "E1D",
+                             PART = "F",
+                             ENROLLHS = 2,
+                             ENROLLHS_WITHIN = -2,
+                             ENROLLHS_OUTSIDE = -2)
+
+e1d_df_HSnotDual <- e1d_df_noHS
+e1d_df_HSnotDual[, 3] <- 1
+e1d_partF_HSnotDual <- data.frame(UNITID = "111",
+                             SURVSECT = "E1D",
+                             PART = "F",
+                             ENROLLHS = 1,
+                             ENROLLHS_WITHIN = 2,
+                             ENROLLHS_OUTSIDE = 1)
+
 test_that("E1D parts produce expected dfs", {
 
   #tests
@@ -44,6 +66,9 @@ test_that("E1D parts produce expected dfs", {
   expect_equal(make_e1d_part_D(e1d_students, ugender = TRUE, ggender = TRUE), part_outputs$e1d_partD)
   expect_equal(make_e1d_part_D(e1d_partD_df, ugender = TRUE, ggender = TRUE), e1d_partD_TrueTrue)
   expect_equal(make_e1d_part_E(e1d_students), part_outputs$e1d_partE)
+  expect_equal(make_e1d_part_F(e1d_students), part_outputs$e1d_partF)
+  expect_equal(make_e1d_part_F(e1d_df_noHS), e1d_partF_noHS)
+  expect_equal(make_e1d_part_F(e1d_df_HSnotDual), e1d_partF_HSnotDual)
 })
 
 ########
@@ -79,26 +104,10 @@ test_that("GR200 parts produce expected dfs", {
 ########
 ### GR
 
-#adding for new gender testing starting in 2023
-gr_partE_df <- data.frame(UNITID = 999999,
-                          GENDERDETAIL = c(1, 2, 3, rep(4, 7)))
-
-gr_partE_True <- data.frame(UNITID = 999999,
-                            SURVSECT = "GR1",
-                            PART = "E",
-                            GRGU01 = 1,
-                            GRGU011 = 1,
-                            GRGU012 = 7)
-
-
-
 test_that("GR parts produce expected dfs", {
   #tests
   expect_equal(make_gr_part_B(gr_students), part_outputs$gr_partB)
   expect_equal(make_gr_part_C(gr_students), part_outputs$gr_partC)
-  expect_equal(make_gr_part_E(gr_students,TRUE), part_outputs$gr_partE)
-  #weird -- regular partE comes out as a tibble instead of a DF - convert it
-  expect_equal(data.frame(make_gr_part_E(gr_partE_df,TRUE)), gr_partE_True)
 })
 
 ########
@@ -155,6 +164,8 @@ test_that("OM parts produce expected dfs", {
 #   e1d_partB = e1d_partB,
 #   e1d_partC = e1d_partC,
 #   e1d_partD = make_e1d_part_D(e1d_students, TRUE, TRUE),
+#   e1d_partE = make_e1d_part_E(e1d_students),
+#   e1d_partF = make_e1d_part_F(e1d_students),
 #   ef1_partA_FALSE = `ef1_partA-FALSE`,
 #   ef1_partA_TRUE = `ef1_partA-TRUE`,
 #   ef1_partB = ef1_partB,
@@ -165,7 +176,6 @@ test_that("OM parts produce expected dfs", {
 #   ef1_partG = ef1_partG,
 #   gr_partB = gr_partB,
 #   gr_partC = gr_partC,
-#   gr_partE = make_gr_part_E(gr_students, TRUE),
 #   gr200 = gr200,
 #   hr_partA1 = hr_partA1,
 #   hr_partA2 = hr_partA2,

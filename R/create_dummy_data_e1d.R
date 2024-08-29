@@ -40,6 +40,7 @@ create_dummy_data_e1d <- function(df_type = "student") {
                                                     replace = TRUE),
                          StudentLevel = c(rep("Undergraduate", 40), rep("Graduate", 40), rep("Undergraduate", 20)),
                          IsHighSchool = c(rep(0, 99), 1),
+                         IsDual = c(rep(0, 99), 1),
                          RaceEthnicity = 1,
                          Sex = sample(x = c(1,2),
                                       size = 100,

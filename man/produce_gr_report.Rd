@@ -4,7 +4,12 @@
 \alias{produce_gr_report}
 \title{Shortcut function with all steps to provide a Graduation Rates report}
 \usage{
-produce_gr_report(df, part = "ALL", format = "uploadable", ugender = TRUE)
+produce_gr_report(
+  df,
+  part = "ALL",
+  format = "uploadable",
+  ugender = lifecycle::deprecated()
+)
 }
 \arguments{
 \item{df}{a dataframe set up according to the readme}
@@ -13,13 +18,15 @@ produce_gr_report(df, part = "ALL", format = "uploadable", ugender = TRUE)
 "A1", etc.}
 
 \item{format}{A string (\code{"uploadable"} will produce a properly formatted
-upload file. \code{"readable"} will produce a csv of the upload file (only
-works for one part at a time). \code{"both"} will provide both options, but
+  upload file. \code{"readable"} will produce a csv of the upload file (only
+  works for one part at a time). \code{"both"} will provide both options, but
 only works with one part at a time.}
 
-\item{ugender}{A boolean: TRUE means you are collecting and able to report
-"another gender" for undergraduate students, even if you have no (or few)
-such students. Set as FALSE if necessary}
+\item{ugender}{`r lifecycle::badge("deprecated")` A boolean: TRUE means
+you are collecting and able to report "another gender" for undergraduate
+students, even if you have no (or few) such students. Set as FALSE if
+necessary. **Starting in 2024-2025, this argument will be ignored by later
+code.**}
 }
 \value{
 A txt or csv file at the path of your choice

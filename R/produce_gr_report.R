@@ -6,10 +6,12 @@
 #' @param format A string (\code{"uploadable"} will produce a properly formatted
 #'   upload file. \code{"readable"} will produce a csv of the upload file (only
 #'   works for one part at a time). \code{"both"} will provide both options, but
-#'   only works with one part at a time.
-#' @param ugender A boolean: TRUE means you are collecting and able to report
-#'   "another gender" for undergraduate students, even if you have no (or few)
-#'   such students. Set as FALSE if necessary
+#' only works with one part at a time.
+#' @param ugender `r lifecycle::badge("deprecated")` A boolean: TRUE means
+#'   you are collecting and able to report "another gender" for undergraduate
+#'   students, even if you have no (or few) such students. Set as FALSE if
+#'   necessary. **Starting in 2024-2025, this argument will be ignored by later
+#'   code.**
 #' @return A txt or csv file at the path of your choice
 #' @export
 #' @examples
@@ -29,10 +31,18 @@
 #' setwd(.old_wd)
 #' }
 
-produce_gr_report <- function(df, part = "ALL", format = "uploadable", ugender = TRUE) {
+produce_gr_report <- function(df, part = "ALL", format = "uploadable", ugender = lifecycle::deprecated()) {
 
-  stopifnot(toupper(part) %in% c("B", "C", "E", "ALL"),
+  stopifnot(toupper(part) %in% c("B", "C", "ALL"),
             toupper(format) %in% c("UPLOADABLE", "READABLE", "BOTH"))
+
+  if (lifecycle::is_present(ugender)) {
+    lifecycle::deprecate_warn(
+      when = "2.9.0",
+      what = "produce_gr_report(ugender)",
+      details = "Detailed gender reporting is no longer used for this IPEDS survey. Argument may be removed in future versions."
+    )
+  }
 
   survey <- 'GradRates'
   output_path <- set_report_path()
@@ -42,7 +52,6 @@ produce_gr_report <- function(df, part = "ALL", format = "uploadable", ugender =
     write_report(
       make_gr_part_B(df),
       make_gr_part_C(df),
-      make_gr_part_E(df, ugender),
       survey = survey,
       part = 'AllParts',
       output_path = output_path
@@ -67,28 +76,5 @@ produce_gr_report <- function(df, part = "ALL", format = "uploadable", ugender =
         output_path = output_path
       )
     }
-
-  } else if(toupper(part) == "E") {
-
-    if(toupper(format) %in% c("UPLOADABLE", "BOTH")){
-      write_report(
-        do.call(paste0("make_gr_part_", toupper(part)), list(df, ugender)),
-        survey = survey,
-        part = paste0("Part", toupper(part)),
-        output_path = output_path
-      )
-    }
-
-    if(toupper(format) %in% c("BOTH", "READABLE")){
-      write_report_csv(
-        do.call(paste0("make_gr_part_", toupper(part)), list(df, ugender)),
-        survey = survey,
-        part = paste0("Part", toupper(part)),
-        output_path = output_path
-      )
-    }
-
   }
-
-
 }

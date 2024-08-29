@@ -3,9 +3,9 @@
 \docType{data}
 \name{e1d_students}
 \alias{e1d_students}
-\title{Dummy student-level data for 12 Month Enrollment parts A, C, and E}
+\title{Dummy student-level data for 12 Month Enrollment parts A, C, D, E, and F}
 \format{
-A data frame with 100 rows (students) and 13 columns
+A data frame with 100 rows (students) and 14 columns
 }
 \usage{
 e1d_students
