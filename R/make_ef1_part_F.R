@@ -6,7 +6,7 @@
 #'
 #' @importFrom svDialogs dlg_input
 #'
-#' @return A text file
+#' @return A dataframe with the required IPEDS structure for this survey part
 #' @export
 #'
 

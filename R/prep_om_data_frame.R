@@ -5,7 +5,7 @@
 #' @importFrom stringr str_to_upper
 #' @importFrom dplyr mutate case_when
 #'
-#' @return df ready for om report scripts
+#' @return A dataframe ready for the make_om scripts
 #' @export
 #'
 

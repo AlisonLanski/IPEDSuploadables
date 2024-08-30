@@ -10,7 +10,7 @@
 #' @importFrom utils write.table
 #' @importFrom stringr str_to_upper
 #'
-#' @return A text file
+#' @return A dataframe with the required IPEDS structure for this survey part
 #' @export
 #'
 

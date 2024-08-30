@@ -10,7 +10,7 @@ make_hr_part_B2(df)
 \item{df}{a dataframe}
 }
 \value{
-a txt file
+A dataframe with the required IPEDS structure for this survey part
 }
 \description{
 Part B2 --- Full-time non-instructional staff by tenure, medical school, and occupational category

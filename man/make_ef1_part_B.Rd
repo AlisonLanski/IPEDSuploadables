@@ -10,7 +10,7 @@ make_ef1_part_B(df)
 \item{df}{A dataframe of student information}
 }
 \value{
-A text file
+A dataframe with the required IPEDS structure for this survey part
 }
 \description{
 Student Counts by Age/gender

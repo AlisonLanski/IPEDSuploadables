@@ -7,7 +7,7 @@
 #' @importFrom dplyr transmute
 #' @importFrom stringr str_to_upper
 #'
-#' @return A text file ready for IPEDS upload
+#' @return A dataframe with the required IPEDS structure for this survey part
 #' @export
 #'
 

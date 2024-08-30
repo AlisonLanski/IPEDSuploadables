@@ -1,47 +1,67 @@
 Package update checklist
 
+#####################
+PREP WORK
+#####################
 0) Is this a cycle update? Save off the prior year into a branch!!!!
 
 1) Make updates in a branch
 2) Pull request to dev
 3) Pull request to master
-3b) Update zzz.R file for load message (if necessary)
 
-In master:
-4) Run devtools::check and pkgdown::build_site
-5) Increment version, update NEWS.md, and rerun check/build_site
-6) Push commits
+#######################
+FINAL WORK IN MASTER
+#######################
 
-If doing a CRAN update (after updates, run normal things like document/check/pkgdown)
-7) Run devtools::spell_check()
-8) Run devtools::check_rhub() [takes about 45 minutes, see email or search for NOTE, WARNING, ERROR]
-9) Run devtools::check_win_devel() [takes about 30 minutes, see email]
-10) Update cran-comments.md
-11) Push any final commits
-12) Run devtools::release()
-13) Repeat as needed....
-14) After CRAN approval, add a tag to GitHub and release notes, wait for site to update
+After pull request:
+A) Check github actions page for CMD Check results from pull request
+B) Run a manual check rhub::rhub_check() for fedora linux (option 5 atlas seems good) and see results in github actions if you feel like it
+
+
+If clear, then:
+1) Update zzz.R file for load message (if necessary)
+2) Increment version
+3) Update NEWS.md
+4) Run devtools::spell_check()
+5) Run local devtools::check and pkgdown::build_site
+6) Run a manual check devtools::check_win_devel()
+7) Run a manual check devtools::check_mac_release()
+8) Push commits
+
+######################
+RELEASES
+######################
+For CRAN release
+A) Run a manual rhub check again
+B) Based on github actions results, update cran-comments.md
+C) Push any final commits
+D) Run devtools::release()
+E) After CRAN approval, add a tag to GitHub and release notes, wait for site to update
 
 If just doing a github release
-7) Add a tag and release notes, wait for github sites to update
+A) Add a tag and release notes, wait for github sites to update
 
+#######################
+TAGGING
+#######################
 To add a tag and do a GitHub release
-A) Check existing tags
+1) Check existing tags
    git tag
-B) Add a new tag to the head commit like this:
+2) Add a new tag to the head commit like this:
    git tag -a 2.8.5 -m "2023-2024 reporting cycle updates v2.8.5"
    where 2.8.5 is the version and "" is the tag message (in addition to the commit message)
    To tag a prior commit, just add the commit hash before -m
-C) Check the log or run
-   git show tag (version) to see the tag setup
-D) Push to the server
-   git push origin (version)
-E) Open GitHub, go to releases, find the most recent related release, open it, click to edit, copy text
-F) Create New Release with consistent title; correct tag, pasted and revised text
-G) Preview/Edit until satisfied, then Publish
-H) Can set as "prerelease" before Publish if doing this before it's actually on CRAN.
-I) If H, then come back after it goes to CRAN, edit, and update to be a final release
-J) Email "IPEDSuploadables Email list"
+3) Check the log or run
+   git show tag [version] to see the tag setup
+4) Push to the server
+   git push origin [version]
+5) Open GitHub, go to releases, find the most recent related release, open it, click to edit, copy text
+6) Create New Release with consistent title; correct tag, pasted and revised text
+7) Preview/Edit until satisfied, then Publish
+8) Can set as "prerelease" before Publish if doing this before it's actually on CRAN.
+9) If H, then come back after it goes to CRAN, edit, and update to be a final release
+10) Email "IPEDSuploadables Email list"
+
 
 List based on:
 https://www.r-bloggers.com/2020/07/how-to-write-your-own-r-package-and-publish-it-on-cran/

@@ -12,7 +12,7 @@ create_dummy_data_ef1(df_type = "students", n = 100)
 \item{n}{A number}
 }
 \value{
-A text file
+A dataframe ready for the rest of the ef1 scripts
 }
 \description{
 Creates students and retention dataframes for use in parts A, B, C, D, E, G, H.

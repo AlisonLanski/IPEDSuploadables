@@ -16,3 +16,5 @@ Big Picture things to check
 --readme
 --changelog
 --how-to articles
+
+After updating readme.Rmd, run devtools::build_readme() to fix the .md version

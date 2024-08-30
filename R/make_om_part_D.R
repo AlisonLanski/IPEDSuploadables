@@ -8,7 +8,7 @@
 #' @importFrom tidyr pivot_wider replace_na
 #' @importFrom stringr str_to_upper
 #'
-#' @return A text file ready for IPEDS upload
+#' @return A dataframe with the required IPEDS structure for this survey part
 #' @export
 #'
 

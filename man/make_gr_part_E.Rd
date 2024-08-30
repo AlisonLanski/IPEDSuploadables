@@ -15,7 +15,7 @@ undergraduates}
 such students. Set as FALSE if necessary. Argument deprecated from the produce function.}
 }
 \value{
-A df aggregated for the survey part
+A dataframe with the required IPEDS structure for this survey part
 }
 \description{
 `r lifecycle::badge("deprecated")`

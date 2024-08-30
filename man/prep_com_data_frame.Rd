@@ -10,7 +10,7 @@ prep_com_data_frame(df)
 \item{df}{a dataframe of student level data or cip information}
 }
 \value{
-df
+A dataframe ready for the make_com scripts
 }
 \description{
 Some initial recoding for Completions

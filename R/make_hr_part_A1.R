@@ -8,7 +8,7 @@
 #' @importFrom rlang .data
 #' @importFrom stringr str_to_upper
 #'
-#' @return a txt file
+#' @return A dataframe with the required IPEDS structure for this survey part
 #' @export
 #'
 

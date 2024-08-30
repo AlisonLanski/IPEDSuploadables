@@ -10,7 +10,7 @@ make_e1d_part_C(df)
 \item{df}{A dataframe of student/degree information}
 }
 \value{
-A text file
+A dataframe with the required IPEDS structure for this survey part
 }
 \description{
 Make 12 Month Enrollment Part C

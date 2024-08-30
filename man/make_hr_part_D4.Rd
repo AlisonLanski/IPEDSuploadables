@@ -10,7 +10,7 @@ make_hr_part_D4(df)
 \item{df}{a dataframe}
 }
 \value{
-a txt file
+A dataframe with the required IPEDS structure for this survey part
 }
 \description{
 Part D4 --- Part-time Non-instructional staff by medical school, and occupational category
