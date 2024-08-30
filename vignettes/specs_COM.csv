@@ -1,0 +1,96 @@
+"DATA_FRAME","COLUMN_NAME","COLUMN_TYPE","ACCEPTABLE_VALUES"
+"startingdf","Unitid","Numeric","(relevant unitid; xxxxxx)"
+"startingdf","StudentId","Character or numeric","(any unique identifier for your students)"
+"startingdf","RaceEthnicity","Numeric","1 - Nonresident alien
+2 - Hispanic/Latino
+3 - American Indian or Alaska Native
+4 - Asian
+5 - Black or African American
+6 - Native Hawaiian or Other Pacific Islander
+7 - White
+8 - Two or more races
+9 - Race and ethnicity unknown"
+"startingdf","Sex","Numeric","1 - Men
+2 - Women"
+"startingdf","GenderDetail","Numeric","1 - Men
+2 - Women
+3 - Unknown gender
+4 - Another gender"
+"startingdf","DegreeLevel","Character or Numeric","1a - Postsecondary award, certificate, or diploma of 
+less than 300 clock hours or
+less than 9 semester or trimester credit hours or
+less than 13 quarter credit hours
+1b - Postsecondary award, certificate, or diploma of 
+300-899 clock hours or
+9-30 semester or trimester credit hours, or
+13-44 quarter credit hours
+2 - Postsecondary award, certificate,or diploma of
+at least 900 but less than 1800 clock hours or
+at least 30 but less than 60 semester or trimester credit hours or
+at least 45 but less than 90 quarter credit hours
+3 - * Associate's Degree
+4 - Postsecondary award, certificate,or diploma of 
+1800 or more clock hours or
+60 or more semester or trimester credit hours or
+90 or more quarter credit hours
+5 - * Bachelor's Degree or equivalent
+6 - Postbaccalaureate Certificate
+7 - * Master's Degree
+8 - Post-Master's Certificate
+17 - * Doctor's degree - research/scholarship
+18 - * Doctor's degree - professional practice
+19 - * Doctor's degree - Other
+* Use only 3, 5, 7, 17, 18 and 19 when reporting second majors."
+"startingdf","MajorNumber","Numeric","1 - First Major
+2 - Second Major"
+"startingdf","MajorCip","Character or Numeric","xx.yyyy or XXYYYY preferred (do not mix formats!),
+x.yyy (etc) accepted"
+"startingdf","DistanceEd","Numeric","1 - All programs in this CIP code/award level are distance education
+2 - None of the programs in this CIP code/award level are distance education
+3 - Some programs in this CIP code/award level are distance education"
+"startingdf","DistanceEd31","Numeric","NULL - if DistanceEd is 1 or 2
+0 - if DistanceEd is 3 and NO programs in this CIP code/award level have a mandatory onsite component
+1 - if DistanceEd is 3 and at least one program in the CIP code/award level has a mandatory onsite component"
+"startingdf","DistanceEd32","Numeric","NULL- if DistanceEd is 1 or 2
+0 - if DistanceEd is 3 and NO programs in this CIP code/award level have a non-mandatory onsite component
+1 - if DistanceEd is 3 and at least one program in the CIP code/award level has a non-mandatory onsite component"
+"startingdf","Age","Numeric","Demical or integer ages"
+"extracips","Unitid","Numeric","(relevant unitid; multiple unitids per dataframe is acceptable)"
+"extracips","DegreeLevel","Character or Numeric","1a - Postsecondary award, certificate, or diploma of 
+less than 300 clock hours or
+less than 9 semester or trimester credit hours or
+less than 13 quarter credit hours
+1b - Postsecondary award, certificate, or diploma of 
+300-899 clock hours or
+9-30 semester or trimester credit hours, or
+13-44 quarter credit hours
+2 - Postsecondary award, certificate,or diploma of
+at least 900 but less than 1800 clock hours or
+at least 30 but less than 60 semester or trimester credit hours or
+at least 45 but less than 90 quarter credit hours
+3 - * Associate's Degree
+4 - Postsecondary award, certificate,or diploma of 
+1800 or more clock hours or
+60 or more semester or trimester credit hours or
+90 or more quarter credit hours
+5 - * Bachelor's Degree or equivalent
+6 - Postbaccalaureate Certificate
+7 - * Master's Degree
+8 - Post-Master's Certificate
+17 - * Doctor's degree - research/scholarship
+18 - * Doctor's degree - professional practice
+19 - * Doctor's degree - Other
+* Use only 3, 5, 7, 17, 18 and 19 when reporting second majors."
+"extracips","DistanceEd31","Numeric","NULL - if DistanceEd is 1 or 2
+0 - if DistanceEd is 3 and NO programs in this CIP code/award level have a mandatory onsite component
+1 - if DistanceEd is 3 and at least one program in the CIP code/award level has a mandatory onsite component"
+"extracips","DistanceEd32","Numeric","NULL- if DistanceEd is 1 or 2
+0 - if DistanceEd is 3 and NO programs in this CIP code/award level have a non-mandatory onsite component
+1 - if DistanceEd is 3 and at least one program in the CIP code/award level has a non-mandatory onsite component"
+"extracips","MajorNumber","Numeric","1 - First Major
+2 - Second Major"
+"extracips","MajorCip","Character or Numeric","xx.xxxx preferred,
+x.xxx (etc) accepted"
+"extracips","RaceEthnicity","Numeric","set all values to 1"
+"extracips","Sex","Numeric","set all values to 1"
+"extracips","Count","Numeric","set all values to 0"
