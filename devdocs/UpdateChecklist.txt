@@ -6,17 +6,9 @@ PREP WORK
 0) Is this a cycle update? Save off the prior year into a branch!!!!
 
 1) Make updates in a branch
-2) Pull request to dev
-3) Pull request to master
-
-#######################
-FINAL WORK IN MASTER
-#######################
-
-After pull request:
-A) Check github actions page for CMD Check results from pull request
-B) Run a manual check rhub::rhub_check() for fedora linux (option 5 atlas seems good) and see results in github actions if you feel like it
-
+2) Merge into to dev
+3) Check github actions page for CMD Check results from pull request
+4) Run a manual check rhub::rhub_check() for fedora linux (option 5 atlas seems good) and see results in github actions if you feel like it
 
 If clear, then:
 1) Update zzz.R file for load message (if necessary)
@@ -28,12 +20,17 @@ If clear, then:
 7) Run a manual check devtools::check_mac_release()
 8) Push commits
 
-######################
-RELEASES
-######################
+##########
+Master & Release
+##########
+
+A) Set up a pull request from dev > master
+B) After review/approval/merge, check github actions checks
+
+
 For CRAN release
-A) Run a manual rhub check again
-B) Based on github actions results, update cran-comments.md
+A) Rerun check_win_devel(), check_mac_release(), rhub run
+B) Based on check results, update cran-comments.md
 C) Push any final commits
 D) Run devtools::release()
 E) After CRAN approval, add a tag to GitHub and release notes, wait for site to update

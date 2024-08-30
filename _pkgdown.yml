@@ -1,6 +1,7 @@
 url: https://alisonlanski.github.io/IPEDSuploadables/
 
 template:
+  bootstrap: 5
   includes:
     in_header:
       <!-- Global site tag (gtag.js) - Google Analytics -->
