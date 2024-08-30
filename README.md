@@ -20,6 +20,15 @@ web forms across multiple screen. Package documentation (see the
 how an institution’s data must be formatted to make use of these
 scripts.
 
+## If you are new to this process or are looking for updates
+
+- Learn the package basics with the article [How to use this package to
+  support your IPEDS
+  reporting](https://alisonlanski.github.io/IPEDSuploadables/articles/howto_overall_ipedsuploadables.html)
+- Check the package [news
+  page](https://alisonlanski.github.io/IPEDSuploadables/news/index.html)
+  for recent updates in this release
+
 ## Report Coverage
 
 *As reports are added, this list will be updated.  
@@ -52,13 +61,12 @@ institution-types for existing reports*
 - Student Financial Aid: Visit [How to produce other key-value
   uploads](https://alisonlanski.github.io/IPEDSuploadables/articles/howto_use_autoformat.html)
 
-## Website
+## Websites
 
-View the pkgdown version of this site and documentation at
-<https://alisonlanski.github.io/IPEDSuploadables/>
-
-View the codebase and submit issues for this package at
-<https://github.com/AlisonLanski/IPEDSuploadables/>
+For code, issues, etc, visit [the github
+site](https://github.com/AlisonLanski/IPEDSuploadables/).  
+To see full documentation, visit [the package
+website](https://alisonlanski.github.io/IPEDSuploadables/).
 
 ## Installation
 
