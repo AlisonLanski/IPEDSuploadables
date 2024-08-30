@@ -7,7 +7,7 @@
 #' @param df_type A string with the dummy data requested ("students" for parts A-D & G-H or "retention" for part E)
 #' @param n A number
 #'
-#' @return A text file
+#' @return A dataframe ready for the rest of the ef1 scripts
 #'
 #' @importFrom rlang .data
 #' @importFrom dplyr group_by summarize ungroup bind_rows arrange transmute n

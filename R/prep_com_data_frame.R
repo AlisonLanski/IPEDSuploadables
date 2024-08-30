@@ -8,7 +8,7 @@
 #' @importFrom rlang .data
 #' @importFrom stringr str_to_upper
 #'
-#' @return df
+#' @return A dataframe ready for the make_com scripts
 #' @export
 #'
 

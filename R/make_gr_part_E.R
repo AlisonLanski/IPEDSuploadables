@@ -23,7 +23,7 @@
 #' @importFrom utils write.table
 #' @importFrom stringr str_to_upper
 #'
-#' @return A df aggregated for the survey part
+#' @return A dataframe with the required IPEDS structure for this survey part
 #' @export
 #' @keywords internal
 #'

@@ -9,7 +9,7 @@
 #' @importFrom dplyr select filter distinct
 #' @importFrom stringr str_to_upper
 #'
-#' @return A data frame
+#' @return A dataframe with the required IPEDS structure for this survey part
 #' @export
 #'
 

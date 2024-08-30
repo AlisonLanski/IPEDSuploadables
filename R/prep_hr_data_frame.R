@@ -6,7 +6,7 @@
 #' @importFrom rlang .data
 #' @importFrom stringr str_to_upper
 #'
-#' @return a dataframe
+#' @return A dataframe ready for the make_hr scripts
 #' @export
 #'
 

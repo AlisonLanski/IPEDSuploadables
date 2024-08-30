@@ -9,7 +9,7 @@
 #' @importFrom tidyr pivot_wider
 #' @importFrom stringr str_to_upper
 #'
-#' @return A df ready for use in the make_om_part functions B-D
+#' @return A dataframe pivoted and prepared for use within the make_om_part functions B-D
 #'
 
 prep_om_awards <- function(df, award) {
