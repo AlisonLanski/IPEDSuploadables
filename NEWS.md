@@ -1,3 +1,7 @@
+# IPEDSuploadables 2.9.1
+* Making function documentation a bit more uniform
+* Changing data load method in vignettes to avoid error on old macos checks
+
 # IPEDSUploadables 2.9.0
 * Addressed 2024-2025 reporting cycle updates from IPEDS (see items below)
 * Graduation rates removed Gender Detail; info longer required in starting data (functions deprecated)
