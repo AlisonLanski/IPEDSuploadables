@@ -57,3 +57,37 @@ cranlogs::cran_downloads(
   summarize(Downloads = sum(count)) %>%
   ungroup() %>%
   mutate(RunningTotal = cumsum(.data$Downloads))
+
+####################
+#### Trying new, uninflated package counts?
+library(packageRank)
+starting <- cranDownloads(
+  from = "2022-05-01",
+  to = lubridate::today(),
+  packages = c("IPEDSuploadables")
+)
+
+#SLOOOWWWWWW
+packageRank(package = "IPEDSuploadables", date = "2023-09-16")
+#defaults to current date
+filteredDownloads(package = "IPEDSuploadables", all.filters = TRUE)
+#Can only download one date at time, and it's like 100MB per.
+#A couple dates show that generally only a couple results are filtered on a given day
+#Which could suggest a blanket filter of ~60 per month removed
+filteredDownloads(package = "IPEDSuploadables", date = "2023-05-07",  all.filters = TRUE)
+
+#implement rough filter
+cranlogs::cran_downloads(
+  from = "2022-05-01",
+  to = lubridate::today(),
+  packages = c("IPEDSuploadables")
+) %>%
+  mutate(Year = lubridate::year(date),
+         Month = lubridate::month(date, label = TRUE)) %>%
+  group_by(Year, Month) %>%
+  summarize(Downloads = sum(count),
+            SomeRemoved = Downloads-60) %>%
+  ungroup() %>%
+  mutate(RunningTotalAll = cumsum(.data$Downloads),
+    RunningTotalSomeRemoved = cumsum(.data$SomeRemoved))
+
