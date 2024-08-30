@@ -34,13 +34,17 @@ tryCatch(specs_COM <- googlesheets4::read_sheet("https://docs.google.com/spreads
         error = function(x) message("Google Sheet unavailable"),
         warning = function(y) message("There was a warning"))
 
-write.csv(x = specs_COM, file = "../vignettes/specs_COM.csv", row.names = FALSE)
-#usethis::use_data(specs_COM, overwrite = TRUE)
+usethis::use_data(specs_COM, overwrite = TRUE)
+
+#alternatively, this code combination works for save/load and doesn't end up as package data
+#write.csv(x = specs_COM, file = "../vignettes/specs_COM.csv", row.names = FALSE)
+#specs_COM <- data.frame(read.csv("specs_COM.csv", stringsAsFactors = FALSE))
+# but the file size for the csv is slightly larger than the rda
 ```
 
 ```{r specstable_df, echo=FALSE, warning=FALSE, message=FALSE}
 #figure out why striped isn't working when format = 'html'
-specs_COM <- data.frame(read.csv("specs_COM.csv", stringsAsFactors = FALSE))
+data(specs_COM, package = "IPEDSuploadables")
 library(magrittr)
 specs_COM$ACCEPTABLE_VALUES <- stringr::str_replace_all(specs_COM$ACCEPTABLE_VALUES, pattern = "\\n", replacement = "<br>")
 specs_COM_startingdf <- specs_COM[specs_COM$DATA_FRAME == 'startingdf', 2:4]
