@@ -10,7 +10,7 @@ make_ef1_part_F(df)
 \item{df}{A dataframe (either "students" or "retention") as a unitid source}
 }
 \value{
-A text file
+A dataframe with the required IPEDS structure for this survey part
 }
 \description{
 Student Faculty Ratio

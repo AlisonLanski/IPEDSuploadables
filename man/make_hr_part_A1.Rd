@@ -10,7 +10,7 @@ make_hr_part_A1(df)
 \item{df}{a dataframe}
 }
 \value{
-a txt file
+A dataframe with the required IPEDS structure for this survey part
 }
 \description{
 Part A1 --- COUNT of FT INSTRUCTIONAL staff by tenure status, academic rank, and race/ethnicity/gender

@@ -10,7 +10,7 @@ make_hr_part_D3(df)
 \item{df}{a dataframe}
 }
 \value{
-a txt file
+A dataframe with the required IPEDS structure for this survey part
 }
 \description{
 Part D3 --- Part-time staff by tenure, medical school, and occupational category

@@ -10,7 +10,7 @@ make_gr200(df)
 \item{df}{A dataframe of student/degree information}
 }
 \value{
-A text file
+A dataframe with the required IPEDS structure for this survey part
 }
 \description{
 Make Graduation Rates 200

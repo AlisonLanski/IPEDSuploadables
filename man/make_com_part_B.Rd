@@ -12,7 +12,7 @@ make_com_part_B(df, extracips = NULL)
 \item{extracips}{A dataframe of cips offered by the institution but not in \code{'df'}}
 }
 \value{
-A text file
+A dataframe with the required IPEDS structure for this survey part
 }
 \description{
 Make Completions Part B

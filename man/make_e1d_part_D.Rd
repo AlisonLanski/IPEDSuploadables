@@ -18,7 +18,7 @@ such students. Set as FALSE if necessary}
 students. Set as FALSE if necessary}
 }
 \value{
-A text file
+A dataframe with the required IPEDS structure for this survey part
 }
 \description{
 Make 12 Month Enrollment Part D (gender details)

@@ -10,7 +10,7 @@ make_om_part_B(df)
 \item{df}{A dataframe of student statuses}
 }
 \value{
-A text file ready for IPEDS upload
+A dataframe with the required IPEDS structure for this survey part
 }
 \description{
 Award Status at Four Years after Entry

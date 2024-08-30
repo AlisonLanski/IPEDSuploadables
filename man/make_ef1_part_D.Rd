@@ -10,7 +10,7 @@ make_ef1_part_D(df)
 \item{df}{A dataframe of student/degree information}
 }
 \value{
-A text file
+A dataframe with the required IPEDS structure for this survey part
 }
 \description{
 Count of new non-degree students

@@ -16,7 +16,7 @@ make_com_part_E(df, ugender, ggender)
 "another gender" for graduate completers, even if you have no (or few) such students. Set as FALSE if necessary}
 }
 \value{
-A text file
+A dataframe with the required IPEDS structure for this survey part
 }
 \description{
 Make Completions Part E (gender details)

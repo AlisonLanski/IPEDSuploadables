@@ -12,7 +12,7 @@ prep_om_awards(df, award)
 \item{award}{A string with the df column to use for processing depending on the OM part}
 }
 \value{
-A df ready for use in the make_om_part functions B-D
+A dataframe pivoted and prepared for use within the make_om_part functions B-D
 }
 \description{
 Select correct year, ensure all award levels end up with a column

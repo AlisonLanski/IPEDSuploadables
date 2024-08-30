@@ -10,7 +10,7 @@ make_e1d_part_B(df)
 \item{df}{A dataframe with summarized credit hours and student information}
 }
 \value{
-A text file
+A dataframe with the required IPEDS structure for this survey part
 }
 \description{
 Make 12 Month Enrollment Part B

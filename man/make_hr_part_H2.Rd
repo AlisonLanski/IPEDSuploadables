@@ -10,7 +10,7 @@ make_hr_part_H2(df)
 \item{df}{a dataframe}
 }
 \value{
-a txt file
+A dataframe with the required IPEDS structure for this survey part
 }
 \description{
 Part H2 --- New hires by occupational category, Race/Ethnicity/Gender

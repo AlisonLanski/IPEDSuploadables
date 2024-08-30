@@ -10,7 +10,7 @@ make_hr_part_H1(df)
 \item{df}{a dataframe}
 }
 \value{
-a txt file
+A dataframe with the required IPEDS structure for this survey part
 }
 \description{
 Part H1 --- Full-time new hire instructional staff by tenure status and race/ethnicity/gender

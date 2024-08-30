@@ -10,7 +10,7 @@ prep_ef1_data_frame(df)
 \item{df}{a dataframe of student level data}
 }
 \value{
-df
+A dataframe ready for the make_ef1 scripts
 }
 \description{
 Some initial recoding for Fall Enrollment

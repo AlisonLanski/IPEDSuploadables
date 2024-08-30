@@ -10,7 +10,7 @@ make_hr_part_B1(df)
 \item{df}{a dataframe}
 }
 \value{
-a txt file
+A dataframe with the required IPEDS structure for this survey part
 }
 \description{
 HR Part B1 --- COUNT of FT Non-instructional staff by occupational category

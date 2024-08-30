@@ -10,7 +10,7 @@ make_ef1_part_C(df)
 \item{df}{A dataframe of student/degree information}
 }
 \value{
-A text file
+A dataframe with the required IPEDS structure for this survey part
 }
 \description{
 State of origin for first time students

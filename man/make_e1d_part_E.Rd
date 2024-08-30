@@ -10,7 +10,7 @@ make_e1d_part_E(df)
 \item{df}{A dataframe of student/degree information}
 }
 \value{
-A text file
+A dataframe with the required IPEDS structure for this survey part
 }
 \description{
 R/E and Gender counts for dual enrollment (high school students)

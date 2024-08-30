@@ -10,7 +10,7 @@ make_hr_part_G1(df)
 \item{df}{a dataframe}
 }
 \value{
-a txt file
+A dataframe with the required IPEDS structure for this survey part
 }
 \description{
 Part G1 --- Salaries of INSTRUCTIONAL staff

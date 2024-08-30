@@ -10,7 +10,7 @@ make_e1d_part_F(df)
 \item{df}{A dataframe of student/degree information}
 }
 \value{
-A data frame
+A dataframe with the required IPEDS structure for this survey part
 }
 \description{
 Flag questions about high school students enrolled for credit

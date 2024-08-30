@@ -10,7 +10,7 @@ prep_hr_data_frame(df)
 \item{df}{a dataframe}
 }
 \value{
-a dataframe
+A dataframe ready for the make_hr scripts
 }
 \description{
 Some initial recoding for Human Resources
