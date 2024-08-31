@@ -1,6 +1,7 @@
 # IPEDSuploadables 2.9.1
+* Changing data load method in vignettes to avoid error on old Mac OS checks
 * Making function documentation a bit more uniform
-* Changing data load method in vignettes to avoid error on old macos checks
+* Adding some badges for fun
 
 # IPEDSUploadables 2.9.0
 * Addressed 2024-2025 reporting cycle updates from IPEDS (see items below)
