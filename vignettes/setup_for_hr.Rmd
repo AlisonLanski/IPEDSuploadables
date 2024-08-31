@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup, eval=FALSE, echo=FALSE}
+```{r setup, include=FALSE}
 library(IPEDSuploadables)
 ```
 
@@ -28,8 +28,6 @@ library(IPEDSuploadables)
 ### Note
 Starting in the 2022-2023 reporting cycle, we only report New Hires who are still 11/1 Current Employees.  In other words, everyone in your starting data should have a  CurrentEmployee flag of 1. In future years, we may drop the requirement of the CurrentEmployee column since it no longer carries valuable information.  For this year, we have left it to avoid further structural changes.
 ```{r specstable, echo=FALSE, warning=FALSE, message=FALSE}
-#figure out why striped isn't working when format = 'html'
-data(specs_HR, package = "IPEDSuploadables")
 library(magrittr)
 specs_HR$ACCEPTABLE_VALUES <- stringr::str_replace_all(specs_HR$ACCEPTABLE_VALUES, pattern = "\\n", replacement = "<br>")
 knitr::kable(specs_HR, 

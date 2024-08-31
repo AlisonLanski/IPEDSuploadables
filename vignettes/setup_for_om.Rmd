@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup, eval=FALSE, echo=FALSE}
+```{r setup, include=FALSE}
 library(IPEDSuploadables)
 ```
 
@@ -38,8 +38,6 @@ use_data(specs_OM, overwrite = TRUE) #to save as .rda and replace the old file
 
 
 ```{r specstable, echo=FALSE, warning=FALSE, message=FALSE}
-#figure out why striped isn't working when format = 'html'
-data(specs_OM, package = "IPEDSuploadables")
 library(magrittr)
 specs_OM$ACCEPTABLE_VALUES <- stringr::str_replace_all(specs_OM$ACCEPTABLE_VALUES, pattern = "\\n", replacement = "<br>")
 knitr::kable(specs_OM, 
