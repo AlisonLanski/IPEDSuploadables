@@ -10,6 +10,7 @@ status](https://www.r-pkg.org/badges/version/IPEDSuploadables)](https://CRAN.R-p
 [![R-CMD-check](https://github.com/AlisonLanski/IPEDSuploadables/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/AlisonLanski/IPEDSuploadables/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
 coverage](https://codecov.io/gh/AlisonLanski/IPEDSuploadables/graph/badge.svg)](https://app.codecov.io/gh/AlisonLanski/IPEDSuploadables)
+[![Downloads](https://cranlogs.r-pkg.org/badges/IPEDSuploadables)](https://CRAN.R-project.org/package=IPEDSuploadables)
 <!-- badges: end -->
 
 IPEDSuploadables produces text files in key-value format which meet the
