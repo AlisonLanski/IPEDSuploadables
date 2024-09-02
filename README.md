@@ -21,6 +21,8 @@ web forms across multiple screen. Package documentation (see the
 how an institution’s data must be formatted to make use of these
 scripts.
 
+### The package is currently serving the 2024-2025 IPEDS reporting cycle
+
 ## If you are new to this process or are looking for updates
 
 - Learn the package basics with the article [How to use this package to
