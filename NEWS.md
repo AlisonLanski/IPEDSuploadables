@@ -1,3 +1,7 @@
+#IPEDSuploadables 2.10.0
+* Updating incorrect column name in Outcome Measures vignette
+* Added quality check for correct column name in OM data prep script
+  
 # IPEDSuploadables 2.9.1
 * Changing data load method in vignettes to avoid error on old Mac OS checks
 * Making function documentation a bit more uniform
