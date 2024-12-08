@@ -1,9 +1,7 @@
 ## Update notes
-This update should solve the errors showing on CRAN for v2.9.0 on these builds:
-r-oldrel-macos-arm64 and r-oldrel-macos-x86_64
-
-The method of calling package data has been fixed.
-This update also includes some cosmetic improvements.
+Documentation update to match package data requirements.  
+Better method of calling package data.  
+This update also includes some cosmetic improvements, e.g. badges for github.
   
   
 ## R CMD check results
