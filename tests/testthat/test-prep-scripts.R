@@ -26,6 +26,11 @@ hr_df <- data.frame(unitid = 123456,
 
 om_df <- data.frame(unitid = 123456,
                     cohortstatus = c("Include", "Exclude"))
+om_df2 <- data.frame(unitid = 123456,
+                     exclusion = c("Include", "Exclude"))
+om_df3 <- data.frame(unitid = "000000",
+                 studentid = c("A", "B", "C"),
+                 exclusion = c("Include",  "Exclude", "TRUE"))
 
 
 ####
@@ -112,6 +117,7 @@ test_that("Funky data used for recoding will throw warning messages", {
   expect_warning(prep_om_data_frame(data.frame(unitid = 123456,
                                                studentid = c('AAA', 'BBB', 'CCC'),
                                                cohortstatus = c("Amy", "Bob", "Include"))), "Check CohortStatus")
+  expect_warning(prep_om_data_frame(om_df3))
 })
 
 
@@ -124,6 +130,7 @@ test_that("Funky data used for recoding will throw warning messages", {
 
 test_that("OM prep recoding comes out as expected", {
   expect_equal(prep_om_data_frame(om_df)$EXCLUSION, c(FALSE, TRUE))
+  expect_equal(prep_om_data_frame(om_df2)$EXCLUSION, c(FALSE, TRUE))
 })
 
 
