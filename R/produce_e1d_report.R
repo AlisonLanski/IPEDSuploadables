@@ -9,12 +9,6 @@
 #'   upload file. \code{"readable"} will produce a csv of the upload file (only
 #'   works for one part at a time). \code{"both"} will provide both options, but
 #'   only works with one part at a time.
-#' @param ugender A boolean: TRUE means you are collecting and able to report
-#'   "another gender" for undergraduate students, even if you have no (or few)
-#'   such students. Set as FALSE if necessary
-#' @param ggender A boolean: TRUE means you are collecting and able to report
-#'   "another gender" for graduate students, even if you have no (or few) such
-#'   students. Set as FALSE if necessary
 #'
 #' @return A txt or csv file at the path of your choice
 #' @export
@@ -36,8 +30,7 @@
 #'setwd(.old_wd)
 #'}
 
-produce_e1d_report <- function(df, hrs, part = "ALL", format = "uploadable",
-                               ugender = TRUE, ggender = TRUE) {
+produce_e1d_report <- function(df, hrs, part = "ALL", format = "uploadable") {
 
   stopifnot(toupper(part) %in% c("A", "B", "C", "D", "E", "F", "ALL"),
             toupper(format) %in% c("UPLOADABLE", "READABLE", "BOTH"))
@@ -52,7 +45,7 @@ produce_e1d_report <- function(df, hrs, part = "ALL", format = "uploadable",
       make_e1d_part_A(df),
       make_e1d_part_C(df),
       make_e1d_part_B(hrs),
-      make_e1d_part_D(df, ugender, ggender),
+      make_e1d_part_D(df),
       make_e1d_part_E(df),
       make_e1d_part_F(df),
       survey = survey,
@@ -72,7 +65,7 @@ produce_e1d_report <- function(df, hrs, part = "ALL", format = "uploadable",
         )
       } else if(toupper(part) == 'D'){
         write_report(
-          make_e1d_part_D(df, ugender, ggender),
+          make_e1d_part_D(df),
           survey = survey,
           part = paste0("Part", toupper(part)),
           output_path = output_path
@@ -99,7 +92,7 @@ produce_e1d_report <- function(df, hrs, part = "ALL", format = "uploadable",
           )
       } else if(toupper(part) == 'D'){
         write_report_csv(
-          make_e1d_part_D(df, ugender, ggender),
+          make_e1d_part_D(df),
           survey = survey,
           part = paste0("Part", toupper(part)),
           output_path = output_path

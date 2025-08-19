@@ -48,11 +48,7 @@ create_dummy_data_e1d <- function(df_type = "student") {
                                       prob = c(.47, .53)),
                          DistanceEdAll = c(rep(0, 35), rep(1, 10), rep(0, 55)),
                          DistanceEdSome = c(rep(1, 5), rep(0, 90), rep(1, 5)),
-                         stringsAsFactors = FALSE) %>%
-    dplyr::mutate(GenderDetail = case_when(StudentId == 179 ~ 4,
-                                           StudentId == 180 ~ 4,
-                                           StudentId == 181 ~ 3,
-                                           TRUE ~ Sex))
+                         stringsAsFactors = FALSE)
 
   if(tolower(df_type) == "student") {
     return(students)
