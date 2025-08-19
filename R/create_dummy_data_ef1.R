@@ -70,17 +70,6 @@ create_dummy_data_ef1 <- function(df_type = "students", n = 100) {
                     Cip220101 = 0,
                     Cip510401 = 0,
                     Cip511201 = 0)
-
-    df <- df %>%
-      mutate(GenderDetail = ifelse(
-        .data$StudentLevel == 'Undergraduate' & .data$IsFullTime == 1 & .data$Sex == 1 & .data$AdmitState == 6,
-        3,
-        ifelse(
-          .data$StudentLevel == 'Undergraduate' & .data$IsFullTime == 1 & .data$Sex == 2 & .data$AdmitState == 6,
-          4,
-          .data$Sex
-        )))
-
   }
 
 

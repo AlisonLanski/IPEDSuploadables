@@ -11,12 +11,6 @@
 #'   upload file. \code{"readable"} will produce a csv of the upload file (only
 #'   works for one part at a time). \code{"both"} will provide both options, but
 #'   only works with one part at a time.
-#' @param ugender A boolean: TRUE means you are collecting and able to report
-#'   "another gender" for undergraduate completers, even if you have no (or few)
-#'   such students. Set as FALSE if necessary
-#' @param ggender A boolean: TRUE means you are collecting and able to report
-#'   "another gender" for graduate completers, even if you have no (or few) such
-#'   students. Set as FALSE if necessary
 #'
 #'
 #' @return A txt or csv file at the path of your choice
@@ -44,7 +38,7 @@
 #' }
 
 produce_ef1_report <- function(students, retention, part = "ALL", include_optional = FALSE,
-                               format = "uploadable", ugender = TRUE, ggender = TRUE) {
+                               format = "uploadable") {
 
   stopifnot(toupper(part) %in% c("A", "B", "C", "D", "E", "F", "G", "H", "ALL"),
             toupper(format) %in% c("UPLOADABLE", "READABLE", "BOTH"))
@@ -77,7 +71,7 @@ produce_ef1_report <- function(students, retention, part = "ALL", include_option
     partD <- make_ef1_part_D(df = students)
     partE <- make_ef1_part_E(df = retention)
     partF <- make_ef1_part_F(df = students)
-    partH <- make_ef1_part_H(df = students, ugender = ugender, ggender = ggender)
+    partH <- make_ef1_part_H(df = students)
 
     if(toupper(format) == 'UPLOADABLE'){
       write_report(
@@ -109,7 +103,7 @@ produce_ef1_report <- function(students, retention, part = "ALL", include_option
     }
 
     if (toupper(part) == "H") {
-      partX <- do.call(paste0("make_ef1_part_", toupper(part)), list(students, ugender, ggender))
+      partX <- do.call(paste0("make_ef1_part_", toupper(part)), list(students))
     }
 
 
