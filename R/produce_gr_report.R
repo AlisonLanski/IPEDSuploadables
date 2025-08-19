@@ -7,11 +7,6 @@
 #'   upload file. \code{"readable"} will produce a csv of the upload file (only
 #'   works for one part at a time). \code{"both"} will provide both options, but
 #' only works with one part at a time.
-#' @param ugender `r lifecycle::badge("deprecated")` A boolean: TRUE means
-#'   you are collecting and able to report "another gender" for undergraduate
-#'   students, even if you have no (or few) such students. Set as FALSE if
-#'   necessary. **Starting in 2024-2025, this argument will be ignored by later
-#'   code.**
 #' @return A txt or csv file at the path of your choice
 #' @export
 #' @examples
@@ -31,18 +26,10 @@
 #' setwd(.old_wd)
 #' }
 
-produce_gr_report <- function(df, part = "ALL", format = "uploadable", ugender = lifecycle::deprecated()) {
+produce_gr_report <- function(df, part = "ALL", format = "uploadable") {
 
   stopifnot(toupper(part) %in% c("B", "C", "ALL"),
             toupper(format) %in% c("UPLOADABLE", "READABLE", "BOTH"))
-
-  if (lifecycle::is_present(ugender)) {
-    lifecycle::deprecate_warn(
-      when = "2.9.0",
-      what = "produce_gr_report(ugender)",
-      details = "Detailed gender reporting is no longer used for this IPEDS survey. Argument may be removed in future versions."
-    )
-  }
 
   survey <- 'GradRates'
   output_path <- set_report_path()
