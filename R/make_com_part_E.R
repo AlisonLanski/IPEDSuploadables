@@ -38,8 +38,8 @@ make_com_part_E <- function(df) {
   partE <- data.frame(UNITID = unique(partE_counts$UNITID),
                       SURVSECT = "COM",
                       PART = "E",
-                      CSEXUG = 0,
-                      CSEXG = 0)
+                      CSEXUG = NA,
+                      CSEXG = NA)
 
   #ugly way to get the right counts in each bit.
   #I am sure there is a much nicer way to do it with a pivot
