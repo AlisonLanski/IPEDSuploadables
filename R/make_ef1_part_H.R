@@ -68,13 +68,6 @@ make_ef1_part_H <- function(df, ugender = lifecycle::deprecated(), ggender = lif
                       EFSEXUG = partH_counts$COUNT[partH_counts$UGPB == "UG"],
                       EFSEXG = partH_counts$COUNT[partH_counts$UGPB == "GR"])
 
-
-    #BUT -- New in 2023 - mask if < 5 and set initial inquiry as "small N"
-    if(partH$EFGU022 < 5){
-      partH$EFGU022 <- -2
-      partH$EFGU02 <- 3
-    }
-
   return(partH)
 
 }

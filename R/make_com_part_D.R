@@ -74,6 +74,7 @@ make_com_part_D <- function(df, extracips = NULL) {
                   "RACEETHNICITY",
                   "SEX",
                   "AGE") %>%
+    dplyr::filter(.data$SEX %in% c(1, 2)) %>%
     #add values which will be summed later
     dplyr::mutate(COUNTRE = 1,
                   COUNTSEX = 1,

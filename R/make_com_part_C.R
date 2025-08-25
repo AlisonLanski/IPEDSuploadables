@@ -20,6 +20,7 @@ make_com_part_C <- function(df) {
                          "STUDENTID",
                          "RACEETHNICITY",
                          "SEX") %>%
+           dplyr::filter(.data$SEX %in% c(1, 2)) %>%
            #deduplicate
            dplyr::distinct() %>%
            #aggregate and count
