@@ -43,9 +43,9 @@ make_com_part_E <- function(df, ugender = lifecycle::deprecated(), ggender = lif
     dplyr::select("UNITID",
                   "STUDENTID",
                   "DEGREELEVEL",
-                  "SEX"  #Binary = 1, 2;  Unknown = 3
+                  "GENDERDETAIL"  #Binary = 1, 2;  Unknown = 3
                   ) %>%
-    dplyr::filter(.data$SEX != 1 & .data$SEX != 2) %>%
+    dplyr::filter(.data$GENDERDETAIL != 1 & .data$GENDERDETAIL != 2) %>%
     #break into UG and GR levels
     dplyr::mutate(UGPB = ifelse(.data$DEGREELEVEL %in% c(7, 8, 17, 18, 19), 'GR', 'UG')) %>%
     dplyr::select(-"DEGREELEVEL") %>%
@@ -54,11 +54,11 @@ make_com_part_E <- function(df, ugender = lifecycle::deprecated(), ggender = lif
     #aggregate and count
     dplyr::group_by(.data$UNITID,
                     .data$UGPB,
-                    .data$SEX) %>%
+                    .data$GENDERDETAIL) %>%
     dplyr::summarize(COUNT = dplyr::n()) %>%
     dplyr::ungroup() %>%
     #sort for easy viewing
-    dplyr::arrange(.data$UGPB, .data$SEX)
+    dplyr::arrange(.data$UGPB, .data$GENDERDETAIL)
 
   #set up the final DF
   partE <- data.frame(UNITID = unique(partE_counts$UNITID),
@@ -68,7 +68,6 @@ make_com_part_E <- function(df, ugender = lifecycle::deprecated(), ggender = lif
                       CSEXG = partE_counts$COUNT[partE_counts$UGPB == "GR"])
 
 return(partE)
-
 }
 
 

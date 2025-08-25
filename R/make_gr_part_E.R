@@ -12,9 +12,10 @@
 #'
 #' @param df A dataframe of student/degree information for unduplicated
 #'   undergraduates
-#' @param ugender A boolean: TRUE means you are collecting and able to report
-#'   "another gender" for undergraduate students, even if you have no (or few)
-#'   such students. Set as FALSE if necessary. Argument deprecated from the produce function.
+#' @param ugender `r lifecycle::badge("deprecated")` A boolean: TRUE means you are collecting and able to report
+#'   "another gender" for undergraduate completers, even if you have no (or few)
+#'   such students. Set as FALSE if necessary. **Starting in 2025-2026, this argument will be ignored by later
+#'   code.**
 #'
 #' @importFrom rlang .data
 #'
@@ -28,7 +29,7 @@
 #' @keywords internal
 #'
 #
-make_gr_part_E <- function(df, ugender) {
+make_gr_part_E <- function(df, ugender = lifecycle::deprecated()) {
 
   lifecycle::deprecate_warn("2.9.0", "make_gr_part_E()",
                             details = "This survey no longer collects Gender Detail information; do not use this function.")
