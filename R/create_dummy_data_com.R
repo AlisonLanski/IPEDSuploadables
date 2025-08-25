@@ -71,7 +71,12 @@ create_dummy_data_com <- function(df_type = "student") {
     # I figured this is good enough for testing the Upload logic
     # To compute age including leap years, use logic that looks at year, then month, than day relative
     # to the arbitrary completions date used below.
-    dplyr::mutate(Age = (lubridate::ymd('2018-05-16') - .data$Birthdate)/lubridate::dyears(1))
+    dplyr::mutate(Age = (lubridate::ymd('2018-05-16') - .data$Birthdate)/lubridate::dyears(1)) %>%
+    #adding more detailed sex info for 2022+ reporting years
+    dplyr::mutate(GenderDetail = dplyr::case_when(.data$StudentId < 103 ~ 3, #unknown UG (3)
+                                               .data$StudentId < 105 ~ 4, #another UG (2)
+                                               .data$StudentId > 154 ~ 4, #another GR (5)
+                                               TRUE ~ .data$Sex))
 
 
   ### then for a subset,
