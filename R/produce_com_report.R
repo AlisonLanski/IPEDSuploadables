@@ -30,7 +30,8 @@
 #'setwd(.old_wd)
 #'}
 
-produce_com_report <- function(df, extracips = NULL, part = "ALL", format = "uploadable") {
+produce_com_report <- function(df, extracips = NULL, part = "ALL", format = "uploadable",
+                               ugender = TRUE, ggender = TRUE) {
 
   stopifnot(toupper(part) %in% c("A", "B", "C", "D", "E", "ALL"),
             toupper(format) %in% c("UPLOADABLE", "READABLE", "BOTH"))
