@@ -90,11 +90,11 @@ A message will be display the location of your file when it has been processed.
   
 *The category "Another Gender" has been removed from all surveys.  IPEDS changed collection of Gender Detail to only include "Unknown".  Therefore, the starting data requirements, sample data, and scripts have been updated to remove the "Another Gender" option from the `GenderDetail` column, and no functions require the `ugender` or `ggender` flags*
 
-Completions, 12 Month Enrollment, and Fall Enrollment still DO require reporting on "unknown gender". This means you continue to need the `GenderDetail` column, but should limit yourself to values of 1, 2, and 3 (anything other than 1 and 2 will be recoded to 3 within the package). Graduation Rates and other surveys continue to have no gender detail reporting.    
+Completions, 12 Month Enrollment, and Fall Enrollment still DO require reporting on "unknown sex". This means you continue to need the `GenderDetail` column, but should limit yourself to values of 1, 2, and 3. Note: **anything other than 1 and 2 will be recoded to 3 within the package**. Graduation Rates and other surveys continue to have no gender detail reporting.    
   
 Because "another gender" is no longer being collected, the `ugender` and `ggender` arguments in the `produce` functions are no longer necessary. You can omit them entirely in your code.  If you keep them, they will be ignored.  
 
-IPEDS has also adjusted language in the instruction files to replace "Gender" with "Sex" and related terminology. We have only made updates to the package if IPEDS changes would break the package in some way.  Column names in the data you prepare have not been adjusted, nor has our language in the documentation. The choice for minimal changes on our end was simply for expediency -- the fewer changes either of us have to implement, the better!  
+IPEDS has also adjusted language in the instruction files to replace "Gender" with "Sex" and related terminology. We have generally only made updates to the package if IPEDS changes would break the package in some way.  Column names in the data you prepare have not been adjusted, nor has our language in the documentation. The choice for minimal changes on our end was simply for expediency -- the fewer changes either of us have to implement, the better!  
   
 Example:
 ```{r gender_example, eval = FALSE}
