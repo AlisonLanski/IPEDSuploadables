@@ -4,16 +4,24 @@
 \alias{make_com_part_E}
 \title{Make Completions Part E (gender details)}
 \usage{
-make_com_part_E(df, ugender, ggender)
+make_com_part_E(
+  df,
+  ugender = lifecycle::deprecated(),
+  ggender = lifecycle::deprecated()
+)
 }
 \arguments{
 \item{df}{A dataframe of student/degree information}
 
-\item{ugender}{A boolean: TRUE means you are collecting and able to report
-"another gender" for undergraduate completers, even if you have no (or few) such students. Set as FALSE if necessary}
+\item{ugender}{`r lifecycle::badge("deprecated")` A boolean: TRUE means you are collecting and able to report
+"another gender" for undergraduate completers, even if you have no (or few)
+such students. Set as FALSE if necessary. **Starting in 2025-2026, this argument will be ignored by later
+code.**}
 
-\item{ggender}{A boolean: TRUE means you are collecting and able to report
-"another gender" for graduate completers, even if you have no (or few) such students. Set as FALSE if necessary}
+\item{ggender}{`r lifecycle::badge("deprecated")` A boolean: TRUE means you are collecting and able to report
+"another gender" for graduate completers, even if you have no (or few) such
+students. Set as FALSE if necessary. **Starting in 2025-2026, this argument will be ignored by later
+code.**}
 }
 \value{
 A dataframe with the required IPEDS structure for this survey part

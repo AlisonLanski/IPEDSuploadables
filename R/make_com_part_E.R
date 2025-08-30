@@ -39,33 +39,42 @@ make_com_part_E <- function(df, ugender = lifecycle::deprecated(), ggender = lif
 
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
-  partE_counts <- df %>%
+  partE <- df %>%
     dplyr::select("UNITID",
                   "STUDENTID",
                   "DEGREELEVEL",
                   "GENDERDETAIL"  #Binary = 1, 2;  Unknown = 3
                   ) %>%
-    dplyr::filter(.data$GENDERDETAIL != 1 & .data$GENDERDETAIL != 2) %>%
+    #set up a single value for UNK -- will document -- anything NOT 1 or 2 will be counted as UNK for now
+    dplyr::mutate(COUNT_UNK = case_when(.data$GENDERDETAIL == 1 ~ 'known',
+                                        .data$GENDERDETAIL == 2 ~ 'known',
+                                        TRUE ~ 'unknown')) %>%
+    filter(.data$COUNT_UNK == 'unknown') %>%
+
     #break into UG and GR levels
     dplyr::mutate(UGPB = ifelse(.data$DEGREELEVEL %in% c(7, 8, 17, 18, 19), 'GR', 'UG')) %>%
     dplyr::select(-"DEGREELEVEL") %>%
     #deduplicate
     dplyr::distinct() %>%
-    #aggregate and count
+
+    #aggregate, count, reshape
     dplyr::group_by(.data$UNITID,
-                    .data$UGPB,
-                    .data$GENDERDETAIL) %>%
+                    .data$UGPB) %>%
     dplyr::summarize(COUNT = dplyr::n()) %>%
     dplyr::ungroup() %>%
     #sort for easy viewing
-    dplyr::arrange(.data$UGPB, .data$GENDERDETAIL)
+    dplyr::arrange(.data$UGPB) %>%
+    tidyr::pivot_wider(names_from = "UGPB", values_from = "COUNT") %>%
+
+    #add rows for a level if they are missing
+    dplyr::bind_rows(dplyr::tibble(UG=numeric(), GR=numeric())) %>%
 
   #set up the final DF
-  partE <- data.frame(UNITID = unique(partE_counts$UNITID),
-                      SURVSECT = "COM",
-                      PART = "E",
-                      CSEXUG = partE_counts$COUNT[partE_counts$UGPB == "UG"],
-                      CSEXG = partE_counts$COUNT[partE_counts$UGPB == "GR"])
+    transmute(.data$UNITID,
+              SURVSECT = "COM",
+              PART = "E",
+              CSEXUG = dplyr::coalesce(.data$UG, 0),
+              CSEXG = dplyr::coalesce(.data$GR, 0))
 
 return(partE)
 }

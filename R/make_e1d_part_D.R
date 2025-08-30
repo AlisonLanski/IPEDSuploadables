@@ -2,18 +2,18 @@
 #'
 #' @param df A dataframe of student/degree information
 #' @param ugender `r lifecycle::badge("deprecated")` A boolean: TRUE means you are collecting and able to report
-#'   "another gender" for undergraduate completers, even if you have no (or few)
+#'   "another gender" for undergraduate students, even if you have no (or few)
 #'   such students. Set as FALSE if necessary. **Starting in 2025-2026, this argument will be ignored by later
 #'   code.**
 #' @param ggender `r lifecycle::badge("deprecated")` A boolean: TRUE means you are collecting and able to report
-#'   "another gender" for graduate completers, even if you have no (or few) such
+#'   "another gender" for graduate students, even if you have no (or few) such
 #'   students. Set as FALSE if necessary. **Starting in 2025-2026, this argument will be ignored by later
 #'   code.**
 #'
 #' @importFrom rlang .data
 #'
-#' @importFrom dplyr select group_by summarize ungroup bind_rows arrange
-#'   transmute n
+#' @importFrom dplyr select distinct mutate group_by summarize ungroup transmute n
+#' @importFrom tidyr pivot_wider
 #' @importFrom utils write.table
 #' @importFrom stringr str_to_upper
 #'
@@ -40,31 +40,44 @@ make_e1d_part_D <- function(df, ugender = lifecycle::deprecated(), ggender = lif
   }
 
   colnames(df) <- stringr::str_to_upper(colnames(df))
+#
+#   partD_dummy <- data.frame(UNITID = get_ipeds_unitid(df),
+#                             STUDENTLEVEL = c('Undergraduate', 'Graduate'),
+#                             COUNT_UNK = 0)
 
-  partD_counts <- df %>%
+  partD <- df %>%
     dplyr::select("UNITID",
                   "STUDENTID",
                   "STUDENTLEVEL",
                   "GENDERDETAIL") %>%
     #deduplicate
     dplyr::distinct() %>%
-    #aggregate and count
+
+    #set up a single value for UNK -- will document -- anything NOT 1 or 2 will be counted as UNK for now
+    dplyr::mutate(COUNT_UNK = case_when(.data$GENDERDETAIL == 1 ~ 'known',
+                                  .data$GENDERDETAIL == 2 ~ 'known',
+                                  TRUE ~ 'unknown')) %>%
+    filter(.data$COUNT_UNK == 'unknown') %>%
+
+
+    #aggregate, count, reshape
     dplyr::group_by(.data$UNITID,
-                    .data$STUDENTLEVEL,
-                    .data$GENDERDETAIL) %>%
-    dplyr::filter(.data$GENDERDETAIL != 1 & .data$GENDERDETAIL != 2) %>%
+                    .data$STUDENTLEVEL) %>%
     dplyr::summarize(COUNT = dplyr::n()) %>%
     dplyr::ungroup() %>%
-    #sort for easy viewing
-    dplyr::arrange(.data$STUDENTLEVEL, .data$GENDERDETAIL)
+    tidyr::pivot_wider(names_from = "STUDENTLEVEL", values_from = "COUNT") %>%
+
+    #add rows for a level if they are missing
+    dplyr::bind_rows(dplyr::tibble(Undergraduate=numeric(), Graduate=numeric())) %>%
+
+    #final DF
+    dplyr::transmute(UNITID = .data$UNITID,
+                     SURVSECT = "E1D",
+                     PART = "D",
+                     FYSEXUG = dplyr::coalesce(.data$Undergraduate, 0),
+                     FYSEXG = dplyr::coalesce(.data$Graduate, 0))
 
 
-    #set up the final DF
-    partD <- data.frame(UNITID = unique(partD_counts$UNITID),
-                        SURVSECT = "E1D",
-                        PART = "D",
-                        FYSEXUG = partD_counts$COUNT[partD_counts$UGPB == "UG"],
-                        FYSEXG = partD_counts$COUNT[partD_counts$UGPB == "GR"])
 
     return(partD)
 }

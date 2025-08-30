@@ -2,11 +2,11 @@
 #'
 #' @param df A dataframe of student enrollment information
 #' @param ugender `r lifecycle::badge("deprecated")` A boolean: TRUE means you are collecting and able to report
-#'   "another gender" for undergraduate completers, even if you have no (or few)
+#'   "another gender" for undergraduate students, even if you have no (or few)
 #'   such students. Set as FALSE if necessary. **Starting in 2025-2026, this argument will be ignored by later
 #'   code.**
 #' @param ggender `r lifecycle::badge("deprecated")` A boolean: TRUE means you are collecting and able to report
-#'   "another gender" for graduate completers, even if you have no (or few) such
+#'   "another gender" for graduate students, even if you have no (or few) such
 #'   students. Set as FALSE if necessary. **Starting in 2025-2026, this argument will be ignored by later
 #'   code.**
 #'
@@ -40,33 +40,38 @@ make_ef1_part_H <- function(df, ugender = lifecycle::deprecated(), ggender = lif
 
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
-  partH_counts <- df %>%
+  partH <- df %>%
     dplyr::select("UNITID",
                   "STUDENTID",
                   "STUDENTLEVEL",
                   "GENDERDETAIL"  #Binary = 1, 2; Unknown = 3
     ) %>%
-    dplyr::filter(.data$GENDERDETAIL != 1 & .data$GENDERDETAIL != 2) %>%
-    #break into UG and GR levels
-    dplyr::mutate(UGPB = ifelse(.data$STUDENTLEVEL == 'Graduate', 'GR', 'UG')) %>%
-    dplyr::select(-"STUDENTLEVEL") %>%
+
     #deduplicate
     dplyr::distinct() %>%
-    #aggregate and count
+
+    #set up a single value for UNK -- will document -- anything NOT 1 or 2 will be counted as UNK for now
+    dplyr::mutate(COUNT_UNK = case_when(.data$GENDERDETAIL == 1 ~ 'known',
+                                        .data$GENDERDETAIL == 2 ~ 'known',
+                                        TRUE ~ 'unknown')) %>%
+    filter(.data$COUNT_UNK == 'unknown') %>%
+
+    #aggregate, count, reshape
     dplyr::group_by(.data$UNITID,
-                    .data$UGPB,
-                    .data$GENDERDETAIL) %>%
+                    .data$STUDENTLEVEL) %>%
     dplyr::summarize(COUNT = dplyr::n()) %>%
     dplyr::ungroup() %>%
-    #sort for easy viewing
-    dplyr::arrange(.data$UGPB, .data$GENDERDETAIL)
+    tidyr::pivot_wider(names_from = "STUDENTLEVEL", values_from = "COUNT") %>%
 
-  #set up the final DF
-  partH <- data.frame(UNITID = unique(partH_counts$UNITID),
-                      SURVSECT = "EF1",
-                      PART = "H",
-                      EFSEXUG = partH_counts$COUNT[partH_counts$UGPB == "UG"],
-                      EFSEXG = partH_counts$COUNT[partH_counts$UGPB == "GR"])
+    #add rows for a level if they are missing
+    dplyr::bind_rows(dplyr::tibble(Undergraduate=numeric(), Graduate=numeric())) %>%
+
+    #final DF
+    transmute(.data$UNITID,
+              SURVSECT = "EF1",
+              PART = "H",
+              EFSEXUG = dplyr::coalesce(.data$Undergraduate, 0),
+              EFSEXG = dplyr::coalesce(.data$Graduate, 0))
 
   return(partH)
 }
