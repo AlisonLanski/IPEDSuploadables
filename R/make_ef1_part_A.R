@@ -37,6 +37,7 @@ make_ef1_part_A <- function(df, cips = TRUE) {
                               "CIP220101",
                               "CIP510401",
                               "CIP511201") %>%
+                dplyr::filter(.data$SEX %in% c(1, 2)) %>%
                 dplyr::mutate(LINE = dplyr::case_when(
                                       .data$ISFULLTIME == 1 & .data$ISFIRSTTIME == 1 & .data$ISDEGREECERTSEEKING == 1 & .data$STUDENTLEVEL == "Undergraduate" ~ 1,
                                       .data$ISFULLTIME == 1 & .data$ISTRANSFER == 1 & .data$ISDEGREECERTSEEKING == 1 & .data$STUDENTLEVEL == "Undergraduate" ~ 2,

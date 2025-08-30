@@ -20,6 +20,7 @@ make_com_part_A <- function(df, extracips = NULL) {
   #produce the uploadable format
   partA <- df %>%
            #aggregate the full data
+           dplyr::filter(.data$SEX %in% c(1, 2)) %>%
            dplyr::group_by(.data$UNITID,
                            .data$MAJORNUMBER,
                            .data$MAJORCIP,

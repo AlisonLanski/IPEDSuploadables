@@ -11,12 +11,14 @@
 #'   upload file. \code{"readable"} will produce a csv of the upload file (only
 #'   works for one part at a time). \code{"both"} will provide both options, but
 #'   only works with one part at a time.
-#' @param ugender A boolean: TRUE means you are collecting and able to report
+#' @param ugender `r lifecycle::badge("deprecated")` A boolean: TRUE means you are collecting and able to report
 #'   "another gender" for undergraduate completers, even if you have no (or few)
-#'   such students. Set as FALSE if necessary
-#' @param ggender A boolean: TRUE means you are collecting and able to report
+#'   such students. Set as FALSE if necessary. **Starting in 2025-2026, this argument will be ignored by later
+#'   code.**
+#' @param ggender `r lifecycle::badge("deprecated")` A boolean: TRUE means you are collecting and able to report
 #'   "another gender" for graduate completers, even if you have no (or few) such
-#'   students. Set as FALSE if necessary
+#'   students. Set as FALSE if necessary. **Starting in 2025-2026, this argument will be ignored by later
+#'   code.**
 #'
 #'
 #' @return A txt or csv file at the path of your choice
@@ -44,10 +46,26 @@
 #' }
 
 produce_ef1_report <- function(students, retention, part = "ALL", include_optional = FALSE,
-                               format = "uploadable", ugender = TRUE, ggender = TRUE) {
+                               format = "uploadable", ugender = lifecycle::deprecated(), ggender = lifecycle::deprecated()) {
 
   stopifnot(toupper(part) %in% c("A", "B", "C", "D", "E", "F", "G", "H", "ALL"),
             toupper(format) %in% c("UPLOADABLE", "READABLE", "BOTH"))
+
+  if (lifecycle::is_present(ugender)) {
+    lifecycle::deprecate_warn(
+      when = "2.11.0",
+      what = "produce_ef1_report(ugender)",
+      details = "Detailed gender reporting is no longer used for this IPEDS survey. Argument may be removed in future versions."
+    )
+  }
+
+  if (lifecycle::is_present(ggender)) {
+    lifecycle::deprecate_warn(
+      when = "2.11.0",
+      what = "produce_ef1_report(ggender)",
+      details = "Detailed gender reporting is no longer used for this IPEDS survey. Argument may be removed in future versions."
+    )
+  }
 
   #setup
   students <- prep_ef1_data_frame(students)
@@ -77,7 +95,7 @@ produce_ef1_report <- function(students, retention, part = "ALL", include_option
     partD <- make_ef1_part_D(df = students)
     partE <- make_ef1_part_E(df = retention)
     partF <- make_ef1_part_F(df = students)
-    partH <- make_ef1_part_H(df = students, ugender = ugender, ggender = ggender)
+    partH <- make_ef1_part_H(df = students)
 
     if(toupper(format) == 'UPLOADABLE'){
       write_report(
@@ -109,7 +127,7 @@ produce_ef1_report <- function(students, retention, part = "ALL", include_option
     }
 
     if (toupper(part) == "H") {
-      partX <- do.call(paste0("make_ef1_part_", toupper(part)), list(students, ugender, ggender))
+      partX <- do.call(paste0("make_ef1_part_", toupper(part)), list(students))
     }
 
 

@@ -24,6 +24,7 @@ make_ef1_part_B <- function(df) {
                          "AGE",
                          "STUDENTLEVEL",
                          "SEX") %>%
+           dplyr::filter(.data$SEX %in% c(1, 2)) %>%
            dplyr::mutate(LINE = dplyr::case_when(
                                          .data$ISFULLTIME == 1 & .data$AGE <= 17 ~ 1,
                                          .data$ISFULLTIME == 1 & .data$AGE <= 19 ~ 2,
