@@ -13,6 +13,7 @@ test_that("COM parts produce expected dfs", {
   expect_equal(make_com_part_D(datcom, datcip), part_outputs$com_partD)
   #expect_equal(make_com_part_E(datcom, ugender = TRUE, ggender = TRUE), part_outputs$com_partE)
   expect_equal(make_com_part_E(datcom), part_outputs$com_partE)
+  expect_warning(make_com_part_E(com_students, ugender = TRUE, ggender = TRUE))
 })
 
 
@@ -72,6 +73,7 @@ test_that("E1D parts produce expected dfs", {
   expect_equal(make_e1d_part_D(e1d_partD_df_noGrad)$FYSEXG, 0)
   #  expect_equal(make_e1d_part_D(e1d_students, ugender = TRUE, ggender = TRUE), part_outputs$e1d_partD)
   #  expect_equal(make_e1d_part_D(e1d_partD_df, ugender = TRUE, ggender = TRUE), e1d_partD_TrueTrue)
+  expect_warning(make_e1d_part_D(e1d_students, ugender = TRUE, ggender = TRUE))
   expect_equal(make_e1d_part_E(e1d_students), part_outputs$e1d_partE)
   expect_equal(make_e1d_part_F(e1d_students), part_outputs$e1d_partF)
   expect_equal(make_e1d_part_F(e1d_df_noHS), e1d_partF_noHS)
@@ -115,6 +117,7 @@ test_that("EF1 parts produce expected dfs", {
 #  expect_equal(make_ef1_part_H(datef1, ugender = T, ggender = T), part_outputs$ef1_partH)
   expect_equal(make_ef1_part_H(datef1), part_outputs$ef1_partH)
   expect_equal(make_ef1_part_H(ef1_df_unk), ef1_unk)
+  expect_warning(make_ef1_part_H(ef1_students, ugender = TRUE, ggender = TRUE))
 })
 
 ########
