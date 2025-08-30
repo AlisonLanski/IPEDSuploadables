@@ -13,7 +13,7 @@
 #' @param df A dataframe of student/degree information for unduplicated
 #'   undergraduates
 #' @param ugender `r lifecycle::badge("deprecated")` A boolean: TRUE means you are collecting and able to report
-#'   "another gender" for undergraduate completers, even if you have no (or few)
+#'   "another gender" for undergraduate students, even if you have no (or few)
 #'   such students. Set as FALSE if necessary. **Starting in 2025-2026, this argument will be ignored by later
 #'   code.**
 #'
