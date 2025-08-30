@@ -1,5 +1,5 @@
 .onAttach <- function(libname, pkgname){
-  packageStartupMessage("This version of IPEDSuploadables has been updated for \nthe 2024-2025 reporting cycle.\nIf you are in a later cycle or want to capture any bug fixes,\nplease update the package.")
+  packageStartupMessage("This version of IPEDSuploadables has been updated for \nthe 2025-2026 reporting cycle.\nIf you are in a later cycle or want to capture any bug fixes,\nplease update the package.")
 }
 
 .onLoad <- function(libname, pkgname) {

@@ -24,7 +24,7 @@ gtag('config', 'G-NSXZV7NDWP'); </script>
 
     <a class="navbar-brand me-2" href="../index.html">IPEDSuploadables</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.10.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.11.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -115,6 +115,7 @@ uploads</a>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#load the packages</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/AlisonLanski/IPEDSuploadables" class="external-link">IPEDSuploadables</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: package 'IPEDSuploadables' was built under R version 4.4.3</span></span>
 <span><span class="co">#&gt; This version of IPEDSuploadables has been updated for </span></span>
 <span><span class="co">#&gt; the 2024-2025 reporting cycle.</span></span>
 <span><span class="co">#&gt; If you are in a later cycle or want to capture any bug fixes,</span></span>
@@ -228,35 +229,39 @@ your original file.</li>
 <p>A message will be display the location of your file when it has been
 processed.</p>
 <div class="section level3">
-<h3 id="note-about-the-gender-collection-updates-for-2024-2025-reporting-cycle">Note about the gender collection updates for 2024-2025 reporting
-cycle<a class="anchor" aria-label="anchor" href="#note-about-the-gender-collection-updates-for-2024-2025-reporting-cycle"></a>
+<h3 id="note-about-the-gender-collection-updates-for-2025-2026-reporting-cycle">Note about the gender collection updates for 2025-2026 reporting
+cycle<a class="anchor" aria-label="anchor" href="#note-about-the-gender-collection-updates-for-2025-2026-reporting-cycle"></a>
 </h3>
-<p><em>Graduation Rates no longer has a gender detail requirement (it
-was removed by IPEDS). Therefore, the starting data requirements, sample
-data, and scripts have been updated to remove the <code>ugender</code>
-flag and the <code>GenderDetail</code> column.</em></p>
+<p><em>The category “Another Gender” has been removed from all surveys.
+IPEDS changed collection of Gender Detail to only include “Unknown”.
+Therefore, the starting data requirements, sample data, and scripts have
+been updated to remove the “Another Gender” option from the
+<code>GenderDetail</code> column, and no functions require the
+<code>ugender</code> or <code>ggender</code> flags</em></p>
 <p>Completions, 12 Month Enrollment, and Fall Enrollment still DO
-require reporting on “another gender” and “unknown gender”. This means
-you continue to need <code>GenderDetail</code>, <code>ugender</code>,
-and <code>ggender</code> information as appropriate for each survey.
-Scripts are set to assume that you ARE able to report on “another
-gender” in this reporting cycle. They will automatically mask data if
-you have fewer than 5 students in the “another gender” category.
-Therefore, as long as you have the capacity to report Another Gender,
-you should keep the default of <code>TRUE</code> even if you have no
-students or very few students in that category.</p>
-<p>If you are <strong>NOT</strong> able to collect/report on students of
-“another gender” this cycle</p>
-<ul>
-<li>Set <code>ugender = FALSE</code> (for undergraduates) in the produce
-function</li>
-<li>Set <code>ggender = FALSE</code> (for graduates) in the produce
-function</li>
-</ul>
+require reporting on “unknown sex”. This means you continue to need the
+<code>GenderDetail</code> column, but should limit yourself to values of
+1, 2, and 3. Note: <strong>anything other than 1 and 2 will be recoded
+to 3 within the package</strong>. Graduation Rates and other surveys
+continue to have no gender detail reporting.</p>
+<p>Because “another gender” is no longer being collected, the
+<code>ugender</code> and <code>ggender</code> arguments in the
+<code>produce</code> functions are no longer necessary. You can omit
+them entirely in your code. If you keep them, they will be ignored.</p>
+<p>IPEDS has also adjusted language in the instruction files to replace
+“Gender” with “Sex” and related terminology. We have generally only made
+updates to the package if IPEDS changes would break the package in some
+way. Column names in the data you prepare have not been adjusted, nor
+has our language in the documentation. The choice for minimal changes on
+our end was simply for expediency – the fewer changes either of us have
+to implement, the better!</p>
 <p>Example:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">#able to report undergraduate "another gender" but NOT able to report graduate "another gender"</span></span>
-<span><span class="fu"><a href="../reference/produce_com_report.html">produce_com_report</a></span><span class="op">(</span>df <span class="op">=</span> <span class="va">com_students</span>, extracips <span class="op">=</span> <span class="va">com_cips</span>, ggender <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">#this will run, but is more code than you need now</span></span>
+<span><span class="fu"><a href="../reference/produce_com_report.html">produce_com_report</a></span><span class="op">(</span>df <span class="op">=</span> <span class="va">com_students</span>, extracips <span class="op">=</span> <span class="va">com_cips</span>, ggender <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#this code is enough </span></span>
+<span><span class="fu"><a href="../reference/produce_com_report.html">produce_com_report</a></span><span class="op">(</span>df <span class="op">=</span> <span class="va">com_students</span>, extracips <span class="op">=</span> <span class="va">com_cips</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="notes-for-specific-reports">Notes for specific reports<a class="anchor" aria-label="anchor" href="#notes-for-specific-reports"></a>

@@ -1,3 +1,7 @@
+# IPEDSuploadables 2.11.0
+* Addressed 2025-2026 reporting cycle updates from IPEDS, in particular:
+* 12 month enrollment, fall enrollment, and completions now report on Unknown Sex instead of Another Gender and Unknown Gender
+
 # IPEDSuploadables 2.10.0
 * Updating incorrect column name in Outcome Measures vignette
 * Added quality check for correct column name in OM data prep script
