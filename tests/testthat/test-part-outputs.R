@@ -174,6 +174,25 @@ test_that("OM parts produce expected dfs", {
   expect_equal(make_om_part_D(datom), part_outputs$om_partD)
 })
 
+################################
+##########
+### Cross-survey tests parts
+
+#for testing UNK gender
+df_noUNK <- data.frame(UNITID = 999999,
+                     StudentId = c(1, 2, 3),
+                     StudentLevel = c('Graduate', 'Graduate', 'Undergraduate'),
+                     DegreeLevel = c(17, 17, 2),
+                     GenderDetail = c(1, 1, 1))
+test_that("UNK sections produce a df with 0s if no such students", {
+  #tests
+  expect_equal(nrow(make_e1d_part_D(df_noUNK)), 1)
+  expect_equal(nrow(make_ef1_part_H(df_noUNK)), 1)
+  expect_equal(nrow(make_com_part_E(df_noUNK)), 1)
+})
+
+
+
 # ##Code to set up the list (name on the left, replace the right side with a rerun of the relevant script)
 # ##Note that you will need to run prep scripts before the make functions for COM, HR, EF1 and OM
 # ## something like hr_partA1 = make_hr_part_A1(prep_hr_data_frame(hr_staff))

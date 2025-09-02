@@ -39,7 +39,7 @@ make_com_part_E <- function(df, ugender = lifecycle::deprecated(), ggender = lif
 
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
-  partE <- df %>%
+  partE_unk <- df %>%
     dplyr::select("UNITID",
                   "STUDENTID",
                   "DEGREELEVEL",
@@ -49,32 +49,43 @@ make_com_part_E <- function(df, ugender = lifecycle::deprecated(), ggender = lif
     dplyr::mutate(COUNT_UNK = case_when(.data$GENDERDETAIL == 1 ~ 'known',
                                         .data$GENDERDETAIL == 2 ~ 'known',
                                         TRUE ~ 'unknown')) %>%
-    filter(.data$COUNT_UNK == 'unknown') %>%
+    filter(.data$COUNT_UNK == 'unknown')
 
-    #break into UG and GR levels
-    dplyr::mutate(UGPB = ifelse(.data$DEGREELEVEL %in% c(7, 8, 17, 18, 19), 'GR', 'UG')) %>%
-    dplyr::select(-"DEGREELEVEL") %>%
-    #deduplicate
-    dplyr::distinct() %>%
+  if(nrow(partE_unk) > 0){
+    partE <- partE_unk %>%
+      #break into UG and GR levels
+      dplyr::mutate(UGPB = ifelse(.data$DEGREELEVEL %in% c(7, 8, 17, 18, 19), 'GR', 'UG')) %>%
+      dplyr::select(-"DEGREELEVEL") %>%
+      #deduplicate
+      dplyr::distinct() %>%
 
-    #aggregate, count, reshape
-    dplyr::group_by(.data$UNITID,
-                    .data$UGPB) %>%
-    dplyr::summarize(COUNT = dplyr::n()) %>%
-    dplyr::ungroup() %>%
-    #sort for easy viewing
-    dplyr::arrange(.data$UGPB) %>%
-    tidyr::pivot_wider(names_from = "UGPB", values_from = "COUNT") %>%
+      #aggregate, count, reshape
+      dplyr::group_by(.data$UNITID,
+                      .data$UGPB) %>%
+      dplyr::summarize(COUNT = dplyr::n()) %>%
+      dplyr::ungroup() %>%
+      #sort for easy viewing
+      dplyr::arrange(.data$UGPB) %>%
+      tidyr::pivot_wider(names_from = "UGPB", values_from = "COUNT") %>%
 
-    #add rows for a level if they are missing
-    dplyr::bind_rows(dplyr::tibble(UG=numeric(), GR=numeric())) %>%
+      #add rows for a level if they are missing
+      dplyr::bind_rows(dplyr::tibble(UG=numeric(), GR=numeric())) %>%
 
-  #set up the final DF
-    transmute(.data$UNITID,
-              SURVSECT = "COM",
-              PART = "E",
-              CSEXUG = dplyr::coalesce(.data$UG, 0),
-              CSEXG = dplyr::coalesce(.data$GR, 0))
+      #set up the final DF
+      transmute(.data$UNITID,
+                SURVSECT = "COM",
+                PART = "E",
+                CSEXUG = dplyr::coalesce(.data$UG, 0),
+                CSEXG = dplyr::coalesce(.data$GR, 0))
+  } else {
+    partE <- data.frame(UNITID = get_ipeds_unitid(df),
+                        SURVSECT = "COM",
+                        PART = "E",
+                        CSEXUG = 0,
+                        CSEXG = 0)
+  }
+
+
 
 return(partE)
 }

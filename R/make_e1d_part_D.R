@@ -45,7 +45,7 @@ make_e1d_part_D <- function(df, ugender = lifecycle::deprecated(), ggender = lif
 #                             STUDENTLEVEL = c('Undergraduate', 'Graduate'),
 #                             COUNT_UNK = 0)
 
-  partD <- df %>%
+  partD_unk <- df %>%
     dplyr::select("UNITID",
                   "STUDENTID",
                   "STUDENTLEVEL",
@@ -57,25 +57,36 @@ make_e1d_part_D <- function(df, ugender = lifecycle::deprecated(), ggender = lif
     dplyr::mutate(COUNT_UNK = case_when(.data$GENDERDETAIL == 1 ~ 'known',
                                   .data$GENDERDETAIL == 2 ~ 'known',
                                   TRUE ~ 'unknown')) %>%
-    filter(.data$COUNT_UNK == 'unknown') %>%
+    filter(.data$COUNT_UNK == 'unknown')
+
+  if(nrow(partD_unk) > 0){
+    partD <- partD_unk %>%
+      #aggregate, count, reshape
+      dplyr::group_by(.data$UNITID,
+                      .data$STUDENTLEVEL) %>%
+      dplyr::summarize(COUNT = dplyr::n()) %>%
+      dplyr::ungroup() %>%
+      tidyr::pivot_wider(names_from = "STUDENTLEVEL", values_from = "COUNT") %>%
+
+      #add rows for a level if they are missing
+      dplyr::bind_rows(dplyr::tibble(Undergraduate=numeric(), Graduate=numeric())) %>%
+
+      #final DF
+      dplyr::transmute(UNITID = .data$UNITID,
+                       SURVSECT = "E1D",
+                       PART = "D",
+                       FYSEXUG = dplyr::coalesce(.data$Undergraduate, 0),
+                       FYSEXG = dplyr::coalesce(.data$Graduate, 0))
+  }
 
 
-    #aggregate, count, reshape
-    dplyr::group_by(.data$UNITID,
-                    .data$STUDENTLEVEL) %>%
-    dplyr::summarize(COUNT = dplyr::n()) %>%
-    dplyr::ungroup() %>%
-    tidyr::pivot_wider(names_from = "STUDENTLEVEL", values_from = "COUNT") %>%
-
-    #add rows for a level if they are missing
-    dplyr::bind_rows(dplyr::tibble(Undergraduate=numeric(), Graduate=numeric())) %>%
-
-    #final DF
-    dplyr::transmute(UNITID = .data$UNITID,
-                     SURVSECT = "E1D",
-                     PART = "D",
-                     FYSEXUG = dplyr::coalesce(.data$Undergraduate, 0),
-                     FYSEXG = dplyr::coalesce(.data$Graduate, 0))
+  else{
+    partD <- data.frame(UNITID = get_ipeds_unitid(df),
+                        SURVSECT = "E1D",
+                        PART = "D",
+                        FYSEXUG = 0,
+                        FYSEXG = 0)
+  }
 
 
 

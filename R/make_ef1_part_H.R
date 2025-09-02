@@ -40,7 +40,7 @@ make_ef1_part_H <- function(df, ugender = lifecycle::deprecated(), ggender = lif
 
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
-  partH <- df %>%
+  partH_unk <- df %>%
     dplyr::select("UNITID",
                   "STUDENTID",
                   "STUDENTLEVEL",
@@ -54,24 +54,33 @@ make_ef1_part_H <- function(df, ugender = lifecycle::deprecated(), ggender = lif
     dplyr::mutate(COUNT_UNK = case_when(.data$GENDERDETAIL == 1 ~ 'known',
                                         .data$GENDERDETAIL == 2 ~ 'known',
                                         TRUE ~ 'unknown')) %>%
-    filter(.data$COUNT_UNK == 'unknown') %>%
+    filter(.data$COUNT_UNK == 'unknown')
 
-    #aggregate, count, reshape
-    dplyr::group_by(.data$UNITID,
-                    .data$STUDENTLEVEL) %>%
-    dplyr::summarize(COUNT = dplyr::n()) %>%
-    dplyr::ungroup() %>%
-    tidyr::pivot_wider(names_from = "STUDENTLEVEL", values_from = "COUNT") %>%
+  if(nrow(partH_unk) > 0){
+    partH <- partH_unk %>%
+      #aggregate, count, reshape
+      dplyr::group_by(.data$UNITID,
+                      .data$STUDENTLEVEL) %>%
+      dplyr::summarize(COUNT = dplyr::n()) %>%
+      dplyr::ungroup() %>%
+      tidyr::pivot_wider(names_from = "STUDENTLEVEL", values_from = "COUNT") %>%
 
-    #add rows for a level if they are missing
-    dplyr::bind_rows(dplyr::tibble(Undergraduate=numeric(), Graduate=numeric())) %>%
+      #add rows for a level if they are missing
+      dplyr::bind_rows(dplyr::tibble(Undergraduate=numeric(), Graduate=numeric())) %>%
 
-    #final DF
-    transmute(.data$UNITID,
-              SURVSECT = "EF1",
-              PART = "H",
-              EFSEXUG = dplyr::coalesce(.data$Undergraduate, 0),
-              EFSEXG = dplyr::coalesce(.data$Graduate, 0))
+      #final DF
+      dplyr::transmute(UNITID = get_ipeds_unitid(df),
+                SURVSECT = "EF1",
+                PART = "H",
+                EFSEXUG = dplyr::coalesce(.data$Undergraduate, 0),
+                EFSEXG = dplyr::coalesce(.data$Graduate, 0))
+  } else {
+    partH <- data.frame(UNITID = get_ipeds_unitid(df),
+                        SURVSECT = "EF1",
+                        PART = "H",
+                        EFSEXUG = 0,
+                        EFSEXG = 0)
+  }
 
   return(partH)
 }
