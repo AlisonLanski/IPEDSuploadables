@@ -2,24 +2,30 @@
 % Please edit documentation in R/make_ef1_part_H.R
 \name{make_ef1_part_H}
 \alias{make_ef1_part_H}
-\title{Make Fall Enrollment Part H (gender details)}
+\title{Make Fall Enrollment Part H (Sex Unknown)}
 \usage{
-make_ef1_part_H(df, ugender, ggender)
+make_ef1_part_H(
+  df,
+  ugender = lifecycle::deprecated(),
+  ggender = lifecycle::deprecated()
+)
 }
 \arguments{
 \item{df}{A dataframe of student enrollment information}
 
-\item{ugender}{A boolean: TRUE means you are collecting and able to report
-"another gender" for undergraduate completers, even if you have no (or few)
-such students. Set as FALSE if necessary}
+\item{ugender}{`r lifecycle::badge("deprecated")` A boolean: TRUE means you are collecting and able to report
+"another gender" for undergraduate students, even if you have no (or few)
+such students. Set as FALSE if necessary. **Starting in 2025-2026, this argument will be ignored by later
+code.**}
 
-\item{ggender}{A boolean: TRUE means you are collecting and able to report
-"another gender" for graduate completers, even if you have no (or few) such
-students. Set as FALSE if necessary}
+\item{ggender}{`r lifecycle::badge("deprecated")` A boolean: TRUE means you are collecting and able to report
+"another gender" for graduate students, even if you have no (or few) such
+students. Set as FALSE if necessary. **Starting in 2025-2026, this argument will be ignored by later
+code.**}
 }
 \value{
 A dataframe with the required IPEDS structure for this survey part
 }
 \description{
-Make Fall Enrollment Part H (gender details)
+Make Fall Enrollment Part H (Sex Unknown)
 }

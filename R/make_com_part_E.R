@@ -1,10 +1,14 @@
 #' Make Completions Part E (gender details)
 #'
 #' @param df A dataframe of student/degree information
-#' @param ugender A boolean: TRUE means you are collecting and able to report
-#'   "another gender" for undergraduate completers, even if you have no (or few) such students. Set as FALSE if necessary
-#' @param ggender A boolean: TRUE means you are collecting and able to report
-#'   "another gender" for graduate completers, even if you have no (or few) such students. Set as FALSE if necessary
+#' @param ugender `r lifecycle::badge("deprecated")` A boolean: TRUE means you are collecting and able to report
+#'   "another gender" for undergraduate completers, even if you have no (or few)
+#'   such students. Set as FALSE if necessary. **Starting in 2025-2026, this argument will be ignored by later
+#'   code.**
+#' @param ggender `r lifecycle::badge("deprecated")` A boolean: TRUE means you are collecting and able to report
+#'   "another gender" for graduate completers, even if you have no (or few) such
+#'   students. Set as FALSE if necessary. **Starting in 2025-2026, this argument will be ignored by later
+#'   code.**
 #'
 #' @importFrom rlang .data
 #' @importFrom dplyr select group_by summarize ungroup arrange transmute n distinct
@@ -15,123 +19,75 @@
 #' @export
 #'
 
-make_com_part_E <- function(df, ugender, ggender) {
+make_com_part_E <- function(df, ugender = lifecycle::deprecated(), ggender = lifecycle::deprecated()) {
+
+  if (lifecycle::is_present(ugender)) {
+    lifecycle::deprecate_warn(
+      when = "2.11.0",
+      what = "make_com_part_E(ugender)",
+      details = "Detailed gender reporting is no longer used for this IPEDS survey. Argument may be removed in future versions."
+    )
+  }
+
+  if (lifecycle::is_present(ggender)) {
+    lifecycle::deprecate_warn(
+      when = "2.11.0",
+      what = "make_com_part_E(ggender)",
+      details = "Detailed gender reporting is no longer used for this IPEDS survey. Argument may be removed in future versions."
+    )
+  }
 
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
-  partE_counts <- df %>%
+  partE_unk <- df %>%
     dplyr::select("UNITID",
                   "STUDENTID",
                   "DEGREELEVEL",
-                  "GENDERDETAIL"  #Binary = 1, 2;  Unknown = 3, Another = 4
+                  "GENDERDETAIL"  #Binary = 1, 2;  Unknown = 3
                   ) %>%
-    #break into UG and GR levels
-    dplyr::mutate(UGPB = ifelse(.data$DEGREELEVEL %in% c(7, 8, 17, 18, 19), 'GR', 'UG')) %>%
-    dplyr::select(-"DEGREELEVEL") %>%
-    #deduplicate
-    dplyr::distinct() %>%
-    #aggregate and count
-    dplyr::group_by(.data$UNITID,
-                    .data$UGPB,
-                    .data$GENDERDETAIL) %>%
-    dplyr::summarize(COUNT = dplyr::n()) %>%
-    dplyr::ungroup() %>%
-    #sort for easy viewing
-    dplyr::arrange(.data$UGPB, .data$GENDERDETAIL)
+    #set up a single value for UNK -- will document -- anything NOT 1 or 2 will be counted as UNK for now
+    dplyr::mutate(COUNT_UNK = case_when(.data$GENDERDETAIL == 1 ~ 'known',
+                                        .data$GENDERDETAIL == 2 ~ 'known',
+                                        TRUE ~ 'unknown')) %>%
+    filter(.data$COUNT_UNK == 'unknown')
 
-  #set up the final DF
-  partE <- data.frame(UNITID = unique(partE_counts$UNITID),
-                           SURVSECT = "COM",
-                           PART = "E",
-                           CGU01 = 0,  #UG detail reporting?
-                           CGU011 = 0, #UG Unknown
-                           CGU012 = 0, #UG Another
-                           CGU02 = 0,  #GR detail reporting?
-                           CGU021 = 0, #GR Unknown
-                           CGU022 = 0) #GR Another
+  if(nrow(partE_unk) > 0){
+    partE <- partE_unk %>%
+      #break into UG and GR levels
+      dplyr::mutate(UGPB = ifelse(.data$DEGREELEVEL %in% c(7, 8, 17, 18, 19), 'GR', 'UG')) %>%
+      dplyr::select(-"DEGREELEVEL") %>%
+      #deduplicate
+      dplyr::distinct() %>%
 
-  #ugly way to get the right counts in each bit.
-  #I am sure there is a much nicer way to do it with a pivot
-  # and maybe with a dummy table for all values. I dunno. This works.
+      #aggregate, count, reshape
+      dplyr::group_by(.data$UNITID,
+                      .data$UGPB) %>%
+      dplyr::summarize(COUNT = dplyr::n()) %>%
+      dplyr::ungroup() %>%
+      #sort for easy viewing
+      dplyr::arrange(.data$UGPB) %>%
+      tidyr::pivot_wider(names_from = "UGPB", values_from = "COUNT") %>%
 
-  # #No UG in the data
-  if(!'UG' %in% partE_counts$UGPB){
-    partE$CGU01 <- 2  #not reporting another
-    partE$CGU012 <- -2  #not applicable
+      #add rows for a level if they are missing
+      dplyr::bind_rows(dplyr::tibble(UG=numeric(), GR=numeric())) %>%
 
-  #  #UG in the data, another not being reported, unknown might exist
-  } else if(ugender == FALSE){
-    partE$CGU01 <- 2
-      #if UNK exists
-    if(sum(partE_counts$UGPB == 'UG' &
-           partE_counts$GENDERDETAIL == 3) == 1){
-      #then calculate unknown count
-      partE$CGU011 <- partE_counts$COUNT[partE_counts$UGPB == 'UG' &
-                                           partE_counts$GENDERDETAIL == 3]
-    }
-      #and set the Another Gender to N/A
-    partE$CGU012 <- -2
-
-  # #UG in the data, another being reported, another/unknown might or might not exist
+      #set up the final DF
+      transmute(.data$UNITID,
+                SURVSECT = "COM",
+                PART = "E",
+                CSEXUG = dplyr::coalesce(.data$UG, 0),
+                CSEXG = dplyr::coalesce(.data$GR, 0))
   } else {
-    partE$CGU01 <- 1
-      #if UNK exists, calculate it
-    if(sum(partE_counts$UGPB == 'UG' &
-           partE_counts$GENDERDETAIL == 3) == 1){
-      partE$CGU011 <- partE_counts$COUNT[partE_counts$UGPB == 'UG' &
-                                           partE_counts$GENDERDETAIL == 3]
-    }
-      #if ANO exists, calculate it
-    if(sum(partE_counts$UGPB == 'UG' &
-           partE_counts$GENDERDETAIL == 4) == 1){
-      partE$CGU012 <- partE_counts$COUNT[partE_counts$UGPB == 'UG' &
-                                           partE_counts$GENDERDETAIL == 4]
-    }
-    #BUT -- New in 2023 - mask if < 5 and set initial inquiry as "small N"
-    if(partE$CGU012 < 5){
-      partE$CGU012 <- -2
-      partE$CGU01 <- 3
-    }
+    partE <- data.frame(UNITID = get_ipeds_unitid(df),
+                        SURVSECT = "COM",
+                        PART = "E",
+                        CSEXUG = 0,
+                        CSEXG = 0)
   }
 
-  # #No GR in the data
-  if(!'GR' %in% partE_counts$UGPB){
-    partE$CGU02 <- 2  #not reporting another
-    partE$CGU022 <- -2  #not applicable
 
-    #  #GR in the data, another not being reported, unknown might exist
-  } else if(ggender == FALSE){
-    partE$CGU02 <- 2
-    if(sum(partE_counts$UGPB == 'GR' &
-           partE_counts$GENDERDETAIL == 3) == 1){
-      partE$CGU021 <- partE_counts$COUNT[partE_counts$UGPB == 'GR' &
-                                           partE_counts$GENDERDETAIL == 3]
-    }
-    partE$CGU022 <- -2
-
-    # #GR in the data, another being reported, another/unknown might or might not exist
-  } else {
-    partE$CGU02 <- 1
-
-      if(sum(partE_counts$UGPB == 'GR' &
-             partE_counts$GENDERDETAIL == 3) == 1){
-        partE$CGU021 <- partE_counts$COUNT[partE_counts$UGPB == 'GR' &
-                                           partE_counts$GENDERDETAIL == 3]
-      }
-      if(sum(partE_counts$UGPB == 'GR' &
-             partE_counts$GENDERDETAIL == 4) == 1){
-        partE$CGU022 <- partE_counts$COUNT[partE_counts$UGPB == 'GR' &
-                                           partE_counts$GENDERDETAIL == 4]
-      }
-      #BUT -- New in 2023 - mask if < 5 and set initial inquiry as "small N"
-      if(partE$CGU022 < 5){
-        partE$CGU022 <- -2
-        partE$CGU02 <- 3
-      }
-    }
 
 return(partE)
-
 }
 
 

@@ -8,10 +8,15 @@
 #'   upload file. \code{"readable"} will produce a csv of the upload file (only
 #'   works for one part at a time). \code{"both"} will provide both options, but
 #'   only works with one part at a time.
-#' @param ugender A boolean: TRUE means you are collecting and able to report
-#'   "another gender" for undergraduate completers, even if you have no (or few) such students. Set as FALSE if necessary
-#' @param ggender A boolean: TRUE means you are collecting and able to report
-#'   "another gender" for graduate completers, even if you have no (or few) such students. Set as FALSE if necessary
+#' @param ugender `r lifecycle::badge("deprecated")` A boolean: TRUE means you are collecting and able to report
+#'   "another gender" for undergraduate completers, even if you have no (or few)
+#'   such students. Set as FALSE if necessary. **Starting in 2025-2026, this argument will be ignored by later
+#'   code.**
+#' @param ggender `r lifecycle::badge("deprecated")` A boolean: TRUE means you are collecting and able to report
+#'   "another gender" for graduate completers, even if you have no (or few) such
+#'   students. Set as FALSE if necessary. **Starting in 2025-2026, this argument will be ignored by later
+#'   code.**
+#'
 #'
 #' @return A txt or csv file at the path of your choice
 #' @export
@@ -35,7 +40,23 @@
 #'}
 
 produce_com_report <- function(df, extracips = NULL, part = "ALL", format = "uploadable",
-                               ugender = TRUE, ggender = TRUE) {
+                               ugender = lifecycle::deprecated(), ggender = lifecycle::deprecated()) {
+
+  if (lifecycle::is_present(ugender)) {
+    lifecycle::deprecate_warn(
+      when = "2.11.0",
+      what = "produce_com_report(ugender)",
+      details = "Detailed gender reporting is no longer used for this IPEDS survey. Argument may be removed in future versions."
+    )
+  }
+
+  if (lifecycle::is_present(ggender)) {
+    lifecycle::deprecate_warn(
+      when = "2.11.0",
+      what = "produce_com_report(ggender)",
+      details = "Detailed gender reporting is no longer used for this IPEDS survey. Argument may be removed in future versions."
+    )
+  }
 
   stopifnot(toupper(part) %in% c("A", "B", "C", "D", "E", "ALL"),
             toupper(format) %in% c("UPLOADABLE", "READABLE", "BOTH"))
@@ -59,7 +80,7 @@ produce_com_report <- function(df, extracips = NULL, part = "ALL", format = "upl
       make_com_part_B(df = students, extracips = extracips),
       make_com_part_C(df = students),
       make_com_part_D(df = students, extracips = extracips),
-      make_com_part_E(df = students, ugender = ugender, ggender = ggender),
+      make_com_part_E(df = students),
       survey = survey,
       part = 'AllParts',
       output_path = output_path
@@ -80,7 +101,7 @@ produce_com_report <- function(df, extracips = NULL, part = "ALL", format = "upl
           )
       } else if(toupper(part) == 'E'){
          write_report(
-          make_com_part_E(students, ugender, ggender),
+          make_com_part_E(students),
           survey = survey,
           part = paste0("Part", toupper(part)),
           output_path = output_path
@@ -106,7 +127,7 @@ produce_com_report <- function(df, extracips = NULL, part = "ALL", format = "upl
           )
       } else if(toupper(part) == 'E'){
         write_report_csv(
-          do.call(paste0("make_com_part_", toupper(part)), list(students, ugender, ggender)),
+          do.call(paste0("make_com_part_", toupper(part)), list(students)),
           survey = survey,
           part = paste0("Part", toupper(part)),
           output_path = output_path

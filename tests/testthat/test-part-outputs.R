@@ -11,7 +11,9 @@ test_that("COM parts produce expected dfs", {
   expect_equal(make_com_part_B(datcom, datcip), part_outputs$com_partB)
   expect_equal(make_com_part_C(datcom), part_outputs$com_partC)
   expect_equal(make_com_part_D(datcom, datcip), part_outputs$com_partD)
-  expect_equal(make_com_part_E(datcom, ugender = TRUE, ggender = TRUE), part_outputs$com_partE)
+  #expect_equal(make_com_part_E(datcom, ugender = TRUE, ggender = TRUE), part_outputs$com_partE)
+  expect_equal(make_com_part_E(datcom), part_outputs$com_partE)
+  expect_warning(make_com_part_E(com_students, ugender = TRUE, ggender = TRUE))
 })
 
 
@@ -25,15 +27,18 @@ e1d_partD_df <- data.frame(UNITID = 999999,
                            STUDENTLEVEL = c(rep('Undergraduate', 6), rep('Graduate', 9)),
                            GENDERDETAIL = c(rep(4, 10), rep(3, 5)))
 
-e1d_partD_TrueTrue <- data.frame(UNITID = 999999,
-                                 SURVSECT = "E1D",
-                                 PART = "D",
-                                 FYGU01 = 1,
-                                 FYGU011 = 0,
-                                 FYGU012 = 6,
-                                 FYGU02 = 3,
-                                 FYGU021 = 5,
-                                 FYGU022 = -2)
+e1d_partD_df_noGrad <- e1d_partD_df[e1d_partD_df$STUDENTLEVEL == 'Undergraduate',]
+
+# e1d_partD_TrueTrue <- data.frame(UNITID = 999999,
+#                                  SURVSECT = "E1D",
+#                                  PART = "D",
+#                                  FYGU01 = 1,
+#                                  FYGU011 = 0,
+#                                  FYGU012 = 6,
+#                                  FYGU02 = 3,
+#                                  FYGU021 = 5,
+#                                  FYGU022 = -2)
+
 
 ## adding new hs credit testing for 2024-2025
 e1d_df_noHS <- data.frame(UNITID = c("111", "111", "111"),
@@ -63,8 +68,12 @@ test_that("E1D parts produce expected dfs", {
   expect_equal(make_e1d_part_A(e1d_students), part_outputs$e1d_partA)
   expect_equal(make_e1d_part_B(e1d_instr), part_outputs$e1d_partB)
   expect_equal(make_e1d_part_C(e1d_students), part_outputs$e1d_partC)
-  expect_equal(make_e1d_part_D(e1d_students, ugender = TRUE, ggender = TRUE), part_outputs$e1d_partD)
-  expect_equal(make_e1d_part_D(e1d_partD_df, ugender = TRUE, ggender = TRUE), e1d_partD_TrueTrue)
+  #updated part
+  expect_equal(make_e1d_part_D(e1d_students), part_outputs$e1d_partD)
+  expect_equal(make_e1d_part_D(e1d_partD_df_noGrad)$FYSEXG, 0)
+  #  expect_equal(make_e1d_part_D(e1d_students, ugender = TRUE, ggender = TRUE), part_outputs$e1d_partD)
+  #  expect_equal(make_e1d_part_D(e1d_partD_df, ugender = TRUE, ggender = TRUE), e1d_partD_TrueTrue)
+  expect_warning(make_e1d_part_D(e1d_students, ugender = TRUE, ggender = TRUE))
   expect_equal(make_e1d_part_E(e1d_students), part_outputs$e1d_partE)
   expect_equal(make_e1d_part_F(e1d_students), part_outputs$e1d_partF)
   expect_equal(make_e1d_part_F(e1d_df_noHS), e1d_partF_noHS)
@@ -73,6 +82,22 @@ test_that("E1D parts produce expected dfs", {
 
 ########
 ### EF1
+
+# for testing UNK gender (and duplicate elimination)
+ef1_df_unk <- data.frame(UNITID = '999999',
+                         STUDENTID = c('A', 'B', 'C', 'D', 'D'),
+                         STUDENTLEVEL = c('Undergraduate',
+                                          'Undergraduate',
+                                          'Graduate',
+                                          'Graduate',
+                                          'Graduate'),
+                         GENDERDETAIL = c(1, 3,   3,   4,   4))
+
+ef1_unk <- dplyr::tibble(UNITID = "999999",
+                      SURVSECT = "EF1",
+                      PART = 'H',
+                      EFSEXUG = 1,
+                      EFSEXG = 2)
 
 test_that("EF1 parts produce expected dfs", {
   #prep data
@@ -89,7 +114,10 @@ test_that("EF1 parts produce expected dfs", {
   #can't run F -- s/f ratio collected via popup
   #expect_equal(make_ef1_part_F(datef1), part_outputs$ef1_partF)
   expect_equal(make_ef1_part_G(datef1), part_outputs$ef1_partG)
-  expect_equal(make_ef1_part_H(datef1, ugender = T, ggender = T), part_outputs$ef1_partH)
+#  expect_equal(make_ef1_part_H(datef1, ugender = T, ggender = T), part_outputs$ef1_partH)
+  expect_equal(make_ef1_part_H(datef1), part_outputs$ef1_partH)
+  expect_equal(make_ef1_part_H(ef1_df_unk), ef1_unk)
+  expect_warning(make_ef1_part_H(ef1_students, ugender = TRUE, ggender = TRUE))
 })
 
 ########
@@ -145,6 +173,25 @@ test_that("OM parts produce expected dfs", {
   expect_equal(make_om_part_C(datom), part_outputs$om_partC)
   expect_equal(make_om_part_D(datom), part_outputs$om_partD)
 })
+
+################################
+##########
+### Cross-survey tests parts
+
+#for testing UNK gender
+df_noUNK <- data.frame(UNITID = 999999,
+                     StudentId = c(1, 2, 3),
+                     StudentLevel = c('Graduate', 'Graduate', 'Undergraduate'),
+                     DegreeLevel = c(17, 17, 2),
+                     GenderDetail = c(1, 1, 1))
+test_that("UNK sections produce a df with 0s if no such students", {
+  #tests
+  expect_equal(nrow(make_e1d_part_D(df_noUNK)), 1)
+  expect_equal(nrow(make_ef1_part_H(df_noUNK)), 1)
+  expect_equal(nrow(make_com_part_E(df_noUNK)), 1)
+})
+
+
 
 # ##Code to set up the list (name on the left, replace the right side with a rerun of the relevant script)
 # ##Note that you will need to run prep scripts before the make functions for COM, HR, EF1 and OM

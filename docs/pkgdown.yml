@@ -1,4 +1,4 @@
-pandoc: 3.1.11
+pandoc: '3.4'
 pkgdown: 2.1.0
 pkgdown_sha: ~
 articles:
@@ -11,7 +11,7 @@ articles:
   setup_for_gr200: setup_for_gr200.html
   setup_for_hr: setup_for_hr.html
   setup_for_om: setup_for_om.html
-last_built: 2024-12-08T20:43Z
+last_built: 2025-09-02T13:00Z
 urls:
   reference: https://alisonlanski.github.io/IPEDSuploadables/reference
   article: https://alisonlanski.github.io/IPEDSuploadables/articles

@@ -21,7 +21,7 @@ web forms across multiple screen. Package documentation (see the
 how an institution’s data must be formatted to make use of these
 scripts.
 
-### The package is currently serving the 2024-2025 IPEDS reporting cycle
+### The package is currently serving the 2025-2026 IPEDS reporting cycle
 
 ## If you are new to this process or are looking for updates
 
@@ -53,9 +53,15 @@ institution-types for existing reports*
 
 ### Unsupported surveys with options
 
-- Academic Libraries: If you complete the ACRL survey, you can download
-  an IPEDS-compatible file from the ACRL site.
+- Academic Libraries: This survey is no longer collected by IPEDS as of
+  the 2025-2026 reporting cycle. For previous years, you can download an
+  IPEDS-compatible file from the ACRL site if you complete that
+  survey.  
 - Admissions: Visit [How to produce other key-value
+  uploads](https://alisonlanski.github.io/IPEDSuploadables/articles/howto_use_autoformat.html)
+- Cost I: Visit [How to produce other key-value
+  uploads](https://alisonlanski.github.io/IPEDSuploadables/articles/howto_use_autoformat.html)
+- Cost II: Visit [How to produce other key-value
   uploads](https://alisonlanski.github.io/IPEDSuploadables/articles/howto_use_autoformat.html)
 - Finance: Visit [How to produce other key-value
   uploads](https://alisonlanski.github.io/IPEDSuploadables/articles/howto_use_autoformat.html)
@@ -66,7 +72,7 @@ institution-types for existing reports*
 
 ## Websites
 
-For code, issues, etc, visit [the github
+For code, issues, etc, visit [the GitHub
 site](https://github.com/AlisonLanski/IPEDSuploadables/).  
 To see full documentation, visit [the package
 website](https://alisonlanski.github.io/IPEDSuploadables/).
