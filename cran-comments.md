@@ -1,7 +1,5 @@
 ## Update notes
-Documentation update to match package data requirements.  
-Better method of calling package data.  
-This update also includes some cosmetic improvements, e.g. badges for github.
+Code changes to support current-year reporting requirements
   
   
 ## R CMD check results
