@@ -16,6 +16,8 @@ If clear, then:
 3) Update NEWS.md
 4) Run devtools::spell_check()
 5) Run local devtools::check and pkgdown::build_site
+NOTE:  for pkgdown to pick up updated specs data, the package needs to be locally installed because of the library() call. 
+       to do a local install, run devtools::install() from the package project.  To get back to the CRAN version, install again normally.
 6) Run a manual check devtools::check_win_devel()
 7) Run a manual check devtools::check_mac_release()
 8) Push commits
