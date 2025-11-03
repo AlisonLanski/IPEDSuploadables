@@ -1,23 +1,22 @@
-#' Make Admissions Part D (First-time sex unknown)
+#' Make Admissions Part G (Transfer sex unknown)
 #'
-#' @description Counts the number of unknown sex for First-time students
+#' @description Counts the number of unknown sex for Transfer students
 #'
 #' @param This function relies on the student data frame that conforms to the documented specifications
 #'        for the Admissions module of the IPEDS Uploadables package.
 #'
-#' @return Part D data prepared for inclusion in the final text file for uploading to the IPEDS portal.
+#' @return Part G data prepared for inclusion in the final text file for uploading to the IPEDS portal.
 #'
 #' @export
 #'
 
-make_admin_part_D <- function(df) {
+make_adm_part_G <- function(df) {
 
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
-  df <- filter(df, ISFIRSTTIME  == 1, SEX == 3 )
-
-
-  partD <- df %>%
+  ## Part G
+  df <- filter(df, ISTRANSFER  == 1, SEX == 3 )
+  partG <- df %>%
     dplyr::select(UNITID,
                   ISAPPLICANT,
                   ISADMITTED,
@@ -38,13 +37,13 @@ make_admin_part_D <- function(df) {
     dplyr::summarize(COUNT = n(), .groups = "keep") %>%
     dplyr::transmute(UNITID = .data$UNITID,
                      SURVSECT = 'ADM',
-                     PART = "D",
+                     PART = "G",
                      LINE = .data$LINE,
                      ADMSEX = .data$COUNT)
 
   if (all(is.na(df)) == TRUE) {
     return()
   } else {
-  return(partD)
+    return(partG)
   }
 }

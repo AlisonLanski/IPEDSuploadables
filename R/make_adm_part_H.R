@@ -1,32 +1,33 @@
-#' Make Admissions Part C (First-time SAT/ACT scores)
+#' Make Admissions Part H (Transfer SAT/ACT scores)
 #'
 #' @description If SAT or ACT scores were used for admission decisions it calculates the requisite percentiles for submission.
 #'
 #' @param This function relies on the student data frame that conforms to the documented specifications
 #'        for the Admissions module of the IPEDS Uploadables package.
 #'
-#' @return Part C data prepared for inclusion in the final text file for uploading to the IPEDS portal.
+#' @return Part H data prepared for inclusion in the final text file for uploading to the IPEDS portal.
 #'
 #' @export
 #'
 
-make_admin_part_C <- function(df) {
+make_adm_part_H <- function(df) {
 
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
-  # select first-time students
-  dfsatf <- filter(df, .data$ISFIRSTTIME == 1, .data$ISENROLLED == 1, .data$SATUSED == 1)
+  # select transfer students
+  dfsat <- filter(df, .data$ISTRANSFER == 1, .data$ISENROLLED == 1, .data$SATUSED == 1)
 
-  partC_SAT <- (dfsatf) %>%
+  partH_SAT <- (dfsat) %>%
     dplyr::select(UNITID,
                   STUDENTID,
                   ISENROLLED,
                   SATUSED,
+                  ACTUSED,
                   SAT_EVBRW,
                   SAT_MATH,
-                  )%>%
+                )%>%
     dplyr::group_by(.data$UNITID)%>%
-    # Add rounding logic
+    # Add Rounding logic
     dplyr::summarise(SATINUM = n(),
                      SATVR25 = as.integer(round(quantile(.data$SAT_EVBRW, 0.25)), digits = 0),
                      SATVR50 = as.integer(round(quantile(.data$SAT_EVBRW, 0.50)), digits = 0),
@@ -36,10 +37,9 @@ make_admin_part_C <- function(df) {
                      SATMT75 = as.integer(round(quantile(.data$SAT_MATH, 0.75)), digits = 0)
     )
 
-  # Calc ACT metrics
 
-  dfact <- filter(df, .data$ISFIRSTTIME == 1, .data$ISENROLLED == 1, .data$ACTUSED == 1)
-  partC_ACT <- (dfact) %>%
+  dfact <- filter(df, .data$ISTRANSFER == 1, .data$ISENROLLED == 1, .data$ACTUSED == 1)
+  partH_ACT <- (dfact) %>%
     dplyr::select(UNITID,
                   STUDENTID,
                   ISENROLLED,
@@ -59,20 +59,18 @@ make_admin_part_C <- function(df) {
                      ACTEN25 = as.integer(round(quantile(.data$ACT_ENG, 0.25)), digits = 0),
                      ACTEN50 = as.integer(round(quantile(.data$ACT_ENG, 0.50)), digits = 0),
                      ACTEN75 = as.integer(round(quantile(.data$ACT_ENG, 0.75)), digits = 0)
-
     )
-
-  # find total first-time for denominator
-  ft <- filter(df, .data$ISFIRSTTIME == 1, .data$ISENROLLED == 1) %>%
+  # find total transfers for denominator
+  tr <- filter(df, .data$ISTRANSFER == 1, .data$ISENROLLED == 1) %>%
     dplyr::summarise(COUNT = n())
-
+  # Now do Part E for transfers
   #format for upload
-  partC_prep <- dplyr::bind_cols(partC_SAT,
-                                 select(partC_ACT, -UNITID)
+  partH_prep <- dplyr::bind_cols(partH_SAT,
+                                 select(partH_ACT, -UNITID)
   ) %>%
     ### need to add logic for 5 or less to SATIPCT and ACTIPCT
-    dplyr::mutate(SATIPCT = as.integer(round((.data$SATINUM/ft)*100), digits = 0)) %>%
-    dplyr::mutate(ACTIPCT = as.integer(round((.data$ACTINUM/ft)*100), digits = 0)) %>%
+    dplyr::mutate(SATIPCT = as.integer(round((.data$SATINUM/tr)*100), digits = 0)) %>%
+    dplyr::mutate(ACTIPCT = as.integer(round((.data$ACTINUM/tr)*100), digits = 0)) %>%
     dplyr::mutate(SATVR25 = dplyr::case_when(
       .data$SATINUM > 5 ~ .data$SATVR25,
       .data$SATINUM <= 5 ~ -2)) %>%
@@ -92,10 +90,10 @@ make_admin_part_C <- function(df) {
       .data$ACTINUM > 5 ~ .data$ACTEN50,
       .data$ACTINUM <= 5 ~ -2))
 
-  partC <- partC_prep %>%
+  partH <- partH_prep %>%
     dplyr::transmute(UNITID = .data$UNITID,
                      SURVSECT = "ADM",
-                     PART = "C",
+                     PART = "H",
                      SATINUM = .data$SATINUM,
                      SATIPCT = .data$SATIPCT,
                      ACTINUM = .data$ACTINUM,
@@ -116,7 +114,5 @@ make_admin_part_C <- function(df) {
                      ACTEN50 = .data$ACTEN50,
                      ACTMT50 = .data$ACTMT50)
 
-
-  return(partC)
-
+  return(partH)
 }

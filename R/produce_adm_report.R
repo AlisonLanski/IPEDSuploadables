@@ -11,7 +11,7 @@
 #' @export
 #'
 
-produce_admin_report <- function(df, part = "ALL", format = "uploadable") {
+produce_adm_report <- function(df, part = "ALL", format = "uploadable") {
 
   stopifnot(toupper(part) %in% c("B", "F", "D", "G", "C", "H", "ALL"),
             toupper(format) %in% c("UPLOADABLE", "READABLE", "BOTH"))
@@ -25,13 +25,13 @@ produce_admin_report <- function(df, part = "ALL", format = "uploadable") {
 
   if(toupper(part) == 'ALL') {
 
-    write_admin_report(
-      make_admin_part_B(df = students),
-      make_admin_part_F(df = students),
-      make_admin_part_D(df = students),
-      make_admin_part_G(df = students),
-      make_admin_part_C(df = students),
-      make_admin_part_H(df = students),
+    write_report(
+      make_adm_part_B(df = students),
+      make_adm_part_F(df = students),
+      make_adm_part_D(df = students),
+      make_adm_part_G(df = students),
+      make_adm_part_C(df = students),
+      make_adm_part_H(df = students),
       survey = survey,
       part = 'AllParts',
       output_path = output_path
@@ -39,8 +39,8 @@ produce_admin_report <- function(df, part = "ALL", format = "uploadable") {
   } else if(toupper(part) %in% c("B", "F", "D", "G", "C", "H")) {
 
     if(toupper(format) %in% c("UPLOADABLE", "BOTH")){
-      write_admin_report(
-        do.call(paste0("make_admin_part_", toupper(part)), list(students)),
+      write_report(
+        do.call(paste0("make_adm_part_", toupper(part)), list(students)),
         survey = survey,
         part = paste0("Part", toupper(part)),
         output_path = output_path
@@ -49,7 +49,7 @@ produce_admin_report <- function(df, part = "ALL", format = "uploadable") {
 
     if(toupper(format) %in% c("BOTH", "READABLE")){
       write_report_csv(
-        do.call(paste0("make_admin_part_", toupper(part)), list(students)),
+        do.call(paste0("make_adm_part_", toupper(part)), list(students)),
         survey = 'Admissions',
         part = paste0("Part", toupper(part)),
         output_path = output_path

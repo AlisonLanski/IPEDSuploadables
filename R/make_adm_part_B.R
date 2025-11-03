@@ -10,7 +10,7 @@
 #' @export
 #'
 
-make_admin_part_B <- function(df) {
+make_adm_part_B <- function(df) {
 
   colnames(df) <- stringr::str_to_upper(colnames(df))
 

@@ -11,7 +11,7 @@
 #'
 
 
-make_admin_part_F <- function(df) {
+make_adm_part_F <- function(df) {
 # Pull transfer students for part F
 
   colnames(df) <- stringr::str_to_upper(colnames(df))
