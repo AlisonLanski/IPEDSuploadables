@@ -28,7 +28,7 @@ make_adm_part_H <- function(df) {
                 )%>%
     dplyr::group_by(.data$UNITID)%>%
     # Add Rounding logic
-    dplyr::summarise(SATINUM = n(),
+    dplyr::summarize(SATINUM = n(),
                      SATVR25 = as.integer(round(quantile(.data$SAT_EVBRW, 0.25)), digits = 0),
                      SATVR50 = as.integer(round(quantile(.data$SAT_EVBRW, 0.50)), digits = 0),
                      SATVR75 = as.integer(round(quantile(.data$SAT_EVBRW, 0.75)), digits = 0),
@@ -49,7 +49,7 @@ make_adm_part_H <- function(df) {
                   ACT_MATH)%>%
     dplyr::group_by(.data$UNITID)%>%
     # Add rounding logic
-    dplyr::summarise(ACTINUM = n(),
+    dplyr::summarize(ACTINUM = n(),
                      ACTCM25 = as.integer(round(quantile(.data$ACT_COMP, 0.25)), digits = 0),
                      ACTCM50 = as.integer(round(quantile(.data$ACT_COMP, 0.50)), digits = 0),
                      ACTCM75 = as.integer(round(quantile(.data$ACT_COMP, 0.75)), digits = 0),
@@ -62,7 +62,7 @@ make_adm_part_H <- function(df) {
     )
   # find total transfers for denominator
   tr <- filter(df, .data$ISTRANSFER == 1, .data$ISENROLLED == 1) %>%
-    dplyr::summarise(COUNT = n())
+    dplyr::summarize(COUNT = n())
   # Now do Part E for transfers
   #format for upload
   partH_prep <- dplyr::bind_cols(partH_SAT,

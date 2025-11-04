@@ -37,7 +37,7 @@ make_adm_part_B <- function(df) {
                     .data$RACEETHNICITY,
                     .data$SEX,
     ) %>%
-    dplyr::summarize(COUNT = n(), .groups = "keep") %>%
+    dplyr::summarize(COUNT = n()) %>%
     dplyr::ungroup() %>%
     dplyr::transmute(UNITID = .data$UNITID,
                      SURVSECT = "ADM",

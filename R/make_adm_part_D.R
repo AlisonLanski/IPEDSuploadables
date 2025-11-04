@@ -35,7 +35,8 @@ make_adm_part_D <- function(df) {
                     .data$LINE,
                     .data$SEX
     ) %>%
-    dplyr::summarize(COUNT = n(), .groups = "keep") %>%
+    dplyr::summarize(COUNT = n()) %>%
+    dplyr::ungroup() %>%
     dplyr::transmute(UNITID = .data$UNITID,
                      SURVSECT = 'ADM',
                      PART = "D",
