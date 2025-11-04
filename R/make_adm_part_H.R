@@ -2,10 +2,9 @@
 #'
 #' @description If SAT or ACT scores were used for admission decisions it calculates the requisite percentiles for submission.
 #'
-#' @param This function relies on the student data frame that conforms to the documented specifications
-#'        for the Admissions module of the IPEDS Uploadables package.
+#' @param df A dataframe of applicant information
 #'
-#' @return Part H data prepared for inclusion in the final text file for uploading to the IPEDS portal.
+#' @return Admissions Part H data with the required IPEDS structure
 #'
 #' @export
 #'
@@ -15,16 +14,18 @@ make_adm_part_H <- function(df) {
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
   # select transfer students
-  dfsat <- filter(df, .data$ISTRANSFER == 1, .data$ISENROLLED == 1, .data$SATUSED == 1)
 
-  partH_SAT <- (dfsat) %>%
-    dplyr::select(UNITID,
-                  STUDENTID,
-                  ISENROLLED,
-                  SATUSED,
-                  ACTUSED,
-                  SAT_EVBRW,
-                  SAT_MATH,
+  partH_SAT <- df %>%
+    dplyr::filter(.data$ISTRANSFER == 1,
+                  .data$ISENROLLED == 1,
+                  .data$SATUSED == 1) %>%
+    dplyr::select("UNITID",
+                  "STUDENTID",
+                  "ISENROLLED",
+                  "SATUSED",
+                  "ACTUSED",
+                  "SAT_EVBRW",
+                  "SAT_MATH",
                 )%>%
     dplyr::group_by(.data$UNITID)%>%
     # Add Rounding logic
@@ -38,15 +39,17 @@ make_adm_part_H <- function(df) {
     )
 
 
-  dfact <- filter(df, .data$ISTRANSFER == 1, .data$ISENROLLED == 1, .data$ACTUSED == 1)
-  partH_ACT <- (dfact) %>%
-    dplyr::select(UNITID,
-                  STUDENTID,
-                  ISENROLLED,
-                  ACTUSED,
-                  ACT_ENG,
-                  ACT_COMP,
-                  ACT_MATH)%>%
+  partH_ACT <- df %>%
+    dplyr::filter(.data$ISTRANSFER == 1,
+                  .data$ISENROLLED == 1,
+                  .data$ACTUSED == 1) %>%
+    dplyr::select("UNITID",
+                  "STUDENTID",
+                  "ISENROLLED",
+                  "ACTUSED",
+                  "ACT_ENG",
+                  "ACT_COMP",
+                  "ACT_MATH")%>%
     dplyr::group_by(.data$UNITID)%>%
     # Add rounding logic
     dplyr::summarize(ACTINUM = n(),
@@ -61,12 +64,15 @@ make_adm_part_H <- function(df) {
                      ACTEN75 = as.integer(round(quantile(.data$ACT_ENG, 0.75)), digits = 0)
     )
   # find total transfers for denominator
-  tr <- filter(df, .data$ISTRANSFER == 1, .data$ISENROLLED == 1) %>%
-    dplyr::summarize(COUNT = n())
+  tr <- df %>%
+    dplyr::filter(.data$ISTRANSFER == 1,
+                  .data$ISENROLLED == 1) %>%
+    dplyr::summarize(COUNT = dplyr::n())
+
   # Now do Part E for transfers
   #format for upload
   partH_prep <- dplyr::bind_cols(partH_SAT,
-                                 select(partH_ACT, -UNITID)
+                                 partH_ACT %>% select(-"UNITID")
   ) %>%
     ### need to add logic for 5 or less to SATIPCT and ACTIPCT
     dplyr::mutate(SATIPCT = as.integer(round((.data$SATINUM/tr)*100), digits = 0)) %>%

@@ -2,10 +2,11 @@
 #'
 #' @description If SAT or ACT scores were used for admission decisions it calculates the requisite percentiles for submission.
 #'
-#' @param This function relies on the student data frame that conforms to the documented specifications
-#'        for the Admissions module of the IPEDS Uploadables package.
+#' @param df A dataframe of applicant information
 #'
-#' @return Part C data prepared for inclusion in the final text file for uploading to the IPEDS portal.
+#' @importFrom stats quantile
+#'
+#' @return Admissions Part C data with the required IPEDS structure
 #'
 #' @export
 #'
@@ -15,17 +16,19 @@ make_adm_part_C <- function(df) {
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
   # select first-time students
-  dfsatf <- filter(df, .data$ISFIRSTTIME == 1, .data$ISENROLLED == 1, .data$SATUSED == 1)
 
-  partC_SAT <- (dfsatf) %>%
-    dplyr::select(UNITID,
-                  STUDENTID,
-                  ISENROLLED,
-                  SATUSED,
-                  SAT_EVBRW,
-                  SAT_MATH,
+  partC_SAT <- df %>%
+    dplyr::filter(.data$ISFIRSTTIME == 1,
+                  .data$ISENROLLED == 1,
+                  .data$SATUSED == 1) %>%
+    dplyr::select("UNITID",
+                  "STUDENTID",
+                  "ISENROLLED",
+                  "SATUSED",
+                  "SAT_EVBRW",
+                  "SAT_MATH",
                   )%>%
-    dplyr::group_by(.data$UNITID)%>%
+    dplyr::group_by(.data$UNITID) %>%
     # Add rounding logic
     dplyr::summarize(SATINUM = n(),
                      SATVR25 = as.integer(round(quantile(.data$SAT_EVBRW, 0.25)), digits = 0),
@@ -37,16 +40,17 @@ make_adm_part_C <- function(df) {
     )
 
   # Calc ACT metrics
-
-  dfact <- filter(df, .data$ISFIRSTTIME == 1, .data$ISENROLLED == 1, .data$ACTUSED == 1)
-  partC_ACT <- (dfact) %>%
-    dplyr::select(UNITID,
-                  STUDENTID,
-                  ISENROLLED,
-                  ACTUSED,
-                  ACT_ENG,
-                  ACT_COMP,
-                  ACT_MATH)%>%
+  partC_ACT <- df %>%
+    dplyr::filter(.data$ISFIRSTTIME == 1,
+                  .data$ISENROLLED == 1,
+                  .data$ACTUSED == 1) %>%
+    dplyr::select("UNITID",
+                  "STUDENTID",
+                  "ISENROLLED",
+                  "ACTUSED",
+                  "ACT_ENG",
+                  "ACT_COMP",
+                  "ACT_MATH")%>%
     dplyr::group_by(.data$UNITID)%>%
     # Add rounding logic
     dplyr::summarize(ACTINUM = n(),
@@ -63,12 +67,14 @@ make_adm_part_C <- function(df) {
     )
 
   # find total first-time for denominator
-  ft <- filter(df, .data$ISFIRSTTIME == 1, .data$ISENROLLED == 1) %>%
+  ft <- df %>%
+    dplyr::filter(.data$ISFIRSTTIME == 1,
+                  .data$ISENROLLED == 1) %>%
     dplyr::summarize(COUNT = n())
 
   #format for upload
   partC_prep <- dplyr::bind_cols(partC_SAT,
-                                 select(partC_ACT, -UNITID)
+                                 partC_ACT %>% dplyr::select(-"UNITID")
   ) %>%
     ### need to add logic for 5 or less to SATIPCT and ACTIPCT
     dplyr::mutate(SATIPCT = as.integer(round((.data$SATINUM/ft)*100), digits = 0)) %>%

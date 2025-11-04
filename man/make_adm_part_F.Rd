@@ -7,11 +7,10 @@
 make_adm_part_F(df)
 }
 \arguments{
-\item{This}{function relies on the student data frame that conforms to the documented specifications
-for the Admissions module of the IPEDS Uploadables package.}
+\item{df}{A dataframe of applicant information}
 }
 \value{
-Part F data prepared for inclusion in the final text file for uploading to the IPEDS portal.
+Admissions Part F data with the required IPEDS structure
 }
 \description{
 Aggregates Transfer student applicants by sex, race/ethnicity.

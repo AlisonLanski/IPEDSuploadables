@@ -2,10 +2,9 @@
 #'
 #' @description Aggregates First-Time student applicants by sex, race/ethnicity.
 #'
-#' @param This function relies on the student data frame that conforms to the documented specifications
-#'        for the Admissions module of the IPEDS Uploadables package.
+#' @param df A dataframe of applicant information
 #'
-#' @returns Part B data prepared for inclusion in the final text file for uploading to the IPEDS portal.
+#' @return Admissions Part B data with the required IPEDS structure
 #'
 #' @export
 #'
@@ -15,16 +14,16 @@ make_adm_part_B <- function(df) {
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
    ## pull first-time students for part B
-  df <- filter(df, ISFIRSTTIME  == 1, SEX != 3 )
   partB <- df %>%
-    dplyr::select(UNITID,
-                  SEX,
-                  RACEETHNICITY,
-                  ISAPPLICANT,
-                  ISADMITTED,
-                  ISENROLLED,
-                  ISFULLTIME,
-                  ISFIRSTTIME
+    dplyr::filter(.data$ISFIRSTTIME == 1, .data$SEX != 3) %>%
+    dplyr::select("UNITID",
+                  "SEX",
+                  "RACEETHNICITY",
+                  "ISAPPLICANT",
+                  "ISADMITTED",
+                  "ISENROLLED",
+                  "ISFULLTIME",
+                  "ISFIRSTTIME"
     ) %>%
     dplyr::mutate(LINE = dplyr::case_when(
                                 .data$ISADMITTED == 0 ~ 1,

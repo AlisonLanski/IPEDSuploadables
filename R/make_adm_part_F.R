@@ -2,10 +2,9 @@
 #'
 #' @description Aggregates Transfer student applicants by sex, race/ethnicity.
 #'
-#' @param This function relies on the student data frame that conforms to the documented specifications
-#'        for the Admissions module of the IPEDS Uploadables package.
+#' @param df A dataframe of applicant information
 #'
-#' @returns Part F data prepared for inclusion in the final text file for uploading to the IPEDS portal.
+#' @return Admissions Part F data with the required IPEDS structure
 #'
 #' @export
 #'
@@ -16,16 +15,17 @@ make_adm_part_F <- function(df) {
 
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
-  df <- filter(df, ISTRANSFER == 1, SEX != 3)
   partF <- df %>%
-    dplyr::select(UNITID,
-                  SEX,
-                  RACEETHNICITY,
-                  ISAPPLICANT,
-                  ISADMITTED,
-                  ISENROLLED,
-                  ISFULLTIME,
-                  ISTRANSFER) %>%
+    dplyr::filter(.data$ISTRANSFER == 1,
+                  .data$SEX != 3) %>%
+    dplyr::select("UNITID",
+                  "SEX",
+                  "RACEETHNICITY",
+                  "ISAPPLICANT",
+                  "ISADMITTED",
+                  "ISENROLLED",
+                  "ISFULLTIME",
+                  "ISTRANSFER") %>%
     dplyr::mutate(LINE = dplyr::case_when(
                                 .data$ISADMITTED == 0 ~ 1,
                                 .data$ISENROLLED == 0 ~ 2,

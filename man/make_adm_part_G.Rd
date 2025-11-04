@@ -7,11 +7,10 @@
 make_adm_part_G(df)
 }
 \arguments{
-\item{This}{function relies on the student data frame that conforms to the documented specifications
-for the Admissions module of the IPEDS Uploadables package.}
+\item{df}{A dataframe of applicant information}
 }
 \value{
-Part G data prepared for inclusion in the final text file for uploading to the IPEDS portal.
+Admissions Part G data with the required IPEDS structure
 }
 \description{
 Counts the number of unknown sex for Transfer students

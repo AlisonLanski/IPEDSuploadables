@@ -2,10 +2,9 @@
 #'
 #' @description Counts the number of unknown sex for First-time students
 #'
-#' @param This function relies on the student data frame that conforms to the documented specifications
-#'        for the Admissions module of the IPEDS Uploadables package.
+#' @param df A dataframe of applicant information
 #'
-#' @return Part D data prepared for inclusion in the final text file for uploading to the IPEDS portal.
+#' @return Admissions Part D data with the required IPEDS structure
 #'
 #' @export
 #'
@@ -14,16 +13,15 @@ make_adm_part_D <- function(df) {
 
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
-  df <- filter(df, ISFIRSTTIME  == 1, SEX == 3 )
-
-
   partD <- df %>%
-    dplyr::select(UNITID,
-                  ISAPPLICANT,
-                  ISADMITTED,
-                  ISENROLLED,
-                  ISFULLTIME,
-                  SEX
+    dplyr::filter(.data$ISFIRSTTIME  == 1,
+                  .data$SEX == 3) %>%
+    dplyr::select("UNITID",
+                  "ISAPPLICANT",
+                  "ISADMITTED",
+                  "ISENROLLED",
+                  "ISFULLTIME",
+                  "SEX"
     ) %>%
     dplyr::mutate(LINE = dplyr::case_when(
                                           .data$ISADMITTED == 0 ~ 1,
