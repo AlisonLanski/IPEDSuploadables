@@ -13,6 +13,9 @@ prep_adm_data_frame <- function(df) {
   if("STUDENTID" %in% colnames(df)) {
     df <- df %>%
       dplyr::mutate(STUDENTID = as.character(.data$STUDENTID))
+  }else{
+    df <- df %>%
+      dplyr::mutate(STUDENTID = as.character(seq(1:nrow(df))))
   }
 
   return(df)
