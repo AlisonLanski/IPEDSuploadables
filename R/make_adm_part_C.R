@@ -19,7 +19,7 @@ make_adm_part_C <- function(df, ptype = 7) {
 
   # select first-time students
 
-  partC_SAT <- df %>%
+  partC_SAT_prep <- df %>%
     dplyr::filter(.data$ISFIRSTTIME == 1,
                   .data$ISENROLLED == 1,
                   .data$SATUSED == 1) %>%
@@ -32,7 +32,7 @@ make_adm_part_C <- function(df, ptype = 7) {
                   )%>%
     dplyr::group_by(.data$UNITID) %>%
     # Add rounding logic
-    dplyr::summarize(SATINUM = n(),
+    dplyr::summarize(SATINUM = dplyr::n(),
                      SATVR25 = as.integer(round(quantile(.data$SAT_EVBRW, 0.25, type = ptype)), digits = 0),
                      SATVR50 = as.integer(round(quantile(.data$SAT_EVBRW, 0.50, type = ptype)), digits = 0),
                      SATVR75 = as.integer(round(quantile(.data$SAT_EVBRW, 0.75, type = ptype)), digits = 0),
@@ -41,8 +41,35 @@ make_adm_part_C <- function(df, ptype = 7) {
                      SATMT75 = as.integer(round(quantile(.data$SAT_MATH, 0.75, type = ptype)), digits = 0)
     )
 
+
+  #small N or no such students: SAT
+  if(nrow(partC_SAT_prep) == 0){
+    partC_SAT <- data.frame(UNITID = get_ipeds_unitid(df),
+                            SATINUM =  0,
+                            SATVR25 = -2,
+                            SATVR50 = -2,
+                            SATVR75 = -2,
+                            SATMT25 = -2,
+                            SATMT50 = -2,
+                            SATMT75 = -2)
+  } else if(partC_SAT_prep$SATINUM <= 5){
+    partC_SAT <- data.frame(UNITID = get_ipeds_unitid(df),
+                            SATINUM = partC_SAT_prep$SATINUM,
+                            SATVR25 = -2,
+                            SATVR50 = -2,
+                            SATVR75 = -2,
+                            SATMT25 = -2,
+                            SATMT50 = -2,
+                            SATMT75 = -2)
+
+  } else {
+    partC_SAT <- partC_SAT_prep
+  }
+
+
+
   # Calc ACT metrics
-  partC_ACT <- df %>%
+  partC_ACT_prep <- df %>%
     dplyr::filter(.data$ISFIRSTTIME == 1,
                   .data$ISENROLLED == 1,
                   .data$ACTUSED == 1) %>%
@@ -55,7 +82,7 @@ make_adm_part_C <- function(df, ptype = 7) {
                   "ACT_MATH")%>%
     dplyr::group_by(.data$UNITID)%>%
     # Add rounding logic
-    dplyr::summarize(ACTINUM = n(),
+    dplyr::summarize(ACTINUM = dplyr::n(),
                      ACTCM25 = as.integer(round(quantile(.data$ACT_COMP, 0.25, type = ptype)), digits = 0),
                      ACTCM50 = as.integer(round(quantile(.data$ACT_COMP, 0.50, type = ptype)), digits = 0),
                      ACTCM75 = as.integer(round(quantile(.data$ACT_COMP, 0.75, type = ptype)), digits = 0),
@@ -68,38 +95,53 @@ make_adm_part_C <- function(df, ptype = 7) {
 
     )
 
+
+  #small N or no such students: ACT
+  if(nrow(partC_ACT_prep) == 0){
+    partC_ACT <- data.frame(UNITID = get_ipeds_unitid(df),
+                            ACTINUM = 0,
+                            ACTCM25 = -2,
+                            ACTCM50 = -2,
+                            ACTCM75 = -2,
+                            ACTMT25 = -2,
+                            ACTMT50 = -2,
+                            ACTMT75 = -2,
+                            ACTEN25 = -2,
+                            ACTEN50 = -2,
+                            ACTEN75 = -2)
+  } else if(partC_ACT_prep$ACTINUM <= 5){
+    partC_ACT <- data.frame(UNITID = get_ipeds_unitid(df),
+                            ACTINUM = partC_ACT_prep$ACTINUM,
+                            ACTCM25 = -2,
+                            ACTCM50 = -2,
+                            ACTCM75 = -2,
+                            ACTMT25 = -2,
+                            ACTMT50 = -2,
+                            ACTMT75 = -2,
+                            ACTEN25 = -2,
+                            ACTEN50 = -2,
+                            ACTEN75 = -2)
+
+  } else {
+    partC_ACT <- partC_ACT_prep
+  }
+
+
   # find total first-time for denominator
   ft <- df %>%
     dplyr::filter(.data$ISFIRSTTIME == 1,
                   .data$ISENROLLED == 1) %>%
-    dplyr::summarize(COUNT = n())
+    dplyr::summarize(COUNT = dplyr::n())
 
-  #format for upload
+  #get percents
   partC_prep <- dplyr::bind_cols(partC_SAT,
                                  partC_ACT %>% dplyr::select(-"UNITID")
   ) %>%
-    ### need to add logic for 5 or less to SATIPCT and ACTIPCT
-    dplyr::mutate(SATIPCT = as.integer(round((.data$SATINUM/ft)*100), digits = 0)) %>%
-    dplyr::mutate(ACTIPCT = as.integer(round((.data$ACTINUM/ft)*100), digits = 0)) %>%
-    dplyr::mutate(SATVR25 = dplyr::case_when(
-      .data$SATINUM > 5 ~ .data$SATVR25,
-      .data$SATINUM <= 5 ~ -2)) %>%
-    dplyr::mutate(SATVR75 = dplyr::case_when(
-      .data$SATINUM > 5 ~ .data$SATVR75,
-      .data$SATINUM <= 5 ~ -2)) %>%
-    dplyr::mutate(SATVR50 = dplyr::case_when(
-      .data$SATINUM > 5 ~ .data$SATVR50,
-      .data$SATINUM <= 5 ~ -2)) %>%
-    dplyr::mutate(ACTEN25 = dplyr::case_when(
-      .data$ACTINUM > 5 ~ .data$ACTEN25,
-      .data$ACTINUM <= 5 ~ -2)) %>%
-    dplyr::mutate(ACTEN75 = dplyr::case_when(
-      .data$ACTINUM > 5 ~ .data$ACTEN75,
-      .data$ACTINUM <= 5 ~ -2)) %>%
-    dplyr::mutate(ACTEN50 = dplyr::case_when(
-      .data$ACTINUM > 5 ~ .data$ACTEN50,
-      .data$ACTINUM <= 5 ~ -2))
-
+    dplyr::mutate(SATIPCT = as.integer(round((.data$SATINUM/ft)*100),
+                                       digits = 0)) %>%
+    dplyr::mutate(ACTIPCT = as.integer(round((.data$ACTINUM/ft)*100),
+                                       digits = 0))
+  #format for upload
   partC <- partC_prep %>%
     dplyr::transmute(UNITID = .data$UNITID,
                      SURVSECT = "ADM",

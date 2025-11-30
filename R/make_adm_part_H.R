@@ -16,12 +16,11 @@ make_adm_part_H <- function(df, ptype = 7) {
 
   # select transfer students
 
-  partH_SAT <- df %>%
+  partH_SAT_prep <- df %>%
     dplyr::select("UNITID",
                   "ISENROLLED",
                   "ISTRANSFER",
                   "SATUSED",
-                  "ACTUSED",
                   "SAT_EVBRW",
                   "SAT_MATH",
     )%>%
@@ -30,7 +29,7 @@ make_adm_part_H <- function(df, ptype = 7) {
                   .data$SATUSED == 1) %>%
     dplyr::group_by(.data$UNITID)%>%
     # Add Rounding logic
-    dplyr::summarize(SATINUM = n(),
+    dplyr::summarize(SATINUM = dplyr::n(),
                      SATVR25 = as.integer(round(quantile(.data$SAT_EVBRW, 0.25, type = ptype)), digits = 0),
                      SATVR50 = as.integer(round(quantile(.data$SAT_EVBRW, 0.50, type = ptype)), digits = 0),
                      SATVR75 = as.integer(round(quantile(.data$SAT_EVBRW, 0.75, type = ptype)), digits = 0),
@@ -39,8 +38,33 @@ make_adm_part_H <- function(df, ptype = 7) {
                      SATMT75 = as.integer(round(quantile(.data$SAT_MATH, 0.75, type = ptype)), digits = 0)
     )
 
+  #small N or no such students: SAT
+  if(nrow(partH_SAT_prep) == 0){
+    partH_SAT <- data.frame(UNITID = get_ipeds_unitid(df),
+                            SATINUM =  0,
+                            SATVR25 = -2,
+                            SATVR50 = -2,
+                            SATVR75 = -2,
+                            SATMT25 = -2,
+                            SATMT50 = -2,
+                            SATMT75 = -2)
+  } else if(partH_SAT_prep$SATINUM <= 5){
+    partH_SAT <- data.frame(UNITID = get_ipeds_unitid(df),
+                            SATINUM = partH_SAT_prep$SATINUM,
+                            SATVR25 = -2,
+                            SATVR50 = -2,
+                            SATVR75 = -2,
+                            SATMT25 = -2,
+                            SATMT50 = -2,
+                            SATMT75 = -2)
 
-  partH_ACT <- df %>%
+  } else {
+    partH_SAT <- partH_SAT_prep
+  }
+
+
+  # now do ACT
+  partH_ACT_prep <- df %>%
     dplyr::filter(.data$ISTRANSFER == 1,
                   .data$ISENROLLED == 1,
                   .data$ACTUSED == 1) %>%
@@ -53,7 +77,7 @@ make_adm_part_H <- function(df, ptype = 7) {
                   "ACT_MATH")%>%
     dplyr::group_by(.data$UNITID)%>%
     # Add rounding logic
-    dplyr::summarize(ACTINUM = n(),
+    dplyr::summarize(ACTINUM = dplyr::n(),
                      ACTCM25 = as.integer(round(quantile(.data$ACT_COMP, 0.25, type = ptype)), digits = 0),
                      ACTCM50 = as.integer(round(quantile(.data$ACT_COMP, 0.50, type = ptype)), digits = 0),
                      ACTCM75 = as.integer(round(quantile(.data$ACT_COMP, 0.75, type = ptype)), digits = 0),
@@ -65,8 +89,9 @@ make_adm_part_H <- function(df, ptype = 7) {
                      ACTEN75 = as.integer(round(quantile(.data$ACT_ENG, 0.75, type = ptype)), digits = 0)
     )
 
-  ### Handle missing exams (no student used this one)
-  if(nrow(partH_ACT) == 0){
+
+  #small N or no such students: ACT
+  if(nrow(partH_ACT_prep) == 0){
     partH_ACT <- data.frame(UNITID = get_ipeds_unitid(df),
                             ACTINUM = 0,
                             ACTCM25 = -2,
@@ -78,17 +103,25 @@ make_adm_part_H <- function(df, ptype = 7) {
                             ACTEN25 = -2,
                             ACTEN50 = -2,
                             ACTEN75 = -2)
+  } else if(partH_ACT_prep$ACTINUM <= 5){
+    partH_ACT <- data.frame(UNITID = get_ipeds_unitid(df),
+                            ACTINUM = partH_ACT_prep$ACTINUM,
+                            ACTCM25 = -2,
+                            ACTCM50 = -2,
+                            ACTCM75 = -2,
+                            ACTMT25 = -2,
+                            ACTMT50 = -2,
+                            ACTMT75 = -2,
+                            ACTEN25 = -2,
+                            ACTEN50 = -2,
+                            ACTEN75 = -2)
+
+  } else {
+    partH_ACT <- partH_ACT_prep
   }
-  if(nrow(partH_SAT) == 0){
-    partH_SAT <- data.frame(UNITID = get_ipeds_unitid(df),
-                            SATINUM = 0,
-                            SATVR25 = -2,
-                            SATVR50 = -2,
-                            SATVR75 = -2,
-                            SATMT25 = -2,
-                            SATMT50 = -2,
-                            SATMT75 = -2)
-  }
+
+
+
 
   # find total transfers for denominator of percent
   tr <- df %>%
@@ -97,33 +130,15 @@ make_adm_part_H <- function(df, ptype = 7) {
     dplyr::summarize(COUNT = dplyr::n())
 
 
-  # Now do Part E for transfers
-  #format for upload
+  #get percents
   partH_prep <- dplyr::bind_cols(partH_SAT,
                                  partH_ACT %>% select(-"UNITID")
   ) %>%
-    ### need to add logic for 5 or less to SATIPCT and ACTIPCT
-    dplyr::mutate(SATIPCT = as.integer(round((.data$SATINUM/tr)*100), digits = 0)) %>%
-    dplyr::mutate(ACTIPCT = as.integer(round((.data$ACTINUM/tr)*100), digits = 0)) %>%
-    dplyr::mutate(SATVR25 = dplyr::case_when(
-      .data$SATINUM > 5 ~ .data$SATVR25,
-      .data$SATINUM <= 5 ~ -2)) %>%
-    dplyr::mutate(SATVR75 = dplyr::case_when(
-      .data$SATINUM > 5 ~ .data$SATVR75,
-      .data$SATINUM <= 5 ~ -2)) %>%
-    dplyr::mutate(SATVR50 = dplyr::case_when(
-      .data$SATINUM > 5 ~ .data$SATVR50,
-      .data$SATINUM <= 5 ~ -2)) %>%
-    dplyr::mutate(ACTEN25 = dplyr::case_when(
-      .data$ACTINUM > 5 ~ .data$ACTEN25,
-      .data$ACTINUM <= 5 ~ -2)) %>%
-    dplyr::mutate(ACTEN75 = dplyr::case_when(
-      .data$ACTINUM > 5 ~ .data$ACTEN75,
-      .data$ACTINUM <= 5 ~ -2)) %>%
-    dplyr::mutate(ACTEN50 = dplyr::case_when(
-      .data$ACTINUM > 5 ~ .data$ACTEN50,
-      .data$ACTINUM <= 5 ~ -2))
-
+    dplyr::mutate(SATIPCT = as.integer(round((.data$SATINUM/tr)*100),
+                                       digits = 0)) %>%
+    dplyr::mutate(ACTIPCT = as.integer(round((.data$ACTINUM/tr)*100),
+                                       digits = 0))
+  #format for upload
   partH <- partH_prep %>%
     dplyr::transmute(UNITID = .data$UNITID,
                      SURVSECT = "ADM",
