@@ -2,6 +2,10 @@
 #fake data for testing below
 #data is correctly set up (no errors)
 
+adm_df <- data.frame(unitid = 123456,
+                     studentid = c(123, 456),
+                     another = 0)
+
 com_df <- data.frame(unitid = 123456,
                      majorcip = c(2.34, 12.34, 2.3400, 2, 12),
                      degreelevel = 17,
@@ -39,14 +43,24 @@ om_df3 <- data.frame(unitid = "000000",
 ### TESTS BEGIN
 
 test_that("columns are sent to uppercase by prep functions", {
+  expect_equal(sum(grepl(colnames(prep_adm_data_frame(adm_df)), pattern = "[[:lower:]]")), 0)
   expect_equal(sum(grepl(colnames(prep_com_data_frame(com_df)), pattern = "[[:lower:]]")), 0)
   expect_equal(sum(grepl(colnames(prep_ef1_data_frame(ef1_df)), pattern = "[[:lower:]]")), 0)
   expect_equal(sum(grepl(colnames(prep_hr_data_frame(hr_df)), pattern = "[[:lower:]]")), 0)
   expect_equal(sum(grepl(colnames(prep_om_data_frame(om_df)), pattern = "[[:lower:]]")), 0)
 })
 
+test_that("ID column is being created", {
+  expect_contains(colnames(prep_adm_data_frame(adm_df[, c(1,3)])), "STUDENTID")
+})
+
 
 test_that("prep script type conversions are applied", {
+
+  #ADM
+  expect_type(prep_adm_data_frame(adm_df)$UNITID, 'character')
+  expect_type(prep_adm_data_frame(adm_df)$STUDENTID, 'character')
+  expect_type(prep_adm_data_frame(adm_df[, c(1,3)])$STUDENTID, 'character')
 
   #COM
   expect_type(prep_com_data_frame(com_df)$UNITID, 'character')
