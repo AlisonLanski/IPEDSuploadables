@@ -1,7 +1,9 @@
 #' Shortcut function to do all steps to produce a report
 #'
 #' @param df A dataframe set up according to the readme
-#' @param part A string with what part of the reprt you want to produce: 'all', 'A', etc.
+#' @param part A string with what part of the report you want to produce: 'all', 'A', etc.
+#' @param ptype (Optional) An integer [1-9] indicating which calculation method to use for test score percentiles. The default value within R and here is 7. To see details, run \code{?quantile} and scroll down to "Type".
+#'
 #' @param format A string (\code{"uploadable"} will produce a properly formatted
 #'   upload file. \code{"readable"} will produce a csv of the upload file (only
 #'   works for one part at a time). \code{"both"} will provide both options, but
@@ -11,7 +13,7 @@
 #' @export
 #'
 
-produce_adm_report <- function(df, part = "ALL", format = "uploadable") {
+produce_adm_report <- function(df, ptype = 7, part = "ALL", format = "uploadable") {
 
   stopifnot(toupper(part) %in% c("B", "F", "D", "G", "C", "H", "ALL"),
             toupper(format) %in% c("UPLOADABLE", "READABLE", "BOTH"))
@@ -30,30 +32,50 @@ produce_adm_report <- function(df, part = "ALL", format = "uploadable") {
       make_adm_part_F(df = students),
       make_adm_part_D(df = students),
       make_adm_part_G(df = students),
-      make_adm_part_C(df = students),
-      make_adm_part_H(df = students),
+      make_adm_part_C(df = students, ptype = ptype),
+      make_adm_part_H(df = students, ptype = ptype),
       survey = survey,
       part = 'AllParts',
       output_path = output_path
     )
-  } else if(toupper(part) %in% c("B", "F", "D", "G", "C", "H")) {
+  }
+
+  if(toupper(part) %in% c("B", "F", "D", "G", "C", "H")) {
 
     if(toupper(format) %in% c("UPLOADABLE", "BOTH")){
-      write_report(
-        do.call(paste0("make_adm_part_", toupper(part)), list(students)),
-        survey = survey,
-        part = paste0("Part", toupper(part)),
-        output_path = output_path
+      if(toupper(part) %in% c("C", "H")){
+        write_report(
+          do.call(paste0("make_adm_part_", toupper(part)), list(students, ptype)),
+          survey = survey,
+          part = paste0("Part", toupper(part)),
+          output_path = output_path
         )
+      } else {
+        write_report(
+          do.call(paste0("make_adm_part_", toupper(part)), list(students)),
+          survey = survey,
+          part = paste0("Part", toupper(part)),
+          output_path = output_path
+        )
+      }
     }
 
     if(toupper(format) %in% c("BOTH", "READABLE")){
-      write_report_csv(
-        do.call(paste0("make_adm_part_", toupper(part)), list(students)),
-        survey = 'Admissions',
-        part = paste0("Part", toupper(part)),
-        output_path = output_path
-      )
+      if(toupper(part) %in% c("C", "H")){
+        write_report_csv(
+          do.call(paste0("make_adm_part_", toupper(part)), list(students, ptype)),
+          survey = survey,
+          part = paste0("Part", toupper(part)),
+          output_path = output_path
+        )
+      } else{
+        write_report_csv(
+          do.call(paste0("make_adm_part_", toupper(part)), list(students)),
+          survey = survey,
+          part = paste0("Part", toupper(part)),
+          output_path = output_path
+        )
+      }
     }
   }
 

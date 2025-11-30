@@ -4,10 +4,12 @@
 \alias{make_adm_part_C}
 \title{Make Admissions Part C (First-time SAT/ACT scores)}
 \usage{
-make_adm_part_C(df)
+make_adm_part_C(df, ptype = 7)
 }
 \arguments{
 \item{df}{A dataframe of applicant information}
+
+\item{ptype}{(Optional) An integer [1-9] indicating which calculation method to use for percentiles. The default value within R and here is 7. To see details, run \code{?quantile} and scroll down to "Type".}
 }
 \value{
 Admissions Part C data with the required IPEDS structure

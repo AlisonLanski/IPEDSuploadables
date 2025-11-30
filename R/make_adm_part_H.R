@@ -3,39 +3,40 @@
 #' @description If SAT or ACT scores were used for admission decisions it calculates the requisite percentiles for submission.
 #'
 #' @param df A dataframe of applicant information
+#' @param ptype (Optional) An integer [1-9] indicating which calculation method to use for percentiles. The default value within R and here is 7. To see details, run \code{?quantile} and scroll down to "Type".
 #'
 #' @return Admissions Part H data with the required IPEDS structure
 #'
 #' @export
 #'
 
-make_adm_part_H <- function(df) {
+make_adm_part_H <- function(df, ptype = 7) {
 
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
   # select transfer students
 
   partH_SAT <- df %>%
-    dplyr::filter(.data$ISTRANSFER == 1,
-                  .data$ISENROLLED == 1,
-                  .data$SATUSED == 1) %>%
     dplyr::select("UNITID",
-                  "STUDENTID",
                   "ISENROLLED",
+                  "ISTRANSFER",
                   "SATUSED",
                   "ACTUSED",
                   "SAT_EVBRW",
                   "SAT_MATH",
-                )%>%
+    )%>%
+    dplyr::filter(.data$ISTRANSFER == 1,
+                  .data$ISENROLLED == 1,
+                  .data$SATUSED == 1) %>%
     dplyr::group_by(.data$UNITID)%>%
     # Add Rounding logic
     dplyr::summarize(SATINUM = n(),
-                     SATVR25 = as.integer(round(quantile(.data$SAT_EVBRW, 0.25)), digits = 0),
-                     SATVR50 = as.integer(round(quantile(.data$SAT_EVBRW, 0.50)), digits = 0),
-                     SATVR75 = as.integer(round(quantile(.data$SAT_EVBRW, 0.75)), digits = 0),
-                     SATMT25 = as.integer(round(quantile(.data$SAT_MATH, 0.25)), digits = 0),
-                     SATMT50 = as.integer(round(quantile(.data$SAT_MATH, 0.50)), digits = 0),
-                     SATMT75 = as.integer(round(quantile(.data$SAT_MATH, 0.75)), digits = 0)
+                     SATVR25 = as.integer(round(quantile(.data$SAT_EVBRW, 0.25, type = ptype)), digits = 0),
+                     SATVR50 = as.integer(round(quantile(.data$SAT_EVBRW, 0.50, type = ptype)), digits = 0),
+                     SATVR75 = as.integer(round(quantile(.data$SAT_EVBRW, 0.75, type = ptype)), digits = 0),
+                     SATMT25 = as.integer(round(quantile(.data$SAT_MATH, 0.25, type = ptype)), digits = 0),
+                     SATMT50 = as.integer(round(quantile(.data$SAT_MATH, 0.50, type = ptype)), digits = 0),
+                     SATMT75 = as.integer(round(quantile(.data$SAT_MATH, 0.75, type = ptype)), digits = 0)
     )
 
 
@@ -53,21 +54,48 @@ make_adm_part_H <- function(df) {
     dplyr::group_by(.data$UNITID)%>%
     # Add rounding logic
     dplyr::summarize(ACTINUM = n(),
-                     ACTCM25 = as.integer(round(quantile(.data$ACT_COMP, 0.25)), digits = 0),
-                     ACTCM50 = as.integer(round(quantile(.data$ACT_COMP, 0.50)), digits = 0),
-                     ACTCM75 = as.integer(round(quantile(.data$ACT_COMP, 0.75)), digits = 0),
-                     ACTMT25 = as.integer(round(quantile(.data$ACT_MATH, 0.25)), digits = 0),
-                     ACTMT50 = as.integer(round(quantile(.data$ACT_MATH, 0.50)), digits = 0),
-                     ACTMT75 = as.integer(round(quantile(.data$ACT_MATH, 0.75)), digits = 0),
-                     ACTEN25 = as.integer(round(quantile(.data$ACT_ENG, 0.25)), digits = 0),
-                     ACTEN50 = as.integer(round(quantile(.data$ACT_ENG, 0.50)), digits = 0),
-                     ACTEN75 = as.integer(round(quantile(.data$ACT_ENG, 0.75)), digits = 0)
+                     ACTCM25 = as.integer(round(quantile(.data$ACT_COMP, 0.25, type = ptype)), digits = 0),
+                     ACTCM50 = as.integer(round(quantile(.data$ACT_COMP, 0.50, type = ptype)), digits = 0),
+                     ACTCM75 = as.integer(round(quantile(.data$ACT_COMP, 0.75, type = ptype)), digits = 0),
+                     ACTMT25 = as.integer(round(quantile(.data$ACT_MATH, 0.25, type = ptype)), digits = 0),
+                     ACTMT50 = as.integer(round(quantile(.data$ACT_MATH, 0.50, type = ptype)), digits = 0),
+                     ACTMT75 = as.integer(round(quantile(.data$ACT_MATH, 0.75, type = ptype)), digits = 0),
+                     ACTEN25 = as.integer(round(quantile(.data$ACT_ENG, 0.25, type = ptype)), digits = 0),
+                     ACTEN50 = as.integer(round(quantile(.data$ACT_ENG, 0.50, type = ptype)), digits = 0),
+                     ACTEN75 = as.integer(round(quantile(.data$ACT_ENG, 0.75, type = ptype)), digits = 0)
     )
-  # find total transfers for denominator
+
+  ### Handle missing exams (no student used this one)
+  if(nrow(partH_ACT) == 0){
+    partH_ACT <- data.frame(UNITID = get_ipeds_unitid(df),
+                            ACTINUM = 0,
+                            ACTCM25 = -2,
+                            ACTCM50 = -2,
+                            ACTCM75 = -2,
+                            ACTMT25 = -2,
+                            ACTMT50 = -2,
+                            ACTMT75 = -2,
+                            ACTEN25 = -2,
+                            ACTEN50 = -2,
+                            ACTEN75 = -2)
+  }
+  if(nrow(partH_SAT) == 0){
+    partH_SAT <- data.frame(UNITID = get_ipeds_unitid(df),
+                            SATINUM = 0,
+                            SATVR25 = -2,
+                            SATVR50 = -2,
+                            SATVR75 = -2,
+                            SATMT25 = -2,
+                            SATMT50 = -2,
+                            SATMT75 = -2)
+  }
+
+  # find total transfers for denominator of percent
   tr <- df %>%
     dplyr::filter(.data$ISTRANSFER == 1,
                   .data$ISENROLLED == 1) %>%
     dplyr::summarize(COUNT = dplyr::n())
+
 
   # Now do Part E for transfers
   #format for upload

@@ -4,12 +4,14 @@
 \alias{produce_adm_report}
 \title{Shortcut function to do all steps to produce a report}
 \usage{
-produce_adm_report(df, part = "ALL", format = "uploadable")
+produce_adm_report(df, ptype = 7, part = "ALL", format = "uploadable")
 }
 \arguments{
 \item{df}{A dataframe set up according to the readme}
 
-\item{part}{A string with what part of the reprt you want to produce: 'all', 'A', etc.}
+\item{ptype}{(Optional) An integer [1-9] indicating which calculation method to use for test score percentiles. The default value within R and here is 7. To see details, run \code{?quantile} and scroll down to "Type".}
+
+\item{part}{A string with what part of the report you want to produce: 'all', 'A', etc.}
 
 \item{format}{A string (\code{"uploadable"} will produce a properly formatted
 upload file. \code{"readable"} will produce a csv of the upload file (only

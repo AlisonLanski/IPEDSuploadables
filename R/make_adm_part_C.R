@@ -3,6 +3,8 @@
 #' @description If SAT or ACT scores were used for admission decisions it calculates the requisite percentiles for submission.
 #'
 #' @param df A dataframe of applicant information
+#' @param ptype (Optional) An integer [1-9] indicating which calculation method to use for percentiles. The default value within R and here is 7. To see details, run \code{?quantile} and scroll down to "Type".
+#'
 #'
 #' @importFrom stats quantile
 #'
@@ -11,7 +13,7 @@
 #' @export
 #'
 
-make_adm_part_C <- function(df) {
+make_adm_part_C <- function(df, ptype = 7) {
 
   colnames(df) <- stringr::str_to_upper(colnames(df))
 
@@ -31,12 +33,12 @@ make_adm_part_C <- function(df) {
     dplyr::group_by(.data$UNITID) %>%
     # Add rounding logic
     dplyr::summarize(SATINUM = n(),
-                     SATVR25 = as.integer(round(quantile(.data$SAT_EVBRW, 0.25)), digits = 0),
-                     SATVR50 = as.integer(round(quantile(.data$SAT_EVBRW, 0.50)), digits = 0),
-                     SATVR75 = as.integer(round(quantile(.data$SAT_EVBRW, 0.75)), digits = 0),
-                     SATMT25 = as.integer(round(quantile(.data$SAT_MATH, 0.25)), digits = 0),
-                     SATMT50 = as.integer(round(quantile(.data$SAT_MATH, 0.50)), digits = 0),
-                     SATMT75 = as.integer(round(quantile(.data$SAT_MATH, 0.75)), digits = 0)
+                     SATVR25 = as.integer(round(quantile(.data$SAT_EVBRW, 0.25, type = ptype)), digits = 0),
+                     SATVR50 = as.integer(round(quantile(.data$SAT_EVBRW, 0.50, type = ptype)), digits = 0),
+                     SATVR75 = as.integer(round(quantile(.data$SAT_EVBRW, 0.75, type = ptype)), digits = 0),
+                     SATMT25 = as.integer(round(quantile(.data$SAT_MATH, 0.25, type = ptype)), digits = 0),
+                     SATMT50 = as.integer(round(quantile(.data$SAT_MATH, 0.50, type = ptype)), digits = 0),
+                     SATMT75 = as.integer(round(quantile(.data$SAT_MATH, 0.75, type = ptype)), digits = 0)
     )
 
   # Calc ACT metrics
@@ -54,15 +56,15 @@ make_adm_part_C <- function(df) {
     dplyr::group_by(.data$UNITID)%>%
     # Add rounding logic
     dplyr::summarize(ACTINUM = n(),
-                     ACTCM25 = as.integer(round(quantile(.data$ACT_COMP, 0.25)), digits = 0),
-                     ACTCM50 = as.integer(round(quantile(.data$ACT_COMP, 0.50)), digits = 0),
-                     ACTCM75 = as.integer(round(quantile(.data$ACT_COMP, 0.75)), digits = 0),
-                     ACTMT25 = as.integer(round(quantile(.data$ACT_MATH, 0.25)), digits = 0),
-                     ACTMT50 = as.integer(round(quantile(.data$ACT_MATH, 0.50)), digits = 0),
-                     ACTMT75 = as.integer(round(quantile(.data$ACT_MATH, 0.75)), digits = 0),
-                     ACTEN25 = as.integer(round(quantile(.data$ACT_ENG, 0.25)), digits = 0),
-                     ACTEN50 = as.integer(round(quantile(.data$ACT_ENG, 0.50)), digits = 0),
-                     ACTEN75 = as.integer(round(quantile(.data$ACT_ENG, 0.75)), digits = 0)
+                     ACTCM25 = as.integer(round(quantile(.data$ACT_COMP, 0.25, type = ptype)), digits = 0),
+                     ACTCM50 = as.integer(round(quantile(.data$ACT_COMP, 0.50, type = ptype)), digits = 0),
+                     ACTCM75 = as.integer(round(quantile(.data$ACT_COMP, 0.75, type = ptype)), digits = 0),
+                     ACTMT25 = as.integer(round(quantile(.data$ACT_MATH, 0.25, type = ptype)), digits = 0),
+                     ACTMT50 = as.integer(round(quantile(.data$ACT_MATH, 0.50, type = ptype)), digits = 0),
+                     ACTMT75 = as.integer(round(quantile(.data$ACT_MATH, 0.75, type = ptype)), digits = 0),
+                     ACTEN25 = as.integer(round(quantile(.data$ACT_ENG, 0.25, type = ptype)), digits = 0),
+                     ACTEN50 = as.integer(round(quantile(.data$ACT_ENG, 0.50, type = ptype)), digits = 0),
+                     ACTEN75 = as.integer(round(quantile(.data$ACT_ENG, 0.75, type = ptype)), digits = 0)
 
     )
 
