@@ -37,12 +37,9 @@ If you want the package to help you with aggregation and (some) recoding, look a
 
 *If you need assistance understanding what goes into the upload file, contact IPEDS for advice.*
 
-## Data prep example: Admissions 
+## Data prep example: Admissions (old)
 
-For a school WITH the ability to report "Another Gender" in the 2023-2024 reporting cycle  
-*Read code comments in Part B for changes to make if you cannot report "Another Gender"*  
-  
-This provides a start-to-finish example of preparing an admissions submission based on sample data. Always check your results after you upload your txt file to the IPEDS submission portal.
+This provides a start-to-finish example of preparing an old version of the admissions submission based on sample data. Always check your results after you upload your txt file to the IPEDS submission portal.
 
 ### Start with institutional data for applicants 
 ```{r setup, message=FALSE}
