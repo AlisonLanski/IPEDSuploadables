@@ -38,13 +38,13 @@ create_dummy_data_adm <- function(seed = 4567) {
                    IsTransfer = rep(c(0, 0, 0, 1, 0), 8),
                    SATUsed =  rep(c(1, 1, 1, 1, 0, 0, 0, 0), 5),
                    ACTUsed = rep(c(0, 0, 0, 1, 1, 0, 0, 0), 5),
-                   SATvb = SATscores[1:n],
-                   SATmath = SATscores[(n+1):(n*2)],
-                   ACTcomp = floor((ACTscores[1:n] + ACTscores[(n+1):(n*2)])/2),
-                   ACTeng = ACTscores[1:n],
-                   ACTmath = ACTscores[(n+1):(n*2)]) %>%
-    dplyr::mutate(SATvb = ifelse(.data$StudentId >= 130 & .data$SATUsed == 0, NA, .data$SATvb),
-                  SATmath = ifelse(is.na(.data$SATvb), NA, .data$SATvb))
+                   SAT_Evbrw = SATscores[1:n],
+                   SAT_Math = SATscores[(n+1):(n*2)],
+                   ACT_Comp = floor((ACTscores[1:n] + ACTscores[(n+1):(n*2)])/2),
+                   ACT_Eng = ACTscores[1:n],
+                   ACT_Math = ACTscores[(n+1):(n*2)]) %>%
+    dplyr::mutate(SAT_Evbrw = ifelse(.data$StudentId >= 130 & .data$SATUsed == 0, NA, .data$SAT_Evbrw),
+                  SAT_Math = ifelse(is.na(.data$SAT_Evbrw), NA, .data$SAT_Math))
 
   return(df)
 }
