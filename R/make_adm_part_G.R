@@ -53,9 +53,13 @@ make_adm_part_G <- function(df) {
                      ADMSEX = .data$COUNT) %>%
     dplyr::arrange(.data$LINE)
 
-  if (all(is.na(df)) == TRUE) {
-    return()
-  } else {
-    return(partG)
+  # some schools may have no UNK; return 0s instead
+  if (nrow(partG) == 0){
+    partG <- data.frame(UNITID = get_ipeds_unitid(df),
+                        SURVSECT = 'ADM',
+                        PART = 'G',
+                        LINE = c(1, 3, 4),
+                        ADMSEX = 0)
   }
+  return(partG)
 }
