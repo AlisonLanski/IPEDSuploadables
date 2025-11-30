@@ -52,7 +52,7 @@ make_adm_part_C <- function(df, ptype = 7) {
                             SATMT25 = -2,
                             SATMT50 = -2,
                             SATMT75 = -2)
-  } else if(partC_SAT_prep$SATINUM <= 5){
+  } else if(partC_SAT_prep$SATINUM < 5){
     partC_SAT <- data.frame(UNITID = get_ipeds_unitid(df),
                             SATINUM = partC_SAT_prep$SATINUM,
                             SATVR25 = -2,
@@ -109,7 +109,7 @@ make_adm_part_C <- function(df, ptype = 7) {
                             ACTEN25 = -2,
                             ACTEN50 = -2,
                             ACTEN75 = -2)
-  } else if(partC_ACT_prep$ACTINUM <= 5){
+  } else if(partC_ACT_prep$ACTINUM < 5){
     partC_ACT <- data.frame(UNITID = get_ipeds_unitid(df),
                             ACTINUM = partC_ACT_prep$ACTINUM,
                             ACTCM25 = -2,
