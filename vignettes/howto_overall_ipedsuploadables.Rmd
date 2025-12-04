@@ -112,8 +112,9 @@ produce_com_report(df = com_students, extracips = com_cips)
 
 Admissions
 
-* Only parts C and D of the standard survey form are currently supported (demographic breakouts and test scores for First Time and Transfer students). We recommend using an upload for these parts and completing the question-based sections in the platform.  
-* If you would like to see support for the questions-based parts or waitlist (etc) numbers, please let the package authors know.   
+* Only parts C and D of the standard survey form are currently supported (demographic breakouts and test scores for First Time and Transfer students). We recommend using an upload for these parts and completing the question-based sections in the platform. 
+* Note that within the IPEDS platform, you will *not* be able to see your uploaded data until *after* you answer the screening questions for the initial sections that are not part of the upload file
+* If you would like to see upload support for the questions-based parts or waitlist (etc) numbers, please let the package authors know.   
 * The test score percentile calculations depend on the precise calculation method used. If the package output does not match your local version (but is very close), you can adjust the method used by R to try to get a match. See the help page for more details [produce_adm_report](produce_adm_report.html).  
   
   
@@ -130,7 +131,7 @@ Fall Enrollment
 
 Human Resources
 
-* The script requires one dataframe with all current employees: continuing and new hires. New hires are designed through a flag and should not have a second entry.  
+* The script requires one dataframe with all current employees: continuing and new hires. New hires are designed through a flag and should *not* have a second entry.  
   
   
 
