@@ -36,6 +36,7 @@ IPEDSuploadables produces text files in key-value format which meet the IPEDS re
 You are welcome to fork this repo and work towards new reports or new institution-types for existing reports*
 
 ### Supported surveys that work for all institutions:  
+- Admissions [partial]  
 - Completions
 - Outcome Measures  
   
@@ -48,7 +49,7 @@ You are welcome to fork this repo and work towards new reports or new institutio
 
 ### Unsupported surveys with options
 - Academic Libraries: This survey is no longer collected by IPEDS as of the 2025-2026 reporting cycle.  For previous years, you can download an IPEDS-compatible file from the ACRL site if you complete that survey.    
-- Admissions:  Visit [How to produce other key-value uploads](https://alisonlanski.github.io/IPEDSuploadables/articles/howto_use_autoformat.html)
+- Admissions [partial]:  Visit [How to produce other key-value uploads](https://alisonlanski.github.io/IPEDSuploadables/articles/howto_use_autoformat.html)
 - Cost I: Visit [How to produce other key-value uploads](https://alisonlanski.github.io/IPEDSuploadables/articles/howto_use_autoformat.html)
 - Cost II: Visit [How to produce other key-value uploads](https://alisonlanski.github.io/IPEDSuploadables/articles/howto_use_autoformat.html)
 - Finance: Visit [How to produce other key-value uploads](https://alisonlanski.github.io/IPEDSuploadables/articles/howto_use_autoformat.html)

@@ -1,4 +1,22 @@
 ########
+### ADM
+
+test_that("ADM parts produce expected dfs", {
+  #prep data
+  datadm <- prep_adm_data_frame(adm_students)
+
+  #tests
+  expect_equal(make_adm_part_B(datadm), part_outputs$adm_partB)
+  expect_equal(make_adm_part_C(datadm), part_outputs$adm_partC)
+  expect_equal(make_adm_part_D(datadm), part_outputs$adm_partD)
+  expect_equal(make_adm_part_F(datadm), part_outputs$adm_partF)
+  expect_equal(make_adm_part_G(datadm), part_outputs$adm_partG)
+  expect_equal(make_adm_part_H(datadm), part_outputs$adm_partH)
+
+})
+
+
+########
 ### COM
 
 test_that("COM parts produce expected dfs", {
@@ -199,6 +217,12 @@ test_that("UNK sections produce a df with 0s if no such students", {
 # ## not adding all of that now because I'm lazy :}
 #
 # part_outputs <- list(
+#   adm_partB <- adm_partB,
+#   adm_partC <- adm_partC,
+#   adm_partD <- adm_partD,
+#   adm_partF <- adm_partF,
+#   adm_partG <- adm_partG,
+#   adm_partH <- adm_partH,
 #   com_partA = make_com_part_A(prep_com_data_frame(com_students),
 #                               prep_com_data_frame(com_cips)),
 #   com_partB = make_com_part_B(prep_com_data_frame(com_students),

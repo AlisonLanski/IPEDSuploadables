@@ -40,6 +40,7 @@ institution-types for existing reports*
 
 ### Supported surveys that work for all institutions:
 
+- Admissions \[partial\]  
 - Completions
 - Outcome Measures
 
@@ -57,7 +58,7 @@ institution-types for existing reports*
   the 2025-2026 reporting cycle. For previous years, you can download an
   IPEDS-compatible file from the ACRL site if you complete that
   survey.  
-- Admissions: Visit [How to produce other key-value
+- Admissions \[partial\]: Visit [How to produce other key-value
   uploads](https://alisonlanski.github.io/IPEDSuploadables/articles/howto_use_autoformat.html)
 - Cost I: Visit [How to produce other key-value
   uploads](https://alisonlanski.github.io/IPEDSuploadables/articles/howto_use_autoformat.html)
