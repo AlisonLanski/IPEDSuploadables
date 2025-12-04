@@ -1,17 +1,18 @@
 pandoc: 3.1.11
-pkgdown: 2.1.3
+pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
   howto_overall_ipedsuploadables: howto_overall_ipedsuploadables.html
   howto_use_autoformat: howto_use_autoformat.html
   setup_for_12monthenrollment: setup_for_12monthenrollment.html
+  setup_for_admissions: setup_for_admissions.html
   setup_for_completions: setup_for_completions.html
   setup_for_fallenrollment: setup_for_fallenrollment.html
   setup_for_gr: setup_for_gr.html
   setup_for_gr200: setup_for_gr200.html
   setup_for_hr: setup_for_hr.html
   setup_for_om: setup_for_om.html
-last_built: 2025-09-19T21:46Z
+last_built: 2025-12-04T21:49Z
 urls:
   reference: https://alisonlanski.github.io/IPEDSuploadables/reference
   article: https://alisonlanski.github.io/IPEDSuploadables/articles

@@ -24,7 +24,7 @@ gtag('config', 'G-NSXZV7NDWP'); </script>
 
     <a class="navbar-brand me-2" href="../index.html">IPEDSuploadables</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.11.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">3.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,6 +40,7 @@ gtag('config', 'G-NSXZV7NDWP'); </script>
 <li><a class="dropdown-item" href="../articles/howto_overall_ipedsuploadables.html">How to use this package to support your IPEDS reporting</a></li>
     <li><a class="dropdown-item" href="../articles/howto_use_autoformat.html">How to produce other key-value uploads</a></li>
     <li><a class="dropdown-item" href="../articles/setup_for_12monthenrollment.html">Set up your data for IPEDS 12 Month Enrollment processing</a></li>
+    <li><a class="dropdown-item" href="../articles/setup_for_admissions.html">Set up your data for IPEDS Admissions processing</a></li>
     <li><a class="dropdown-item" href="../articles/setup_for_completions.html">Set up your data for IPEDS Completions processing</a></li>
     <li><a class="dropdown-item" href="../articles/setup_for_fallenrollment.html">Set up your data for IPEDS Fall Enrollment processing</a></li>
     <li><a class="dropdown-item" href="../articles/setup_for_gr.html">Set up your data for IPEDS GR processing</a></li>
@@ -147,33 +148,38 @@ uploads</a></strong></p>
 <td align="left">e1d_students, e1d_instr</td>
 </tr>
 <tr class="even">
+<td align="left">Admissions</td>
+<td align="left"><a href="setup_for_admissions.html">students</a></td>
+<td align="left">adm_students</td>
+</tr>
+<tr class="odd">
 <td align="left">Completions</td>
 <td align="left"><a href="setup_for_completions.html">students &amp;
 extra cips</a></td>
 <td align="left">com_students, com_cips</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Fall Enrollment</td>
 <td align="left"><a href="setup_for_fallenrollment.html">students &amp;
 retention aggregate</a></td>
 <td align="left">ef1_students, ef1_retention</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Graduation Rates</td>
 <td align="left"><a href="setup_for_gr.html">students</a></td>
 <td align="left">gr_students</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Graduation Rates 200</td>
 <td align="left"><a href="setup_for_gr200.html">students</a></td>
 <td align="left">gr200_students</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Human Resources</td>
 <td align="left"><a href="setup_for_hr.html">staff</a></td>
 <td align="left">hr_staff</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Outcome Measures</td>
 <td align="left"><a href="setup_for_om.html">students</a></td>
 <td align="left">om_students</td>
@@ -237,12 +243,13 @@ Therefore, the starting data requirements, sample data, and scripts have
 been updated to remove the “Another Gender” option from the
 <code>GenderDetail</code> column, and no functions require the
 <code>ugender</code> or <code>ggender</code> flags</em></p>
-<p>Completions, 12 Month Enrollment, and Fall Enrollment still DO
+<p>Admissions, Completions, 12 Month Enrollment, and Fall Enrollment DO
 require reporting on “unknown sex”. This means you continue to need the
 <code>GenderDetail</code> column, but should limit yourself to values of
-1, 2, and 3. Note: <strong>anything other than 1 and 2 will be recoded
-to 3 within the package</strong>. Graduation Rates and other surveys
-continue to have no gender detail reporting.</p>
+1, 2, and 3. Note: For Completions, 12 Month Enrollment, and Fall
+Enrollment, <strong>anything other than 1 and 2 will be recoded to 3
+within the package</strong>. Graduation Rates and other surveys continue
+to have no gender detail reporting.</p>
 <p>Because “another gender” is no longer being collected, the
 <code>ugender</code> and <code>ggender</code> arguments in the
 <code>produce</code> functions are no longer necessary. You can omit
@@ -265,6 +272,25 @@ to implement, the better!</p>
 <div class="section level3">
 <h3 id="notes-for-specific-reports">Notes for specific reports<a class="anchor" aria-label="anchor" href="#notes-for-specific-reports"></a>
 </h3>
+<p>Admissions</p>
+<ul>
+<li>Only parts C and D of the standard survey form are currently
+supported (demographic breakouts and test scores for First Time and
+Transfer students). We recommend using an upload for these parts and
+completing the question-based sections in the platform.</li>
+<li>Note that within the IPEDS platform, you will <em>not</em> be able
+to see your uploaded data until <em>after</em> you answer the screening
+questions for the initial sections that are not part of the upload
+file</li>
+<li>If you would like to see upload support for the questions-based
+parts or waitlist (etc) numbers, please let the package authors
+know.<br>
+</li>
+<li>The test score percentile calculations depend on the precise
+calculation method used. If the package output does not match your local
+version (but is very close), you can adjust the method used by R to try
+to get a match. See the help page for more details <a href="produce_adm_report.html">produce_adm_report</a>.</li>
+</ul>
 <p>Completions</p>
 <ul>
 <li>The extra cips dataframe is optional and can be left empty if your
@@ -285,15 +311,7 @@ would like to report data in optional years, change the
 <ul>
 <li>The script requires one dataframe with all current employees:
 continuing and new hires. New hires are designed through a flag and
-should not have a second entry.</li>
-</ul>
-<p>Admissions</p>
-<ul>
-<li>A sample university-specific script is shown in the vignette <a href="howto_use_autoformat.html">How to produce other key-value
-uploads</a> as an example of the data preparation process. The sample
-code includes data masking for fewer than five students of Another
-Gender and for exam percentiles with fewer than five SAT or ACT
-scores.</li>
+should <em>not</em> have a second entry.</li>
 </ul>
 </div>
 </div>
@@ -337,9 +355,10 @@ error message<a class="anchor" aria-label="anchor" href="#ipeds-rejects-your-upl
 <p>Common issues include:</p>
 <ul>
 <li>Your data has disallowed values</li>
-<li>Your upload is missing a sub-part of the report</li>
 <li>IPEDS is expecting particular information based on previous years of
 reporting which is inconsistent or missing</li>
+<li><em>In earlier years (no longer a problem): your upload is missing a
+sub-part of the report</em></li>
 </ul>
 <p><em>For example, IPEDS wants all previous CIP/Award Level
 combinations reported on the current completions upload file. If you
@@ -388,11 +407,11 @@ version of the package by removing the “ref” argument.</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Alison Lanski, Shiloh Fling.</p>
+  <p>Developed by Alison Lanski, Shiloh Fling, Edwin Welch.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>
