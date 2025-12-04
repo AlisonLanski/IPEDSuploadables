@@ -54,6 +54,7 @@ Each IPEDS report has a vignette that spells out requirements and also has sampl
 | IPEDS Report | Required Dataframes | Sample Data |
 |:--------|:--------|:---------|
 | 12 Month Enrollment  | [students & instructional activity](setup_for_12monthenrollment.html)  |  e1d_students, e1d_instr  |
+| Admissions | [students](setup_for_admissions.html) | adm_students |
 | Completions  | [students & extra cips](setup_for_completions.html)  | com_students, com_cips  |
 | Fall Enrollment  | [students & retention aggregate](setup_for_fallenrollment.html)  |  ef1_students, ef1_retention  |
 | Graduation Rates  | [students](setup_for_gr.html)  |  gr_students  |
@@ -90,7 +91,7 @@ A message will be display the location of your file when it has been processed.
   
 *The category "Another Gender" has been removed from all surveys.  IPEDS changed collection of Gender Detail to only include "Unknown".  Therefore, the starting data requirements, sample data, and scripts have been updated to remove the "Another Gender" option from the `GenderDetail` column, and no functions require the `ugender` or `ggender` flags*
 
-Completions, 12 Month Enrollment, and Fall Enrollment still DO require reporting on "unknown sex". This means you continue to need the `GenderDetail` column, but should limit yourself to values of 1, 2, and 3. Note: **anything other than 1 and 2 will be recoded to 3 within the package**. Graduation Rates and other surveys continue to have no gender detail reporting.    
+Admissions, Completions, 12 Month Enrollment, and Fall Enrollment DO require reporting on "unknown sex". This means you continue to need the `GenderDetail` column, but should limit yourself to values of 1, 2, and 3. Note: For Completions, 12 Month Enrollment, and Fall Enrollment, **anything other than 1 and 2 will be recoded to 3 within the package**. Graduation Rates and other surveys continue to have no gender detail reporting.    
   
 Because "another gender" is no longer being collected, the `ugender` and `ggender` arguments in the `produce` functions are no longer necessary. You can omit them entirely in your code.  If you keep them, they will be ignored.  
 
@@ -109,6 +110,14 @@ produce_com_report(df = com_students, extracips = com_cips)
 
 ### Notes for specific reports
 
+Admissions
+
+* Only parts C and D of the standard survey form are currently supported (demographic breakouts and test scores for First Time and Transfer students). We recommend using an upload for these parts and completing the question-based sections in the platform. 
+* Note that within the IPEDS platform, you will *not* be able to see your uploaded data until *after* you answer the screening questions for the initial sections that are not part of the upload file
+* If you would like to see upload support for the questions-based parts or waitlist (etc) numbers, please let the package authors know.   
+* The test score percentile calculations depend on the precise calculation method used. If the package output does not match your local version (but is very close), you can adjust the method used by R to try to get a match. See the help page for more details [produce_adm_report](produce_adm_report.html).  
+  
+  
 Completions
 
 * The extra cips dataframe is optional and can be left empty if your school has student completions in all cip/award level combinations previously reported
@@ -122,12 +131,9 @@ Fall Enrollment
 
 Human Resources
 
-* The script requires one dataframe with all current employees: continuing and new hires. New hires are designed through a flag and should not have a second entry.  
+* The script requires one dataframe with all current employees: continuing and new hires. New hires are designed through a flag and should *not* have a second entry.  
   
-Admissions  
   
-* A sample university-specific script is shown in the vignette [How to produce other key-value uploads](howto_use_autoformat.html) as an example of the data preparation process. The sample code includes data masking for fewer than five students of Another Gender and for exam percentiles with fewer than five SAT or ACT scores.
-
 
 ## Step 3: Upload your IPEDS report
   
@@ -152,8 +158,8 @@ If you verify that your data and dataframe(s) are correct, but IPEDS still shows
 Common issues include:
 
 * Your data has disallowed values
-* Your upload is missing a sub-part of the report
 * IPEDS is expecting particular information based on previous years of reporting which is inconsistent or missing
+* *In earlier years (no longer a problem): your upload is missing a sub-part of the report*
 
 *For example, IPEDS wants all previous CIP/Award Level combinations reported on the current completions upload file. If you have no students in those categories, add any flagged CIP/Award combinations to your extra_cips dataframe, rerun, and reupload to remove this error message*
 

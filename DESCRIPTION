@@ -1,13 +1,10 @@
 Package: IPEDSuploadables
 Title: Transforms Institutional Data into Text Files for IPEDS Automated Import/Upload
-Version: 2.11.0
+Version: 3.0.0
 Authors@R: c(
-            person(given = "Alison", family = "Lanski", 
-            role = c("aut", "cre"),
-            email = "alanski@nd.edu"),
-            person("Shiloh", "Fling", 
-            role = c("aut"),
-            email = "shilohfling@gmail.com"))
+            person(given = "Alison", family = "Lanski", role = c("aut", "cre"), email = "alanski@nd.edu"),
+            person("Shiloh", "Fling", role = c("aut"),email = "shiloh.fling@unlv.edu"),
+            person("Edwin", "Welch", role = c("aut"), email="edwelch@tayloru.edu"))
 Description: Starting from user-supplied institutional data, these scripts 
     transform, aggregate, and reshape the information to produce 
     key-value pair data files that are able to be uploaded to IPEDS (Integrated Postsecondary Education Data System) 

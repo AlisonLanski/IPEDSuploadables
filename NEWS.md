@@ -1,3 +1,6 @@
+# IPEDSuploadables 3.0.0
+* Adding Admissions survey parts for demographic and test score breakouts 
+
 # IPEDSuploadables 2.11.0
 * Addressed 2025-2026 reporting cycle updates from IPEDS, in particular:
 * 12 month enrollment, fall enrollment, and completions now report on Unknown Sex instead of Another Gender and Unknown Gender
