@@ -21,7 +21,8 @@ Useful links:
 
 Authors:
 \itemize{
-  \item Shiloh Fling \email{shilohfling@gmail.com}
+  \item Shiloh Fling \email{shiloh.fling@unlv.edu}
+  \item Edwin Welch \email{edwelch@tayloru.edu}
 }
 
 }
