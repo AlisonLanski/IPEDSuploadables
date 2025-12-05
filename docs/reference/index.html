@@ -8,7 +8,7 @@ gtag('config', 'G-NSXZV7NDWP'); </script></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">IPEDSuploadables</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.11.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">3.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -22,6 +22,7 @@ gtag('config', 'G-NSXZV7NDWP'); </script></head><body>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/howto_overall_ipedsuploadables.html">How to use this package to support your IPEDS reporting</a></li>
     <li><a class="dropdown-item" href="../articles/howto_use_autoformat.html">How to produce other key-value uploads</a></li>
     <li><a class="dropdown-item" href="../articles/setup_for_12monthenrollment.html">Set up your data for IPEDS 12 Month Enrollment processing</a></li>
+    <li><a class="dropdown-item" href="../articles/setup_for_admissions.html">Set up your data for IPEDS Admissions processing</a></li>
     <li><a class="dropdown-item" href="../articles/setup_for_completions.html">Set up your data for IPEDS Completions processing</a></li>
     <li><a class="dropdown-item" href="../articles/setup_for_fallenrollment.html">Set up your data for IPEDS Fall Enrollment processing</a></li>
     <li><a class="dropdown-item" href="../articles/setup_for_gr.html">Set up your data for IPEDS GR processing</a></li>
@@ -57,6 +58,12 @@ gtag('config', 'G-NSXZV7NDWP'); </script></head><body>
 
       <dl><dt>
 
+          <code><a href="adm_students.html">adm_students</a></code>
+
+        </dt>
+        <dd>Dummy student-level data for Admissions parts B, C, D, F, G, H</dd>
+      </dl><dl><dt>
+
           <code><a href="apply_upload_format.html">apply_upload_format()</a></code>
 
         </dt>
@@ -73,6 +80,12 @@ gtag('config', 'G-NSXZV7NDWP'); </script></head><body>
 
         </dt>
         <dd>Dummy student data for Completions functions</dd>
+      </dl><dl><dt>
+
+          <code><a href="create_dummy_data_adm.html">create_dummy_data_adm()</a></code>
+
+        </dt>
+        <dd>Create dummy data for testing the Admissions functions</dd>
       </dl><dl><dt>
 
           <code><a href="create_dummy_data_com.html">create_dummy_data_com()</a></code>
@@ -169,6 +182,42 @@ gtag('config', 'G-NSXZV7NDWP'); </script></head><body>
 
         </dt>
         <dd><code>IPEDSuploadables</code> package</dd>
+      </dl><dl><dt>
+
+          <code><a href="make_adm_part_B.html">make_adm_part_B()</a></code>
+
+        </dt>
+        <dd>Make Admissions Part B (First-time student demographics)</dd>
+      </dl><dl><dt>
+
+          <code><a href="make_adm_part_C.html">make_adm_part_C()</a></code>
+
+        </dt>
+        <dd>Make Admissions Part C (First-time SAT/ACT scores)</dd>
+      </dl><dl><dt>
+
+          <code><a href="make_adm_part_D.html">make_adm_part_D()</a></code>
+
+        </dt>
+        <dd>Make Admissions Part D (First-time sex unknown)</dd>
+      </dl><dl><dt>
+
+          <code><a href="make_adm_part_F.html">make_adm_part_F()</a></code>
+
+        </dt>
+        <dd>Make Admissions Part F (Transfer student demographics)</dd>
+      </dl><dl><dt>
+
+          <code><a href="make_adm_part_G.html">make_adm_part_G()</a></code>
+
+        </dt>
+        <dd>Make Admissions Part G (Transfer sex unknown)</dd>
+      </dl><dl><dt>
+
+          <code><a href="make_adm_part_H.html">make_adm_part_H()</a></code>
+
+        </dt>
+        <dd>Make Admissions Part H (Transfer SAT/ACT scores)</dd>
       </dl><dl><dt>
 
           <code><a href="make_com_part_A.html">make_com_part_A()</a></code>
@@ -411,6 +460,12 @@ gtag('config', 'G-NSXZV7NDWP'); </script></head><body>
         <dd>Dummy data for Outcome Measures functions</dd>
       </dl><dl><dt>
 
+          <code><a href="prep_adm_data_frame.html">prep_adm_data_frame()</a></code>
+
+        </dt>
+        <dd>Some initial recodes for Admissions parts C and D</dd>
+      </dl><dl><dt>
+
           <code><a href="prep_com_data_frame.html">prep_com_data_frame()</a></code>
 
         </dt>
@@ -439,6 +494,12 @@ gtag('config', 'G-NSXZV7NDWP'); </script></head><body>
 
         </dt>
         <dd>Some initial recoding for OutcomeMeasures</dd>
+      </dl><dl><dt>
+
+          <code><a href="produce_adm_report.html">produce_adm_report()</a></code>
+
+        </dt>
+        <dd>Shortcut function to do all steps to produce a report</dd>
       </dl><dl><dt>
 
           <code><a href="produce_com_report.html">produce_com_report()</a></code>
@@ -493,6 +554,12 @@ gtag('config', 'G-NSXZV7NDWP'); </script></head><body>
 
         </dt>
         <dd>Set the path for where the reports will be saved to.</dd>
+      </dl><dl><dt>
+
+          <code><a href="specs_ADM.html">specs_ADM</a></code>
+
+        </dt>
+        <dd>Table of data requirements for the Admissions starting dataframe</dd>
       </dl><dl><dt>
 
           <code><a href="specs_COM.html">specs_COM</a></code>
@@ -552,7 +619,7 @@ gtag('config', 'G-NSXZV7NDWP'); </script></head><body>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Alison Lanski, Shiloh Fling.</p>
+  <p>Developed by Alison Lanski, Shiloh Fling, Edwin Welch.</p>
 </div>
 
 <div class="pkgdown-footer-right">
