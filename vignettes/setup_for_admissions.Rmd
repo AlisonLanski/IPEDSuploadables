@@ -35,7 +35,7 @@ usethis::use_data(specs_ADM, overwrite = TRUE)
 * One IPEDS Unitid per file
 * Columns with values and types as described below (additional columns are allowed)
 
-This population should meet IPEDS rules for inclusion on this report (those seeking to be admitted to undergraduate programs as first-time full-time degree/certificate seekers, including transfer students).  This data file is not necessary if your institution has an open-admissions policy entering first-time students.
+This population should meet IPEDS rules for inclusion on this report (those seeking to be admitted to undergraduate programs as first-time full-time degree/certificate seekers, including transfer students).  This data file is not necessary if your institution has an open-admissions policy for entering first-time students.
 
 ```{r specstable, echo=FALSE, warning=FALSE, message=FALSE}
 library(magrittr)
