@@ -11,6 +11,6 @@ This population should meet IPEDS rules for inclusion on this report
 (those seeking to be admitted to undergraduate programs as first-time
 full-time degree/certificate seekers, including transfer students). This
 data file is not necessary if your institution has an open-admissions
-policy entering first-time students.
+policy for entering first-time students.
 
 [TABLE]
