@@ -1,5 +1,5 @@
 ## Update notes
-Code changes to support current-year reporting requirements
+Code changes to support new elements of existing reporting
   
   
 ## R CMD check results
@@ -11,9 +11,8 @@ CMD checks conducted on
 * Ubuntu (development)
 * Ubuntu (current release)
 * Ubuntu (previous release)
-* Fedora Linux 38 (development) via rhub
-* MacOS (development) via mac.r-project.org/macbuilder
-* Windows (development) via win-builder.r-project.org
+* Windows (development) via win-builder.r-project.org  
+* MacOS (development) via mac.r-project.org/macbuilder was down and not available for testing
     
 ## Downstream dependencies
 There are currently no downstream dependencies for this package
