@@ -170,7 +170,7 @@ Admissions
   calculation method used. If the package output does not match your
   local version (but is very close), you can adjust the method used by R
   to try to get a match. See the help page for more details
-  [produce_adm_report](https://alisonlanski.github.io/IPEDSuploadables/articles/produce_adm_report.md).
+  [`produce_adm_report()`](https://alisonlanski.github.io/IPEDSuploadables/reference/produce_adm_report.md).
 
 Completions
 
