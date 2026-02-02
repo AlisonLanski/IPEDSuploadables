@@ -36,10 +36,10 @@ A txt or csv file at the path of your choice
 # \donttest{
 #entire report
 produce_hr_report(hr_staff)
-#> Uploadable results available at /private/var/folders/_l/91ns3hs96sd11p4_lzxh1l140000gn/T/Rtmp0BKbTC/HumanResources_AllParts_2025-12-09.txt
+#> Uploadable results available at /private/var/folders/yz/zr09txvs5dn18vt4cn21kzl40000gn/T/Rtmpqlv7xj/HumanResources_AllParts_2026-02-02.txt
 
 #subsection with csv output instead of key-value txt
 produce_hr_report(hr_staff, part = "A1", format = "readable")
-#> Readable results available at  /private/var/folders/_l/91ns3hs96sd11p4_lzxh1l140000gn/T/Rtmp0BKbTC/HumanResources_PartA1_Readable_2025-12-09.csv
+#> Readable results available at  /private/var/folders/yz/zr09txvs5dn18vt4cn21kzl40000gn/T/Rtmpqlv7xj/HumanResources_PartA1_Readable_2026-02-02.csv
 # }
 ```

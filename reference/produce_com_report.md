@@ -63,10 +63,10 @@ A txt or csv file at the path of your choice
 # \donttest{
 #entire report
 produce_com_report(com_students, com_cips)
-#> Uploadable results available at /private/var/folders/_l/91ns3hs96sd11p4_lzxh1l140000gn/T/Rtmp0BKbTC/Completions_AllParts_2025-12-09.txt
+#> Uploadable results available at /private/var/folders/yz/zr09txvs5dn18vt4cn21kzl40000gn/T/Rtmpqlv7xj/Completions_AllParts_2026-02-02.txt
 
 #one part as csv instead of key-value
 produce_com_report(com_students, com_cips, part = "A", format = "readable")
-#> Readable results available at  /private/var/folders/_l/91ns3hs96sd11p4_lzxh1l140000gn/T/Rtmp0BKbTC/Completions_PartA_Readable_2025-12-09.csv
+#> Readable results available at  /private/var/folders/yz/zr09txvs5dn18vt4cn21kzl40000gn/T/Rtmpqlv7xj/Completions_PartA_Readable_2026-02-02.csv
 # }
 ```

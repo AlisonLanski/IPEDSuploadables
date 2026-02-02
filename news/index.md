@@ -1,6 +1,14 @@
 # Changelog
 
+## IPEDSuploadables 3.0.1
+
+- Adjusting final file column names for HR wording update (no user
+  changes necessary)
+- Adding data check to OM for duplicate student IDs
+
 ## IPEDSuploadables 3.0.0
+
+CRAN release: 2025-12-06
 
 - Adding Admissions survey parts for demographic and test score
   breakouts
