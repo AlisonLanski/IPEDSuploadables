@@ -59,7 +59,7 @@ make_hr_part_A1 <- function(df) {
                              PART = "A1",
                              TENURE = .data$TENURE,
                              RANK =  .data$RANK,
-                             RACEETHNICITYGENDER = .data$REG,
+                             RACEETHNICITYSEX = .data$REG,
                              COUNT = .data$COUNT
                              )
 

@@ -29,13 +29,17 @@ hr_df <- data.frame(unitid = 123456,
                     currentemployee = 1)
 
 om_df <- data.frame(unitid = 123456,
-                    cohortstatus = c("Include", "Exclude"))
+                    cohortstatus = c("Include", "Exclude"),
+                    studentid = c(1, 2))
 om_df2 <- data.frame(unitid = 123456,
-                     exclusion = c("Include", "Exclude"))
+                     exclusion = c("Include", "Exclude"),
+                     studentid = c(1, 2))
 om_df3 <- data.frame(unitid = "000000",
                  studentid = c("A", "B", "C"),
                  exclusion = c("Include",  "Exclude", "TRUE"))
-
+om_df4 <- data.frame(unitid = 123456,
+                     exclusion = c("Include", "Exclude"),
+                     studentid = c(1, 1))
 
 ####
 #######################################
@@ -127,11 +131,12 @@ test_that("Funky data used for recoding will throw warning messages", {
                                                ftpt = 'F',
                                                months = 4)), "Check Months")
 
-  #OM Exclusions
+  #OM Warnings for Exclusions & duplicate students
   expect_warning(prep_om_data_frame(data.frame(unitid = 123456,
                                                studentid = c('AAA', 'BBB', 'CCC'),
                                                cohortstatus = c("Amy", "Bob", "Include"))), "Check CohortStatus")
   expect_warning(prep_om_data_frame(om_df3))
+  #expect_warning(prep_om_data_frame(om_df4))
 })
 
 

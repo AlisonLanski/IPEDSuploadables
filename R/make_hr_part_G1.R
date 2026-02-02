@@ -83,7 +83,7 @@ make_hr_part_G1 <- function(df) {
                              SURVSECT = "HR1",
                              PART = "G1",
                              RANK = .data$RANK,
-                             GENDER = .data$GENDER,
+                             SEX = .data$GENDER,
                              `12MCOUNT` =  .data$`12mCOUNT`,
                              `11MCOUNT` = .data$`11mCOUNT`,
                              `10MCOUNT` = .data$`10mCOUNT`,

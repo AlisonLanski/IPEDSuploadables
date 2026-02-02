@@ -47,7 +47,7 @@ make_hr_part_D1 <- function(df) {
                              SURVSECT = "HR1",
                              PART = "D1",
                              OCCCATEGORY1 = .data$OCCCATEGORY1,
-                             RACEETHNICITYGENDER = .data$REG,
+                             RACEETHNICITYSEX = .data$REG,
                              COUNT = .data$COUNT
                              )
 
