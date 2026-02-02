@@ -35,7 +35,7 @@ prep_om_data_frame <- function(df) {
 
   mult_rows <- df %>% dplyr::count(.data$STUDENTID) %>% dplyr::filter(n > 1)
   if (nrow(mult_rows) >  0) {
-    warning(paste0("IPEDS requests highest degree only for each student. These StudentIds may have multiple degree levels: ", toString(unique(mult_rows$STUDENTID))))
+    warning(paste0("IPEDS requests highest degree only for each student in each award year. These StudentIds may have multiple degree levels: ", toString(unique(mult_rows$STUDENTID))))
   }
 
   return(df)
