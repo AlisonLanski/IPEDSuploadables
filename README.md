@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# IPEDSuploadables
+# IPEDSuploadables <a href="https://alisonlanski.github.io/IPEDSuploadables/"><img src="man/figures/logo.png" align="right" height="136" alt="IPEDSuploadables website" /></a>
 
 <!-- badges: start -->
 
