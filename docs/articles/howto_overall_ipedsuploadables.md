@@ -1,0 +1,283 @@
+# How to use this package to support your IPEDS reporting
+
+A few things to note:
+
+- To ensure you have the most current version of this package, we
+  suggest you check for an updated version and reinstall (as needed)
+  during each collection window.
+- To use this package, you’ll need to prepare your data as indicated in
+  vignettes. The vignettes can all be viewed through the [package
+  website](https://alisonlanski.github.io/IPEDSuploadables/).  
+- IPEDS upload files must be 100% of the requested information for a
+  particular report. In other words, if a report has parts A, B, and C,
+  you must upload all parts in a single file or the upload will fail.
+  *Note: I have heard rumors that you can now successfully upload an
+  incomplete file. I have not confirmed this for myself.*
+- To create an upload-ready file based on your own data preparation, see
+  [How to produce other key-value
+  uploads](https://alisonlanski.github.io/IPEDSuploadables/articles/howto_use_autoformat.md)
+
+## Step 0: Install/Load the package
+
+``` r
+#official install from CRAN
+install.packages("IPEDSuploadables")
+
+#development install from the github repo
+#use this if you want to pull in changes before they reach cran or need to use other code branches
+
+#development install option 1
+remotes::install_github("AlisonLanski/IPEDSuploadables")
+
+#development install option 2
+devtools::install_github("AlisonLanski/IPEDSuploadables")
+```
+
+``` r
+#load the packages
+library(IPEDSuploadables)
+#> This version of IPEDSuploadables has been updated for 
+#> the 2025-2026 reporting cycle.
+#> If you are in a later cycle or want to capture any bug fixes,
+#> please update the package.
+```
+
+## Step 1: Prep your institutional data
+
+The package requires specific column names and values to work correctly.
+Each IPEDS report has a vignette that spells out requirements and also
+has sample data you can examine.
+
+**To create files for non-supported reports, see [How to produce other
+key-value
+uploads](https://alisonlanski.github.io/IPEDSuploadables/articles/howto_use_autoformat.md)**
+
+| IPEDS Report | Required Dataframes | Sample Data |
+|:---|:---|:---|
+| 12 Month Enrollment | [students & instructional activity](https://alisonlanski.github.io/IPEDSuploadables/articles/setup_for_12monthenrollment.md) | e1d_students, e1d_instr |
+| Admissions | [students](https://alisonlanski.github.io/IPEDSuploadables/articles/setup_for_admissions.md) | adm_students |
+| Completions | [students & extra cips](https://alisonlanski.github.io/IPEDSuploadables/articles/setup_for_completions.md) | com_students, com_cips |
+| Fall Enrollment | [students & retention aggregate](https://alisonlanski.github.io/IPEDSuploadables/articles/setup_for_fallenrollment.md) | ef1_students, ef1_retention |
+| Graduation Rates | [students](https://alisonlanski.github.io/IPEDSuploadables/articles/setup_for_gr.md) | gr_students |
+| Graduation Rates 200 | [students](https://alisonlanski.github.io/IPEDSuploadables/articles/setup_for_gr200.md) | gr200_students |
+| Human Resources | [staff](https://alisonlanski.github.io/IPEDSuploadables/articles/setup_for_hr.md) | hr_staff |
+| Outcome Measures | [students](https://alisonlanski.github.io/IPEDSuploadables/articles/setup_for_om.md) | om_students |
+
+You can call the sample data as desired to explore it
+
+``` r
+#dataframe of student information for 12 month enrollment
+head(e1d_students)
+#>   Unitid StudentId IsFullTime IsFirstTime IsTransfer IsDegreeCertSeeking
+#> 1 999999       100          1           1          0                   1
+#> 2 999999       101          1           1          0                   0
+#> 3 999999       102          1           1          0                   1
+#> 4 999999       103          1           1          0                   0
+#> 5 999999       104          1           1          0                   1
+#> 6 999999       105          1           1          0                   0
+#>    StudentLevel IsHighSchool IsDual RaceEthnicity Sex DistanceEdAll
+#> 1 Undergraduate            0      0             1   1             0
+#> 2 Undergraduate            0      0             1   2             0
+#> 3 Undergraduate            0      0             1   2             0
+#> 4 Undergraduate            0      0             1   1             0
+#> 5 Undergraduate            0      0             1   1             0
+#> 6 Undergraduate            0      0             1   2             0
+#>   DistanceEdSome GenderDetail
+#> 1              1            1
+#> 2              1            2
+#> 3              1            2
+#> 4              1            1
+#> 5              1            1
+#> 6              0            2
+```
+
+## Step 2: Read in your data and produce your IPEDS report
+
+Each IPEDS report has a single function which will produce all required
+sub-parts in a single file for upload.
+
+- Some reports require 2 dataframes  
+- Use the popup box to choose the folder where the report should be
+  saved.  
+- The upload file will be saved as a txt file with a date-stamp.
+  Rerunning the script on the same day to the same location will
+  overwrite your original file.
+
+Example:
+
+``` r
+#full export using sample data
+produce_e1d_report(df = e1d_students, hrs = e1d_instr, part = "ALL")
+```
+
+A message will be display the location of your file when it has been
+processed.
+
+### Note about the gender collection updates for 2025-2026 reporting cycle
+
+*The category “Another Gender” has been removed from all surveys. IPEDS
+changed collection of Gender Detail to only include “Unknown”.
+Therefore, the starting data requirements, sample data, and scripts have
+been updated to remove the “Another Gender” option from the
+`GenderDetail` column, and no functions require the `ugender` or
+`ggender` flags*
+
+Admissions, Completions, 12 Month Enrollment, and Fall Enrollment DO
+require reporting on “unknown sex”. This means you continue to need the
+`GenderDetail` column, but should limit yourself to values of 1, 2, and
+3. Note: For Completions, 12 Month Enrollment, and Fall Enrollment,
+**anything other than 1 and 2 will be recoded to 3 within the package**.
+Graduation Rates and other surveys continue to have no gender detail
+reporting.
+
+Because “another gender” is no longer being collected, the `ugender` and
+`ggender` arguments in the `produce` functions are no longer necessary.
+You can omit them entirely in your code. If you keep them, they will be
+ignored.
+
+IPEDS has also adjusted language in the instruction files to replace
+“Gender” with “Sex” and related terminology. We have generally only made
+updates to the package if IPEDS changes would break the package in some
+way. Column names in the data you prepare have not been adjusted, nor
+has our language in the documentation. The choice for minimal changes on
+our end was simply for expediency – the fewer changes either of us have
+to implement, the better!
+
+Example:
+
+``` r
+#this will run, but is more code than you need now
+produce_com_report(df = com_students, extracips = com_cips, ggender = FALSE)
+
+#this code is enough 
+produce_com_report(df = com_students, extracips = com_cips)
+```
+
+### Notes for specific reports
+
+Admissions
+
+- Only parts C and D of the standard survey form are currently supported
+  (demographic breakouts and test scores for First Time and Transfer
+  students). We recommend using an upload for these parts and completing
+  the question-based sections in the platform.
+- Note that within the IPEDS platform, you will *not* be able to see
+  your uploaded data until *after* you answer the screening questions
+  for the initial sections that are not part of the upload file
+- If you would like to see upload support for the questions-based parts
+  or waitlist (etc) numbers, please let the package authors know.  
+- The test score percentile calculations depend on the precise
+  calculation method used. If the package output does not match your
+  local version (but is very close), you can adjust the method used by R
+  to try to get a match. See the help page for more details
+  [`produce_adm_report()`](https://alisonlanski.github.io/IPEDSuploadables/reference/produce_adm_report.md).
+
+Completions
+
+- The extra cips dataframe is optional and can be left empty if your
+  school has student completions in all cip/award level combinations
+  previously reported
+
+Fall Enrollment
+
+- Your student-faculty ratio number is collected via pop-up box. Type a
+  whole number when prompted.
+
+- The main function auto-detects the IPEDS submission year and adjusts
+  the sections of cip-based enrollment, student age, and student
+  residence state appropriately to be in or out of your report. If you
+  would like to report data in optional years, change the
+  `include_optional` flag to `TRUE`.
+
+Human Resources
+
+- The script requires one dataframe with all current employees:
+  continuing and new hires. New hires are designed through a flag and
+  should *not* have a second entry.
+
+## Step 3: Upload your IPEDS report
+
+1.  Navigate to the IPEDS submission portal and log in.
+
+2.  Select the appropriate report (for example: “12 Month Enrollment”),
+    select “key-value pair”, then browse to your .txt file and upload.
+
+3.  Click through the survey screens to review results and verify
+    submission accuracy
+
+4.  Continue your standard process to check edits, enter metadata, lock,
+    and submit the survey.
+
+## Troubleshooting
+
+#### You need to make a data correction after uploading
+
+Update your base data, rerun the package function, and re-upload to
+IPEDS. You can upload as many times as you want to any particular
+survey.  
+Your keyholder may be able to edit directly in the website, but this
+method is not recommended since it is not reproducible.
+
+If you verify that your data and dataframe(s) are correct, but IPEDS
+still shows incorrect aggregation, please contact the package authors by
+adding a [GitHub
+issue](https://github.com/AlisonLanski/IPEDSuploadables/issues) or by
+emailing (if you search online for *Alison Lanski* and *Notre Dame*, you
+can get to a valid email address). We can provide the quickest help if
+you share an example with sample data, expected output, and actual
+output.
+
+#### IPEDS rejects your upload file or accepts the file but provides an error message
+
+Common issues include:
+
+- Your data has disallowed values
+- IPEDS is expecting particular information based on previous years of
+  reporting which is inconsistent or missing
+- *In earlier years (no longer a problem): your upload is missing a
+  sub-part of the report*
+
+*For example, IPEDS wants all previous CIP/Award Level combinations
+reported on the current completions upload file. If you have no students
+in those categories, add any flagged CIP/Award combinations to your
+extra_cips dataframe, rerun, and reupload to remove this error message*
+
+#### How the package can help you troubleshoot
+
+A few functions have built-in data quality checks which will alert you
+of disallowed values. We are working to add more automated checks.
+
+If you want to examine a single report sub-part in depth, you can create
+a separate text file with only those values.
+
+Example:
+
+``` r
+#if you only want to look at 12 month enrollment part B
+produce_e1d_report(e1d_instr, part = "B")
+```
+
+You can also produce a csv version of the part’s text file, for more
+readable output (still using IPEDS upload-required column names and
+values)
+
+Example:
+
+``` r
+#text files make my eyes bleed! let's use a csv
+produce_e1d_report(hrs = e1d_instr, part = "B", format = "readable")
+```
+
+#### IPEDS has changed a survey’s requirements, but you need to rerun an old report
+
+At the end of every IPEDS collection cycle, that year’s package code
+will be saved into a branch on GitHub. To use an old version, install
+the package from the branch.
+
+``` r
+#install, picking an acceptable year range
+devtools::install_github(repo = "AlisonLanski/IPEDSuploadables", ref = "reporting_year_2022-2023")
+```
+
+When you have finished running your code, reinstall the current version
+of the package by removing the “ref” argument.
