@@ -2,6 +2,8 @@
 
 ## IPEDSuploadables 3.0.1
 
+CRAN release: 2026-02-02
+
 - Adjusting final file column names for HR wording update (no user
   changes necessary)
 - Adding data check to OM for duplicate student IDs
