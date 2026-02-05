@@ -6,6 +6,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Transforms Institutional Data into Text Files for IPEDS Automated Import/Upload • IPEDSuploadables</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" sizes="any" href="favicon.ico">
+<link rel="manifest" href="site.webmanifest">
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
@@ -13,6 +18,7 @@
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Transforms Institutional Data into Text Files for IPEDS Automated Import/Upload">
 <meta name="description" content="Starting from user-supplied institutional data, these scripts transform, aggregate, and reshape the information to produce key-value pair data files that are able to be uploaded to IPEDS (Integrated Postsecondary Education Data System) through their submission portal &lt;https://surveys.nces.ed.gov/ipeds/&gt;. Starting data specifications can be found in the vignettes. Final files are saved locally to a location of the user's choice. User-friendly readable files can also be produced for purposes of data review and validation.">
 <meta property="og:description" content="Starting from user-supplied institutional data, these scripts transform, aggregate, and reshape the information to produce key-value pair data files that are able to be uploaded to IPEDS (Integrated Postsecondary Education Data System) through their submission portal &lt;https://surveys.nces.ed.gov/ipeds/&gt;. Starting data specifications can be found in the vignettes. Final files are saved locally to a location of the user's choice. User-friendly readable files can also be produced for purposes of data review and validation.">
+<meta property="og:image" content="https://alisonlanski.github.io/IPEDSuploadables/logo.png">
 <!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-NSXZV7NDWP"></script><script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date());
 gtag('config', 'G-NSXZV7NDWP'); </script>
 </head>
@@ -64,8 +70,11 @@ gtag('config', 'G-NSXZV7NDWP'); </script>
 </nav><div class="container template-home">
 <div class="row">
   <main id="main" class="col-md-9"><div class="section level1">
-<div class="page-header"><h1 id="ipedsuploadables">IPEDSuploadables<a class="anchor" aria-label="anchor" href="#ipedsuploadables"></a>
-</h1></div>
+<div class="page-header">
+<img src="logo.png" class="logo" alt=""><h1 id="ipedsuploadables-">IPEDSuploadables 
+<a class="anchor" aria-label="anchor" href="#ipedsuploadables-"></a>
+</h1>
+</div>
 <!-- badges: start -->
 
 <p>IPEDSuploadables produces text files in key-value format which meet the IPEDS requirements for upload on their website. By using this package, institutions can avoid the time and risk of manually typing numbers into web forms across multiple screen. Package documentation (see the <a href="https://alisonlanski.github.io/IPEDSuploadables/">website</a>) describes how an institution’s data must be formatted to make use of these scripts.</p>
