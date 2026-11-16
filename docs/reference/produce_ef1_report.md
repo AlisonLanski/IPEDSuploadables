@@ -65,17 +65,18 @@ A txt or csv file at the path of your choice
 ## Examples
 
 ``` r
+
 # \donttest{
 #entire report
 produce_ef1_report(ef1_students, ef1_retention)
-#> Uploadable results available at C:/Users/alanski/AppData/Local/Temp/Rtmp6VYZdf/FallEnrollment_AllParts_2026-02-05.txt
+#> Uploadable results available at C:/Users/alanski/AppData/Local/Temp/Rtmp6TyXa2/FallEnrollment_AllParts_2026-11-16.txt
 
 #entire report with optional sections
 produce_ef1_report(ef1_students, ef1_retention, include_optional = TRUE)
-#> Uploadable results available at C:/Users/alanski/AppData/Local/Temp/Rtmp6VYZdf/FallEnrollment_AllParts_2026-02-05.txt
+#> Uploadable results available at C:/Users/alanski/AppData/Local/Temp/Rtmp6TyXa2/FallEnrollment_AllParts_2026-11-16.txt
 
 #one part as csv instead of key-value
 produce_ef1_report(ef1_students, part = 'D', format = 'readable')
-#> Readable results available at  C:/Users/alanski/AppData/Local/Temp/Rtmp6VYZdf/FallEnrollment_PartD_Readable_2026-02-05.csv
+#> Readable results available at  C:/Users/alanski/AppData/Local/Temp/Rtmp6TyXa2/FallEnrollment_PartD_Readable_2026-11-16.csv
 # }
 ```

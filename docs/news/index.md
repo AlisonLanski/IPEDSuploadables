@@ -1,5 +1,10 @@
 # Changelog
 
+## IPEDSuploadables 3.1.1
+
+- Release for 2026-2027 reporting cycle: no requirements updates, just
+  documentation tweaks
+
 ## IPEDSuploadables 3.0.1
 
 CRAN release: 2026-02-02
@@ -60,7 +65,7 @@ CRAN release: 2023-11-01
 ## IPEDSUploadables 2.8.6
 
 - Documenting “Count” as a required column for the Completions extracips
-  dataframe  
+  dataframe\
   This is a documentation update only; no changes were made to
   functions; this version was not pushed to CRAN
 
