@@ -44,6 +44,7 @@ results after you upload your txt file to the IPEDS submission portal.
 ### Start with institutional data for applicants
 
 ``` r
+
 #load packages
 library(dplyr)
 library(magrittr)
@@ -51,6 +52,7 @@ library(IPEDSuploadables)
 ```
 
 ``` r
+
 #create data
 adm_dat <- data.frame(StudentId = seq(1:24),
                       FtPt = c(rep('FT', 23), 'PT'),
@@ -96,6 +98,7 @@ adm_dat <- data.frame(StudentId = seq(1:24),
 ### Prepare Part A - General Questions (not from sample data)
 
 ``` r
+
 #### PART A: General Admissions Criteria
 partA <- data.frame(UNITID = 999999,
                     SURVSECT = 'ADM',
@@ -116,12 +119,13 @@ partA <- data.frame(UNITID = 999999,
 ```
 
 | UNITID | SURVSECT | PART | ADMCON1 | ADMCON2 | ADMCON3 | ADMCON4 | ADMCON5 | ADMCON6 | ADMCON7 | ADMCON8 | ADMCON9 | ADMCON10 | ADMCON11 | ADMCON12 |
-|-------:|:---------|:-----|--------:|--------:|--------:|--------:|--------:|--------:|--------:|--------:|--------:|---------:|---------:|---------:|
-| 999999 | ADM      | A    |       2 |       1 |       1 |       2 |       1 |       3 |       5 |       2 |       3 |        2 |        1 |        3 |
+|---:|:---|:---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| 999999 | ADM | A | 2 | 1 | 1 | 2 | 1 | 3 | 5 | 2 | 3 | 2 | 1 | 3 |
 
 ### Prepare Part B - Student Counts (from sample data)
 
 ``` r
+
 ##### PART B: Admission Counts; FirstTime UG only
 partB <- data.frame(UNITID = 999999,
                     SURVSECT = 'ADM',
@@ -180,12 +184,13 @@ if((partB$APPLCNAG < 5 | partB$ADMSSNAG < 5 |
 ```
 
 | UNITID | SURVSECT | PART | APPLCNM | APPLCNW | APPLCNT | ADMSSNM | ADMSSNW | ADMSSNT | ENRLFTM | ENRLFTW | ENRLFTT | ENRLPTM | ENRLPTW | ENRLPTT | ADMGU01 | APPLCNAG | ADMSSNAG | ENRLFTAG | ENRLPTAG |
-|-------:|:---------|:-----|--------:|--------:|--------:|--------:|--------:|--------:|--------:|--------:|--------:|--------:|--------:|--------:|--------:|---------:|---------:|---------:|---------:|
-| 999999 | ADM      | B    |      11 |      11 |      24 |       8 |       8 |      16 |       6 |       6 |      12 |       0 |       0 |       0 |       3 |       -2 |       -2 |       -2 |       -2 |
+|---:|:---|:---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| 999999 | ADM | B | 11 | 11 | 24 | 8 | 8 | 16 | 6 | 6 | 12 | 0 | 0 | 0 | 3 | -2 | -2 | -2 | -2 |
 
 ### Part C: Test Scores (from sample data)
 
 ``` r
+
 #### PART C: Test Scores
 
 adm_enr <- adm_dat %>%
@@ -232,8 +237,8 @@ if(partC$ACTNUM < 5){
 ```
 
 | UNITID | SURVSECT | PART | SATINUM | SATIPCT | ACTNUM | ACTPCT | SATVR25 | SATVR75 | SATMT25 | SATMT75 | ACTCM25 | ACTCM75 | ACTEN25 | ACTEN75 | ACTMT25 | ACTMT75 | SATVR50 | SATMT50 | ACTCM50 | ACTEN50 | ACTMT50 |
-|-------:|:---------|:-----|--------:|--------:|-------:|-------:|--------:|--------:|--------:|--------:|--------:|--------:|--------:|--------:|--------:|--------:|--------:|--------:|--------:|--------:|--------:|
-| 999999 | ADM      | C    |       8 |      67 |      4 |     33 |     590 |     770 |     490 |     670 |      -2 |      -2 |      -2 |      -2 |      -2 |      -2 |     680 |     580 |      -2 |      -2 |      -2 |
+|---:|:---|:---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| 999999 | ADM | C | 8 | 67 | 4 | 33 | 590 | 770 | 490 | 670 | -2 | -2 | -2 | -2 | -2 | -2 | 680 | 580 | -2 | -2 | -2 |
 
 ### Use this package to convert those dataframes into a single uploadable txt file
 
@@ -241,13 +246,14 @@ if(partC$ACTNUM < 5){
 as a txt file at the location of your choice.*
 
 ``` r
+
 produce_other_report(partA, partB, partC, survey = "Admissions")
 ```
 
-|                                                                                                                                                                                                                                                      |
-|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| UNITID=999999,SURVSECT=ADM,PART=A,ADMCON1=2,ADMCON2=1,ADMCON3=1,ADMCON4=2,ADMCON5=1,ADMCON6=3,ADMCON7=5,ADMCON8=2,ADMCON9=3,ADMCON10=2,ADMCON11=1,ADMCON12=3                                                                                         |
-| UNITID=999999,SURVSECT=ADM,PART=B,APPLCNM=11,APPLCNW=11,APPLCNT=24,ADMSSNM=8,ADMSSNW=8,ADMSSNT=16,ENRLFTM=6,ENRLFTW=6,ENRLFTT=12,ENRLPTM=0,ENRLPTW=0,ENRLPTT=0,ADMGU01=3,APPLCNAG=-2,ADMSSNAG=-2,ENRLFTAG=-2,ENRLPTAG=-2                             |
+|  |
+|:---|
+| UNITID=999999,SURVSECT=ADM,PART=A,ADMCON1=2,ADMCON2=1,ADMCON3=1,ADMCON4=2,ADMCON5=1,ADMCON6=3,ADMCON7=5,ADMCON8=2,ADMCON9=3,ADMCON10=2,ADMCON11=1,ADMCON12=3 |
+| UNITID=999999,SURVSECT=ADM,PART=B,APPLCNM=11,APPLCNW=11,APPLCNT=24,ADMSSNM=8,ADMSSNW=8,ADMSSNT=16,ENRLFTM=6,ENRLFTW=6,ENRLFTT=12,ENRLPTM=0,ENRLPTW=0,ENRLPTT=0,ADMGU01=3,APPLCNAG=-2,ADMSSNAG=-2,ENRLFTAG=-2,ENRLPTAG=-2 |
 | UNITID=999999,SURVSECT=ADM,PART=C,SATINUM=8,SATIPCT=67,ACTNUM=4,ACTPCT=33,SATVR25=590,SATVR75=770,SATMT25=490,SATMT75=670,ACTCM25=-2,ACTCM75=-2,ACTEN25=-2,ACTEN75=-2,ACTMT25=-2,ACTMT75=-2,SATVR50=680,SATMT50=580,ACTCM50=-2,ACTEN50=-2,ACTMT50=-2 |
 
 ### Upload your final txt file to the IPEDS website

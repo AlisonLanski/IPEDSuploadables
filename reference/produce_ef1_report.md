@@ -65,17 +65,18 @@ A txt or csv file at the path of your choice
 ## Examples
 
 ``` r
+
 # \donttest{
 #entire report
 produce_ef1_report(ef1_students, ef1_retention)
-#> Uploadable results available at /private/var/folders/yz/zr09txvs5dn18vt4cn21kzl40000gn/T/Rtmpaxd2Lx/FallEnrollment_AllParts_2026-02-05.txt
+#> Uploadable results available at /private/var/folders/q2/p1t6rgxj5fj32g1dc7dmd49r0000gn/T/RtmpmyfAg6/FallEnrollment_AllParts_2026-11-24.txt
 
 #entire report with optional sections
 produce_ef1_report(ef1_students, ef1_retention, include_optional = TRUE)
-#> Uploadable results available at /private/var/folders/yz/zr09txvs5dn18vt4cn21kzl40000gn/T/Rtmpaxd2Lx/FallEnrollment_AllParts_2026-02-05.txt
+#> Uploadable results available at /private/var/folders/q2/p1t6rgxj5fj32g1dc7dmd49r0000gn/T/RtmpmyfAg6/FallEnrollment_AllParts_2026-11-24.txt
 
 #one part as csv instead of key-value
 produce_ef1_report(ef1_students, part = 'D', format = 'readable')
-#> Readable results available at  /private/var/folders/yz/zr09txvs5dn18vt4cn21kzl40000gn/T/Rtmpaxd2Lx/FallEnrollment_PartD_Readable_2026-02-05.csv
+#> Readable results available at  /private/var/folders/q2/p1t6rgxj5fj32g1dc7dmd49r0000gn/T/RtmpmyfAg6/FallEnrollment_PartD_Readable_2026-11-24.csv
 # }
 ```

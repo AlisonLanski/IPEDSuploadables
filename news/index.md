@@ -1,5 +1,10 @@
 # Changelog
 
+## IPEDSuploadables 3.1.1
+
+- Release for 2026-2027 reporting cycle: no requirements updates, just
+  documentation tweaks
+
 ## IPEDSuploadables 3.0.1
 
 CRAN release: 2026-02-02

@@ -49,10 +49,10 @@ A txt or csv file at the path of your choice
 # \donttest{
 #entire report
 produce_gr_report(gr_students)
-#> Uploadable results available at /private/var/folders/yz/zr09txvs5dn18vt4cn21kzl40000gn/T/Rtmpaxd2Lx/GradRates_AllParts_2026-02-05.txt
+#> Uploadable results available at /private/var/folders/q2/p1t6rgxj5fj32g1dc7dmd49r0000gn/T/RtmpmyfAg6/GradRates_AllParts_2026-11-24.txt
 
 #one part in csv format instead of key-value
 produce_gr_report(gr_students, part = "B", format = "readable")
-#> Readable results available at  /private/var/folders/yz/zr09txvs5dn18vt4cn21kzl40000gn/T/Rtmpaxd2Lx/GradRates_PartB_Readable_2026-02-05.csv
+#> Readable results available at  /private/var/folders/q2/p1t6rgxj5fj32g1dc7dmd49r0000gn/T/RtmpmyfAg6/GradRates_PartB_Readable_2026-11-24.csv
 # }
 ```

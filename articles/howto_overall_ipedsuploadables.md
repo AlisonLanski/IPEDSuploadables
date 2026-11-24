@@ -20,6 +20,7 @@ A few things to note:
 ## Step 0: Install/Load the package
 
 ``` r
+
 #official install from CRAN
 install.packages("IPEDSuploadables")
 
@@ -34,10 +35,11 @@ devtools::install_github("AlisonLanski/IPEDSuploadables")
 ```
 
 ``` r
+
 #load the packages
 library(IPEDSuploadables)
 #> This version of IPEDSuploadables has been updated for 
-#> the 2025-2026 reporting cycle.
+#> the 2026-2027 reporting cycle.
 #> If you are in a later cycle or want to capture any bug fixes,
 #> please update the package.
 ```
@@ -52,20 +54,21 @@ has sample data you can examine.
 key-value
 uploads](https://alisonlanski.github.io/IPEDSuploadables/articles/howto_use_autoformat.md)**
 
-| IPEDS Report         | Required Dataframes                                                                                                          | Sample Data                 |
-|:---------------------|:-----------------------------------------------------------------------------------------------------------------------------|:----------------------------|
-| 12 Month Enrollment  | [students & instructional activity](https://alisonlanski.github.io/IPEDSuploadables/articles/setup_for_12monthenrollment.md) | e1d_students, e1d_instr     |
-| Admissions           | [students](https://alisonlanski.github.io/IPEDSuploadables/articles/setup_for_admissions.md)                                 | adm_students                |
-| Completions          | [students & extra cips](https://alisonlanski.github.io/IPEDSuploadables/articles/setup_for_completions.md)                   | com_students, com_cips      |
-| Fall Enrollment      | [students & retention aggregate](https://alisonlanski.github.io/IPEDSuploadables/articles/setup_for_fallenrollment.md)       | ef1_students, ef1_retention |
-| Graduation Rates     | [students](https://alisonlanski.github.io/IPEDSuploadables/articles/setup_for_gr.md)                                         | gr_students                 |
-| Graduation Rates 200 | [students](https://alisonlanski.github.io/IPEDSuploadables/articles/setup_for_gr200.md)                                      | gr200_students              |
-| Human Resources      | [staff](https://alisonlanski.github.io/IPEDSuploadables/articles/setup_for_hr.md)                                            | hr_staff                    |
-| Outcome Measures     | [students](https://alisonlanski.github.io/IPEDSuploadables/articles/setup_for_om.md)                                         | om_students                 |
+| IPEDS Report | Required Dataframes | Sample Data |
+|:---|:---|:---|
+| 12 Month Enrollment | [students & instructional activity](https://alisonlanski.github.io/IPEDSuploadables/articles/setup_for_12monthenrollment.md) | e1d_students, e1d_instr |
+| Admissions | [students](https://alisonlanski.github.io/IPEDSuploadables/articles/setup_for_admissions.md) | adm_students |
+| Completions | [students & extra cips](https://alisonlanski.github.io/IPEDSuploadables/articles/setup_for_completions.md) | com_students, com_cips |
+| Fall Enrollment | [students & retention aggregate](https://alisonlanski.github.io/IPEDSuploadables/articles/setup_for_fallenrollment.md) | ef1_students, ef1_retention |
+| Graduation Rates | [students](https://alisonlanski.github.io/IPEDSuploadables/articles/setup_for_gr.md) | gr_students |
+| Graduation Rates 200 | [students](https://alisonlanski.github.io/IPEDSuploadables/articles/setup_for_gr200.md) | gr200_students |
+| Human Resources | [staff](https://alisonlanski.github.io/IPEDSuploadables/articles/setup_for_hr.md) | hr_staff |
+| Outcome Measures | [students](https://alisonlanski.github.io/IPEDSuploadables/articles/setup_for_om.md) | om_students |
 
 You can call the sample data as desired to explore it
 
 ``` r
+
 #dataframe of student information for 12 month enrollment
 head(e1d_students)
 #>   Unitid StudentId IsFullTime IsFirstTime IsTransfer IsDegreeCertSeeking
@@ -106,6 +109,7 @@ sub-parts in a single file for upload.
 Example:
 
 ``` r
+
 #full export using sample data
 produce_e1d_report(df = e1d_students, hrs = e1d_instr, part = "ALL")
 ```
@@ -146,6 +150,7 @@ to implement, the better!
 Example:
 
 ``` r
+
 #this will run, but is more code than you need now
 produce_com_report(df = com_students, extracips = com_cips, ggender = FALSE)
 
@@ -253,6 +258,7 @@ a separate text file with only those values.
 Example:
 
 ``` r
+
 #if you only want to look at 12 month enrollment part B
 produce_e1d_report(e1d_instr, part = "B")
 ```
@@ -264,6 +270,7 @@ values)
 Example:
 
 ``` r
+
 #text files make my eyes bleed! let's use a csv
 produce_e1d_report(hrs = e1d_instr, part = "B", format = "readable")
 ```
@@ -275,6 +282,7 @@ will be saved into a branch on GitHub. To use an old version, install
 the package from the branch.
 
 ``` r
+
 #install, picking an acceptable year range
 devtools::install_github(repo = "AlisonLanski/IPEDSuploadables", ref = "reporting_year_2022-2023")
 ```

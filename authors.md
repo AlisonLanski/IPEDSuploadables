@@ -15,13 +15,13 @@ Source:
 
 Lanski A, Fling S, Welch E (2026). *IPEDSuploadables: Transforms
 Institutional Data into Text Files for IPEDS Automated Import/Upload*. R
-package version 3.0.1,
+package version 3.1.1,
 <https://github.com/AlisonLanski/IPEDSuploadables>.
 
     @Manual{,
       title = {IPEDSuploadables: Transforms Institutional Data into Text Files for IPEDS Automated Import/Upload},
       author = {Alison Lanski and Shiloh Fling and Edwin Welch},
       year = {2026},
-      note = {R package version 3.0.1},
+      note = {R package version 3.1.1},
       url = {https://github.com/AlisonLanski/IPEDSuploadables},
     }

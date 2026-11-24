@@ -8,7 +8,7 @@ web forms across multiple screen. Package documentation (see the
 how an institution’s data must be formatted to make use of these
 scripts.
 
-### The package is currently serving the 2025-2026 IPEDS reporting cycle
+### The package is currently serving the 2026-2027 IPEDS reporting cycle
 
 ## If you are new to this process or are looking for updates
 
@@ -57,6 +57,8 @@ institution-types for existing reports*
   uploads](https://alisonlanski.github.io/IPEDSuploadables/articles/howto_use_autoformat.html)
 - Student Financial Aid: Visit [How to produce other key-value
   uploads](https://alisonlanski.github.io/IPEDSuploadables/articles/howto_use_autoformat.html)
+- ACTS: IPEDS is providing support options directly including a local
+  aggregator tool. Visit their website directly.
 
 ## Websites
 
@@ -78,6 +80,7 @@ version, you can install the development version from
 [GitHub](https://github.com/AlisonLanski/IPEDSuploadables) with:
 
 ``` r
+
 # install.packages("devtools")
 devtools::install_github("AlisonLanski/IPEDSuploadables")
 
@@ -91,5 +94,6 @@ To access vignettes locally (instead of through the website) add an
 argument:
 
 ``` r
+
 devtools::install_github("AlisonLanski/IPEDSuploadables", build_vignettes = TRUE)
 ```
