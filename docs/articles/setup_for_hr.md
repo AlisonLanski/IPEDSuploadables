@@ -21,6 +21,6 @@ avoid further structural changes.
 Notes
 
 - In OccCategory3, `21` is used for an intermediate total and is not a
-  value in the upload file  
+  value in the upload file\
 - OccCategory3 values will be recoded in `prep_hr_data_frame` into all
   necessary rollups, including instructional staff (values 1-4)

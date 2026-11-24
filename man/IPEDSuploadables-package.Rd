@@ -23,6 +23,7 @@ Useful links:
 
 Authors:
 \itemize{
+  \item Alison Lanski \email{alanski@nd.edu}
   \item Shiloh Fling \email{shiloh.fling@unlv.edu}
   \item Edwin Welch \email{edwelch@tayloru.edu}
 }

@@ -44,6 +44,7 @@ results after you upload your txt file to the IPEDS submission portal.
 ### Start with institutional data for applicants
 
 ``` r
+
 #load packages
 library(dplyr)
 library(magrittr)
@@ -51,6 +52,7 @@ library(IPEDSuploadables)
 ```
 
 ``` r
+
 #create data
 adm_dat <- data.frame(StudentId = seq(1:24),
                       FtPt = c(rep('FT', 23), 'PT'),
@@ -96,6 +98,7 @@ adm_dat <- data.frame(StudentId = seq(1:24),
 ### Prepare Part A - General Questions (not from sample data)
 
 ``` r
+
 #### PART A: General Admissions Criteria
 partA <- data.frame(UNITID = 999999,
                     SURVSECT = 'ADM',
@@ -122,6 +125,7 @@ partA <- data.frame(UNITID = 999999,
 ### Prepare Part B - Student Counts (from sample data)
 
 ``` r
+
 ##### PART B: Admission Counts; FirstTime UG only
 partB <- data.frame(UNITID = 999999,
                     SURVSECT = 'ADM',
@@ -186,6 +190,7 @@ if((partB$APPLCNAG < 5 | partB$ADMSSNAG < 5 |
 ### Part C: Test Scores (from sample data)
 
 ``` r
+
 #### PART C: Test Scores
 
 adm_enr <- adm_dat %>%
@@ -241,6 +246,7 @@ if(partC$ACTNUM < 5){
 as a txt file at the location of your choice.*
 
 ``` r
+
 produce_other_report(partA, partB, partC, survey = "Admissions")
 ```
 

@@ -21,7 +21,7 @@ web forms across multiple screen. Package documentation (see the
 how an institution’s data must be formatted to make use of these
 scripts.
 
-### The package is currently serving the 2025-2026 IPEDS reporting cycle
+### The package is currently serving the 2026-2027 IPEDS reporting cycle
 
 ## If you are new to this process or are looking for updates
 
@@ -34,13 +34,13 @@ scripts.
 
 ## Report Coverage
 
-*As reports are added, this list will be updated.  
+*As reports are added, this list will be updated.\
 You are welcome to fork this repo and work towards new reports or new
 institution-types for existing reports*
 
 ### Supported surveys that work for all institutions:
 
-- Admissions \[partial\]  
+- Admissions \[partial\]\
 - Completions
 - Outcome Measures
 
@@ -56,8 +56,7 @@ institution-types for existing reports*
 
 - Academic Libraries: This survey is no longer collected by IPEDS as of
   the 2025-2026 reporting cycle. For previous years, you can download an
-  IPEDS-compatible file from the ACRL site if you complete that
-  survey.  
+  IPEDS-compatible file from the ACRL site if you complete that survey.\
 - Admissions \[partial\]: Visit [How to produce other key-value
   uploads](https://alisonlanski.github.io/IPEDSuploadables/articles/howto_use_autoformat.html)
 - Cost I: Visit [How to produce other key-value
@@ -70,11 +69,13 @@ institution-types for existing reports*
   uploads](https://alisonlanski.github.io/IPEDSuploadables/articles/howto_use_autoformat.html)
 - Student Financial Aid: Visit [How to produce other key-value
   uploads](https://alisonlanski.github.io/IPEDSuploadables/articles/howto_use_autoformat.html)
+- ACTS: IPEDS is providing support options directly including a local
+  aggregator tool. Visit their website directly.
 
 ## Websites
 
 For code, issues, etc, visit [the GitHub
-site](https://github.com/AlisonLanski/IPEDSuploadables/).  
+site](https://github.com/AlisonLanski/IPEDSuploadables/).\
 To see full documentation, visit [the package
 website](https://alisonlanski.github.io/IPEDSuploadables/).
 

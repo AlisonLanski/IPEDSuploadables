@@ -26,6 +26,8 @@ Useful links:
 
 Authors:
 
+- Alison Lanski <alanski@nd.edu>
+
 - Shiloh Fling <shiloh.fling@unlv.edu>
 
 - Edwin Welch <edwelch@tayloru.edu>

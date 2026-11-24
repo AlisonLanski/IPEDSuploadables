@@ -7,7 +7,7 @@ A few things to note:
   during each collection window.
 - To use this package, you’ll need to prepare your data as indicated in
   vignettes. The vignettes can all be viewed through the [package
-  website](https://alisonlanski.github.io/IPEDSuploadables/).  
+  website](https://alisonlanski.github.io/IPEDSuploadables/).\
 - IPEDS upload files must be 100% of the requested information for a
   particular report. In other words, if a report has parts A, B, and C,
   you must upload all parts in a single file or the upload will fail.
@@ -20,6 +20,7 @@ A few things to note:
 ## Step 0: Install/Load the package
 
 ``` r
+
 #official install from CRAN
 install.packages("IPEDSuploadables")
 
@@ -34,10 +35,11 @@ devtools::install_github("AlisonLanski/IPEDSuploadables")
 ```
 
 ``` r
+
 #load the packages
 library(IPEDSuploadables)
 #> This version of IPEDSuploadables has been updated for 
-#> the 2025-2026 reporting cycle.
+#> the 2026-2027 reporting cycle.
 #> If you are in a later cycle or want to capture any bug fixes,
 #> please update the package.
 ```
@@ -66,6 +68,7 @@ uploads](https://alisonlanski.github.io/IPEDSuploadables/articles/howto_use_auto
 You can call the sample data as desired to explore it
 
 ``` r
+
 #dataframe of student information for 12 month enrollment
 head(e1d_students)
 #>   Unitid StudentId IsFullTime IsFirstTime IsTransfer IsDegreeCertSeeking
@@ -96,9 +99,9 @@ head(e1d_students)
 Each IPEDS report has a single function which will produce all required
 sub-parts in a single file for upload.
 
-- Some reports require 2 dataframes  
+- Some reports require 2 dataframes\
 - Use the popup box to choose the folder where the report should be
-  saved.  
+  saved.\
 - The upload file will be saved as a txt file with a date-stamp.
   Rerunning the script on the same day to the same location will
   overwrite your original file.
@@ -106,6 +109,7 @@ sub-parts in a single file for upload.
 Example:
 
 ``` r
+
 #full export using sample data
 produce_e1d_report(df = e1d_students, hrs = e1d_instr, part = "ALL")
 ```
@@ -146,6 +150,7 @@ to implement, the better!
 Example:
 
 ``` r
+
 #this will run, but is more code than you need now
 produce_com_report(df = com_students, extracips = com_cips, ggender = FALSE)
 
@@ -165,7 +170,7 @@ Admissions
   your uploaded data until *after* you answer the screening questions
   for the initial sections that are not part of the upload file
 - If you would like to see upload support for the questions-based parts
-  or waitlist (etc) numbers, please let the package authors know.  
+  or waitlist (etc) numbers, please let the package authors know.\
 - The test score percentile calculations depend on the precise
   calculation method used. If the package output does not match your
   local version (but is very close), you can adjust the method used by R
@@ -214,7 +219,7 @@ Human Resources
 
 Update your base data, rerun the package function, and re-upload to
 IPEDS. You can upload as many times as you want to any particular
-survey.  
+survey.\
 Your keyholder may be able to edit directly in the website, but this
 method is not recommended since it is not reproducible.
 
@@ -253,6 +258,7 @@ a separate text file with only those values.
 Example:
 
 ``` r
+
 #if you only want to look at 12 month enrollment part B
 produce_e1d_report(e1d_instr, part = "B")
 ```
@@ -264,6 +270,7 @@ values)
 Example:
 
 ``` r
+
 #text files make my eyes bleed! let's use a csv
 produce_e1d_report(hrs = e1d_instr, part = "B", format = "readable")
 ```
@@ -275,6 +282,7 @@ will be saved into a branch on GitHub. To use an old version, install
 the package from the branch.
 
 ``` r
+
 #install, picking an acceptable year range
 devtools::install_github(repo = "AlisonLanski/IPEDSuploadables", ref = "reporting_year_2022-2023")
 ```

@@ -22,6 +22,7 @@ functions
 ## Examples
 
 ``` r
+
 #use default seed
 admissions <- create_dummy_data_adm()
 

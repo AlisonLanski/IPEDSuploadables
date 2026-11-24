@@ -1,3 +1,6 @@
+# IPEDSuploadables 3.1.1
+* Release for 2026-2027 reporting cycle: no requirements updates, just documentation tweaks
+
 # IPEDSuploadables 3.0.1
 * Adjusting final file column names for HR wording update (no user changes necessary)
 * Adding data check to OM for duplicate student IDs
