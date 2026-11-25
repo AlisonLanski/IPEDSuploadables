@@ -11,7 +11,9 @@ CMD checks conducted on
 * Ubuntu (development)
 * Ubuntu (current release)
 * Ubuntu (previous release)
-* Windows (development) via win-builder.r-project.org  
+* Windows (development) via win-builder.r-project.org    
+  
+Not tested due to extended server outage
 * MacOS (development) via mac.r-project.org/macbuilder
 
     
